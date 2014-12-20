@@ -9,9 +9,9 @@
 
 
 #include "../hoa.pd.h"
-#include "../../Sources/Hoa2D/Hoa2D.h"
-#include "../../Sources/Hoa3D/Hoa3D.h"
-#include "../../Sources/HoaCommon/HoaCommon.h"
+#include "../ThirdParty/HoaLibrary/Sources/Hoa2D/Hoa2D.h"
+#include "../ThirdParty/HoaLibrary/Sources/Hoa3D/Hoa3D.h"
+#include "../ThirdParty/HoaLibrary/Sources/HoaCommon/HoaCommon.h"
 
 using namespace Hoa2D;
 using namespace HoaCommon;

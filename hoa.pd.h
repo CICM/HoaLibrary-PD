@@ -9,7 +9,7 @@
 
 extern "C"
 {
-#include "../ThirdParty/PureData/Sources/cicm_wrapper.h"
+#include "ThirdParty/CicmWrapper/Sources/cicm_wrapper.h"
 #include "hoa.pd_commonsyms.h"
 }
 

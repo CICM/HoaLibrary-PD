@@ -9,7 +9,7 @@
 
 
 #include "../hoa.pd.h"
-#include "../../Sources/Hoa2D/Hoa2D.h"
+#include "../ThirdParty/HoaLibrary/Sources/Hoa2D/Hoa2D.h"
 
 using namespace Hoa2D;
 

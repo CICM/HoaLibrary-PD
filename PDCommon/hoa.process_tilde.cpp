@@ -8,7 +8,7 @@
 
 extern "C"
 {
-#include "../../ThirdParty/PureData/Sources/ecommon/d_ugen.h"
+#include "../ThirdParty/CicmWrapper/Sources/ecommon/d_ugen.h"
 }
 
 #ifdef PD_EXTENDED
