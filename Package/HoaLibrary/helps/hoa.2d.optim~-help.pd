@@ -1,0 +1,99 @@
+#N canvas 505 74 570 676 10;
+#X obj 92 -265 hoa.pi 2;
+#X obj 92 -285 loadbang;
+#X obj 77 -244 *~;
+#X obj 77 -309 phasor~ -0.3;
+#X msg 177 -158 \; pd dsp 1;
+#X msg 177 -120 \; pd dsp 0;
+#X obj -64 -148 hoa.2d.scope~ @size 147 147 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
+3 @gain 20 @interval 100 @bgcolor 0.7 0.7 0.7 1 @bdcolor 0.5 0.5 0.5
+1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj -63 41 hoa.2d.meter~ @size 147 147 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send Àb% @channels
+8 @angles 0 45 90 135 180 225 270 315 @offset 0 @rotation anti-clockwise
+@vectors energy @interval 50 @bgcolor 0.7 0.7 0.7 1 @bdcolor 0.5 0.5
+0.5 1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor
+0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor
+0 0 1 0.8 @velocitycolor 1 0 0 0.8;
+#X obj -62 205 hoa.dac~ 1:8 -----------;
+#X text -273 -105 cover all the circle.;
+#X text -272 -173 basic has no effect.;
+#X text -272 -134 the circle.;
+#X text -272 -144 confined to the center of the;
+#X obj -173 -221 c.menu @size 100 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @hover 0 @items basic maxRe inPhase @states 0 0 0 @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj -173 -253 c.loadmess 1;
+#X obj -63 7 hoa.2d.decoder~ 3 0 8 --;
+#X obj -64 -216 hoa.2d.encoder~ 3 ------;
+#X obj -64 -177 hoa.2d.optim~ 3 maxRe --;
+#X msg -78 -198 \$1;
+#X obj -64 -244 hoa.soundcoat;
+#X text -272 -154 maxRe is used when audience;
+#X text -273 -115 inPhase is used when audience;
+#X obj 203 -284 hoa.connect;
+#X obj 203 -304 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X text -274 -321 hoa.2d.optim~ weights the circular harmonics signals
+depending on the optimization.;
+#X text -269 -67 Important : the optimization;
+#X text -269 -57 can be changed in real time;
+#X text -269 -47 but this is not a good practice.;
+#X text -269 -37 You should only use this;
+#X text -269 -26 option for your tests.;
+#X obj -265 -348 c.patcherinfos;
+#X obj -260 -365 loadbang;
+#X obj -275 -365 hoa.help.header;
+#X obj -168 237 hoa.help.pub;
+#X obj 136 -365 hoa.help.also;
+#X connect 0 0 2 1;
+#X connect 1 0 0 0;
+#X connect 2 0 16 1;
+#X connect 3 0 2 0;
+#X connect 13 1 18 0;
+#X connect 14 0 13 0;
+#X connect 15 0 7 0;
+#X connect 15 0 8 0;
+#X connect 15 1 7 1;
+#X connect 15 1 8 1;
+#X connect 15 2 7 2;
+#X connect 15 2 8 2;
+#X connect 15 3 7 3;
+#X connect 15 3 8 3;
+#X connect 15 4 7 4;
+#X connect 15 4 8 4;
+#X connect 15 5 7 5;
+#X connect 15 5 8 5;
+#X connect 15 6 7 6;
+#X connect 15 6 8 6;
+#X connect 15 7 7 7;
+#X connect 15 7 8 7;
+#X connect 16 0 17 0;
+#X connect 16 1 17 1;
+#X connect 16 2 17 2;
+#X connect 16 3 17 3;
+#X connect 16 4 17 4;
+#X connect 16 5 17 5;
+#X connect 16 6 17 6;
+#X connect 17 0 6 0;
+#X connect 17 0 15 0;
+#X connect 17 1 6 1;
+#X connect 17 1 15 1;
+#X connect 17 2 6 2;
+#X connect 17 2 15 2;
+#X connect 17 3 6 3;
+#X connect 17 3 15 3;
+#X connect 17 4 6 4;
+#X connect 17 4 15 4;
+#X connect 17 5 6 5;
+#X connect 17 5 15 5;
+#X connect 17 6 6 6;
+#X connect 17 6 15 6;
+#X connect 18 0 17 0;
+#X connect 19 0 16 0;
+#X connect 23 0 22 0;
+#X connect 30 0 32 0;
+#X connect 31 0 30 0;
+#X coords 0 676 1 675 100 60 0;

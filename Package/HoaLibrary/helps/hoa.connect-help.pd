@@ -1,0 +1,25 @@
+#N canvas 136 124 686 323 10;
+#X obj -35 -597 hoa.connect;
+#X obj -35 -616 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj -35 -655 key;
+#X obj -35 -636 sel 32;
+#X text -464 -756 hoa.connect hepls to connect the hoa objects together.
+;
+#X obj -438 -710 hoa.2d.encoder~ 7 ---------------------------;
+#X obj -438 -659 hoa.2d.decoder~ 7 ambisonic 16 --------------;
+#X obj -438 -606 hoa.dac~ 1:16 -------------------------------;
+#X text -83 -719 Select the objects you want to connect;
+#X text -83 -709 then bang hoa.connect. In this example \,;
+#X text -83 -699 we use the space key to generate the bang.;
+#X obj -456 -782 c.patcherinfos;
+#X obj -451 -799 loadbang;
+#X obj -466 -799 hoa.help.header;
+#X obj -420 -563 hoa.help.pub;
+#X obj -44 -799 hoa.help.also;
+#X connect 1 0 0 0;
+#X connect 2 0 3 0;
+#X connect 3 0 1 0;
+#X connect 11 0 13 0;
+#X connect 12 0 11 0;
+#X coords 0 323 1 322 100 60 0;

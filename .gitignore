@@ -1,0 +1,48 @@
+#################
+## PURE DATA
+#################
+
+*.dll
+*.pd_darwin
+*.pd_linux
+
+#################
+## Visual Studio
+#################
+
+*.amplxeproj
+*.tlog
+*.obj
+*.log
+*.idb
+*.pdb
+*.lastbuildstate
+*.ipch
+*.opensdf
+*.sdf
+*.user
+*.suo
+*.cache
+*.unsuccessfulbuild
+*.ilk
+*.rc
+*.manifest
+*.res
+
+sysbuild/
+
+#################
+## XCode
+#################
+
+xcuserdata/
+xcshareddata/
+
+*.build/
+*.gcda
+
+# Mac crap
+.DS_Store
+
+*.mode1V3
+*.pbxuser

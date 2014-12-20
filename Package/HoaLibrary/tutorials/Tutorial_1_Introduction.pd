@@ -1,0 +1,101 @@
+#N canvas 636 61 901 707 10;
+#X obj 499 246 hoa.2d.scope~ @size 189 189 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
+7 @gain 1 @interval 100 @bgcolor 0.7 0.7 0.7 1 @bdcolor 0.5 0.5 0.5
+1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 697 173 hoa.pi 2;
+#X obj 682 193 *~;
+#X obj 682 132 phasor~ 0.1;
+#X obj 499 149 sig~ 1;
+#X msg 14 244 \; pd dsp 1;
+#X msg 13 281 \; pd dsp 0;
+#X obj 697 152 loadbang;
+#X obj 500 500 hoa.2d.meter~ @size 189 189 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @channels
+16 @angles 0 22.5 45 67.5 90 112.5 135 157.5 180 202.5 225 247.5 270
+292.5 315 337.5 @offset 0 @rotation anti-clockwise @vectors energy
+@interval 50 @bgcolor 0.7 0.7 0.7 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor
+0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
+1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor
+1 0 0 0.8;
+#X text 470 133 Source synthesis;
+#X text 220 216 1 - Encoding in the circular harmonics domain;
+#X text 261 445 2 - Decoding for a set of loudspeakers;
+#X obj 712 236 c.number~ @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X text 708 259 Encoding angle in radian;
+#X obj 24 4 c.canvasinfos;
+#X obj 23 0 c.loadmess;
+#X obj 6 -1 hoa.tuto.header;
+#X obj 419 -1 hoa.help.pub;
+#X text 247 324 Representation of the circular harmonics;
+#X text 171 570 Representation of the contribution of 16 loudspeakers
+;
+#X text 5 48 Ambisonics is a set of techniques for the recording \,
+synthesis \, transformation and restitution of sound field based on
+a physical representation of the space in the spherical or circular
+harmonics domain. This representation is based on a decomposition of
+the space by a weighted sum of spatial functions \, the harmonics \,
+that allows a wide range of sound and space processings., f 66;
+#X text 7 151 In this example \, a source is encoded in a two-dimensional
+space. The synthesized sound field owns the sound and its spatial information
+in the form of circular harmonics. Thereafter \, the sound field is
+decoded for a set of loudspeakers., f 66;
+#X obj 500 445 hoa.2d.decoder~ 7 ambisonics 16;
+#X obj 499 215 hoa.2d.encoder~ 7 -------------;
+#X connect 1 0 2 1;
+#X connect 2 0 12 0;
+#X connect 2 0 23 1;
+#X connect 3 0 2 0;
+#X connect 4 0 23 0;
+#X connect 7 0 1 0;
+#X connect 14 0 16 0;
+#X connect 15 0 14 0;
+#X connect 22 0 8 0;
+#X connect 22 1 8 1;
+#X connect 22 2 8 2;
+#X connect 22 3 8 3;
+#X connect 22 4 8 4;
+#X connect 22 5 8 5;
+#X connect 22 6 8 6;
+#X connect 22 7 8 7;
+#X connect 22 8 8 8;
+#X connect 22 9 8 9;
+#X connect 22 10 8 10;
+#X connect 22 11 8 11;
+#X connect 22 12 8 12;
+#X connect 22 13 8 13;
+#X connect 22 14 8 14;
+#X connect 22 15 8 15;
+#X connect 23 0 0 0;
+#X connect 23 0 22 0;
+#X connect 23 1 0 1;
+#X connect 23 1 22 1;
+#X connect 23 2 0 2;
+#X connect 23 2 22 2;
+#X connect 23 3 0 3;
+#X connect 23 3 22 3;
+#X connect 23 4 0 4;
+#X connect 23 4 22 4;
+#X connect 23 5 0 5;
+#X connect 23 5 22 5;
+#X connect 23 6 0 6;
+#X connect 23 6 22 6;
+#X connect 23 7 0 7;
+#X connect 23 7 22 7;
+#X connect 23 8 0 8;
+#X connect 23 8 22 8;
+#X connect 23 9 0 9;
+#X connect 23 9 22 9;
+#X connect 23 10 0 10;
+#X connect 23 10 22 10;
+#X connect 23 11 0 11;
+#X connect 23 11 22 11;
+#X connect 23 12 0 12;
+#X connect 23 12 22 12;
+#X connect 23 13 0 13;
+#X connect 23 13 22 13;
+#X connect 23 14 0 14;
+#X connect 23 14 22 14;

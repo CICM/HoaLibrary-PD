@@ -1,0 +1,116 @@
+#N canvas 333 63 562 615 10;
+#X obj 197 -284 hoa.pi 2;
+#X obj 197 -303 loadbang;
+#X obj 182 -265 *~;
+#X obj 182 -328 phasor~ 0.1;
+#X msg 75 -144 \; pd dsp 1;
+#X msg 75 -106 \; pd dsp 0;
+#X obj -116 -182 hoa.2d.scope~ @size 153 153 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
+4 @gain 5 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.5 0.5
+0.5 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj -116 6 hoa.dac~ 1:10 -----------;
+#X obj 182 -222 c.number~ @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj -77 -371 hoa.pi;
+#X obj -77 -424 c.loadmess 0;
+#X obj -77 -395 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 119 -395 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 119 -424 c.loadmess 1;
+#X obj 182 -355 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 182 -404 c.loadmess 0.1;
+#X text 189 -383 Speed of;
+#X text 189 -373 rotation;
+#X text 211 -263 Angle of;
+#X text 211 -253 rotation;
+#X text 211 -243 in radian;
+#X obj -206 -347 hoa.2d.encoder~ 4 ----;
+#X obj -10 -347 hoa.2d.encoder~ 4 ----;
+#X obj -116 -212 hoa.2d.rotate~ 4 --------;
+#X obj -116 -26 hoa.2d.decoder~ 4 0 10 --;
+#X text -235 -469 hoa.2d.rotate~ allows you to apply a rotation on
+the ambisonic sound field. The last inlet set the angle of the rotation.
+;
+#X obj -10 -395 hoa.soundrone;
+#X obj -206 -395 hoa.soundgrain;
+#X obj 119 -370 hoa.pi;
+#X obj -220 28 hoa.help.pub;
+#X obj -232 -493 c.patcherinfos;
+#X obj -227 -510 loadbang;
+#X obj -242 -512 hoa.help.header;
+#X obj 166 -512 hoa.help.also;
+#X connect 0 0 2 1;
+#X connect 1 0 0 0;
+#X connect 2 0 8 0;
+#X connect 2 0 23 9;
+#X connect 3 0 2 0;
+#X connect 9 0 21 1;
+#X connect 10 0 11 0;
+#X connect 11 0 9 0;
+#X connect 12 0 28 0;
+#X connect 13 0 12 0;
+#X connect 14 0 3 0;
+#X connect 15 0 14 0;
+#X connect 21 0 23 0;
+#X connect 21 1 23 1;
+#X connect 21 2 23 2;
+#X connect 21 3 23 3;
+#X connect 21 4 23 4;
+#X connect 21 5 23 5;
+#X connect 21 6 23 6;
+#X connect 21 7 23 7;
+#X connect 21 8 23 8;
+#X connect 22 0 23 0;
+#X connect 22 1 23 1;
+#X connect 22 2 23 2;
+#X connect 22 3 23 3;
+#X connect 22 4 23 4;
+#X connect 22 5 23 5;
+#X connect 22 6 23 6;
+#X connect 22 7 23 7;
+#X connect 22 8 23 8;
+#X connect 23 0 6 0;
+#X connect 23 0 24 0;
+#X connect 23 1 6 1;
+#X connect 23 1 24 1;
+#X connect 23 2 6 2;
+#X connect 23 2 24 2;
+#X connect 23 3 6 3;
+#X connect 23 3 24 3;
+#X connect 23 4 6 4;
+#X connect 23 4 24 4;
+#X connect 23 5 6 5;
+#X connect 23 5 24 5;
+#X connect 23 6 6 6;
+#X connect 23 6 24 6;
+#X connect 23 7 6 7;
+#X connect 23 7 24 7;
+#X connect 23 8 24 8;
+#X connect 23 8 6 8;
+#X connect 24 0 7 0;
+#X connect 24 1 7 1;
+#X connect 24 2 7 2;
+#X connect 24 3 7 3;
+#X connect 24 4 7 4;
+#X connect 24 5 7 5;
+#X connect 24 6 7 6;
+#X connect 24 7 7 7;
+#X connect 24 8 7 8;
+#X connect 24 9 7 9;
+#X connect 26 0 22 0;
+#X connect 27 0 21 0;
+#X connect 28 0 22 1;
+#X connect 30 0 32 0;
+#X connect 31 0 30 0;
+#X coords 0 615 1 614 100 60 0;
