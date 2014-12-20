@@ -1182,7 +1182,7 @@
 					"/usr/local/include/voro++",
 				);
 				"HEADER_SEARCH_PATHS[arch=*]" = "";
-				INSTALL_PATH = "$SRCROOT/Package/HoaLibrary/externals/MacOs/pd-extented";
+				INSTALL_PATH = "$SRCROOT/Package/HoaLibrary/externals/MacOs/pd-extended";
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = (

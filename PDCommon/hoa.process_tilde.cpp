@@ -165,7 +165,7 @@ extern "C" void setup_hoa0x2eprocess_tilde(void)
     eclass_dspinit(c);
     hoa_initclass(c, (method)hoa_getinfos);
     eclass_addmethod(c, (method)hoa_process_dsp,        "dsp",      A_CANT, 0);
-    eclass_addmethod(c, (method)hoa_process_click,      "click",    A_CANT, 0);
+    eclass_addmethod(c, (method)hoa_process_click,      "click",    A_NULL, 0);
     eclass_addmethod(c, (method)hoa_process_open,       "open",     A_GIMME, 0);
     eclass_addmethod(c, (method)hoa_process_target,     "target",   A_GIMME, 0);
 
