@@ -1,75 +1,75 @@
-#N canvas 112 121 797 672 10;
-#X msg -366 -164 \; pd dsp 1;
-#X msg -366 -129 \; pd dsp 0;
-#X obj -269 -371 c.gain~ @size 131 10 @fontname Helvetica @fontweight
+#N canvas 158 49 804 715 10;
+#X msg 34 349 \; pd dsp 1;
+#X msg 34 384 \; pd dsp 0;
+#X obj 131 142 c.gain~ @size 131 10 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @kncolor 0.5 0.5 0.5 1;
-#X obj 192 -473 hoa.connect;
-#X obj 192 -493 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X obj -380 -484 c.patcherinfos;
-#X obj -380 -501 loadbang;
-#X obj -380 -501 hoa.help.header;
-#X obj -315 111 hoa.help.pub;
-#X obj 36 -501 hoa.help.also;
-#X obj -269 -180 hoa.2d.scope~ @size 189 189 @fontname Helvetica @fontweight
+#X obj 592 40 hoa.connect;
+#X obj 592 20 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 20 29 c.patcherinfos;
+#X obj 20 12 loadbang;
+#X obj 20 12 hoa.help.header;
+#X obj 85 624 hoa.help.pub;
+#X obj 436 12 hoa.help.also;
+#X obj 131 333 hoa.2d.scope~ @size 189 189 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
 3 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X text -375 -457 hoa.fx.convolve~ use the HiFi-Lofi convolution reverberation
+#X text 25 56 hoa.fx.convolve~ use the HiFi-Lofi convolution reverberation
 ;
-#X obj -269 28 hoa.2d.decoder~ 3 ambisonics 8;
-#X obj -269 60 hoa.dac~ 1:8 -----------------;
-#X obj -269 -353 hoa.2d.encoder~ 3 ---------;
-#X obj -110 -410 phasor~ 0.1;
-#X obj -269 -410 phasor~ 1;
-#X obj 89 54 table \$0-ir;
-#X obj 89 31 soundfiler;
-#X obj 89 -113 openpanel;
-#X obj 89 -52 pack s s;
-#X obj 89 -93 t s b;
-#X obj 90 -134 c.bang @size 17 17 @fontname Helvetica @fontweight normal
+#X obj 131 541 hoa.2d.decoder~ 3 ambisonics 8;
+#X obj 131 573 hoa.dac~ 1:8 -----------------;
+#X obj 131 160 hoa.2d.encoder~ 3 ---------;
+#X obj 290 103 phasor~ 0.1;
+#X obj 131 103 phasor~ 1;
+#X obj 489 567 table \$0-ir;
+#X obj 489 544 soundfiler;
+#X obj 489 400 openpanel;
+#X obj 489 461 pack s s;
+#X obj 489 420 t s b;
+#X obj 490 379 c.bang @size 17 17 @fontname Helvetica @fontweight normal
 @fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
-#X msg 89 -30 read -resize \$1 \$2;
-#X obj 134 -74 symbol \$0-ir;
-#X text 121 -136 load an ir;
-#X obj -43 -326 c.number @size 53 17 @fontname Helvetica @fontweight
+#X msg 489 483 read -resize \$1 \$2;
+#X obj 534 439 symbol \$0-ir;
+#X text 521 377 load an ir;
+#X obj 357 187 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj -44 -347 c.loadmess 0;
-#X obj 47 -326 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 356 166 c.loadmess 0;
+#X obj 447 187 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 47 -302 wet \$1;
-#X obj 46 -347 c.loadmess 1;
-#X msg -43 -302 dry \$1;
-#X obj 68 -10 c.loadmess read -resize SmallRoom.wav \$0-ir;
-#X obj 135 -325 symbol \$0-ir;
-#X obj -110 -384 hoa.pi~ 2;
-#X obj 135 -353 c.bang @size 17 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
+#X msg 447 211 wet \$1;
+#X obj 446 166 c.loadmess 1;
+#X msg 357 211 dry \$1;
+#X obj 468 503 c.loadmess read -resize SmallRoom.wav \$0-ir;
+#X obj 535 188 symbol \$0-ir;
+#X obj 290 129 hoa.pi~ 2;
+#X obj 535 160 c.bang @size 17 17 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
-#X text -70 -218 Attrs : wet \, dry and normalization;
-#X text -70 -230 Arg : table name;
-#X obj -269 -236 hoa.2d.process~ 3 hoa.fx.convolve~ harmonics \$0-ir
+#X text 330 295 Attrs : wet \, dry and normalization;
+#X text 330 283 Arg : table name;
+#X obj 131 277 hoa.2d.process~ 3 hoa.fx.convolve~ harmonics \$0-ir
 @wet 1 @dry 0, f 31;
-#X text 26 -433 For the moment \, the convolution is not optimized
-enough.;
-#X text 26 -423 You shouldn't use big irs or and high orders.;
-#X text 26 -413 The process patch is very simple but you can use;
-#X text 26 -403 a different ir for each harmonics to decorrelate them.
+#X text 426 80 For the moment \, the convolution is not optimized enough.
 ;
-#X text 26 -393 You can also use it in the planewave domain.;
-#X msg 245 -297 target \$1;
-#X obj 247 -328 c.menu @size 40 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+#X text 426 90 You shouldn't use big irs or and high orders.;
+#X text 426 100 The process patch is very simple but you can use;
+#X text 426 110 a different ir for each harmonics to decorrelate them.
+;
+#X text 426 120 You can also use it in the planewave domain.;
+#X msg 645 216 target \$1;
+#X obj 647 185 c.menu @size 40 17 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @hover 0 @items all -1 1 -2 2 -3 3 @states 0 0 0 0 0 0 0 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 135 -298 set \$1;
+#X msg 535 215 set \$1;
 #X connect 2 0 14 0;
 #X connect 4 0 3 0;
 #X connect 5 0 7 0;
@@ -125,4 +125,4 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X connect 44 0 38 7;
 #X connect 45 1 44 0;
 #X connect 46 0 38 7;
-#X coords 0 672 1 671 100 60 0;
+#X coords 0 715 1 714 100 60 0;

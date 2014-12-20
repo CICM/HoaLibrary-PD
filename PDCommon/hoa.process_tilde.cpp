@@ -11,10 +11,6 @@ extern "C"
 #include "../ThirdParty/CicmWrapper/Sources/ecommon/d_ugen.h"
 }
 
-#ifdef PD_EXTENDED
-EXTERN t_canvas *canvas_list;
-#endif
-
 t_canvas *sys_getcanvaslist()
 {
 #ifdef PD_EXTENDED
