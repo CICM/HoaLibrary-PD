@@ -1181,9 +1181,9 @@ void draw_sources(t_hoa_map *x,  t_object *view, t_rect *rect)
 	t_rgba sourceColor;
 	char description[250];
     
-    double w = rect->width;
-    double h = rect->height;
-    t_pt ctr = {w*0.5, h*0.5};
+    t_pt ctr;
+    ctr.x = rect->width * 0.5;
+    ctr.y = rect->height * 0.5;
 	t_pt sourceDisplayPos, groupDisplayPos, textDisplayPos;
 	
 	t_elayer *g = ebox_start_layer((t_ebox *)x, hoa_sym_sources_layer, rect->width, rect->height);
@@ -1306,11 +1306,11 @@ void draw_groups(t_hoa_map *x,  t_object *view, t_rect *rect)
 	
 	t_pt sourceDisplayPos, groupDisplayPos, textDisplayPos;
     
-    double w = rect->width;
-    double h = rect->height;
-    t_pt ctr = {w*0.5, h*0.5};
+    t_pt ctr;
+    ctr.x = rect->width * 0.5;
+    ctr.y = rect->height * 0.5;
 	
-	t_elayer *g = ebox_start_layer((t_ebox *)x, hoa_sym_groups_layer, w, h);
+	t_elayer *g = ebox_start_layer((t_ebox *)x, hoa_sym_groups_layer, rect->width, rect->height);
     t_rgba color_sel = rgba_addContrast(x->f_color_bg, -0.14);
     x->f_size_source = ebox_getfontsize((t_ebox *)x) / 2.;
     fontSize = ebox_getfontsize((t_ebox *)x);
