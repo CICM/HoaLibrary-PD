@@ -100,8 +100,6 @@
 		8F938B5E1A45B7B60048FAB0 /* epopup.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B5A1A45B7B60048FAB0 /* epopup.h */; };
 		8F938BA61A45B7E30048FAB0 /* Hoa.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B601A45B7E30048FAB0 /* Hoa.h */; };
 		8F938BA71A45B7E30048FAB0 /* Hoa.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B601A45B7E30048FAB0 /* Hoa.h */; };
-		8F938BA81A45B7E30048FAB0 /* Ambisonic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F938B621A45B7E30048FAB0 /* Ambisonic.cpp */; };
-		8F938BA91A45B7E30048FAB0 /* Ambisonic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F938B621A45B7E30048FAB0 /* Ambisonic.cpp */; };
 		8F938BAA1A45B7E30048FAB0 /* Ambisonic.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B631A45B7E30048FAB0 /* Ambisonic.h */; };
 		8F938BAB1A45B7E30048FAB0 /* Ambisonic.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B631A45B7E30048FAB0 /* Ambisonic.h */; };
 		8F938BAC1A45B7E30048FAB0 /* ChannelManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F938B641A45B7E30048FAB0 /* ChannelManager.cpp */; };
@@ -341,7 +339,6 @@
 		8F938B591A45B7B60048FAB0 /* epopup.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = epopup.c; path = ThirdParty/CicmWrapper/Sources/epopup/epopup.c; sourceTree = "<group>"; };
 		8F938B5A1A45B7B60048FAB0 /* epopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = epopup.h; path = ThirdParty/CicmWrapper/Sources/epopup/epopup.h; sourceTree = "<group>"; };
 		8F938B601A45B7E30048FAB0 /* Hoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hoa.h; sourceTree = "<group>"; };
-		8F938B621A45B7E30048FAB0 /* Ambisonic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ambisonic.cpp; sourceTree = "<group>"; };
 		8F938B631A45B7E30048FAB0 /* Ambisonic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ambisonic.h; sourceTree = "<group>"; };
 		8F938B641A45B7E30048FAB0 /* ChannelManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChannelManager.cpp; sourceTree = "<group>"; };
 		8F938B651A45B7E30048FAB0 /* ChannelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelManager.h; sourceTree = "<group>"; };
@@ -636,14 +633,15 @@
 		8F938B611A45B7E30048FAB0 /* Hoa2D */ = {
 			isa = PBXGroup;
 			children = (
-				8F938B621A45B7E30048FAB0 /* Ambisonic.cpp */,
 				8F938B631A45B7E30048FAB0 /* Ambisonic.h */,
+				8F938B681A45B7E30048FAB0 /* Encoder.cpp */,
+				8F938B691A45B7E30048FAB0 /* Encoder.h */,
+				8F938B7F1A45B7E30048FAB0 /* Wider.cpp */,
+				8F938B801A45B7E30048FAB0 /* Wider.h */,
 				8F938B641A45B7E30048FAB0 /* ChannelManager.cpp */,
 				8F938B651A45B7E30048FAB0 /* ChannelManager.h */,
 				8F938B661A45B7E30048FAB0 /* Decoder.cpp */,
 				8F938B671A45B7E30048FAB0 /* Decoder.h */,
-				8F938B681A45B7E30048FAB0 /* Encoder.cpp */,
-				8F938B691A45B7E30048FAB0 /* Encoder.h */,
 				8F938B6A1A45B7E30048FAB0 /* Hoa2D.h */,
 				8F938B6D1A45B7E30048FAB0 /* Map.cpp */,
 				8F938B6E1A45B7E30048FAB0 /* Map.h */,
@@ -663,8 +661,6 @@
 				8F938B7C1A45B7E30048FAB0 /* Scope.h */,
 				8F938B7D1A45B7E30048FAB0 /* Vector.cpp */,
 				8F938B7E1A45B7E30048FAB0 /* Vector.h */,
-				8F938B7F1A45B7E30048FAB0 /* Wider.cpp */,
-				8F938B801A45B7E30048FAB0 /* Wider.h */,
 			);
 			path = Hoa2D;
 			sourceTree = "<group>";
@@ -988,7 +984,6 @@
 				8F938AF61A45B7490048FAB0 /* ebox_draw.c in Sources */,
 				8F27E29B19178923004E1370 /* hoa.out.cpp in Sources */,
 				8F27E2B619178943004E1370 /* hoa.2d.map_tilde.cpp in Sources */,
-				8F938BA81A45B7E30048FAB0 /* Ambisonic.cpp in Sources */,
 				8F938B3D1A45B7990048FAB0 /* egraphics_matrix.c in Sources */,
 				8F938B4E1A45B7A90048FAB0 /* eobj_dsp.c in Sources */,
 				8FD0878C193F119E00213B8D /* hoa.3d.scope_gui_tilde.cpp in Sources */,
@@ -1079,7 +1074,6 @@
 				8F938AF71A45B7490048FAB0 /* ebox_draw.c in Sources */,
 				8FAC0C3E196985A400E09ACB /* hoa.out.cpp in Sources */,
 				8FAC0C40196985A400E09ACB /* hoa.2d.map_tilde.cpp in Sources */,
-				8F938BA91A45B7E30048FAB0 /* Ambisonic.cpp in Sources */,
 				8F938B3E1A45B7990048FAB0 /* egraphics_matrix.c in Sources */,
 				8F938B4F1A45B7A90048FAB0 /* eobj_dsp.c in Sources */,
 				8FAC0C47196985A400E09ACB /* hoa.3d.scope_gui_tilde.cpp in Sources */,

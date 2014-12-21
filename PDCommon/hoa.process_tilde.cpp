@@ -556,10 +556,10 @@ void hoa_process_open(t_hoa_process *x, t_symbol* s, int argc, t_atom* argv)
         order = atom_getfloat(argv);
         if(order < (int)-x->f_ambi_2d->getDecompositionOrder() || order > (int)x->f_ambi_2d->getDecompositionOrder())
         {
-            object_error(x, "hoa.process~ open index must be between %i and %i", (int)-x->f_ambi_2d->getDecompositionOrder(), x->f_ambi_2d->getDecompositionOrder());
+            object_error(x, "hoa.process~ open index must be between %i and %lu", (int)-x->f_ambi_2d->getDecompositionOrder(), x->f_ambi_2d->getDecompositionOrder());
             return;
         }
-        canvas_vis(x->f_canvas[x->f_ambi_2d->getHarmonicIndex(order)], 1);
+        canvas_vis(x->f_canvas[x->f_ambi_2d->getHarmonicOrder(order)], 1);
     }
 }
 
@@ -605,10 +605,10 @@ void hoa_process_target(t_hoa_process *x, t_symbol* s, int argc, t_atom* argv)
         order = atom_getfloat(argv);
         if(order < (int)-x->f_ambi_2d->getDecompositionOrder() || order > (int)x->f_ambi_2d->getDecompositionOrder())
         {
-            object_error(x, "hoa.process~ target index must be between %i and %i", (int)-x->f_ambi_2d->getDecompositionOrder(), x->f_ambi_2d->getDecompositionOrder());
+            object_error(x, "hoa.process~ target index must be between %i and %lu", (int)-x->f_ambi_2d->getDecompositionOrder(), x->f_ambi_2d->getDecompositionOrder());
             return;
         }
-        x->f_target = x->f_ambi_2d->getHarmonicIndex(order);
+        x->f_target = x->f_ambi_2d->getHarmonicOrder(order);
     }
 }
 

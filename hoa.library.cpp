@@ -61,5 +61,11 @@ extern "C" void setup_hoa0x2elibrary(void)
     pd_library_add_folder("HoaLibrary", "dependencies");
     pd_library_add_folder("HoaLibrary", "media");
     pd_library_add_folder("HoaLibrary", "misc");
+    
+    pd_library_add_folder("hoa", "patchers");
+    pd_library_add_folder("hoa", "clippings");
+    pd_library_add_folder("hoa", "dependencies");
+    pd_library_add_folder("hoa", "media");
+    pd_library_add_folder("hoa", "misc");
 }
 
