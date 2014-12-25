@@ -8,9 +8,9 @@
 
 typedef struct _hoa_encoder
 {
-    t_edspobj   f_ob;
-    t_float*    f_signals;
-    Encoder*    f_encoder;
+    t_edspobj       f_ob;
+    t_float*        f_signals;
+    Encoder<float>* f_encoder;
 } t_hoa_encoder;
 
 void *hoa_encoder_new(t_symbol *s, long argc, t_atom *argv);
@@ -53,7 +53,7 @@ void *hoa_encoder_new(t_symbol *s, long argc, t_atom *argv)
         if(order < 1)
             order = 1;
         
-		x->f_encoder = new Encoder(order);
+		x->f_encoder = new Encoder<float>(order);
         eobj_dspsetup(x, 2, x->f_encoder->getNumberOfHarmonics());
         
         x->f_signals =  new t_float[x->f_encoder->getNumberOfHarmonics() * 8192];
@@ -86,14 +86,15 @@ void hoa_encoder_dsp(t_hoa_encoder *x, t_object *dsp, short *count, double sampl
 
 void hoa_encoder_perform(t_hoa_encoder *x, t_object *dsp, float **ins, long nins, float **outs, long numouts, long sampleframes, long f,void *up)
 {
-    for(int i = 0; i < sampleframes; i++)
+    const int nframes = sampleframes;
+    while(--sampleframes)
     {
-        x->f_encoder->setAzimuth(ins[1][i]);
-        x->f_encoder->process(ins[0][i], x->f_signals + numouts * i);
+        x->f_encoder->setAzimuth(ins[1][sampleframes]);
+        x->f_encoder->process(ins[0][sampleframes], x->f_signals + numouts * sampleframes);
     }
     for(int i = 0; i < numouts; i++)
     {
-        cblas_scopy(sampleframes, x->f_signals+i, numouts, outs[i], 1);
+        cblas_scopy(nframes, x->f_signals+i, numouts, outs[i], 1);
     }
 }
 

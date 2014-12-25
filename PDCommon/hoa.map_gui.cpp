@@ -854,7 +854,7 @@ t_pd_err hoa_map_zoom(t_hoa_map *x, t_object *attr, long argc, t_atom *argv)
     if(argc >= 1 && argv && atom_gettype(argv) == A_FLOAT)
     {
         x->f_zoom_factor = atom_getfloat(argv);
-        x->f_zoom_factor = clip_minmax(x->f_zoom_factor, MIN_ZOOM, MAX_ZOOM);
+        x->f_zoom_factor = clip(x->f_zoom_factor, MIN_ZOOM, MAX_ZOOM);
     }
     
     ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
@@ -1856,8 +1856,8 @@ void hoa_map_mousedrag(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
                     int srcIndex, grpIndex;
                     double source_radius, source_azimuth, mouse_azimuth, mouse_azimuth_prev, mouse_radius, mouse_radius_prev;
                     grpIndex = x->f_index_of_selected_group;
-                    mouse_radius = clip_min(radius(cursor.x, cursor.y), 0);
-                    mouse_radius_prev = clip_min(radius(x->f_cursor_position.x, x->f_cursor_position.y), 0);
+                    mouse_radius = max(radius(cursor.x, cursor.y), 0.);
+                    mouse_radius_prev = max(radius(x->f_cursor_position.x, x->f_cursor_position.y), 0.);
                     mouse_azimuth = wrap_twopi(azimuth(cursor.x, cursor.y));
                     mouse_azimuth_prev = wrap_twopi(azimuth(x->f_cursor_position.x, x->f_cursor_position.y));
                     
@@ -1885,8 +1885,8 @@ void hoa_map_mousedrag(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
                     int srcIndex, grpIndex;
                     double source_radius, source_azimuth, mouse_azimuth, mouse_azimuth_prev, mouse_radius, mouse_radius_prev;
                     grpIndex = x->f_index_of_selected_group;
-                    mouse_radius = clip_min(radius(cursor.x, cursor.y), 0);
-                    mouse_radius_prev = clip_min(radius(x->f_cursor_position.x, x->f_cursor_position.y), 0);
+                    mouse_radius = max(radius(cursor.x, cursor.y), 0.);
+                    mouse_radius_prev = max(radius(x->f_cursor_position.x, x->f_cursor_position.y), 0.);
                     mouse_azimuth = wrap_twopi(azimuth(cursor.x, cursor.y));
                     mouse_azimuth_prev = wrap_twopi(azimuth(x->f_cursor_position.x, x->f_cursor_position.y));
                     
@@ -2066,7 +2066,7 @@ void hoa_map_mousewheel(t_hoa_map *x, t_object *patcherview, t_pt pt, long modif
     if(modifiers == EMOD_ALT)
     {
 		double newZoom = x->f_zoom_factor + y_inc / 100.;
-        x->f_zoom_factor = clip_minmax(newZoom, MIN_ZOOM, MAX_ZOOM);
+        x->f_zoom_factor = clip(newZoom, MIN_ZOOM, MAX_ZOOM);
         
         ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
         ebox_invalidate_layer((t_ebox *)x, hoa_sym_sources_layer);

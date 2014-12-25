@@ -11,7 +11,7 @@ typedef struct _hoa_space
     t_ebox      j_box;
     void*		f_out;
     long        f_number_of_channels;
-    double      f_minmax[2];
+    float       f_minmax[2];
     
     long		f_mode;
     double*     f_channel_values;
@@ -100,7 +100,7 @@ extern "C" void setup_hoa0x2e2d0x2espace(void)
     CLASS_ATTR_DEFAULT              (c, "channels", 0, "4");
     CLASS_ATTR_SAVE                 (c, "channels", 1);
     
-    CLASS_ATTR_DOUBLE_ARRAY         (c, "minmax",   0, t_hoa_space, f_minmax, 2);
+    CLASS_ATTR_FLOAT_ARRAY          (c, "minmax",   0, t_hoa_space, f_minmax, 2);
 	CLASS_ATTR_CATEGORY             (c, "minmax",   0, "Behavior");
     CLASS_ATTR_LABEL                (c, "minmax",   0, "Minimum and Maximum");
 	CLASS_ATTR_ACCESSORS            (c, "minmax", NULL, minmax_set);
@@ -235,7 +235,7 @@ void hoa_space_list(t_hoa_space *x, t_symbol *s, long ac, t_atom *av)
         {
             if(atom_gettype(av+i) == A_FLOAT || atom_gettype(av+i) == A_LONG)
             {
-                x->f_channel_values[i] = clip_minmax(atom_getfloat(av+i), x->f_minmax[0], x->f_minmax[1]);
+                x->f_channel_values[i] = clip(atom_getfloat(av+i), x->f_minmax[0], x->f_minmax[1]);
             }
         }
         
@@ -495,7 +495,7 @@ void hoa_space_mouse_down(t_hoa_space *x, t_object *patcherview, t_pt pt, long m
         x->f_value_ref   = (rad - (x->f_radius / 5.)) / (x->f_radius * 4. / 5.);
         x->f_value_ref  *= (x->f_minmax[1] - x->f_minmax[0]);
         x->f_value_ref  += x->f_minmax[0];
-        x->f_value_ref   = clip_minmax(x->f_value_ref, x->f_minmax[0], x->f_minmax[1]);
+        x->f_value_ref   = clip(x->f_value_ref, x->f_minmax[0], x->f_minmax[1]);
         memcpy(x->f_channel_refs, x->f_channel_values, x->f_number_of_channels * sizeof(double));
     }
     else
@@ -528,7 +528,7 @@ void hoa_space_mouse_drag(t_hoa_space *x, t_object *patcherview, t_pt pt, long m
             mu = (double)index / (double)x->f_number_of_channels * (double)HOA_2PI;
             mu = (double)(angle - mu) / ((double)HOA_2PI / (double)x->f_number_of_channels);
             value = cosine_interpolation(x->f_channel_refs[index], x->f_channel_refs[index2], mu);
-            x->f_channel_values[i] = clip_minmax(value, x->f_minmax[0], x->f_minmax[1]);
+            x->f_channel_values[i] = clip(value, x->f_minmax[0], x->f_minmax[1]);
         }
     }
     else if(x->f_mode == 2) // shift : gain
@@ -539,7 +539,7 @@ void hoa_space_mouse_drag(t_hoa_space *x, t_object *patcherview, t_pt pt, long m
         inc    += x->f_minmax[0];
         inc     = inc - x->f_value_ref;
         for(int i = 0; i < x->f_number_of_channels; i++)
-            x->f_channel_values[i] = clip_minmax(x->f_channel_refs[i] + inc, x->f_minmax[0], x->f_minmax[1]);
+            x->f_channel_values[i] = clip(x->f_channel_refs[i] + inc, x->f_minmax[0], x->f_minmax[1]);
     }
     else
     {
@@ -549,7 +549,7 @@ void hoa_space_mouse_drag(t_hoa_space *x, t_object *patcherview, t_pt pt, long m
         value   = (radius - (x->f_radius / 5.)) / (x->f_radius * 4. / 5.);
         value  *= (x->f_minmax[1] - x->f_minmax[0]);
         value  += x->f_minmax[0];
-        value   = clip_minmax(value, x->f_minmax[0], x->f_minmax[1]);
+        value   = clip(value, x->f_minmax[0], x->f_minmax[1]);
         x->f_channel_values[index] = value;
     }
     
@@ -616,7 +616,7 @@ t_pd_err minmax_set(t_hoa_space *x, t_object *attr, long argc, t_atom *argv)
             x->f_minmax[1] = max;
         }
         for(int i = 0; i < x->f_number_of_channels; i++)
-            x->f_channel_values[i] = clip_minmax(x->f_channel_values[i], x->f_minmax[0], x->f_minmax[1]);
+            x->f_channel_values[i] = clip(x->f_channel_values[i], x->f_minmax[0], x->f_minmax[1]);
         
         ebox_invalidate_layer((t_ebox *)x, hoa_sym_space_layer);
         ebox_invalidate_layer((t_ebox *)x, hoa_sym_points_layer);

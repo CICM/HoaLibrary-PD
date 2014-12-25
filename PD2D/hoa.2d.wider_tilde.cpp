@@ -8,10 +8,10 @@
 
 typedef struct _hoa_wider
 {
-    t_edspobj       f_ob;
-    t_float*        f_ins;
-    t_float*        f_outs;
-    Hoa2D::Wider*   f_wider;
+    t_edspobj               f_ob;
+    t_float*                f_ins;
+    t_float*                f_outs;
+    Hoa2D::Wider<float>*    f_wider;
     
 } t_hoa_wider;
 
@@ -54,7 +54,7 @@ void *hoa_wider_new(t_symbol *s, long argc, t_atom *argv)
 		if(order < 1)
             order = 1;
         
-		x->f_wider = new Hoa2D::Wider(order);
+		x->f_wider = new Hoa2D::Wider<float>(order);
 		
         eobj_dspsetup(x, x->f_wider->getNumberOfHarmonics() + 1, x->f_wider->getNumberOfHarmonics());
         

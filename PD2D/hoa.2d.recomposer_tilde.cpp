@@ -388,7 +388,7 @@ t_pd_err ramp_set(t_hoa_recomposer *x, t_object *attr, long argc, t_atom *argv)
     {
         if(atom_gettype(argv) == A_LONG || atom_gettype(argv) == A_FLOAT)
         {
-            x->f_ramp = clip_min(atom_getfloat(argv), 0);
+            x->f_ramp = max(atom_getfloat(argv), 0.f);
             x->f_lines->setRamp(x->f_ramp / 1000. * sys_getsr());
         }
     }
@@ -415,7 +415,7 @@ RecomPolarLines::~RecomPolarLines()
 
 void RecomPolarLines::setRamp(unsigned int ramp)
 {
-    m_ramp = clip_min(ramp, (long)1);
+    m_ramp = max(ramp, (unsigned int)1);
 }
 
 void RecomPolarLines::setRadius(unsigned int index, double radius)
