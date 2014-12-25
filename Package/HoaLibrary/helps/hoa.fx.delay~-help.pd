@@ -1,55 +1,54 @@
-#N canvas 123 102 987 685 10;
-#X msg -23 -103 \; pd dsp 1;
-#X msg -23 -68 \; pd dsp 0;
-#X obj -93 -407 hoa.soundgrain;
-#X obj -93 -378 c.gain~ @size 131 10 @fontname Helvetica @fontweight
+#N canvas 123 102 925 699 10;
+#X msg 359 399 \; pd dsp 1;
+#X msg 359 434 \; pd dsp 0;
+#X obj 289 95 hoa.soundgrain;
+#X obj 289 124 c.gain~ @size 131 10 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @kncolor 0.5 0.5 0.5 1;
-#X obj 192 -460 hoa.connect;
-#X obj 192 -480 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X obj 84 -391 hoa.pi~ 2;
-#X obj -380 -471 c.patcherinfos;
-#X obj -380 -488 loadbang;
-#X obj -380 -488 hoa.help.header;
-#X obj -250 140 hoa.help.pub;
-#X obj 36 -488 hoa.help.also;
-#X obj -93 -310 hoa.2d.scope~ @size 183 183 @fontname Helvetica @fontweight
+#X obj 574 42 hoa.connect;
+#X obj 574 22 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 466 111 hoa.pi~ 2;
+#X obj 2 31 c.patcherinfos;
+#X obj 2 14 loadbang;
+#X obj 2 14 hoa.help.header;
+#X obj 132 642 hoa.help.pub;
+#X obj 418 14 hoa.help.also;
+#X obj 289 192 hoa.2d.scope~ @size 183 183 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
 7 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj -99 81 hoa.2d.decoder~ 7 ambisonics 16;
-#X obj -99 113 hoa.dac~ 1:16 -----------------;
-#X obj -93 -360 hoa.2d.encoder~ 7 ------------;
-#X obj -363 -130 hoa.2d.scope~ @size 189 189 @fontname Helvetica @fontweight
+#X obj 283 583 hoa.2d.decoder~ 7 ambisonics 16;
+#X obj 283 615 hoa.dac~ 1:16 -----------------;
+#X obj 289 142 hoa.2d.encoder~ 7 ------------;
+#X obj 19 372 hoa.2d.scope~ @size 189 189 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
 7 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj -353 -302 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 29 200 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 147 -248 hoa.2d.projector~ 7 16, f 29;
-#X obj 147 -70 hoa.2d.scope~ @size 189 189 @fontname Helvetica @fontweight
+#X obj 529 254 hoa.2d.projector~ 7 16, f 29;
+#X obj 529 432 hoa.2d.scope~ @size 189 189 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
 7 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj 147 -114 hoa.2d.recomposer~ 7 16 fixe, f 31;
-#X obj 330 -420 hoa.2d.space @size 189 189 @fontname Helvetica @fontweight
+#X obj 529 388 hoa.2d.recomposer~ 7 16 fixe, f 31;
+#X obj 712 82 hoa.2d.space @size 189 189 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @channels 16 @minmax 0 5000 @bgcolor 0.76 0.76 0.76 1 @bdcolor
 0.7 0.7 0.7 1 @spcolor 0.27 0.43 0.54 0.25 @ptcolor 0 0 0 1;
-#X obj 83 -416 phasor~ 1;
-#X obj -363 -183 hoa.2d.process~ 7 hoa.fx.delay~ harmonics, f 31;
-#X obj 147 -183 hoa.2d.process~ 16 hoa.fx.delay~ planewaves, f 31
-;
-#X text 339 -225 Control the delay time of each channel with a list
+#X obj 465 86 phasor~ 1;
+#X obj 19 319 hoa.2d.process~ 7 hoa.fx.delay~ harmonics, f 31;
+#X obj 529 319 hoa.2d.process~ 16 hoa.fx.delay~ planewaves, f 31;
+#X text 721 277 Control the delay time of each channel with a list
 or the hoa.2d.space GUI., f 31;
-#X text -375 -444 hoa.fx.delay~ uses delay lines without flanging effect
+#X text 7 58 hoa.fx.delay~ uses delay lines without flanging effect
 to diffuse a sound field.;
-#X text -351 -372 Control the global delay time., f 12;
-#X obj -354 -323 c.loadmess 1000;
+#X text 31 130 Control the global delay time., f 12;
+#X obj 28 179 c.loadmess 1000;
 #X connect 2 0 3 0;
 #X connect 3 0 15 0;
 #X connect 5 0 4 0;
@@ -213,4 +212,4 @@ to diffuse a sound field.;
 #X connect 24 14 20 14;
 #X connect 24 15 20 15;
 #X connect 28 0 17 0;
-#X coords 0 685 1 684 100 60 0;
+#X coords 0 699 1 698 100 60 0;

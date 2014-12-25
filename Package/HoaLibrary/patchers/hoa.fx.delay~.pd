@@ -1,4 +1,4 @@
-#N canvas 122 117 946 548 10;
+#N canvas 312 112 946 548 10;
 #X obj 372 -26 hoa.in~;
 #X obj 237 370 hoa.out~;
 #X obj -109 -101 c.loadmess;
@@ -29,7 +29,7 @@
 #X obj 92 261 outlet;
 #X obj 153 261 outlet;
 #X obj 155 232 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0.0052631 256;
+-262144 -1 -1 0 256;
 #X obj 73 109 metro 5;
 #X connect 0 0 11 0;
 #X connect 1 0 2 0;
@@ -70,9 +70,9 @@ lines.;
 #X text -37 84 factor;
 #X text -41 74 instance;
 #X obj -40 54 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0.0666667 256;
+-262144 -1 -1 0 256;
 #X obj -109 54 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 15 256;
+-262144 -1 -1 0 256;
 #X text -110 74 number of;
 #X text -113 84 instances;
 #X obj 372 17 delwrite~ \$0-hoa.delay 5000;
@@ -88,7 +88,7 @@ plane waves domain).;
 #X text 413 378 float : The delay time are mapped depending on the
 intance and increase while the index and the band of the harmonics
 increase.;
-#N canvas 0 22 471 383 delay_noflange 1;
+#N canvas 0 22 471 383 delay_noflange 0;
 #X obj 307 81 f;
 #X obj 125 146 *~ 513;
 #X obj 125 174 tabread4~ \$0-hoa_hann1;

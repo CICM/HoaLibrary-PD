@@ -100,28 +100,28 @@
 		8F938B5E1A45B7B60048FAB0 /* epopup.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B5A1A45B7B60048FAB0 /* epopup.h */; };
 		8F938BA61A45B7E30048FAB0 /* Hoa.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B601A45B7E30048FAB0 /* Hoa.h */; };
 		8F938BA71A45B7E30048FAB0 /* Hoa.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B601A45B7E30048FAB0 /* Hoa.h */; };
-		8F938BAA1A45B7E30048FAB0 /* Ambisonic.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B631A45B7E30048FAB0 /* Ambisonic.h */; };
-		8F938BAB1A45B7E30048FAB0 /* Ambisonic.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B631A45B7E30048FAB0 /* Ambisonic.h */; };
+		8F938BAA1A45B7E30048FAB0 /* Ambisonic_2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B631A45B7E30048FAB0 /* Ambisonic_2D.h */; };
+		8F938BAB1A45B7E30048FAB0 /* Ambisonic_2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B631A45B7E30048FAB0 /* Ambisonic_2D.h */; };
 		8F938BAC1A45B7E30048FAB0 /* ChannelManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F938B641A45B7E30048FAB0 /* ChannelManager.cpp */; };
 		8F938BAD1A45B7E30048FAB0 /* ChannelManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F938B641A45B7E30048FAB0 /* ChannelManager.cpp */; };
 		8F938BAE1A45B7E30048FAB0 /* ChannelManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B651A45B7E30048FAB0 /* ChannelManager.h */; };
 		8F938BAF1A45B7E30048FAB0 /* ChannelManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B651A45B7E30048FAB0 /* ChannelManager.h */; };
 		8F938BB01A45B7E30048FAB0 /* Decoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F938B661A45B7E30048FAB0 /* Decoder.cpp */; };
 		8F938BB11A45B7E30048FAB0 /* Decoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F938B661A45B7E30048FAB0 /* Decoder.cpp */; };
-		8F938BB21A45B7E30048FAB0 /* Decoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B671A45B7E30048FAB0 /* Decoder.h */; };
-		8F938BB31A45B7E30048FAB0 /* Decoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B671A45B7E30048FAB0 /* Decoder.h */; };
-		8F938BB61A45B7E30048FAB0 /* Encoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B691A45B7E30048FAB0 /* Encoder.h */; };
-		8F938BB71A45B7E30048FAB0 /* Encoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B691A45B7E30048FAB0 /* Encoder.h */; };
+		8F938BB21A45B7E30048FAB0 /* Decoder_2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B671A45B7E30048FAB0 /* Decoder_2D.h */; };
+		8F938BB31A45B7E30048FAB0 /* Decoder_2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B671A45B7E30048FAB0 /* Decoder_2D.h */; };
+		8F938BB61A45B7E30048FAB0 /* Encoder_2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B691A45B7E30048FAB0 /* Encoder_2D.h */; };
+		8F938BB71A45B7E30048FAB0 /* Encoder_2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B691A45B7E30048FAB0 /* Encoder_2D.h */; };
 		8F938BB81A45B7E30048FAB0 /* Hoa2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B6A1A45B7E30048FAB0 /* Hoa2D.h */; };
 		8F938BB91A45B7E30048FAB0 /* Hoa2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B6A1A45B7E30048FAB0 /* Hoa2D.h */; };
-		8F938BC01A45B7E30048FAB0 /* Map.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B6E1A45B7E30048FAB0 /* Map.h */; };
-		8F938BC11A45B7E30048FAB0 /* Map.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B6E1A45B7E30048FAB0 /* Map.h */; };
+		8F938BC01A45B7E30048FAB0 /* Map_2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B6E1A45B7E30048FAB0 /* Map_2D.h */; };
+		8F938BC11A45B7E30048FAB0 /* Map_2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B6E1A45B7E30048FAB0 /* Map_2D.h */; };
 		8F938BC21A45B7E30048FAB0 /* Meter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F938B6F1A45B7E30048FAB0 /* Meter.cpp */; };
 		8F938BC31A45B7E30048FAB0 /* Meter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F938B6F1A45B7E30048FAB0 /* Meter.cpp */; };
 		8F938BC41A45B7E30048FAB0 /* Meter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B701A45B7E30048FAB0 /* Meter.h */; };
 		8F938BC51A45B7E30048FAB0 /* Meter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B701A45B7E30048FAB0 /* Meter.h */; };
-		8F938BC81A45B7E30048FAB0 /* Optim.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B721A45B7E30048FAB0 /* Optim.h */; };
-		8F938BC91A45B7E30048FAB0 /* Optim.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B721A45B7E30048FAB0 /* Optim.h */; };
+		8F938BC81A45B7E30048FAB0 /* Optim_2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B721A45B7E30048FAB0 /* Optim_2D.h */; };
+		8F938BC91A45B7E30048FAB0 /* Optim_2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B721A45B7E30048FAB0 /* Optim_2D.h */; };
 		8F938BCA1A45B7E30048FAB0 /* Planewaves.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F938B731A45B7E30048FAB0 /* Planewaves.cpp */; };
 		8F938BCB1A45B7E30048FAB0 /* Planewaves.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F938B731A45B7E30048FAB0 /* Planewaves.cpp */; };
 		8F938BCC1A45B7E30048FAB0 /* Planewaves.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B741A45B7E30048FAB0 /* Planewaves.h */; };
@@ -134,8 +134,8 @@
 		8F938BD31A45B7E30048FAB0 /* Recomposer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F938B771A45B7E30048FAB0 /* Recomposer.cpp */; };
 		8F938BD41A45B7E30048FAB0 /* Recomposer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B781A45B7E30048FAB0 /* Recomposer.h */; };
 		8F938BD51A45B7E30048FAB0 /* Recomposer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B781A45B7E30048FAB0 /* Recomposer.h */; };
-		8F938BD81A45B7E30048FAB0 /* Rotate.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B7A1A45B7E30048FAB0 /* Rotate.h */; };
-		8F938BD91A45B7E30048FAB0 /* Rotate.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B7A1A45B7E30048FAB0 /* Rotate.h */; };
+		8F938BD81A45B7E30048FAB0 /* Rotate_2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B7A1A45B7E30048FAB0 /* Rotate_2D.h */; };
+		8F938BD91A45B7E30048FAB0 /* Rotate_2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B7A1A45B7E30048FAB0 /* Rotate_2D.h */; };
 		8F938BDA1A45B7E30048FAB0 /* Scope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F938B7B1A45B7E30048FAB0 /* Scope.cpp */; };
 		8F938BDB1A45B7E30048FAB0 /* Scope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F938B7B1A45B7E30048FAB0 /* Scope.cpp */; };
 		8F938BDC1A45B7E30048FAB0 /* Scope.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B7C1A45B7E30048FAB0 /* Scope.h */; };
@@ -144,18 +144,14 @@
 		8F938BDF1A45B7E30048FAB0 /* Vector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F938B7D1A45B7E30048FAB0 /* Vector.cpp */; };
 		8F938BE01A45B7E30048FAB0 /* Vector.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B7E1A45B7E30048FAB0 /* Vector.h */; };
 		8F938BE11A45B7E30048FAB0 /* Vector.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B7E1A45B7E30048FAB0 /* Vector.h */; };
-		8F938BE41A45B7E30048FAB0 /* Wider.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B801A45B7E30048FAB0 /* Wider.h */; };
-		8F938BE51A45B7E30048FAB0 /* Wider.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B801A45B7E30048FAB0 /* Wider.h */; };
-		8F938BE61A45B7E30048FAB0 /* Ambisonic_3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F938B821A45B7E30048FAB0 /* Ambisonic_3D.cpp */; };
-		8F938BE71A45B7E30048FAB0 /* Ambisonic_3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F938B821A45B7E30048FAB0 /* Ambisonic_3D.cpp */; };
+		8F938BE41A45B7E30048FAB0 /* Wider_2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B801A45B7E30048FAB0 /* Wider_2D.h */; };
+		8F938BE51A45B7E30048FAB0 /* Wider_2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B801A45B7E30048FAB0 /* Wider_2D.h */; };
 		8F938BE81A45B7E30048FAB0 /* Ambisonic_3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B831A45B7E30048FAB0 /* Ambisonic_3D.h */; };
 		8F938BE91A45B7E30048FAB0 /* Ambisonic_3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B831A45B7E30048FAB0 /* Ambisonic_3D.h */; };
 		8F938BEA1A45B7E30048FAB0 /* Decoder_3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F938B841A45B7E30048FAB0 /* Decoder_3D.cpp */; };
 		8F938BEB1A45B7E30048FAB0 /* Decoder_3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F938B841A45B7E30048FAB0 /* Decoder_3D.cpp */; };
 		8F938BEC1A45B7E30048FAB0 /* Decoder_3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B851A45B7E30048FAB0 /* Decoder_3D.h */; };
 		8F938BED1A45B7E30048FAB0 /* Decoder_3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B851A45B7E30048FAB0 /* Decoder_3D.h */; };
-		8F938BEE1A45B7E30048FAB0 /* Encoder_3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F938B861A45B7E30048FAB0 /* Encoder_3D.cpp */; };
-		8F938BEF1A45B7E30048FAB0 /* Encoder_3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F938B861A45B7E30048FAB0 /* Encoder_3D.cpp */; };
 		8F938BF01A45B7E30048FAB0 /* Encoder_3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B871A45B7E30048FAB0 /* Encoder_3D.h */; };
 		8F938BF11A45B7E30048FAB0 /* Encoder_3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B871A45B7E30048FAB0 /* Encoder_3D.h */; };
 		8F938BF21A45B7E30048FAB0 /* Hoa3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F938B881A45B7E30048FAB0 /* Hoa3D.h */; };
@@ -329,34 +325,32 @@
 		8F938B591A45B7B60048FAB0 /* epopup.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = epopup.c; path = ThirdParty/CicmWrapper/Sources/epopup/epopup.c; sourceTree = "<group>"; };
 		8F938B5A1A45B7B60048FAB0 /* epopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = epopup.h; path = ThirdParty/CicmWrapper/Sources/epopup/epopup.h; sourceTree = "<group>"; };
 		8F938B601A45B7E30048FAB0 /* Hoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hoa.h; sourceTree = "<group>"; };
-		8F938B631A45B7E30048FAB0 /* Ambisonic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ambisonic.h; sourceTree = "<group>"; };
+		8F938B631A45B7E30048FAB0 /* Ambisonic_2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ambisonic_2D.h; sourceTree = "<group>"; };
 		8F938B641A45B7E30048FAB0 /* ChannelManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChannelManager.cpp; sourceTree = "<group>"; };
 		8F938B651A45B7E30048FAB0 /* ChannelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelManager.h; sourceTree = "<group>"; };
 		8F938B661A45B7E30048FAB0 /* Decoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Decoder.cpp; sourceTree = "<group>"; };
-		8F938B671A45B7E30048FAB0 /* Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoder.h; sourceTree = "<group>"; };
-		8F938B691A45B7E30048FAB0 /* Encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Encoder.h; sourceTree = "<group>"; };
+		8F938B671A45B7E30048FAB0 /* Decoder_2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoder_2D.h; sourceTree = "<group>"; };
+		8F938B691A45B7E30048FAB0 /* Encoder_2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Encoder_2D.h; sourceTree = "<group>"; };
 		8F938B6A1A45B7E30048FAB0 /* Hoa2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hoa2D.h; sourceTree = "<group>"; };
-		8F938B6E1A45B7E30048FAB0 /* Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Map.h; sourceTree = "<group>"; };
+		8F938B6E1A45B7E30048FAB0 /* Map_2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Map_2D.h; sourceTree = "<group>"; };
 		8F938B6F1A45B7E30048FAB0 /* Meter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Meter.cpp; sourceTree = "<group>"; };
 		8F938B701A45B7E30048FAB0 /* Meter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meter.h; sourceTree = "<group>"; };
-		8F938B721A45B7E30048FAB0 /* Optim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Optim.h; sourceTree = "<group>"; };
+		8F938B721A45B7E30048FAB0 /* Optim_2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Optim_2D.h; sourceTree = "<group>"; };
 		8F938B731A45B7E30048FAB0 /* Planewaves.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Planewaves.cpp; sourceTree = "<group>"; };
 		8F938B741A45B7E30048FAB0 /* Planewaves.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Planewaves.h; sourceTree = "<group>"; };
 		8F938B751A45B7E30048FAB0 /* Projector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Projector.cpp; sourceTree = "<group>"; };
 		8F938B761A45B7E30048FAB0 /* Projector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Projector.h; sourceTree = "<group>"; };
 		8F938B771A45B7E30048FAB0 /* Recomposer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Recomposer.cpp; sourceTree = "<group>"; };
 		8F938B781A45B7E30048FAB0 /* Recomposer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recomposer.h; sourceTree = "<group>"; };
-		8F938B7A1A45B7E30048FAB0 /* Rotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rotate.h; sourceTree = "<group>"; };
+		8F938B7A1A45B7E30048FAB0 /* Rotate_2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rotate_2D.h; sourceTree = "<group>"; };
 		8F938B7B1A45B7E30048FAB0 /* Scope.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scope.cpp; sourceTree = "<group>"; };
 		8F938B7C1A45B7E30048FAB0 /* Scope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scope.h; sourceTree = "<group>"; };
 		8F938B7D1A45B7E30048FAB0 /* Vector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector.cpp; sourceTree = "<group>"; };
 		8F938B7E1A45B7E30048FAB0 /* Vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector.h; sourceTree = "<group>"; };
-		8F938B801A45B7E30048FAB0 /* Wider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wider.h; sourceTree = "<group>"; };
-		8F938B821A45B7E30048FAB0 /* Ambisonic_3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ambisonic_3D.cpp; sourceTree = "<group>"; };
+		8F938B801A45B7E30048FAB0 /* Wider_2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wider_2D.h; sourceTree = "<group>"; };
 		8F938B831A45B7E30048FAB0 /* Ambisonic_3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ambisonic_3D.h; sourceTree = "<group>"; };
 		8F938B841A45B7E30048FAB0 /* Decoder_3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Decoder_3D.cpp; sourceTree = "<group>"; };
 		8F938B851A45B7E30048FAB0 /* Decoder_3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoder_3D.h; sourceTree = "<group>"; };
-		8F938B861A45B7E30048FAB0 /* Encoder_3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Encoder_3D.cpp; sourceTree = "<group>"; };
 		8F938B871A45B7E30048FAB0 /* Encoder_3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Encoder_3D.h; sourceTree = "<group>"; };
 		8F938B881A45B7E30048FAB0 /* Hoa3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hoa3D.h; sourceTree = "<group>"; };
 		8F938B891A45B7E30048FAB0 /* Map_3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Map_3D.cpp; sourceTree = "<group>"; };
@@ -618,17 +612,17 @@
 		8F938B611A45B7E30048FAB0 /* Hoa2D */ = {
 			isa = PBXGroup;
 			children = (
-				8F938B631A45B7E30048FAB0 /* Ambisonic.h */,
-				8F938B691A45B7E30048FAB0 /* Encoder.h */,
-				8F938B7A1A45B7E30048FAB0 /* Rotate.h */,
-				8F938B801A45B7E30048FAB0 /* Wider.h */,
-				8F938B721A45B7E30048FAB0 /* Optim.h */,
-				8F938B6E1A45B7E30048FAB0 /* Map.h */,
+				8F938B6A1A45B7E30048FAB0 /* Hoa2D.h */,
+				8F938B631A45B7E30048FAB0 /* Ambisonic_2D.h */,
+				8F938B691A45B7E30048FAB0 /* Encoder_2D.h */,
+				8F938B801A45B7E30048FAB0 /* Wider_2D.h */,
+				8F938B6E1A45B7E30048FAB0 /* Map_2D.h */,
+				8F938B721A45B7E30048FAB0 /* Optim_2D.h */,
+				8F938B7A1A45B7E30048FAB0 /* Rotate_2D.h */,
+				8F938B661A45B7E30048FAB0 /* Decoder.cpp */,
+				8F938B671A45B7E30048FAB0 /* Decoder_2D.h */,
 				8F938B641A45B7E30048FAB0 /* ChannelManager.cpp */,
 				8F938B651A45B7E30048FAB0 /* ChannelManager.h */,
-				8F938B661A45B7E30048FAB0 /* Decoder.cpp */,
-				8F938B671A45B7E30048FAB0 /* Decoder.h */,
-				8F938B6A1A45B7E30048FAB0 /* Hoa2D.h */,
 				8F938B6F1A45B7E30048FAB0 /* Meter.cpp */,
 				8F938B701A45B7E30048FAB0 /* Meter.h */,
 				8F938B731A45B7E30048FAB0 /* Planewaves.cpp */,
@@ -648,13 +642,11 @@
 		8F938B811A45B7E30048FAB0 /* Hoa3D */ = {
 			isa = PBXGroup;
 			children = (
-				8F938B821A45B7E30048FAB0 /* Ambisonic_3D.cpp */,
+				8F938B881A45B7E30048FAB0 /* Hoa3D.h */,
 				8F938B831A45B7E30048FAB0 /* Ambisonic_3D.h */,
+				8F938B871A45B7E30048FAB0 /* Encoder_3D.h */,
 				8F938B841A45B7E30048FAB0 /* Decoder_3D.cpp */,
 				8F938B851A45B7E30048FAB0 /* Decoder_3D.h */,
-				8F938B861A45B7E30048FAB0 /* Encoder_3D.cpp */,
-				8F938B871A45B7E30048FAB0 /* Encoder_3D.h */,
-				8F938B881A45B7E30048FAB0 /* Hoa3D.h */,
 				8F938B891A45B7E30048FAB0 /* Map_3D.cpp */,
 				8F938B8A1A45B7E30048FAB0 /* Map_3D.h */,
 				8F938B8B1A45B7E30048FAB0 /* Meter_3D.cpp */,
@@ -720,20 +712,20 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F938BE41A45B7E30048FAB0 /* Wider.h in Headers */,
+				8F938BE41A45B7E30048FAB0 /* Wider_2D.h in Headers */,
 				8F938C121A45B7E30048FAB0 /* Wider_3D.h in Headers */,
 				8F938C061A45B7E30048FAB0 /* Rotate_3D.h in Headers */,
 				8F938C281A45B7E30048FAB0 /* HoaMath.h in Headers */,
 				8F938BFE1A45B7E30048FAB0 /* Optim_3D.h in Headers */,
-				8F938BB21A45B7E30048FAB0 /* Decoder.h in Headers */,
+				8F938BB21A45B7E30048FAB0 /* Decoder_2D.h in Headers */,
 				8F938C021A45B7E30048FAB0 /* Planewaves_3D.h in Headers */,
 				8F938BDC1A45B7E30048FAB0 /* Scope.h in Headers */,
 				8F938C241A45B7E30048FAB0 /* SourcesManager.h in Headers */,
-				8F938BAA1A45B7E30048FAB0 /* Ambisonic.h in Headers */,
+				8F938BAA1A45B7E30048FAB0 /* Ambisonic_2D.h in Headers */,
 				8F938B561A45B7A90048FAB0 /* eobj.h in Headers */,
-				8F938BB61A45B7E30048FAB0 /* Encoder.h in Headers */,
+				8F938BB61A45B7E30048FAB0 /* Encoder_2D.h in Headers */,
 				8F27E2BF19178943004E1370 /* Hoa2D.pd.h in Headers */,
-				8F938BC81A45B7E30048FAB0 /* Optim.h in Headers */,
+				8F938BC81A45B7E30048FAB0 /* Optim_2D.h in Headers */,
 				8F938C0A1A45B7E30048FAB0 /* Scope_3D.h in Headers */,
 				8F938CF31A45C3920048FAB0 /* ecommon.h in Headers */,
 				8F938CEF1A45C3920048FAB0 /* eboxflag.h in Headers */,
@@ -752,11 +744,11 @@
 				8F938AFE1A45B7490048FAB0 /* ebox.h in Headers */,
 				8F938BE81A45B7E30048FAB0 /* Ambisonic_3D.h in Headers */,
 				8F938C0E1A45B7E30048FAB0 /* Vector_3D.h in Headers */,
-				8F938BC01A45B7E30048FAB0 /* Map.h in Headers */,
+				8F938BC01A45B7E30048FAB0 /* Map_2D.h in Headers */,
 				8F938B141A45B7640048FAB0 /* eclass.h in Headers */,
 				8F938C261A45B7E30048FAB0 /* HoaDefs.h in Headers */,
 				8F938BAE1A45B7E30048FAB0 /* ChannelManager.h in Headers */,
-				8F938BD81A45B7E30048FAB0 /* Rotate.h in Headers */,
+				8F938BD81A45B7E30048FAB0 /* Rotate_2D.h in Headers */,
 				8F938C2A1A45B7E30048FAB0 /* HoaUtils.h in Headers */,
 				8F938BCC1A45B7E30048FAB0 /* Planewaves.h in Headers */,
 				8F938B5D1A45B7B60048FAB0 /* epopup.h in Headers */,
@@ -775,20 +767,20 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F938BE51A45B7E30048FAB0 /* Wider.h in Headers */,
+				8F938BE51A45B7E30048FAB0 /* Wider_2D.h in Headers */,
 				8F938C131A45B7E30048FAB0 /* Wider_3D.h in Headers */,
 				8F938C071A45B7E30048FAB0 /* Rotate_3D.h in Headers */,
 				8F938C291A45B7E30048FAB0 /* HoaMath.h in Headers */,
 				8F938BFF1A45B7E30048FAB0 /* Optim_3D.h in Headers */,
-				8F938BB31A45B7E30048FAB0 /* Decoder.h in Headers */,
+				8F938BB31A45B7E30048FAB0 /* Decoder_2D.h in Headers */,
 				8F938C031A45B7E30048FAB0 /* Planewaves_3D.h in Headers */,
 				8F938BDD1A45B7E30048FAB0 /* Scope.h in Headers */,
 				8F938C251A45B7E30048FAB0 /* SourcesManager.h in Headers */,
-				8F938BAB1A45B7E30048FAB0 /* Ambisonic.h in Headers */,
+				8F938BAB1A45B7E30048FAB0 /* Ambisonic_2D.h in Headers */,
 				8F938B571A45B7A90048FAB0 /* eobj.h in Headers */,
-				8F938BB71A45B7E30048FAB0 /* Encoder.h in Headers */,
+				8F938BB71A45B7E30048FAB0 /* Encoder_2D.h in Headers */,
 				8FAC0C63196985A400E09ACB /* Hoa2D.pd.h in Headers */,
-				8F938BC91A45B7E30048FAB0 /* Optim.h in Headers */,
+				8F938BC91A45B7E30048FAB0 /* Optim_2D.h in Headers */,
 				8F938C0B1A45B7E30048FAB0 /* Scope_3D.h in Headers */,
 				8F938CF41A45C3920048FAB0 /* ecommon.h in Headers */,
 				8F938BFB1A45B7E30048FAB0 /* Meter_3D.h in Headers */,
@@ -807,11 +799,11 @@
 				8F938AFF1A45B7490048FAB0 /* ebox.h in Headers */,
 				8F938BE91A45B7E30048FAB0 /* Ambisonic_3D.h in Headers */,
 				8F938C0F1A45B7E30048FAB0 /* Vector_3D.h in Headers */,
-				8F938BC11A45B7E30048FAB0 /* Map.h in Headers */,
+				8F938BC11A45B7E30048FAB0 /* Map_2D.h in Headers */,
 				8F938B151A45B7640048FAB0 /* eclass.h in Headers */,
 				8F938C271A45B7E30048FAB0 /* HoaDefs.h in Headers */,
 				8F938BAF1A45B7E30048FAB0 /* ChannelManager.h in Headers */,
-				8F938BD91A45B7E30048FAB0 /* Rotate.h in Headers */,
+				8F938BD91A45B7E30048FAB0 /* Rotate_2D.h in Headers */,
 				8F938C2B1A45B7E30048FAB0 /* HoaUtils.h in Headers */,
 				8F938BCD1A45B7E30048FAB0 /* Planewaves.h in Headers */,
 				8F938B5E1A45B7B60048FAB0 /* epopup.h in Headers */,
@@ -955,7 +947,6 @@
 				8F27E2B819178943004E1370 /* hoa.2d.optim_tilde.cpp in Sources */,
 				8F2DD89719252CDD00442B20 /* hoa.3d.map_tilde.cpp in Sources */,
 				8F938C101A45B7E30048FAB0 /* Wider_3D.cpp in Sources */,
-				8F938BEE1A45B7E30048FAB0 /* Encoder_3D.cpp in Sources */,
 				8F938AF61A45B7490048FAB0 /* ebox_draw.c in Sources */,
 				8F27E29B19178923004E1370 /* hoa.out.cpp in Sources */,
 				8F27E2B619178943004E1370 /* hoa.2d.map_tilde.cpp in Sources */,
@@ -967,7 +958,6 @@
 				8F938C1A1A45B7E30048FAB0 /* Source.cpp in Sources */,
 				8F27E2A019178923004E1370 /* hoa.thisprocess_tilde.cpp in Sources */,
 				8F938B3B1A45B7990048FAB0 /* egraphics_forms.c in Sources */,
-				8F938BE61A45B7E30048FAB0 /* Ambisonic_3D.cpp in Sources */,
 				8F938BDA1A45B7E30048FAB0 /* Scope.cpp in Sources */,
 				8F27E2B719178943004E1370 /* hoa.2d.meter_gui_tilde.cpp in Sources */,
 				8F938C221A45B7E30048FAB0 /* SourcesManager.cpp in Sources */,
@@ -1040,7 +1030,6 @@
 				8FAC0C3C196985A400E09ACB /* hoa.2d.optim_tilde.cpp in Sources */,
 				8FAC0C3D196985A400E09ACB /* hoa.3d.map_tilde.cpp in Sources */,
 				8F938C111A45B7E30048FAB0 /* Wider_3D.cpp in Sources */,
-				8F938BEF1A45B7E30048FAB0 /* Encoder_3D.cpp in Sources */,
 				8F938AF71A45B7490048FAB0 /* ebox_draw.c in Sources */,
 				8FAC0C3E196985A400E09ACB /* hoa.out.cpp in Sources */,
 				8FAC0C40196985A400E09ACB /* hoa.2d.map_tilde.cpp in Sources */,
@@ -1052,7 +1041,6 @@
 				8F938C1B1A45B7E30048FAB0 /* Source.cpp in Sources */,
 				8FAC0C51196985A400E09ACB /* hoa.thisprocess_tilde.cpp in Sources */,
 				8F938B3C1A45B7990048FAB0 /* egraphics_forms.c in Sources */,
-				8F938BE71A45B7E30048FAB0 /* Ambisonic_3D.cpp in Sources */,
 				8F938BDB1A45B7E30048FAB0 /* Scope.cpp in Sources */,
 				8FAC0C53196985A400E09ACB /* hoa.2d.meter_gui_tilde.cpp in Sources */,
 				8F938C231A45B7E30048FAB0 /* SourcesManager.cpp in Sources */,
@@ -1108,7 +1096,7 @@
 				EXECUTABLE_PREFIX = "";
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_PREPROCESSOR_DEFINITIONS = PD_DEBUG;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					"<Multiple",

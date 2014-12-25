@@ -134,8 +134,6 @@ t_eclass *hoa_process_class;
 
 void *hoa_process_new(t_symbol *s, long argc, t_atom *argv);
 void hoa_process_free(t_hoa_process *x);
-long hoa_process_get_number_of_inputs(t_hoa_process *x);
-long hoa_process_get_number_of_outputs(t_hoa_process *x);
 
 void hoa_process_dsp(t_hoa_process *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags);
 void hoa_process_perform(t_hoa_process *x, t_object *dsp, float **inps, long ni, float **outs, long no, long sf, long f,void *up);
@@ -185,9 +183,9 @@ void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
 	int	argument = 1;
     t_outlet *outlet;
 
-    if(argc < 2 || atom_gettype(argv) != A_LONG || atom_gettype(argv+1) != A_SYM)
+    if(argc < 3 || atom_gettype(argv) != A_LONG || atom_gettype(argv+1) != A_SYM || atom_gettype(argv+2) != A_SYM)
     {
-        error("%s needs at least 2 arguments, an integer and one symbol.", s->s_name);
+        error("%s needs at least 2 arguments, an integer and two symbol.", s->s_name);
         return NULL;
     }
 
@@ -199,37 +197,45 @@ void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
             argument = 1;
 
         x->f_target = -1;
-        if(argc > 2 && atom_gettype(argv+2) == A_SYM && atom_getsym(argv+2) == gensym("planewaves"))
+        if(s == gensym("hoa.2d.process~"))
         {
-            x->f_planewaves = new Hoa2D::Planewaves(argument);
-            x->f_ncanvas = x->f_planewaves->getNumberOfChannels();
-            if(s == gensym("hoa.3d.process~"))
-                x->f_mode = 3;
-            else
+            if(argc > 2 && atom_gettype(argv+2) == A_SYM && atom_getsym(argv+2) == gensym("planewaves"))
+            {
                 x->f_mode = 2;
-
-        }
-        else if(s == gensym("hoa.3d.process~"))
-        {
-            x->f_mode = 1;
-            x->f_ambi_3d = new Hoa3D::Ambisonic(argument);
-            x->f_ncanvas = x->f_ambi_3d->getNumberOfHarmonics();
+                x->f_planewaves = new Hoa2D::Planewaves(argument);
+                x->f_ncanvas = x->f_planewaves->getNumberOfChannels();
+            }
+            else
+            {
+                x->f_mode = 0;
+                x->f_ambi_2d = new Hoa2D::Ambisonic(argument);
+                x->f_ncanvas = x->f_ambi_2d->getNumberOfHarmonics();
+            }
         }
         else
         {
-            x->f_mode = 0;
-            x->f_ambi_2d = new Hoa2D::Ambisonic(argument);
-            x->f_ncanvas = x->f_ambi_2d->getNumberOfHarmonics();
+            if(argc > 2 && atom_gettype(argv+2) == A_SYM && atom_getsym(argv+2) == gensym("planewaves"))
+            {
+                x->f_mode = 3;
+                x->f_planewaves = new Hoa2D::Planewaves(argument);
+                x->f_ncanvas = x->f_planewaves->getNumberOfChannels();
+            }
+            else
+            {
+                x->f_mode = 1;
+                x->f_ambi_3d = new Hoa3D::Ambisonic(argument);
+                x->f_ncanvas = x->f_ambi_3d->getNumberOfHarmonics();
+            }
         }
-
+        
         hoa_process_load_canvas(x, atom_getsym(argv+1), argc - 3, argv + 3);
-
+        
         if(x->f_ncanvas == 0)
         {
             eobj_dspsetup(x, 1, 0);
             return x;
         }
-
+        
         x->f_have_inlets_instance = 0;
         x->f_max_inlets_extra = 0;
         x->f_have_outlets_instance = 0;
@@ -389,12 +395,17 @@ void hoa_process_free(t_hoa_process *x)
     delete [] x->f_outlets_extra_sig;
 
     if(x->f_mode > 1)
+    {
         delete x->f_planewaves;
+    }
     else if(x->f_mode == 1)
+    {
         delete x->f_ambi_3d;
+    }
     else
+    {
         delete x->f_ambi_2d;
-
+    }
 
     eobj_dspfree(x);
     canvas_resume_dsp(state);
@@ -511,11 +522,9 @@ void hoa_process_click(t_hoa_process *x)
 
 void hoa_process_open(t_hoa_process *x, t_symbol* s, int argc, t_atom* argv)
 {
-    int order, degree;
-    if(!argc || !argv)
-        return;
-
-    if(atom_gettype(argv) == A_SYM && atom_getsym(argv) == gensym("all"))
+    long order, degree, deco_order;
+    
+    if(argc && argv && atom_gettype(argv) == A_SYM && atom_getsym(argv) == gensym("all"))
     {
         for(int i = 0; i < x->f_ncanvas; i++)
         {
@@ -525,90 +534,113 @@ void hoa_process_open(t_hoa_process *x, t_symbol* s, int argc, t_atom* argv)
             }
         }
     }
+    else if(argc && argv && atom_gettype(argv) == A_FLOAT && x->f_mode == 0)
+    {
+        order = atom_getfloat(argv);
+        deco_order = x->f_ambi_2d->getDecompositionOrder();
+        if(order >= -deco_order && order <= deco_order)
+        {
+            canvas_vis(x->f_canvas[x->f_ambi_2d->getHarmonicIndex(order)], 1);
+        }
+        else
+        {
+            object_error(x, "hoa.process~ open order index must be between -%ld and %ld", deco_order , deco_order);
+        }
+    }
     else if(argc > 1 && argv && atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT && x->f_mode == 1)
     {
         degree = atom_getfloat(argv);
         order = atom_getfloat(argv+1);
-        if(degree < 0 || degree > x->f_ambi_3d->getDecompositionOrder())
+        deco_order = x->f_ambi_3d->getDecompositionOrder();
+        if(degree >= 0 && degree <= deco_order)
         {
-            object_error(x, "hoa.process~ open band index must be between 0 and %i", (int)x->f_ambi_3d->getDecompositionOrder());
-            return;
+            if(order >= -degree && order <= degree)
+            {
+                canvas_vis(x->f_canvas[x->f_ambi_3d->getHarmonicIndex(degree, order)], 1);
+            }
+            else
+            {
+                object_error(x, "hoa.process~ open order index must be between -%ld and %ld for the degree %ld", degree, degree, degree);
+            }
         }
-        if(order < (int)-degree || order > (int)degree)
+        else
         {
-            object_error(x, "hoa.process~ open argument index must be between %i and %i for the band %i", (int)-x->f_ambi_3d->getDecompositionOrder(), (int)x->f_ambi_3d->getDecompositionOrder(), (int)x->f_ambi_3d->getDecompositionOrder());
-            return;
+            object_error(x, "hoa.process~ open degree index must be between 0 and %ld", deco_order);
         }
-        canvas_vis(x->f_canvas[x->f_ambi_3d->getHarmonicIndex(degree, order)], 1);
     }
-    else if(atom_gettype(argv) == A_FLOAT && x->f_mode > 1)
+    else if(argc && argv && atom_gettype(argv) == A_FLOAT && x->f_mode > 1)
     {
-        order = atom_getfloat(argv);
-        if(order < 1 || order > (int)x->f_planewaves->getNumberOfChannels())
+        order       = atom_getfloat(argv);
+        deco_order  = x->f_planewaves->getNumberOfChannels();
+        if(order > 0 && order <= deco_order)
         {
-            object_error(x, "hoa.process~ open index must be between 1 and %i", (int)x->f_planewaves->getNumberOfChannels());
-            return;
+            canvas_vis(x->f_canvas[order-1], 1);
         }
-        canvas_vis(x->f_canvas[order-1], 1);
-    }
-    else if(atom_gettype(argv) == A_FLOAT && x->f_mode == 0)
-    {
-        order = atom_getfloat(argv);
-        if(order < (int)-x->f_ambi_2d->getDecompositionOrder() || order > (int)x->f_ambi_2d->getDecompositionOrder())
+        else
         {
-            object_error(x, "hoa.process~ open index must be between %i and %lu", (int)-x->f_ambi_2d->getDecompositionOrder(), x->f_ambi_2d->getDecompositionOrder());
-            return;
+            object_error(x, "hoa.process~ open index must be between 1 and %ld", deco_order);
         }
-        canvas_vis(x->f_canvas[x->f_ambi_2d->getHarmonicOrder(order)], 1);
     }
 }
 
 void hoa_process_target(t_hoa_process *x, t_symbol* s, int argc, t_atom* argv)
 {
-    int order, degree;
-    if(!argc || !argv)
-        return;
-
-    if(atom_gettype(argv) == A_SYM && atom_getsym(argv) == gensym("none"))
+    long order, degree, deco_order;
+    
+    if(argc && argv && atom_gettype(argv) == A_SYM && atom_getsym(argv) == gensym("none"))
+    {
         x->f_target = -2;
-    if(atom_gettype(argv) == A_SYM && atom_getsym(argv) == gensym("all"))
-        x->f_target = -1;
-    else if(argc > 1 && atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT && x->f_mode == 1)
-    {
-        degree = atom_getfloat(argv);
-        order = atom_getfloat(argv+1);
-        
-        if(degree < 0 || degree > x->f_ambi_3d->getDecompositionOrder())
-        {
-            object_error(x, "hoa.process~ target band index must be between 0 and %i", (int)x->f_ambi_3d->getDecompositionOrder());
-            return;
-        }
-        if(order < (int)-degree || order > (int)degree)
-        {
-            object_error(x, "hoa.process~ target argument index must be between %i and %i for the band %i", (int)-x->f_ambi_3d->getDecompositionOrder(), (int)x->f_ambi_3d->getDecompositionOrder(), (int)x->f_ambi_3d->getDecompositionOrder());
-            return;
-        }
-        x->f_target = x->f_ambi_3d->getHarmonicIndex(degree, order);
     }
-    else if(atom_gettype(argv) == A_FLOAT && x->f_mode > 1)
+    else if(argc && argv && atom_gettype(argv) == A_SYM && atom_getsym(argv) == gensym("all"))
     {
-        order = atom_getfloat(argv);
-        if(order < 1 || order > x->f_planewaves->getNumberOfChannels())
-        {
-            object_error(x, "hoa.process~ target index must be between 1 and %i", (int)x->f_planewaves->getNumberOfChannels());
-            return;
-        }
-        x->f_target = order - 1;
+        x->f_target = -1;
     }
     else if(atom_gettype(argv) == A_FLOAT && x->f_mode == 0)
     {
         order = atom_getfloat(argv);
-        if(order < (int)-x->f_ambi_2d->getDecompositionOrder() || order > (int)x->f_ambi_2d->getDecompositionOrder())
+        deco_order = x->f_ambi_2d->getDecompositionOrder();
+        if(order >= -deco_order && order <= deco_order)
         {
-            object_error(x, "hoa.process~ target index must be between %i and %lu", (int)-x->f_ambi_2d->getDecompositionOrder(), x->f_ambi_2d->getDecompositionOrder());
-            return;
+            x->f_target = x->f_ambi_2d->getHarmonicIndex(order);
         }
-        x->f_target = x->f_ambi_2d->getHarmonicOrder(order);
+        else
+        {
+            object_error(x, "hoa.process~ open order index must be between -%ld and %ld", deco_order , deco_order);
+        }
+    }
+    else if(argc > 1 && argv && atom_gettype(argv) == A_FLOAT && atom_gettype(argv+1) == A_FLOAT && x->f_mode == 1)
+    {
+        degree = atom_getfloat(argv);
+        order = atom_getfloat(argv+1);
+        deco_order = x->f_ambi_3d->getDecompositionOrder();
+        if(degree >= 0 && degree <= deco_order)
+        {
+            if(order >= -degree && order <= degree)
+            {
+                x->f_target = x->f_ambi_3d->getHarmonicIndex(degree, order);
+            }
+            else
+            {
+                object_error(x, "hoa.process~ open order index must be between -%ld and %ld for the degree %ld", degree, degree, degree);
+            }
+        }
+        else
+        {
+            object_error(x, "hoa.process~ open degree index must be between 0 and %ld", deco_order);
+        }
+    }
+    else if(atom_gettype(argv) == A_FLOAT && x->f_mode > 1)
+    {
+        order       = atom_getfloat(argv);
+        deco_order  = x->f_planewaves->getNumberOfChannels();
+        if(order > 0 && order <= deco_order)
+        {
+             x->f_target = order - 1;
+        }
+        else
+        {
+            object_error(x, "hoa.process~ open index must be between 1 and %ld", deco_order);
+        }
     }
 }
 
@@ -836,23 +868,29 @@ void hoa_process_anything(t_hoa_process *x, t_symbol* s, int argc, t_atom* argv)
     }
 }
 
-void hoa_process_get_thisprocess(t_hoa_process *x, int index, long argc, t_atom* argv)
+void hoa_process_get_thisprocess(t_hoa_process *x, t_canvas* canvas, int index, long argc, t_atom* argv)
 {
     int i, offset;
     t_gobj *y;
     t_hoa_thisprocess *tp;
-    for(y = x->f_canvas[index]->gl_list; y; y = y->g_next)
+    t_canvas* subcanvas;
+    for(y = canvas->gl_list; y; y = y->g_next)
     {
-        if(eobj_getclassname(y) == gensym("hoa.thisprocess~"))
+        if(eobj_getclassname(y) == gensym("canvas"))
+        {
+            subcanvas = (t_canvas *)y;
+            hoa_process_get_thisprocess(x, subcanvas, index, argc, argv);
+        }
+        else if(eobj_getclassname(y) == gensym("hoa.thisprocess~"))
         {
             tp = (t_hoa_thisprocess *)y;
-
             if(x->f_mode == 3)
             {
                 atom_setsym(tp->f_hoa_mode, gensym("3d"));
                 atom_setsym(tp->f_hoa_mode+1, gensym("planewaves"));
                 atom_setfloat(tp->f_hoa_args, x->f_planewaves->getNumberOfChannels());
                 atom_setfloat(tp->f_hoa_args+1, index+1);
+                atom_setfloat(tp->f_hoa_args+2, index+1);
             }
             else if(x->f_mode == 2)
             {
@@ -860,6 +898,7 @@ void hoa_process_get_thisprocess(t_hoa_process *x, int index, long argc, t_atom*
                 atom_setsym(tp->f_hoa_mode+1, gensym("planewaves"));
                 atom_setfloat(tp->f_hoa_args, x->f_planewaves->getNumberOfChannels());
                 atom_setfloat(tp->f_hoa_args+1, index+1);
+                atom_setfloat(tp->f_hoa_args+2, index+1);
             }
             else if(x->f_mode == 1)
             {
@@ -874,7 +913,8 @@ void hoa_process_get_thisprocess(t_hoa_process *x, int index, long argc, t_atom*
                 atom_setsym(tp->f_hoa_mode, gensym("2d"));
                 atom_setsym(tp->f_hoa_mode+1, gensym("harmonics"));
                 atom_setfloat(tp->f_hoa_args, x->f_ambi_2d->getDecompositionOrder());
-                atom_setfloat(tp->f_hoa_args+1, x->f_ambi_2d->getHarmonicOrder(index));
+                atom_setfloat(tp->f_hoa_args+1, x->f_ambi_2d->getHarmonicDegree(index));
+                atom_setfloat(tp->f_hoa_args+2, x->f_ambi_2d->getHarmonicOrder(index));
             }
 
             if(tp->f_argc < atoms_get_attributes_offset(argc, argv))
@@ -900,7 +940,6 @@ void hoa_process_get_thisprocess(t_hoa_process *x, int index, long argc, t_atom*
                 }
             }
             tp->f_nit = 1;
-
         }
     }
 }
@@ -1038,7 +1077,7 @@ static void canvas_removefromlist(t_canvas *x)
 void hoa_process_load_canvas(t_hoa_process *x, t_symbol *s, long argc, t_atom* argv)
 {
     int fd;
-    t_atom av[2];
+    t_atom av[5];
     char dirbuf[MAXPDSTRING], *nameptr;
     int ncnv;
     int state = canvas_suspend_dsp();
@@ -1085,28 +1124,45 @@ void hoa_process_load_canvas(t_hoa_process *x, t_symbol *s, long argc, t_atom* a
 
     if(fd >= 0)
     {
-
         // Allocation of each canvas
         for(int i = 0; i < ncnv; i++)
         {
             x->f_canvas[i] = NULL;
-            if(x->f_mode > 1)
+            if(x->f_mode == 3)
             {
-                atom_setfloat(av, i+1);
-                canvas_setargs(1, av);
+                atom_setsym(av, gensym("3d"));
+                atom_setsym(av+1, gensym("planewaves"));
+                atom_setfloat(av+2, x->f_planewaves->getNumberOfChannels());
+                atom_setfloat(av+3, i+1);
+                canvas_setargs(4, av);
+            }
+            else if(x->f_mode == 2)
+            {
+                atom_setsym(av, gensym("2d"));
+                atom_setsym(av+1, gensym("planewaves"));
+                atom_setfloat(av+2, x->f_planewaves->getNumberOfChannels());
+                atom_setfloat(av+3, i+1);
+                canvas_setargs(4, av);
             }
             else if(x->f_mode == 1)
             {
-                atom_setfloat(av, x->f_ambi_3d->getHarmonicDegree(i));
-                atom_setfloat(av+1, x->f_ambi_3d->getHarmonicOrder(i));
-                canvas_setargs(2, av);
+                atom_setsym(av, gensym("3d"));
+                atom_setsym(av+1, gensym("harmonics"));
+                atom_setfloat(av+2, x->f_ambi_3d->getDecompositionOrder());
+                atom_setfloat(av+3, x->f_ambi_3d->getHarmonicDegree(i));
+                atom_setfloat(av+4, x->f_ambi_3d->getHarmonicOrder(i));
+                canvas_setargs(5, av);
             }
             else
             {
-                atom_setfloat(av, x->f_ambi_2d->getHarmonicOrder(i));
-                canvas_setargs(1, av);
+                atom_setsym(av, gensym("2d"));
+                atom_setsym(av+1, gensym("harmonics"));
+                atom_setfloat(av+2, x->f_ambi_2d->getDecompositionOrder());
+                atom_setfloat(av+3, x->f_ambi_2d->getHarmonicDegree(i));
+                atom_setfloat(av+4, x->f_ambi_2d->getHarmonicOrder(i));
+                canvas_setargs(5, av);
             }
-
+            
             // Load the canvas
             t_pd *boundx = s__X.s_thing;
             s__X.s_thing = 0;
@@ -1122,7 +1178,7 @@ void hoa_process_load_canvas(t_hoa_process *x, t_symbol *s, long argc, t_atom* a
             // If the canvas is loaded
             if(x->f_canvas[i])
             {
-                hoa_process_get_thisprocess(x, i, argc, argv);
+                hoa_process_get_thisprocess(x, x->f_canvas[i], i, argc, argv);
 
                 x->f_canvas[i]->gl_owner = eobj_getcanvas(x);   // Set the owner of the canvas
                 canvas_removefromlist(x->f_canvas[i]);          // Remove canvas from top level

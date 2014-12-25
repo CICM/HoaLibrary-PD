@@ -1,25 +1,25 @@
 #N canvas 327 79 753 709 10;
-#X text -342 -182 Mousewheel and alt to change the zoom.;
-#X obj -669 -351 hoa.map @size 225 225 @fontname Helvetica @fontweight
+#X text 368 598 Mousewheel and alt to change the zoom.;
+#X obj 41 429 hoa.map @size 225 225 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 hoamapexample @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7 1 @view
 xy @outputmode polar @zoom 0.4 @mapname (null);
-#X obj -669 -375 c.loadmess;
-#X msg -168 44 \; pd dsp 1;
-#X msg -168 79 \; pd dsp 0;
-#X obj -120 -454 hoa.connect;
-#X obj -120 -479 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 41 405 c.loadmess;
+#X msg 542 824 \; pd dsp 1;
+#X msg 542 859 \; pd dsp 0;
+#X obj 590 326 hoa.connect;
+#X obj 590 301 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj -649 -120 c.loadmess 1;
-#X text -343 -325 To create source \, right-click or click with cmd
-on a "free" zone then select "Add source" in the popup menu. To remove
+#X obj 61 660 c.loadmess 1;
+#X text 367 455 To create source \, right-click or click with cmd on
+a "free" zone then select "Add source" in the popup menu. To remove
 source \, idem and select "Remove source".;
-#X text -342 -271 To create group \, drag select a set of sources \,
+#X text 368 509 To create group \, drag select a set of sources \,
 when mouse up the group will be created. To remove group \, right-click
 or click with cmd on group then select "Remove group".;
-#X text -344 -220 To mute source or group \, right-click or click with
+#X text 366 560 To mute source or group \, right-click or click with
 cmd on it and select "Mute" or "Unmute".;
-#X obj -649 -65 hoa.2d.map~ 3 4 -------------------------;
+#X obj 61 715 hoa.2d.map~ 3 4 -------------------------;
 #N canvas 284 119 577 458 hoa.rhythm 0;
 #X msg 231 -105 0;
 #X obj 158 21 *~ 0;
@@ -132,8 +132,8 @@ cmd on it and select "Mute" or "Unmute".;
 #X connect 41 0 1 1;
 #X connect 42 0 18 1;
 #X connect 47 0 34 0;
-#X restore -649 -97 pd hoa.rhythm ---------------------------;
-#X obj -649 -30 hoa.2d.optim~ 3 inPhase -----------------;
+#X restore 61 683 pd hoa.rhythm ---------------------------;
+#X obj 61 750 hoa.2d.optim~ 3 inPhase -----------------;
 #N canvas 216 150 1155 646 messages 0;
 #X msg -532 -122 zoom \$1;
 #X text -545 -173 Set the zoom;
@@ -241,7 +241,7 @@ the abscissa \, the ordinate and the height. Exemple : "source 0 car
 #X connect 40 0 2 0;
 #X connect 41 0 2 0;
 #X connect 43 0 36 0;
-#X restore -250 -137 pd messages;
+#X restore 460 643 pd messages;
 #N canvas 386 120 804 672 outputs 0;
 #X obj -504 -5 send map_outs_sources;
 #X obj -395 -32 send map_outs_groups;
@@ -341,8 +341,8 @@ normal @fontslant roman @fontsize 10 @receive (null) @send (null) @bgcolor
 #X connect 37 1 35 0;
 #X connect 39 0 40 0;
 #X connect 40 0 38 0;
-#X restore -99 -135 pd outputs;
-#X obj -302 69 c.preset @size 102 41 @fontname Helvetica @fontweight
+#X restore 611 645 pd outputs;
+#X obj 408 849 c.preset @size 102 41 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @emcolor
 0.85 0.85 0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15 0.15 1 @preset
@@ -391,16 +391,16 @@ source 0 1.28105 0.96732 0 0 0.2 0.2 0.2 1 Click source 1 1.54248 -1.38562
 0 0 0.2 0.2 0.2 1 Crack source 2 -1.43791 0.96732 0 0 0.2 0.2 0.2 1
 Boom source 3 -1.43791 -1.22876 0 0 0.2 0.2 0.2 1 Flam group 0 4 0
 1 2 3 0.2 0.2 0.2 1 (null) ];
-#X msg -302 44 inter \$1;
-#X obj -302 16 c.number @size 53 17 @fontname Helvetica @fontweight
+#X msg 408 824 inter \$1;
+#X obj 408 796 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 1 @max (null) @minmax 1 (null) @decimal 6 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj -173 -47 c.toggle @size 15 15 @fontname Helvetica @fontweight
+#X obj 537 733 c.toggle @size 15 15 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5
 0.5 0.5 1;
-#X obj -238 -47 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 472 733 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 1 @max (null) @minmax 1 (null) @decimal 6 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
@@ -438,22 +438,22 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X connect 13 0 14 0;
 #X connect 13 1 3 0;
 #X connect 14 0 0 0;
-#X restore -302 -16 pd preset_player _____;
-#X text -307 -74 Play;
-#X text -235 -74 Duration;
-#X text -178 -74 Loop;
-#X text -253 -153 Control with messages;
-#X text -101 -154 Output informations;
-#X obj -238 -98 c.loadmess 10000;
-#X obj -302 -47 c.toggle @size 15 15 @fontname Helvetica @fontweight
+#X restore 408 764 pd preset_player _____;
+#X text 403 706 Play;
+#X text 475 706 Duration;
+#X text 532 706 Loop;
+#X text 457 627 Control with messages;
+#X text 609 626 Output informations;
+#X obj 472 682 c.loadmess 10000;
+#X obj 408 733 c.toggle @size 15 15 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5
 0.5 0.5 1;
-#X obj -690 -475 c.patcherinfos;
-#X obj -685 -492 loadbang;
-#X obj -700 -492 hoa.help.header;
-#X obj -554 153 hoa.help.pub;
-#X obj -284 -492 hoa.help.also;
+#X obj 20 305 c.patcherinfos;
+#X obj 25 288 loadbang;
+#X obj 10 288 hoa.help.header;
+#X obj 156 933 hoa.help.pub;
+#X obj 426 288 hoa.help.also;
 #N canvas 125 76 891 554 3D 0;
 #X obj -637 30 hoa.map @size 225 225 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
@@ -548,19 +548,19 @@ of view and interact differently with sources and groups.;
 #X connect 39 0 36 0;
 #X connect 40 0 41 0;
 #X connect 42 0 40 0;
-#X restore -335 -137 pd 3D;
-#X obj -649 95 hoa.dac~ 1 2 -----------------------------------;
-#X obj -649 15 hoa.process~ 3 hoa.fx.freeverb~ harmonics ------;
-#X text -344 -397 To move source or group \, click on it and drag it.
+#X restore 375 643 pd 3D;
+#X obj 61 875 hoa.dac~ 1 2 -----------------------------------;
+#X text 366 383 To move source or group \, click on it and drag it.
 Click and drag with alt to change the radius. Click and drag with shift
 to change the angle. CLick and drag with ctrl to change the abscissa.
 Click and drag with ctrl and shift to change the ordinate.;
-#X text -699 -448 hoa.map allows you to spatialize several sources
-on a plane to control hoa.2d.map~ or hoa.3d.map. You can add and remove
+#X text 11 332 hoa.map allows you to spatialize several sources on
+a plane to control hoa.2d.map~ or hoa.3d.map. You can add and remove
 sources \, change coordinates \, add description and create groups.
 , f 90;
-#X text -338 -153 3D Multimap;
-#X obj -649 59 hoa.decoder~ 3 binaural ------------------------;
+#X text 372 627 3D Multimap;
+#X obj 61 839 hoa.decoder~ 3 binaural ------------------------;
+#X obj 61 795 hoa.2d.process~ 3 hoa.fx.freeverb~ harmonics, f 48;
 #X connect 1 0 11 0;
 #X connect 2 0 1 0;
 #X connect 6 0 5 0;
@@ -576,13 +576,13 @@ sources \, change coordinates \, add description and create groups.
 #X connect 12 1 11 1;
 #X connect 12 2 11 2;
 #X connect 12 3 11 3;
-#X connect 13 0 36 0;
-#X connect 13 1 36 1;
-#X connect 13 2 36 2;
-#X connect 13 3 36 3;
-#X connect 13 4 36 4;
-#X connect 13 5 36 5;
-#X connect 13 6 36 6;
+#X connect 13 0 40 0;
+#X connect 13 1 40 1;
+#X connect 13 2 40 2;
+#X connect 13 3 40 3;
+#X connect 13 4 40 4;
+#X connect 13 5 40 5;
+#X connect 13 6 40 6;
 #X connect 17 0 16 0;
 #X connect 18 0 17 0;
 #X connect 19 0 21 2;
@@ -592,13 +592,13 @@ sources \, change coordinates \, add description and create groups.
 #X connect 28 0 21 0;
 #X connect 29 0 31 0;
 #X connect 30 0 29 0;
-#X connect 36 0 40 0;
-#X connect 36 1 40 1;
-#X connect 36 2 40 2;
-#X connect 36 3 40 3;
-#X connect 36 4 40 4;
-#X connect 36 5 40 5;
-#X connect 36 6 40 6;
-#X connect 40 0 35 0;
-#X connect 40 1 35 1;
+#X connect 39 0 35 0;
+#X connect 39 1 35 1;
+#X connect 40 0 39 0;
+#X connect 40 1 39 1;
+#X connect 40 2 39 2;
+#X connect 40 3 39 3;
+#X connect 40 4 39 4;
+#X connect 40 5 39 5;
+#X connect 40 6 39 6;
 #X coords 0 709 1 708 85 60 0;
