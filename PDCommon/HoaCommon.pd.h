@@ -8,25 +8,22 @@
 #define DEF_HOA_COMMON_PD
 
 
-#include "../hoa.pd.h"
-#include "../ThirdParty/HoaLibrary/Sources/Hoa2D/Hoa2D.h"
-#include "../ThirdParty/HoaLibrary/Sources/Hoa3D/Hoa3D.h"
 #include "../ThirdParty/HoaLibrary/Sources/HoaCommon/HoaCommon.h"
+#include "../hoa.pd.h"
 
-using namespace Hoa2D;
 using namespace HoaCommon;
 
 extern "C" void setup_hoa0x2econnect(void);
-//extern "C" void setup_hoa0x2econverter_tilde(void);
 extern "C" void setup_hoa0x2edac_tilde(void);
+extern "C" void setup_hoa0x2epi(void);
+extern "C" void setup_hoa0x2epi_tilde(void);
 extern "C" void setup_hoa0x2ein(void);
 extern "C" void setup_hoa0x2ein_tilde(void);
 extern "C" void setup_hoa0x2eout(void);
 extern "C" void setup_hoa0x2eout_tilde(void);
-extern "C" void setup_hoa0x2epi(void);
-extern "C" void setup_hoa0x2epi_tilde(void);
-extern "C" void setup_hoa0x2eprocess_tilde(void);
+//extern "C" void setup_hoa0x2eprocess_tilde(void);
 extern "C" void setup_hoa0x2ethisprocess_tilde(void);
-extern "C" void setup_hoa0x2emap(void);
+//extern "C" void setup_hoa0x2emap(void);
+
 
 #endif

@@ -8,10 +8,10 @@
 
 typedef struct _hoa_optim
 {
-    t_edspobj         f_ob;
-    t_float*          f_ins;
-    t_float*          f_outs;
-    Hoa2D::Optim*     f_optim;
+    t_edspobj       f_ob;
+    t_float*        f_ins;
+    t_float*        f_outs;
+    Optim<float>*   f_optim;
 } t_hoa_optim;
 
 void *hoa_optim_new(t_symbol *s, long argc, t_atom *argv);
@@ -57,20 +57,20 @@ void hoa_optim_deprecated(t_hoa_optim* x, t_symbol *s, long ac, t_atom* av)
         if(atom_gettype(av) == A_SYM)
         {
             if(atom_getsym(av) == gensym("maxRe"))
-                x->f_optim->setMode(Hoa2D::Optim::MaxRe);
+                x->f_optim->setMode(Hoa::MaxRe);
             else if(atom_getsym(av) == gensym("basic"))
-                x->f_optim->setMode(Hoa2D::Optim::Basic);
+                x->f_optim->setMode(Hoa::Basic);
             else
-                x->f_optim->setMode(Hoa2D::Optim::InPhase);
+                x->f_optim->setMode(Hoa::InPhase);
         }
         else
         {
             if(atom_getlong(av) == 1)
-                x->f_optim->setMode(Hoa2D::Optim::MaxRe);
+                x->f_optim->setMode(Hoa::MaxRe);
             else if(atom_getlong(av) == 0)
-                x->f_optim->setMode(Hoa2D::Optim::Basic);
+                x->f_optim->setMode(Hoa::Basic);
             else
-                x->f_optim->setMode(Hoa2D::Optim::InPhase);
+                x->f_optim->setMode(Hoa::InPhase);
         }
         object_error(x, "%s attribute @mode is deprecated, please use it as an argument.", eobj_getclassname(x)->s_name);
     }
@@ -80,20 +80,20 @@ void hoa_optim_deprecated(t_hoa_optim* x, t_symbol *s, long ac, t_atom* av)
         if(atom_gettype(argv) == A_SYM)
         {
             if(atom_getsym(argv) == gensym("maxRe"))
-                x->f_optim->setMode(Hoa2D::Optim::MaxRe);
+                x->f_optim->setMode(Hoa::MaxRe);
             else if(atom_getsym(argv) == gensym("basic"))
-                x->f_optim->setMode(Hoa2D::Optim::Basic);
+                x->f_optim->setMode(Hoa::Basic);
             else
-                x->f_optim->setMode(Hoa2D::Optim::InPhase);
+                x->f_optim->setMode(Hoa::InPhase);
         }
         else
         {
             if(atom_getlong(argv) == 1)
-                x->f_optim->setMode(Hoa2D::Optim::MaxRe);
+                x->f_optim->setMode(Hoa::MaxRe);
             else if(atom_getlong(argv) == 0)
-                x->f_optim->setMode(Hoa2D::Optim::Basic);
+                x->f_optim->setMode(Hoa::Basic);
             else
-                x->f_optim->setMode(Hoa2D::Optim::InPhase);
+                x->f_optim->setMode(Hoa::InPhase);
         }
         object_error(x, "%s attribute @mode is deprecated, please use it as an argument.", eobj_getclassname(x)->s_name);
         argc = 0;free(argv);argv = NULL;
@@ -117,22 +117,22 @@ void *hoa_optim_new(t_symbol *s, long argc, t_atom *argv)
         if(order < 1)
             order = 1;
         
-        x->f_optim = new Hoa2D::Optim(order, Hoa2D::Optim::InPhase);
+        x->f_optim = new Optim<float>(order, Hoa::InPhase);
 		
         if(argc > 1 && atom_gettype(argv+1) == A_SYM)
         {
             if(atom_getsym(argv+1) == gensym("maxRe"))
-                x->f_optim->setMode(Hoa2D::Optim::MaxRe);
+                x->f_optim->setMode(Hoa::MaxRe);
             else if(atom_getsym(argv+1) == gensym("basic"))
-                x->f_optim->setMode(Hoa2D::Optim::Basic);
+                x->f_optim->setMode(Hoa::Basic);
         }
         
         hoa_optim_deprecated(x, NULL, argc, argv);
         
 		eobj_dspsetup(x, x->f_optim->getNumberOfHarmonics(), x->f_optim->getNumberOfHarmonics());
         
-        x->f_ins = new t_float[x->f_optim->getNumberOfHarmonics() * SYS_MAXBLKSIZE];
-        x->f_outs = new t_float[x->f_optim->getNumberOfHarmonics() * SYS_MAXBLKSIZE];
+        x->f_ins = new t_float[x->f_optim->getNumberOfHarmonics() * HOA_MAX_BLOCKSIZE];
+        x->f_outs = new t_float[x->f_optim->getNumberOfHarmonics() * HOA_MAX_BLOCKSIZE];
 	}
     
     ebox_attrprocess_viabinbuf(x, d);
@@ -178,20 +178,20 @@ void hoa_optim_assist(t_hoa_optim *x, void *b, long m, long a, char *s)
 
 void hoa_optim_basic(t_hoa_optim *x)
 {
-    if(x->f_optim->getMode() != Hoa2D::Optim::Basic)
-        x->f_optim->setMode(Hoa2D::Optim::Basic);
+    if(x->f_optim->getMode() != Hoa::Basic)
+        x->f_optim->setMode(Hoa::Basic);
 }
 
 void hoa_optim_maxre(t_hoa_optim *x)
 {
-    if(x->f_optim->getMode() != Hoa2D::Optim::MaxRe)
-        x->f_optim->setMode(Hoa2D::Optim::MaxRe);
+    if(x->f_optim->getMode() != Hoa::MaxRe)
+        x->f_optim->setMode(Hoa::MaxRe);
 }
 
 void hoa_optim_inphase(t_hoa_optim *x)
 {
-    if(x->f_optim->getMode() != Hoa2D::Optim::InPhase)
-        x->f_optim->setMode(Hoa2D::Optim::InPhase);
+    if(x->f_optim->getMode() != Hoa::InPhase)
+        x->f_optim->setMode(Hoa::InPhase);
 }
 
 void hoa_optim_free(t_hoa_optim *x)

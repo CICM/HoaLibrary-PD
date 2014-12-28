@@ -61,7 +61,7 @@ typedef struct _hoa_map_tilde
 	int                 f_mode;
     double              f_ramp;
     
-    Hoa2D::Map<float>*  f_map;
+    Map<float>*         f_map;
     MapPolarLines*  f_lines;
 } t_hoa_map_tilde;
 
@@ -167,7 +167,7 @@ void *hoa_map_tilde_new(t_symbol *s, long argc, t_atom *argv)
 		if(atom_gettype(argv) == A_LONG)
 			order = max(atom_getlong(argv), (long)0);
         if(argc > 1 && atom_gettype(argv+1) == A_LONG)
-            numberOfSources = clip(atom_getlong(argv+1), 1, 255);
+            numberOfSources = clip(atom_getlong(argv+1), (long)1, (long)255);
         if(argc > 2 && atom_gettype(argv+2) == A_SYM)
         {
             if(atom_getsym(argv+2) == gensym("car") || atom_getsym(argv+2) == gensym("cartesian"))
@@ -181,7 +181,7 @@ void *hoa_map_tilde_new(t_symbol *s, long argc, t_atom *argv)
         hoa_map_tilde_deprecated(x, NULL, argc, argv);
         
         x->f_ramp       = 100;
-		x->f_map        = new Hoa2D::Map<float>(order, numberOfSources);
+		x->f_map        = new Map<float>(order, numberOfSources);
 		x->f_lines      = new MapPolarLines(x->f_map->getNumberOfSources());
         x->f_lines->setRamp(0.1 * sys_getsr());
         for (int i = 0; i < x->f_map->getNumberOfSources(); i++)
@@ -196,11 +196,11 @@ void *hoa_map_tilde_new(t_symbol *s, long argc, t_atom *argv)
             eobj_dspsetup(x, x->f_map->getNumberOfSources(), x->f_map->getNumberOfHarmonics());
         
         if(x->f_map->getNumberOfSources() == 1)
-            x->f_sig_ins    = new t_float[3 * SYS_MAXBLKSIZE];
+            x->f_sig_ins    = new t_float[3 * HOA_MAX_BLOCKSIZE];
         else
-            x->f_sig_ins    = new t_float[x->f_map->getNumberOfSources() * SYS_MAXBLKSIZE];
+            x->f_sig_ins    = new t_float[x->f_map->getNumberOfSources() * HOA_MAX_BLOCKSIZE];
 		
-        x->f_sig_outs       = new t_float[x->f_map->getNumberOfHarmonics() * SYS_MAXBLKSIZE];
+        x->f_sig_outs       = new t_float[x->f_map->getNumberOfHarmonics() * HOA_MAX_BLOCKSIZE];
         x->f_lines_vector   = new float[x->f_map->getNumberOfSources() * 2];
 
         ebox_attrprocess_viabinbuf(x, d);

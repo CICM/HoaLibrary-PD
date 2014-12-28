@@ -7,22 +7,24 @@
 #ifndef DEF_HOA_2D_PD
 #define DEF_HOA_2D_PD
 
-
+#include "../ThirdParty/HoaLibrary/Sources/Hoa2D/Hoa2D.hpp"
 #include "../hoa.pd.h"
-#include "../ThirdParty/HoaLibrary/Sources/Hoa2D/Hoa2D.h"
 
-using namespace Hoa2D;
+using namespace hoa;
 
-extern "C" void setup_hoa0x2e2d0x2ewider_tilde(void);
-extern "C" void setup_hoa0x2e2d0x2escope_tilde(void);
-extern "C" void setup_hoa0x2e2d0x2espace(void);
-extern "C" void setup_hoa0x2e2d0x2erotate_tilde(void);
-extern "C" void setup_hoa0x2e2d0x2erecomposer_tilde(void);
-extern "C" void setup_hoa0x2e2d0x2eprojector_tilde(void);
-extern "C" void setup_hoa0x2e2d0x2eoptim_tilde(void);
-extern "C" void setup_hoa0x2e2d0x2emeter_tilde(void);
-extern "C" void setup_hoa0x2e2d0x2emap_tilde(void);
 extern "C" void setup_hoa0x2e2d0x2eencoder_tilde(void);
-extern "C" void setup_hoa0x2e2d0x2edecoder_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2ewider_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2emap_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2eoptim_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2erotate_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2escope_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2eprojector_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2erecomposer_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2espace(void);
+extern "C" void setup_hoa0x2e2d0x2emeter_tilde(void);
 
+/*
+
+extern "C" void setup_hoa0x2e2d0x2edecoder_tilde(void);
+*/
 #endif

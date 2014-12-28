@@ -11,7 +11,7 @@ typedef struct _hoa_rotate
     t_edspobj       f_ob;
     t_float*        f_ins;
     t_float*        f_outs;
-    Hoa2D::Rotate*  f_rotate;
+    Rotate<float>*  f_rotate;
 } t_hoa_rotate;
 
 void *hoa_rotate_new(t_symbol *s, long argc, t_atom *argv);
@@ -55,12 +55,12 @@ void *hoa_rotate_new(t_symbol *s, long argc, t_atom *argv)
 		if (order < 1)
 			order = 1;
 		
-		x->f_rotate = new Hoa2D::Rotate(order);
+		x->f_rotate = new Rotate<float>(order);
 		
 		eobj_dspsetup(x, x->f_rotate->getNumberOfHarmonics() + 1, x->f_rotate->getNumberOfHarmonics());
         
-		x->f_ins = new t_float[x->f_rotate->getNumberOfHarmonics() * SYS_MAXBLKSIZE];
-        x->f_outs = new t_float[x->f_rotate->getNumberOfHarmonics() * SYS_MAXBLKSIZE];
+		x->f_ins = new t_float[x->f_rotate->getNumberOfHarmonics() * HOA_MAX_BLOCKSIZE];
+        x->f_outs = new t_float[x->f_rotate->getNumberOfHarmonics() * HOA_MAX_BLOCKSIZE];
 	}
     
 	return (x);

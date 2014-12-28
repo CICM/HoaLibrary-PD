@@ -85,9 +85,10 @@ typedef struct _hoa_process
     t_edspobj           f_obj;
     int                 f_mode;
 
-    Hoa2D::Ambisonic*   f_ambi_2d;
-    Hoa3D::Ambisonic*   f_ambi_3d;
-    Hoa2D::Planewaves*  f_planewaves;
+    unique_ptr<Hoa>     f_hoa;
+    //Hoa2D::Ambisonic*   f_ambi_2d;
+    //Hoa3D::Ambisonic*   f_ambi_3d;
+    //Hoa2D::Planewaves*  f_planewaves;
 
     long                f_target;
 

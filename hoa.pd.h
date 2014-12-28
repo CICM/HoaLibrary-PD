@@ -13,10 +13,14 @@ extern "C"
 #include "hoa.pd_commonsyms.h"
 }
 
-#define MAX_CHANNELS 256
-#define SYS_MAXBLKSIZE 8192
+#define HOA_MAX_CHANNELS 256
+#define HOA_MAX_BLOCKSIZE 8192
 #define HOA_UI_BORDERTHICKNESS 1
 #define HOA_UI_CORNERSIZE 8
+#define HOA_DISPLAY_NPOINTS 180
+
+#define  HOA_CONTRAST_WHITE 0.06
+#define  HOA_CONTRAST_BLACK 0.14
 
 static t_symbol* _sym_is_hoa	   = gensym("is_hoa");
 static t_symbol* _sym_hoa_version  = gensym("(v2.0)");

@@ -7,9 +7,8 @@
 #ifndef DEF_HOA_3D_PD
 #define DEF_HOA_3D_PD
 
-
-#include "../hoa.pd.h"
 #include "../ThirdParty/HoaLibrary/Sources/Hoa3D/Hoa3D.h"
+#include "../hoa.pd.h"
 
 using namespace Hoa3D;
 

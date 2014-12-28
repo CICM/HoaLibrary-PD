@@ -6,42 +6,193 @@
 
 #include "Hoa2D.pd.h"
 
-#define MAX_SPEAKER 64
+template <typename T> class Meter : public Planewaves<T>
+{
+private:
+    struct Channel
+    {
+        unsigned long index;
+        T             angle;
+        static bool compare(Channel const& i, Channel const& j) noexcept
+        {
+            return i.index < j.index;
+        }
+    };
+    
+    unsigned long   m_ramp;
+    unsigned long   m_vector_size;
+    T*              m_channels_peaks;
+    T*              m_channels_azimuth_mapped;
+    T*              m_channels_azimuth_width;
+    unsigned long*  m_over_leds;
+    
+public:
+    
+    Meter(unsigned long numberOfChannels) noexcept : Planewaves<T>(numberOfChannels)
+    {
+        m_ramp                      = 0;
+        m_vector_size               = 256;
+        m_channels_peaks            = new T[Planewaves<T>::m_number_of_channels];
+        m_channels_azimuth_width    = new T[Planewaves<T>::m_number_of_channels];
+        m_channels_azimuth_mapped   = new T[Planewaves<T>::m_number_of_channels];
+        m_over_leds                 = new unsigned long[Planewaves<T>::m_number_of_channels];
+        for(unsigned long i = 0; i < Planewaves<T>::m_number_of_channels; i++)
+        {
+            m_channels_peaks[i] = 0;
+            m_over_leds[i]      = 0;
+        }
+    }
+    
+    ~Meter()
+    {
+        delete [] m_channels_peaks;
+        delete [] m_channels_azimuth_width;
+        delete [] m_channels_azimuth_mapped;
+        delete [] m_over_leds;
+    }
+    
+    inline void setVectorSize(unsigned long vectorSize) noexcept
+    {
+        m_vector_size   = vectorSize;
+        m_ramp          = 0;
+    }
+    
+    inline unsigned long getVectorSize() const noexcept
+    {
+        return m_vector_size;
+    }
+    
+    void computeDisplay()
+    {
+        std::vector<Channel> channels;
+        for(unsigned long i = 0; i < Planewaves<T>::m_number_of_channels; i++)
+        {
+            channels.push_back({i, wrap_twopi(Planewaves<T>::getChannelAzimuth(i) + Planewaves<T>::m_offset)});
+        }
+        std::sort(channels.begin(), channels.end(), Channel::compare);
+        for(unsigned long i = 0; i < channels.size(); i++)
+        {
+            const T current_angle   = channels[i].angle;
+            const T previous_angle  = channels[wrap_ptr(i-1, channels.size())].angle;
+            const T next_angle      = channels[wrap_ptr(i+1, channels.size())].angle;
+            T previous_portion, next_portion;
+            if(previous_angle > current_angle)
+            {
+                previous_portion = (HOA_2PI - previous_angle) + current_angle;
+            }
+            else
+            {
+                previous_portion = current_angle - previous_angle;
+            }
+            if(current_angle > next_angle)
+            {
+                next_portion = (HOA_2PI - current_angle) + next_angle;
+            }
+            else
+            {
+                next_portion = next_angle - current_angle;
+            }
+
+            m_channels_azimuth_width[channels[i].index] = (previous_portion + next_portion) * 0.5;
+            m_channels_azimuth_mapped[channels[i].index]= (current_angle - previous_portion * 0.5) + m_channels_azimuth_width[i] * 0.5;
+        }
+        channels.clear();
+    }
+    
+    inline T getChannelAzimuthMapped(unsigned long index) const noexcept
+    {
+        return m_channels_azimuth_mapped[index];
+    }
+    
+    inline T getChannelWidth(unsigned long index) const noexcept
+    {
+        return m_channels_azimuth_width[index];
+    }
+    
+    inline T getChannelEnergy(unsigned long index) const noexcept
+    {
+        if(m_channels_peaks[index] > 0.)
+        {
+            return 20. * log10(m_channels_peaks[index]);
+        }
+        else
+        {
+            return -90.;
+        }
+    }
+    
+    inline bool getChannelOverLed(unsigned long index) const noexcept
+    {
+        return m_over_leds[index];
+    }
+    
+    inline void tick() noexcept
+    {
+        for(unsigned int i = 0; i < Planewaves<T>::m_number_of_channels; i++)
+        {
+            if(m_channels_peaks[i] > 1.)
+            {
+                m_over_leds[i] = 1000;
+            }
+            else if(m_over_leds[i])
+            {
+                m_over_leds[i]--;
+            }
+        }
+    }
+    
+    inline void process(const T* inputs) noexcept
+    {
+        if(m_ramp++ == m_vector_size)
+        {
+            m_ramp = 0;
+            for(unsigned int i = 0; i < Planewaves<T>::m_number_of_channels; i++)
+            {
+                m_channels_peaks[i] = fabs((*inputs+i));
+            }
+        }
+        else
+        {
+            for(unsigned int i = 0; i < Planewaves<T>::m_number_of_channels; i++)
+            {
+                if(fabs(*inputs) > m_channels_peaks[i])
+                {
+                    m_channels_peaks[i] = fabs(*inputs++);
+                }
+            }
+        }
+    }
+};
 
 typedef struct  _hoa_meter
 {
-	t_edspbox   j_box;
+	t_edspbox                   f_box;
+    unique_ptr<Meter<float>>    f_meter;
+    unique_ptr<Vector<float>>   f_vector;
     
-    Hoa2D::Meter*   f_meter;
-    Hoa2D::Vector*  f_vector;
+    t_float*                    f_signals;
+    t_float                     f_vectors[4];
+	char                        f_startclock;
+	long                        f_interval;
     
-    t_float*        f_signals;
-    t_float         f_vector_coords[4];
-    long            f_ramp;
-	int             f_startclock;
-	long            f_interval;
-    
-    t_symbol*       f_vector_type;
-    t_symbol*       f_clockwise;
-    int*            f_over_leds;
+    t_symbol*                   f_vector_type;
+    t_symbol*                   f_clockwise;
 	
-    t_rgba          f_color_bg;
-    t_rgba          f_color_bd;
-	t_rgba		f_color_cold_signal;
-	t_rgba		f_color_tepid_signal;
-	t_rgba		f_color_warm_signal;
-	t_rgba		f_color_hot_signal;
-	t_rgba		f_color_over_signal;
+    t_rgba                      f_color_bg;
+    t_rgba                      f_color_bd;
+	t_rgba                      f_color_cold_signal;
+	t_rgba                      f_color_tepid_signal;
+	t_rgba                      f_color_warm_signal;
+	t_rgba                      f_color_hot_signal;
+	t_rgba                      f_color_over_signal;
+	t_rgba                      f_color_energy_vector;
+	t_rgba                      f_color_velocity_vector;
 	
-	t_rgba		f_color_energy_vector;
-	t_rgba		f_color_velocity_vector;
-	
-    double      f_radius;
-    double      f_center;
-	double		f_radius_center;
-    
-	t_clock*	f_clock;
-    void*       f_attrs;
+    float                       f_radius;
+    float                       f_center;
+	float                       f_radius_center;
+	t_clock*                    f_clock;
+    void*                       f_attrs;
     
 } t_hoa_meter;
 
@@ -65,7 +216,6 @@ t_pd_err offset_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv);
 t_pd_err vectors_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv);
 t_pd_err rotation_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv);
 
-/* Paint ------------------------------------- */
 void hoa_meter_getdrawparams(t_hoa_meter *x, t_object *patcherview, t_edrawparams *params);
 void hoa_meter_oksize(t_hoa_meter *x, t_rect *newrect);
 
@@ -75,20 +225,6 @@ void draw_leds(t_hoa_meter *x,  t_object *view, t_rect *rect);
 void draw_vectors(t_hoa_meter *x, t_object *view, t_rect *rect);
 
 t_hoa_err hoa_getinfos(t_hoa_meter* x, t_hoa_boxinfos* boxinfos);
-
-t_symbol* hoa_sym_none = gensym("none");
-t_symbol* hoa_sym_energy = gensym("energy");
-t_symbol* hoa_sym_velocity = gensym("velocity");
-t_symbol* hoa_sym_both = gensym("both");
-t_symbol* hoa_sym_clockwise = gensym("clockwise");
-t_symbol* hoa_sym_anticlock = gensym("anti-clockwise");
-t_symbol* hoa_sym_vector_layer = gensym("vectors_layer");
-t_symbol* hoa_sym_leds_layer = gensym("leds_layers");
-
-void hoa_meter_deprecated(t_hoa_meter* x, t_symbol *s, long ac, t_atom* av);
-
-#define  contrast_white 0.06
-#define  contrast_black 0.14
 
 extern "C" void setup_hoa0x2e2d0x2emeter_tilde(void)
 {
@@ -106,11 +242,7 @@ extern "C" void setup_hoa0x2e2d0x2emeter_tilde(void)
 	eclass_addmethod(c, (method) hoa_meter_notify,          "notify",        A_CANT, 0);
     eclass_addmethod(c, (method) hoa_meter_getdrawparams,   "getdrawparams", A_CANT, 0);
     eclass_addmethod(c, (method) hoa_meter_oksize,          "oksize",        A_CANT, 0);
-    
-    eclass_addmethod(c, (method)hoa_meter_deprecated,   "loudspeakers",	A_GIMME, 0);
-    eclass_addmethod(c, (method)hoa_meter_deprecated,   "bordercolor",	A_GIMME, 0);
-    eclass_addmethod(c, (method)hoa_meter_deprecated,   "mbgcolor",     A_GIMME, 0);
-    
+
 	CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
     CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
     CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
@@ -123,21 +255,18 @@ extern "C" void setup_hoa0x2e2d0x2emeter_tilde(void)
 	CLASS_ATTR_ORDER                (c, "channels", 0, "1");
 	CLASS_ATTR_LABEL                (c, "channels", 0, "Number of Channels");
 	CLASS_ATTR_SAVE                 (c, "channels", 1);
-    CLASS_ATTR_DEFAULT              (c, "channels", 0, "8");
     CLASS_ATTR_STYLE                (c, "channels", 1, "number");
     
-    CLASS_ATTR_FLOAT_VARSIZE        (c, "angles", 0, t_hoa_meter, f_attrs, f_attrs, MAX_SPEAKER);
+    CLASS_ATTR_FLOAT_VARSIZE        (c, "angles", 0, t_hoa_meter, f_attrs, f_attrs, HOA_MAX_CHANNELS);
 	CLASS_ATTR_ACCESSORS            (c, "angles", angles_get, angles_set);
 	CLASS_ATTR_ORDER                (c, "angles", 0, "2");
 	CLASS_ATTR_LABEL                (c, "angles", 0, "Angles of Channels");
 	CLASS_ATTR_SAVE                 (c, "angles", 1);
-    CLASS_ATTR_DEFAULT              (c, "angles", 0, "0 45 90 135 180 225 270 315");
     
     CLASS_ATTR_FLOAT                (c, "offset", 0, t_hoa_meter, f_attrs);
     CLASS_ATTR_ACCESSORS            (c, "offset", offset_get, offset_set);
 	CLASS_ATTR_ORDER                (c, "offset", 0, "3");
 	CLASS_ATTR_LABEL                (c, "offset", 0, "Offset of Channels");
-	CLASS_ATTR_DEFAULT              (c, "offset", 0, "0");
 	CLASS_ATTR_SAVE                 (c, "offset", 1);
     CLASS_ATTR_STYLE                (c, "offset", 1, "number");
     
@@ -226,75 +355,62 @@ extern "C" void setup_hoa0x2e2d0x2emeter_tilde(void)
 	hoa_meter_class = c;
 }
 
-void hoa_meter_deprecated(t_hoa_meter* x, t_symbol *s, long ac, t_atom* av)
-{
-    t_atom* argv;
-    long argc;
-    if(s && s == gensym("loudspeakers") && ac && av)
-    {
-        object_error(x, "%s attribute @loudspeakers is deprecated, please use @channels.", eobj_getclassname(x)->s_name);
-        channels_set(x, NULL, ac, av);
-    }
-    if(s && s == gensym("bordercolor") && ac && av)
-    {
-        object_attr_setvalueof((t_object *)x, gensym("bdcolor"), ac, av);
-        object_error(x, "%s attribute @bordercolor is deprecated, please use @bdcolor.", eobj_getclassname(x)->s_name);
-    }
-    
-    atoms_get_attribute(ac, av, gensym("@loudspeakers"), &argc, &argv);
-    if(argc && argv)
-    {
-        object_error(x, "%s attribute @loudspeakers is deprecated, please use @channels.", eobj_getclassname(x)->s_name);
-        channels_set(x, NULL, argc, argv);
-        argc = 0;free(argv);argv = NULL;
-    }
-    atoms_get_attribute(ac, av, gensym("@bordercolor"), &argc, &argv);
-    if(argc && argv)
-    {
-        object_attr_setvalueof((t_object *)x, gensym("bdcolor"), argc, argv);
-        object_error(x, "%s attribute @bordercolor is deprecated, please use @bdcolor.", eobj_getclassname(x)->s_name);
-        argc = 0;free(argv);argv = NULL;
-    }
-
-    if((s && s == gensym("mbgcolor")) || atoms_has_attribute(ac, av, gensym("@mbgcolor")))
-    {
-        object_error(x, "%s attribute @mbgcolor is deprecated.", eobj_getclassname(x)->s_name);
-        argc = 0;free(argv);argv = NULL;
-    }
-}
-
 void *hoa_meter_new(t_symbol *s, int argc, t_atom *argv)
 {
+    long flags, ac = 0;
 	t_hoa_meter *x =  NULL;
-	t_binbuf *d;
-	long flags;
+    t_binbuf *d = NULL;
+    t_atom* av = NULL;
 	
-	if (!(d = binbuf_via_atoms(argc, argv)))
-		return NULL;
-    
+    d = binbuf_via_atoms(argc, argv);
 	x = (t_hoa_meter *)eobj_new(hoa_meter_class);
     
-    x->f_ramp = 0;
-    x->f_meter  = new Hoa2D::Meter(4);
-    x->f_vector = new Hoa2D::Vector(4);
-    x->f_signals = new t_float[MAX_SPEAKER * SYS_MAXBLKSIZE];
-    x->f_over_leds = new int[MAX_CHANNELS];
+    if(x && d)
+    {
+        long nchannels = 4;
+        binbuf_get_attribute_long(d, gensym("@channels"), &nchannels);
+        x->f_meter      = unique_ptr<Meter<float>>(new Meter<float>(nchannels));
+        x->f_vector     = unique_ptr<Vector<float>>(new Vector<float>(nchannels));
+        float offset = 0.f;
+        binbuf_get_attribute_float(d, gensym("@offset"), &offset);
+        x->f_vector->setChannelsOffset(offset / 360.f * HOA_2PI);
+        x->f_meter->setChannelsOffset(offset / 360.f * HOA_2PI);
+        
+        if(!(binbuf_get_attribute(d, gensym("@angles"), &ac, &av)))
+        {
+            if(ac && av)
+            {
+                for(unsigned long i = 0; i < ac && i < x->f_meter->getNumberOfChannels(); i++)
+                {
+                    if(atom_gettype(argv+i) == A_FLOAT && atom_getfloat(av+i) != roundf(x->f_meter->getChannelAzimuth(i) / HOA_2PI * 360.))
+                    {
+                        x->f_vector->setChannelAzimuth(i, atom_getfloat(av+i) / 360. * HOA_2PI);
+                        x->f_meter->setChannelAzimuth(i, atom_getfloat(av+i) / 360. * HOA_2PI);
+                    }
+                }
+                free(av);
+            }
+        }
+        
+        x->f_meter->computeDisplay();
+        x->f_signals    = new t_float[HOA_MAX_CHANNELS * HOA_MAX_BLOCKSIZE];
+        x->f_clock = clock_new(x,(t_method)hoa_meter_tick);
+        x->f_startclock = 0;
+        eobj_dspsetup((t_ebox *)x, x->f_meter->getNumberOfChannels(), 0);
+        
+        flags = 0
+        | EBOX_GROWLINK
+        | EBOX_IGNORELOCKCLICK
+        ;
+        
+        ebox_new((t_ebox *)x, flags);
+        ebox_attrprocess_viabinbuf(x, d);
+        ebox_ready((t_ebox *)x);
+        
+        return (x);
+    }
     
-    x->f_clock = clock_new(x,(t_method)hoa_meter_tick);
-	x->f_startclock = 0;
-    eobj_dspsetup((t_ebox *)x, x->f_meter->getNumberOfChannels(), 0);
-    
-    flags = 0
-    | EBOX_GROWLINK
-    | EBOX_IGNORELOCKCLICK
-    ;
-	ebox_new((t_ebox *)x, flags);
-    
-    hoa_meter_deprecated(x, s, argc, argv);
-	ebox_attrprocess_viabinbuf(x, d);
-    
-	ebox_ready((t_ebox *)x);
-	return (x);
+	return NULL;
 }
 
 t_hoa_err hoa_getinfos(t_hoa_meter* x, t_hoa_boxinfos* boxinfos)
@@ -339,30 +455,24 @@ t_pd_err channels_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv)
 
 t_pd_err channels_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
 {
-    t_atom* av;
     if(argc && argv)
     {
         if(atom_gettype(argv) == A_FLOAT)
         {
-            long d = pd_clip_minmax(atom_getfloat(argv), 1, MAX_SPEAKER);
-            if(d != x->f_meter->getNumberOfChannels())
+            long nchannels = pd_clip_minmax(atom_getfloat(argv), 1, HOA_MAX_CHANNELS);
+            if(nchannels != x->f_meter->getNumberOfChannels())
             {
                 int dspState = canvas_suspend_dsp();
-                delete x->f_meter;
-                x->f_meter = new Meter(d);
-                delete x->f_vector;
-                x->f_vector = new Vector(d);
-                
-                av = new t_atom[x->f_meter->getNumberOfChannels()];
-                for(int i = 0; i < x->f_meter->getNumberOfChannels(); i++)
-                {
-                    atom_setfloat(av+i, x->f_meter->getChannelAzimuth(i) / HOA_2PI * 360.);
-                    x->f_over_leds[i] = 0;
-                }
-                angles_set(x, NULL, x->f_meter->getNumberOfChannels(), av);
-                
+                x->f_meter      = unique_ptr<Meter<float>>(new Meter<float>(nchannels));
+                x->f_vector     = unique_ptr<Vector<float>>(new Vector<float>(nchannels));;
+            
                 eobj_resize_inputs((t_ebox *)x, x->f_meter->getNumberOfChannels());
                 
+                x->f_meter->computeDisplay();
+                ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
+                ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
+                ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
+                ebox_redraw((t_ebox *)x);
                 canvas_resume_dsp(dspState);
             }
         }
@@ -376,8 +486,10 @@ t_pd_err angles_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv)
     argv[0] = (t_atom *)malloc(sizeof(t_atom) * x->f_meter->getNumberOfChannels());
     if(argv[0] && argc[0])
     {
-        for(int i = 0; i < x->f_meter->getNumberOfChannels(); i++)
-            atom_setfloat(argv[0]+i, x->f_meter->getChannelAzimuth(i) / HOA_2PI * 360.);
+        for(unsigned long i = 0; i < x->f_meter->getNumberOfChannels(); i++)
+        {
+            atom_setfloat(argv[0]+i, roundf(x->f_meter->getChannelAzimuth(i) / HOA_2PI * 360.f));
+        }
     }
     else
     {
@@ -389,27 +501,27 @@ t_pd_err angles_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv)
 
 t_pd_err angles_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
 {
-    double angles[MAX_SPEAKER];
-    if(argc > MAX_SPEAKER)
-        argc = MAX_SPEAKER;
     if(argc && argv)
     {
-        for(int i = 0; i < argc; i++)
+        char changed = 0;
+        for(unsigned long i = 0; i < argc && i < x->f_meter->getNumberOfChannels(); i++)
         {
-            if(atom_gettype(argv+i) == A_FLOAT)
+            if(atom_gettype(argv+i) == A_FLOAT && atom_getfloat(argv+i) != roundf(x->f_meter->getChannelAzimuth(i) / HOA_2PI * 360.))
             {
-                angles[i] = atom_getfloat(argv+i) / 360. * HOA_2PI;
+                x->f_vector->setChannelAzimuth(i, atom_getfloat(argv+i) / 360. * HOA_2PI);
+                x->f_meter->setChannelAzimuth(i, atom_getfloat(argv+i) / 360. * HOA_2PI);
+                changed = 1;
             }
         }
-        x->f_meter->setChannelsAzimuth(angles);
-        x->f_vector->setChannelsAzimuth(angles);
+        if(changed)
+        {
+            x->f_meter->computeDisplay();
+            ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
+            ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
+            ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
+            ebox_redraw((t_ebox *)x);
+        }
     }
-
-	ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
-	ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
-	ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
-    
-	ebox_redraw((t_ebox *)x);
     return 0;
 }
 
@@ -419,7 +531,7 @@ t_pd_err offset_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv)
     argv[0] = (t_atom *)malloc(sizeof(t_atom));
     if(argv[0] && argc[0])
     {
-        atom_setfloat(argv[0], x->f_meter->getChannelsOffset() / HOA_2PI * 360.);
+        atom_setfloat(argv[0], roundf(x->f_meter->getChannelsOffset() / HOA_2PI * 360.f));
     }
     else
     {
@@ -433,15 +545,18 @@ t_pd_err offset_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_FLOAT)
     {
-        x->f_vector->setChannelsOffset(atom_getfloat(argv) / 360 * HOA_2PI);
-        x->f_meter->setChannelsOffset(atom_getfloat(argv) / 360 * HOA_2PI);
+        if(atom_getfloat(argv) != roundf(x->f_meter->getChannelsOffset() / HOA_2PI * 360.))
+        {
+            x->f_vector->setChannelsOffset(atom_getfloat(argv) / 360. * HOA_2PI);
+            x->f_meter->setChannelsOffset(atom_getfloat(argv) / 360. * HOA_2PI);
+            
+            x->f_meter->computeDisplay();
+            ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
+            ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
+            ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
+            ebox_redraw((t_ebox *)x);
+        }
     }
-    
-    ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
-	ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
-	ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
-    
-	ebox_redraw((t_ebox *)x);
     return 0;
 }
 
@@ -471,7 +586,9 @@ t_pd_err vectors_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
             else
                 x->f_vector_type = hoa_sym_none;
         }
+        
         ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
+        ebox_redraw((t_ebox *)x);
     }
     return 0;
 }
@@ -494,6 +611,11 @@ t_pd_err rotation_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
             else
                 x->f_clockwise = hoa_sym_anticlock;
         }
+        
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
+        ebox_redraw((t_ebox *)x);
     }
     return 0;
 }
@@ -511,39 +633,27 @@ void hoa_meter_perform(t_hoa_meter *x, t_object *dsp, float **ins, long numins, 
     {
         cblas_scopy(sampleframes, ins[i], 1, x->f_signals+i, numins);
     }
-    for(x->f_ramp = 0; x->f_ramp < sampleframes; x->f_ramp++)
+    for(int i = 0; i < sampleframes; i++)
     {
-        x->f_meter->process(x->f_signals + numins * x->f_ramp);
+        x->f_meter->process(x->f_signals + numins * i);
     }
     if(x->f_startclock)
 	{
 		x->f_startclock = 0;
 		clock_delay(x->f_clock,0);
 	}
-
 }
 
 void hoa_meter_tick(t_hoa_meter *x)
 {
     if(x->f_vector_type == hoa_sym_both)
-        x->f_vector->process(x->f_signals, x->f_vector_coords);
+        x->f_vector->process(x->f_signals, x->f_vectors);
     else if(x->f_vector_type == hoa_sym_velocity)
-        x->f_vector->processVelocity(x->f_signals, x->f_vector_coords);
+        x->f_vector->processVelocity(x->f_signals, x->f_vectors);
     else if(x->f_vector_type == hoa_sym_energy)
-         x->f_vector->processEnergy(x->f_signals, x->f_vector_coords + 2);
+         x->f_vector->processEnergy(x->f_signals, x->f_vectors + 2);
     
-    double peak;
-    for (int i = 0; i < x->f_meter->getNumberOfChannels(); i++)
-    {
-        peak = x->f_meter->getChannelEnergy(i);
-        if(peak >= 0.)
-            x->f_over_leds[i] = 1000;
-        else
-            x->f_over_leds[i] -= x->f_interval;
-        
-        if(x->f_over_leds[i] < 0)
-            x->f_over_leds[i] = 0;
-    }
+    x->f_meter->tick();
     
 	ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
 	ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
@@ -557,27 +667,24 @@ void hoa_meter_free(t_hoa_meter *x)
 {
 	ebox_free((t_ebox *)x);
     clock_free(x->f_clock);
-    delete x->f_meter;
-    delete x->f_vector;
     delete [] x->f_signals;
-    delete [] x->f_over_leds;
 }
 
 void hoa_meter_assist(t_hoa_meter *x, void *b, long m, long a, char *s)
 {
-	if (m == ASSIST_INLET)
+	if(m == ASSIST_INLET)
         sprintf(s,"(Signal) %s", x->f_meter->getChannelName(a).c_str());
 }
 
 t_pd_err hoa_meter_notify(t_hoa_meter *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
-	if (msg == gensym("attr_modified"))
-	{
-		ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
+    if(s == hoa_sym_bgcolor || s == hoa_sym_bdcolor || s == hoa_sym_coldcolor || s == hoa_sym_tepidcolor || s == hoa_sym_warmcolor || s == hoa_sym_hotcolor || s == hoa_sym_overcolor || s == hoa_sym_energycolor || s == hoa_sym_velocitycolor)
+    {
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
         ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
         ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
-		ebox_redraw((t_ebox *)x);
-	}
+    }
+    
 	return 0;
 }
 
@@ -588,7 +695,7 @@ void hoa_meter_paint(t_hoa_meter *x, t_object *view)
 	
     x->f_center = rect.width * .5;
 	x->f_radius = x->f_center * 0.95;
-	x->f_radius_center = x->f_radius / 5.;
+	x->f_radius_center = x->f_radius * 0.2;
 	
 	draw_background(x, view, &rect);
     draw_leds(x, view, &rect);
@@ -603,8 +710,8 @@ void draw_background(t_hoa_meter *x,  t_object *view, t_rect *rect)
 	t_matrix transform;
 	t_elayer *g = ebox_start_layer((t_ebox *)x, hoa_sym_background_layer, rect->width, rect->height);
     
-    black = rgba_addContrast(x->f_color_bg, -contrast_black);
-    white = rgba_addContrast(x->f_color_bg, contrast_white);
+    black = rgba_addContrast(x->f_color_bg, -HOA_CONTRAST_BLACK);
+    white = rgba_addContrast(x->f_color_bg, HOA_CONTRAST_WHITE);
     
 	if (g)
 	{
@@ -652,7 +759,7 @@ void draw_background(t_hoa_meter *x,  t_object *view, t_rect *rect)
                 y1 = x->f_radius_center * sino;
                 x2 = x->f_radius * coso;
                 y2 = x->f_radius * sino;
-                if(isInsideRad(angle, HOA_PI4, HOA_PI + HOA_PI4))
+                if(angle >= HOA_PI4 && angle < HOA_PI + HOA_PI4)
                 {
                     egraphics_move_to(g, x1 - 0.5, y1 - 0.5);
                     egraphics_line_to(g, x2 - 0.5, y2 - 0.5);
@@ -731,7 +838,7 @@ void draw_leds(t_hoa_meter *x, t_object *view, t_rect *rect)
                     egraphics_stroke(g);
                 }
             }
-            if(x->f_over_leds[i])
+            if(x->f_meter->getChannelOverLed(i))
             {
                 radius    = (4.) * led_width;
                 egraphics_set_color_rgba(g, &x->f_color_over_signal);
@@ -762,13 +869,13 @@ void draw_vectors(t_hoa_meter *x, t_object *view, t_rect *rect)
             egraphics_set_color_rgba(g, &x->f_color_energy_vector);
             if(x->f_clockwise == hoa_sym_anticlock)
             {
-                x1 = x->f_vector_coords[2] * x->f_radius_center * 0.85;
-                y1 = x->f_vector_coords[3] * x->f_radius_center * 0.85;
+                x1 = x->f_vectors[2] * x->f_radius_center * 0.85;
+                y1 = x->f_vectors[3] * x->f_radius_center * 0.85;
             }
             else
             {
-                double rad = radius(x->f_vector_coords[2], x->f_vector_coords[3]) * x->f_radius_center * 0.85;
-                double ang = -azimuth(x->f_vector_coords[2], x->f_vector_coords[3]);
+                double rad = radius(x->f_vectors[2], x->f_vectors[3]) * x->f_radius_center * 0.85;
+                double ang = -azimuth(x->f_vectors[2], x->f_vectors[3]);
                 x1 = abscissa(rad, ang);
                 y1 = ordinate(rad, ang);
             }
@@ -780,13 +887,13 @@ void draw_vectors(t_hoa_meter *x, t_object *view, t_rect *rect)
             egraphics_set_color_rgba(g, &x->f_color_velocity_vector);
             if(x->f_clockwise == hoa_sym_anticlock)
             {
-                x1 = x->f_vector_coords[0] * x->f_radius_center * 0.85;
-                y1 = x->f_vector_coords[1] * x->f_radius_center * 0.85;
+                x1 = x->f_vectors[0] * x->f_radius_center * 0.85;
+                y1 = x->f_vectors[1] * x->f_radius_center * 0.85;
             }
             else
             {
-                double rad = radius(x->f_vector_coords[0], x->f_vector_coords[1]) * x->f_radius_center * 0.85;
-                double ang = -azimuth(x->f_vector_coords[0], x->f_vector_coords[1]);
+                double rad = radius(x->f_vectors[0], x->f_vectors[1]) * x->f_radius_center * 0.85;
+                double ang = -azimuth(x->f_vectors[0], x->f_vectors[1]);
                 x1 = abscissa(rad, ang);
                 y1 = ordinate(rad, ang);
             }

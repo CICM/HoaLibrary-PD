@@ -1,4 +1,4 @@
-#N canvas 374 96 735 641 10;
+#N canvas 140 98 735 641 10;
 #X obj 52 -400 phasor~ -0.3;
 #X text -205 -396 source;
 #X msg -332 -239 \; pd dsp 1;
@@ -8,15 +8,6 @@
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj -203 -253 hoa.2d.decoder~ 7 ambisonics 16 -----------;
-#X obj -203 -220 hoa.2d.meter~ @size 261 261 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @channels
-16 @angles 0 22.5 45 67.5 90 112.5 135 157.5 180 202.5 225 247.5 270
-292.5 315 337.5 @offset 0 @rotation anti-clockwise @vectors none @interval
-50 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7 1 @coldcolor 0 0.6
-0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
-1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor
-1 0 0 0.8;
 #X obj -203 -324 hoa.2d.encoder~ 7 -------------------------;
 #X obj -203 -371 hoa.soundgrain;
 #X obj -203 -342 c.gain~ @size 131 10 @fontname Helvetica @fontweight
@@ -32,62 +23,84 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X obj -380 -472 hoa.help.header;
 #X obj -250 86 hoa.help.pub;
 #X obj 36 -472 hoa.help.also;
-#X text -375 -428 hoa.2d.encoder~ creates the circular harmonics of
-a signal depending on a given order and an azimuth.;
 #X text 86 -350 azimuth (-π & π);
-#X connect 0 0 13 1;
-#X connect 6 0 7 0;
-#X connect 6 0 4 0;
-#X connect 6 1 7 1;
-#X connect 6 1 4 1;
-#X connect 6 2 4 2;
-#X connect 6 2 7 2;
-#X connect 6 3 4 3;
-#X connect 6 3 7 3;
-#X connect 6 4 4 4;
-#X connect 6 4 7 4;
-#X connect 6 5 4 5;
-#X connect 6 5 7 5;
-#X connect 6 6 4 6;
-#X connect 6 6 7 6;
-#X connect 6 7 4 7;
-#X connect 6 7 7 7;
-#X connect 6 8 4 8;
-#X connect 6 8 7 8;
-#X connect 6 9 4 9;
-#X connect 6 9 7 9;
-#X connect 6 10 4 10;
-#X connect 6 10 7 10;
-#X connect 6 11 4 11;
-#X connect 6 11 7 11;
-#X connect 6 12 4 12;
-#X connect 6 12 7 12;
-#X connect 6 13 4 13;
-#X connect 6 13 7 13;
-#X connect 6 14 4 14;
-#X connect 6 14 7 14;
-#X connect 6 15 4 15;
-#X connect 6 15 7 15;
-#X connect 8 0 6 0;
-#X connect 8 1 6 1;
-#X connect 8 2 6 2;
-#X connect 8 3 6 3;
-#X connect 8 4 6 4;
-#X connect 8 5 6 5;
-#X connect 8 6 6 6;
-#X connect 8 7 6 7;
-#X connect 8 8 6 8;
-#X connect 8 9 6 9;
-#X connect 8 10 6 10;
-#X connect 8 11 6 11;
-#X connect 8 12 6 12;
-#X connect 8 13 6 13;
-#X connect 8 14 6 14;
-#X connect 9 0 10 0;
-#X connect 10 0 8 0;
-#X connect 12 0 11 0;
-#X connect 13 0 8 1;
-#X connect 13 0 5 0;
-#X connect 14 0 16 0;
-#X connect 15 0 14 0;
+#X obj 72 -289 c.number~ @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj -350 -289 c.number~ @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj -11 -370 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 0 256;
+#X obj -317 -348 sig~ 1;
+#X obj -275 -278 c.number~ @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj -204 -265 c.number~ @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 17 -346 hoa.pi;
+#X obj -146 -264 c.number~ @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj -74 -265 c.number~ @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj -16 -264 c.number~ @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 46 -265 c.number~ @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 104 -264 c.number~ @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X text -375 -428 hoa.2d.encoder~ creates the circular harmonics of
+a signald depending on a given order., f 65;
+#X obj -223 -219 hoa.2d.scope~ @size 225 225 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
+7 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
+0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X connect 0 0 11 1;
+#X connect 6 0 19 0;
+#X connect 6 0 31 0;
+#X connect 6 1 22 0;
+#X connect 6 1 31 1;
+#X connect 6 2 23 0;
+#X connect 6 2 31 2;
+#X connect 6 3 25 0;
+#X connect 6 3 31 3;
+#X connect 6 4 26 0;
+#X connect 6 4 31 4;
+#X connect 6 5 27 0;
+#X connect 6 5 31 5;
+#X connect 6 6 28 0;
+#X connect 6 6 31 6;
+#X connect 6 7 29 0;
+#X connect 6 7 31 7;
+#X connect 6 8 31 8;
+#X connect 6 9 31 9;
+#X connect 6 10 31 10;
+#X connect 6 11 31 11;
+#X connect 6 12 31 12;
+#X connect 6 13 31 13;
+#X connect 6 14 18 0;
+#X connect 6 14 31 14;
+#X connect 7 0 8 0;
+#X connect 10 0 9 0;
+#X connect 11 0 5 0;
+#X connect 12 0 14 0;
+#X connect 13 0 12 0;
+#X connect 20 0 24 0;
+#X connect 21 0 6 0;
+#X connect 24 0 6 1;
 #X coords 0 641 1 640 100 60 0;

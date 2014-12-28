@@ -14,19 +14,19 @@ typedef struct _hoa_space
     float       f_minmax[2];
     
     long		f_mode;
-    double*     f_channel_values;
-	double*     f_channel_refs;
-    double*     f_channel_radius;
-    double      f_value_ref;
-    double      f_angle_ref;
+    float*      f_channel_values;
+	float*      f_channel_refs;
+    float*      f_channel_radius;
+    float       f_value_ref;
+    float       f_angle_ref;
     
 	t_rgba      f_color_bg;
     t_rgba      f_color_bd;
 	t_rgba		f_color_sp;
 	t_rgba		f_color_pt;
     
-	double		f_center;
-    double      f_radius;
+	float		f_center;
+    float       f_radius;
     
 } t_hoa_space;
 
@@ -56,11 +56,6 @@ t_hoa_err hoa_getinfos(t_hoa_space* x, t_hoa_boxinfos* boxinfos);
 t_pd_err channels_set(t_hoa_space *x, t_object *attr, long argc, t_atom *argv);
 t_pd_err minmax_set(t_hoa_space *x, t_object *attr, long argc, t_atom *argv);
 
-#define  contrast_white 0.06
-#define  contrast_black 0.14
-
-void hoa_space_deprecated(t_hoa_space* x, t_symbol *s, long ac, t_atom* av);
-
 extern "C" void setup_hoa0x2e2d0x2espace(void)
 {
     t_eclass* c;
@@ -80,11 +75,6 @@ extern "C" void setup_hoa0x2e2d0x2espace(void)
 	eclass_addmethod(c, (method)hoa_space_mouse_drag,      "mousedrag",      A_CANT, 0);
     eclass_addmethod(c, (method)hoa_space_preset,          "preset",         A_CANT, 0);
     eclass_addmethod(c, (method)hoa_space_list,            "list",           A_GIMME, 0);
-    
-    eclass_addmethod(c, (method)hoa_space_deprecated,      "bordercolor",    A_GIMME, 0);
-    eclass_addmethod(c, (method)hoa_space_deprecated,      "circolor",       A_GIMME, 0);
-    eclass_addmethod(c, (method)hoa_space_deprecated,      "miccolor",       A_GIMME, 0);
-    eclass_addmethod(c, (method)hoa_space_deprecated,      "harmocolor",     A_GIMME, 0);
     
     CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
     CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
@@ -140,54 +130,6 @@ extern "C" void setup_hoa0x2e2d0x2espace(void)
     hoa_space_class = c;
 }
 
-void hoa_space_deprecated(t_hoa_space* x, t_symbol *s, long ac, t_atom* av)
-{
-    t_atom* argv;
-    long argc;
-    if(s && s == gensym("bordercolor") && ac && av)
-    {
-        object_attr_setvalueof((t_object *)x, gensym("bdcolor"), ac, av);
-        object_error(x, "%s attribute @bordercolor is deprecated, please use @bdcolor.", eobj_getclassname(x)->s_name);
-    }
-    else if(s && s == gensym("miccolor") && ac && av)
-    {
-        object_attr_setvalueof((t_object *)x, gensym("ptcolor"), ac, av);
-        object_error(x, "%s attribute @miccolor is deprecated, please use @ptcolor.", eobj_getclassname(x)->s_name);
-    }
-    else if(s && s == gensym("harmocolor") && ac && av)
-    {
-        object_attr_setvalueof((t_object *)x, gensym("spcolor"), ac, av);
-        object_error(x, "%s attribute @harmocolor is deprecated, please use @spcolor.", eobj_getclassname(x)->s_name);
-    }
-
-    atoms_get_attribute(ac, av, gensym("@bordercolor"), &argc, &argv);
-    if(argc && argv)
-    {
-        object_attr_setvalueof((t_object *)x, gensym("bdcolor"), argc, argv);
-        object_error(x, "%s attribute @bordercolor is deprecated, please use @bdcolor.", eobj_getclassname(x)->s_name);
-        argc = 0;free(argv);argv = NULL;
-    }
-    atoms_get_attribute(ac, av, gensym("@miccolor"), &argc, &argv);
-    if(argc && argv)
-    {
-        object_attr_setvalueof((t_object *)x, gensym("ptcolor"), argc, argv);
-        object_error(x, "%s attribute @miccolor is deprecated, please use @ptcolor.", eobj_getclassname(x)->s_name);
-        argc = 0;free(argv);argv = NULL;
-    }
-    atoms_get_attribute(ac, av, gensym("@harmocolor"), &argc, &argv);
-    if(argc && argv)
-    {
-        object_attr_setvalueof((t_object *)x, gensym("spcolor"), ac, av);
-        object_error(x, "%s attribute @harmocolor is deprecated, please use @spcolor.", eobj_getclassname(x)->s_name);
-        argc = 0;free(argv);argv = NULL;
-    }
-    
-    if((s && s == gensym("circolor")) || atoms_has_attribute(ac, av, gensym("@circolor")))
-    {
-        object_error(x, "%s attribute @circolor is deprecated.", eobj_getclassname(x)->s_name);
-    }
-}
-
 void *hoa_space_new(t_symbol *s, int argc, t_atom *argv)
 {
     t_hoa_space *x = NULL;
@@ -199,18 +141,15 @@ void *hoa_space_new(t_symbol *s, int argc, t_atom *argv)
     
     x = (t_hoa_space *)eobj_new(hoa_space_class);
     
-    x->f_channel_values = new double[MAX_CHANNELS];
-    x->f_channel_refs   = new double[MAX_CHANNELS];
-    x->f_channel_radius = new double[MAX_CHANNELS];
+    x->f_channel_values = new float[HOA_MAX_CHANNELS];
+    x->f_channel_refs   = new float[HOA_MAX_CHANNELS];
+    x->f_channel_radius = new float[HOA_MAX_CHANNELS];
     x->f_out                    = listout(x);
-
+   
     flags = 0
     | EBOX_GROWLINK
     ;
     ebox_new((t_ebox *)x, flags);
-    
-    hoa_space_deprecated(x, NULL, argc, argv);
-    
     ebox_attrprocess_viabinbuf(x, d);
     ebox_ready((t_ebox *)x);
 
@@ -325,8 +264,8 @@ void hoa_space_paint(t_hoa_space *x, t_object *view)
 void draw_background(t_hoa_space *x, t_object *view, t_rect *rect)
 {
     t_matrix transform;
-    t_rgba black = rgba_addContrast(x->f_color_bg, -contrast_black);
-    t_rgba white = rgba_addContrast(x->f_color_bg, contrast_white);
+    t_rgba black = rgba_addContrast(x->f_color_bg, -HOA_CONTRAST_BLACK);
+    t_rgba white = rgba_addContrast(x->f_color_bg, HOA_CONTRAST_WHITE);
     
 	t_elayer *g = ebox_start_layer((t_ebox *)x, hoa_sym_background_layer, rect->width, rect->height);
     
@@ -404,23 +343,23 @@ void draw_space(t_hoa_space *x, t_object *view, t_rect *rect)
             x->f_channel_radius[i] = (x->f_channel_values[i] - x->f_minmax[0]) / diff *  4 * ratio + ratio;
         }
         
-        abscissa = Hoa::abscissa(x->f_channel_radius[0], 0);
-        ordinate = Hoa::ordinate(x->f_channel_radius[0], 0);
+        abscissa = hoa::abscissa(x->f_channel_radius[0], 0);
+        ordinate = hoa::ordinate(x->f_channel_radius[0], 0);
         egraphics_move_to(g, abscissa, ordinate);
-        for(i = 1; i < NUMBEROFCIRCLEPOINTS_UI2; i++)
+        for(i = 1; i < HOA_DISPLAY_NPOINTS; i++)
 		{
-            index1 = (double)i / (double)NUMBEROFCIRCLEPOINTS_UI2 * x->f_number_of_channels;
+            index1 = (double)i / (double)HOA_DISPLAY_NPOINTS * x->f_number_of_channels;
             index2 = index1+1;
             
-            mu = (double)index1 / (double)x->f_number_of_channels * (double)NUMBEROFCIRCLEPOINTS_UI2;
-            mu = (double)(i - mu) / ((double)NUMBEROFCIRCLEPOINTS_UI2 / (double)x->f_number_of_channels);
+            mu = (double)index1 / (double)x->f_number_of_channels * (double)HOA_DISPLAY_NPOINTS;
+            mu = (double)(i - mu) / ((double)HOA_DISPLAY_NPOINTS / (double)x->f_number_of_channels);
             if(index2 >= x->f_number_of_channels)
                 index2 = 0;
             
             radius = cosine_interpolation(x->f_channel_radius[index1], x->f_channel_radius[index2], mu);
-            angle  = (double)i / (double)NUMBEROFCIRCLEPOINTS_UI2 * HOA_2PI;
-            abscissa = Hoa::abscissa(radius, angle);
-            ordinate = Hoa::ordinate(radius, angle);
+            angle  = (double)i / (double)HOA_DISPLAY_NPOINTS * HOA_2PI;
+            abscissa = hoa::abscissa(radius, angle);
+            ordinate = hoa::ordinate(radius, angle);
             egraphics_line_to(g, abscissa, ordinate);
         }
         
@@ -450,8 +389,8 @@ void draw_points(t_hoa_space *x, t_object *view, t_rect *rect)
             radius = x->f_channel_radius[i] - 3.5;
             angle  = (double)(i + 1.) / (double)x->f_number_of_channels * HOA_2PI;
             angle -= HOA_2PI / (double)x->f_number_of_channels;
-            abscissa = Hoa::abscissa(radius, angle);
-            ordinate = Hoa::ordinate(radius, angle);
+            abscissa = hoa::abscissa(radius, angle);
+            ordinate = hoa::ordinate(radius, angle);
             egraphics_arc(g, abscissa, ordinate, 3., 0., HOA_2PI);
             egraphics_fill(g);
         }
@@ -511,7 +450,7 @@ void hoa_space_mouse_drag(t_hoa_space *x, t_object *patcherview, t_pt pt, long m
     t_pt mouse;
     mouse.x = pt.x - x->f_center;
     mouse.y = x->f_center * 2. - pt.y - x->f_center;
-    double angle, radius, value, inc, mu;
+    float angle, radius, value, inc, mu;
     
     if(x->f_mode == 1) // alt : rotation
     {
@@ -533,7 +472,7 @@ void hoa_space_mouse_drag(t_hoa_space *x, t_object *patcherview, t_pt pt, long m
     }
     else if(x->f_mode == 2) // shift : gain
     {
-        radius  = Hoa::radius(mouse.x, mouse.y);
+        radius  = hoa::radius(mouse.x, mouse.y);
         inc     = (radius - (x->f_radius / 5.)) / (x->f_radius * 4. / 5.);
         inc    *= (x->f_minmax[1] - x->f_minmax[0]);
         inc    += x->f_minmax[0];
@@ -544,7 +483,7 @@ void hoa_space_mouse_drag(t_hoa_space *x, t_object *patcherview, t_pt pt, long m
     else
     {
         angle   = wrap_twopi(azimuth(mouse.x, mouse.y) + (HOA_PI / (double)x->f_number_of_channels));
-        radius  = Hoa::radius(mouse.x, mouse.y);
+        radius  = hoa::radius(mouse.x, mouse.y);
         index   = angle / HOA_2PI * x->f_number_of_channels;
         value   = (radius - (x->f_radius / 5.)) / (x->f_radius * 4. / 5.);
         value  *= (x->f_minmax[1] - x->f_minmax[0]);
@@ -561,7 +500,7 @@ void hoa_space_mouse_drag(t_hoa_space *x, t_object *patcherview, t_pt pt, long m
 
 void hoa_space_output(t_hoa_space *x)
 {
-    t_atom argv[MAX_CHANNELS];
+    t_atom argv[HOA_MAX_CHANNELS];
     for(int i = 0; i < x->f_number_of_channels; i++)
         atom_setfloat(argv+i, x->f_channel_values[i]);
     
@@ -576,7 +515,7 @@ t_pd_err channels_set(t_hoa_space *x, t_object *attr, long argc, t_atom *argv)
     if (argc && argv && atom_gettype(argv) == A_LONG)
     {
         numberOfChannels = atom_getlong(argv);
-        if(numberOfChannels != x->f_number_of_channels && numberOfChannels > 2 && numberOfChannels <= MAX_CHANNELS)
+        if(numberOfChannels != x->f_number_of_channels && numberOfChannels > 2 && numberOfChannels <= HOA_MAX_CHANNELS)
         {
             x->f_number_of_channels  = numberOfChannels;
             for(int i = 0; i < x->f_number_of_channels; i++)
