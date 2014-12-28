@@ -11,7 +11,7 @@ typedef struct _hoa_projector
     t_edspobj               f_ob;
     t_float*                f_ins;
     t_float*                f_outs;
-    DecoderRegular<float>*  f_projector;
+    Decoder<Hoa2d, t_float>*f_projector;
 } t_hoa_projector;
 
 void *hoa_projector_new(t_symbol *s, long argc, t_atom *argv);
@@ -56,7 +56,7 @@ void *hoa_projector_new(t_symbol *s, long argc, t_atom *argv)
         if(numberOfLoudspeakers < order * 2 + 1)
             numberOfLoudspeakers = order * 2 + 1;
 		
-		x->f_projector = new DecoderRegular<float>(order, numberOfLoudspeakers);
+		x->f_projector = new Decoder<Hoa2d, t_float>(order, numberOfLoudspeakers);
 		
         eobj_dspsetup(x, x->f_projector->getNumberOfHarmonics(), x->f_projector->getNumberOfChannels());
         

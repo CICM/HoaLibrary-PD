@@ -8,10 +8,10 @@
 
 typedef struct _hoa_rotate
 {
-    t_edspobj       f_ob;
-    t_float*        f_ins;
-    t_float*        f_outs;
-    Rotate<float>*  f_rotate;
+    t_edspobj                           f_obj;
+    unique_ptr<Rotate<Hoa2d, t_float>>  f_rotate;
+    t_float*                            f_ins;
+    t_float*                            f_outs;
 } t_hoa_rotate;
 
 void *hoa_rotate_new(t_symbol *s, long argc, t_atom *argv);
@@ -44,18 +44,15 @@ extern "C" void setup_hoa0x2e2d0x2erotate_tilde(void)
 
 void *hoa_rotate_new(t_symbol *s, long argc, t_atom *argv)
 {
-    t_hoa_rotate *x = NULL;
-	int	order = 4;
-    
-    x = (t_hoa_rotate *)eobj_new(hoa_rotate_class);
+    int	order = 4;
+    t_hoa_rotate *x = (t_hoa_rotate *)eobj_new(hoa_rotate_class);
 	if (x)
 	{
-		if(atom_gettype(argv) == A_LONG)
-			order = atom_getlong(argv);
-		if (order < 1)
-			order = 1;
-		
-		x->f_rotate = new Rotate<float>(order);
+        if(atom_gettype(argv) == A_LONG)
+        {
+            order = max(atom_getlong(argv), (long)1);
+        }
+        x->f_rotate = unique_ptr<Rotate<Hoa2d, t_float>>(new Rotate<Hoa2d, t_float>(order));
 		
 		eobj_dspsetup(x, x->f_rotate->getNumberOfHarmonics() + 1, x->f_rotate->getNumberOfHarmonics());
         
@@ -91,16 +88,16 @@ void hoa_rotate_dsp(t_hoa_rotate *x, t_object *dsp, short *count, double sampler
 
 void hoa_rotate_perform(t_hoa_rotate *x, t_object *dsp64, float **ins, long numins, float **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
-    for(int i = 0; i < numouts; i++)
+    for(long i = 0; i < numouts; i++)
     {
         cblas_scopy(sampleframes, ins[i], 1, x->f_ins+i, numouts);
     }
-	for(int i = 0; i < sampleframes; i++)
+	for(long i = 0; i < sampleframes; i++)
     {
         x->f_rotate->setYaw(ins[numouts][i]);
         x->f_rotate->process(x->f_ins + numouts * i, x->f_outs + numouts * i);
     }
-    for(int i = 0; i < numouts; i++)
+    for(long i = 0; i < numouts; i++)
     {
         cblas_scopy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
     }
@@ -108,15 +105,15 @@ void hoa_rotate_perform(t_hoa_rotate *x, t_object *dsp64, float **ins, long numi
 
 void hoa_rotate_perform_offset(t_hoa_rotate *x, t_object *dsp64, float **ins, long numins, float **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
-    for(int i = 0; i < numouts; i++)
+    for(long i = 0; i < numouts; i++)
     {
         cblas_scopy(sampleframes, ins[i], 1, x->f_ins+i, numouts);
     }
-	for(int i = 0; i < sampleframes; i++)
+	for(long i = 0; i < sampleframes; i++)
     {
         x->f_rotate->process(x->f_ins + numouts * i, x->f_outs + numouts * i);
     }
-    for(int i = 0; i < numouts; i++)
+    for(long i = 0; i < numouts; i++)
     {
         cblas_scopy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
     }
@@ -125,7 +122,6 @@ void hoa_rotate_perform_offset(t_hoa_rotate *x, t_object *dsp64, float **ins, lo
 void hoa_rotate_free(t_hoa_rotate *x)
 {
 	eobj_dspfree(x);
-	delete x->f_rotate;
     delete [] x->f_ins;
 	delete [] x->f_outs;
 }

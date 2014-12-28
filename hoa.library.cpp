@@ -37,13 +37,11 @@ extern "C" void setup_hoa0x2elibrary(void)
 
     // HOA 2D //
     setup_hoa0x2e2d0x2eencoder_tilde();
-    setup_hoa0x2e2d0x2ewider_tilde();
-    setup_hoa0x2e2d0x2emap_tilde();
     setup_hoa0x2e2d0x2eoptim_tilde();
     setup_hoa0x2e2d0x2erotate_tilde();
     setup_hoa0x2e2d0x2escope_tilde();
     setup_hoa0x2e2d0x2eprojector_tilde();
-    setup_hoa0x2e2d0x2erecomposer_tilde();
+    //setup_hoa0x2e2d0x2erecomposer_tilde();
     setup_hoa0x2e2d0x2espace();
     setup_hoa0x2e2d0x2emeter_tilde();
     /*

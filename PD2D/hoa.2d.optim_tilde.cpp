@@ -8,11 +8,13 @@
 
 typedef struct _hoa_optim
 {
-    t_edspobj       f_ob;
-    t_float*        f_ins;
-    t_float*        f_outs;
-    Optim<float>*   f_optim;
+    t_edspobj                           f_obj;
+    unique_ptr<Optim<Hoa2d, t_float>>   f_optim;
+    t_float*                            f_ins;
+    t_float*                            f_outs;
 } t_hoa_optim;
+
+t_eclass *hoa_optim_class;
 
 void *hoa_optim_new(t_symbol *s, long argc, t_atom *argv);
 void hoa_optim_free(t_hoa_optim *x);
@@ -20,14 +22,8 @@ void hoa_optim_free(t_hoa_optim *x);
 void hoa_optim_dsp(t_hoa_optim *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags);
 void hoa_optim_perform(t_hoa_optim *x, t_object *dsp64, float **ins, long numins, float **outs, long numouts, long sampleframes, long flags, void *userparam);
 
-void hoa_optim_basic(t_hoa_optim *x);
-void hoa_optim_maxre(t_hoa_optim *x);
-void hoa_optim_inphase(t_hoa_optim *x);
-
-t_eclass *hoa_optim_class;
-
+void hoa_optim_symbol(t_hoa_optim *x, t_symbol *s);
 t_hoa_err hoa_getinfos(t_hoa_optim* x, t_hoa_boxinfos* boxinfos);
-void hoa_optim_deprecated(t_hoa_optim* x, t_symbol *s, long ac, t_atom* av);
 
 extern "C" void setup_hoa0x2e2d0x2eoptim_tilde(void)
 {
@@ -39,95 +35,34 @@ extern "C" void setup_hoa0x2e2d0x2eoptim_tilde(void)
 	eclass_dspinit(c);
     hoa_initclass(c, (method)hoa_getinfos);
 	eclass_addmethod(c, (method)hoa_optim_dsp,      "dsp",      A_CANT, 0);
-    eclass_addmethod(c, (method)hoa_optim_basic,    "basic",	A_NULL, 0);
-    eclass_addmethod(c, (method)hoa_optim_maxre,    "maxRe",	A_NULL, 0);
-    eclass_addmethod(c, (method)hoa_optim_inphase,  "inPhase",	A_NULL, 0);
-    eclass_addmethod(c, (method)hoa_optim_deprecated,"mode",    A_GIMME, 0);
+    eclass_addmethod(c, (method)hoa_optim_symbol,   "symbol",	A_SYM, 0);
     
     eclass_register(CLASS_OBJ, c);
     hoa_optim_class = c;
 }
 
-void hoa_optim_deprecated(t_hoa_optim* x, t_symbol *s, long ac, t_atom* av)
-{
-    t_atom* argv;
-    long argc;
-    if(s && s == gensym("mode") && ac && av)
-    {
-        if(atom_gettype(av) == A_SYM)
-        {
-            if(atom_getsym(av) == gensym("maxRe"))
-                x->f_optim->setMode(Hoa::MaxRe);
-            else if(atom_getsym(av) == gensym("basic"))
-                x->f_optim->setMode(Hoa::Basic);
-            else
-                x->f_optim->setMode(Hoa::InPhase);
-        }
-        else
-        {
-            if(atom_getlong(av) == 1)
-                x->f_optim->setMode(Hoa::MaxRe);
-            else if(atom_getlong(av) == 0)
-                x->f_optim->setMode(Hoa::Basic);
-            else
-                x->f_optim->setMode(Hoa::InPhase);
-        }
-        object_error(x, "%s attribute @mode is deprecated, please use it as an argument.", eobj_getclassname(x)->s_name);
-    }
-    atoms_get_attribute(ac, av, gensym("@mode"), &argc, &argv);
-    if(argc && argv)
-    {
-        if(atom_gettype(argv) == A_SYM)
-        {
-            if(atom_getsym(argv) == gensym("maxRe"))
-                x->f_optim->setMode(Hoa::MaxRe);
-            else if(atom_getsym(argv) == gensym("basic"))
-                x->f_optim->setMode(Hoa::Basic);
-            else
-                x->f_optim->setMode(Hoa::InPhase);
-        }
-        else
-        {
-            if(atom_getlong(argv) == 1)
-                x->f_optim->setMode(Hoa::MaxRe);
-            else if(atom_getlong(argv) == 0)
-                x->f_optim->setMode(Hoa::Basic);
-            else
-                x->f_optim->setMode(Hoa::InPhase);
-        }
-        object_error(x, "%s attribute @mode is deprecated, please use it as an argument.", eobj_getclassname(x)->s_name);
-        argc = 0;free(argv);argv = NULL;
-    }
-}
-
 void *hoa_optim_new(t_symbol *s, long argc, t_atom *argv)
 {
-    t_hoa_optim *x = NULL;
-    t_binbuf *d;
-	int	order = 4;
-    
-    if (!(d = binbuf_via_atoms(argc,argv)))
-		return NULL;
-    
-    x = (t_hoa_optim *)eobj_new(hoa_optim_class);
-    if (x)
+    int	order = 1;
+    t_hoa_optim *x = (t_hoa_optim *)eobj_new(hoa_optim_class);
+    if(x)
 	{
 		if(atom_gettype(argv) == A_LONG)
-			order = atom_getlong(argv);
-        if(order < 1)
-            order = 1;
-        
-        x->f_optim = new Optim<float>(order, Hoa::InPhase);
-		
+        {
+			order = max(atom_getlong(argv), (long)1);
+        }
+        x->f_optim = unique_ptr<Optim<Hoa2d, t_float>>(new Optim<Hoa2d, t_float>(order, InPhase));
         if(argc > 1 && atom_gettype(argv+1) == A_SYM)
         {
             if(atom_getsym(argv+1) == gensym("maxRe"))
-                x->f_optim->setMode(Hoa::MaxRe);
+            {
+                x->f_optim->setOptimization(MaxRe);
+            }
             else if(atom_getsym(argv+1) == gensym("basic"))
-                x->f_optim->setMode(Hoa::Basic);
+            {
+                x->f_optim->setOptimization(Basic);
+            }
         }
-        
-        hoa_optim_deprecated(x, NULL, argc, argv);
         
 		eobj_dspsetup(x, x->f_optim->getNumberOfHarmonics(), x->f_optim->getNumberOfHarmonics());
         
@@ -135,9 +70,14 @@ void *hoa_optim_new(t_symbol *s, long argc, t_atom *argv)
         x->f_outs = new t_float[x->f_optim->getNumberOfHarmonics() * HOA_MAX_BLOCKSIZE];
 	}
     
-    ebox_attrprocess_viabinbuf(x, d);
-    
    	return (x);
+}
+
+void hoa_optim_free(t_hoa_optim *x)
+{
+    eobj_dspfree(x);
+    delete [] x->f_ins;
+    delete [] x->f_outs;
 }
 
 t_hoa_err hoa_getinfos(t_hoa_optim* x, t_hoa_boxinfos* boxinfos)
@@ -157,15 +97,15 @@ void hoa_optim_dsp(t_hoa_optim *x, t_object *dsp, short *count, double samplerat
 
 void hoa_optim_perform(t_hoa_optim *x, t_object *dsp64, float **ins, long numins, float **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
-	for(int i = 0; i < numins; i++)
+	for(long i = 0; i < numins; i++)
     {
         cblas_scopy(sampleframes, ins[i], 1, x->f_ins+i, numins);
     }
-	for(int i = 0; i < sampleframes; i++)
+	for(long i = 0; i < sampleframes; i++)
     {
         x->f_optim->process(x->f_ins + numins * i, x->f_outs + numouts * i);
     }
-    for(int i = 0; i < numouts; i++)
+    for(long i = 0; i < numouts; i++)
     {
         cblas_scopy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
     }
@@ -176,29 +116,19 @@ void hoa_optim_assist(t_hoa_optim *x, void *b, long m, long a, char *s)
 	sprintf(s,"(Signal) %s", x->f_optim->getHarmonicName(a).c_str());
 }
 
-void hoa_optim_basic(t_hoa_optim *x)
+void hoa_optim_symbol(t_hoa_optim *x, t_symbol *s)
 {
-    if(x->f_optim->getMode() != Hoa::Basic)
-        x->f_optim->setMode(Hoa::Basic);
-}
-
-void hoa_optim_maxre(t_hoa_optim *x)
-{
-    if(x->f_optim->getMode() != Hoa::MaxRe)
-        x->f_optim->setMode(Hoa::MaxRe);
-}
-
-void hoa_optim_inphase(t_hoa_optim *x)
-{
-    if(x->f_optim->getMode() != Hoa::InPhase)
-        x->f_optim->setMode(Hoa::InPhase);
-}
-
-void hoa_optim_free(t_hoa_optim *x)
-{
-	eobj_dspfree(x);
-	delete x->f_optim;
-    delete [] x->f_ins;
-    delete [] x->f_outs;
+    if(s == gensym("basic"))
+    {
+        x->f_optim->setOptimization(Basic);
+    }
+    else if(s == gensym("maxRe"))
+    {
+        x->f_optim->setOptimization(MaxRe);
+    }
+    else if(s == gensym("inPhase"))
+    {
+        x->f_optim->setOptimization(InPhase);
+    }
 }
 
