@@ -38,7 +38,7 @@ void *hoa_dac_new(t_symbol *s, long argc, t_atom *argv)
 {
     int i, j;
     int min, max;
-    t_atom channels[256];
+    t_atom channels[EPD_MAX_SIGS];
 	t_hoa_dac *x = (t_hoa_dac *)pd_new(hoa_dac_class);
     
     if(!argc)
@@ -61,7 +61,7 @@ void *hoa_dac_new(t_symbol *s, long argc, t_atom *argv)
             else if(atom_gettype(argv+i) == A_SYM)
             {
                 min = atoi(atom_getsym(argv+i)->s_name);
-                if(min > 0 && min <= 256)
+                if(min > 0 && min <= EPD_MAX_SIGS)
                 {
                     if (min < 10)
                         max = atoi(atom_getsym(argv+i)->s_name+2);
@@ -71,7 +71,7 @@ void *hoa_dac_new(t_symbol *s, long argc, t_atom *argv)
                         max = atoi(atom_getsym(argv+i)->s_name+4);
                     else
                         max = atoi(atom_getsym(argv+i)->s_name+5);
-                    if(max > 0 && max <= 256)
+                    if(max > 0 && max <= EPD_MAX_SIGS)
                     {
                         if(max > min)
                         {

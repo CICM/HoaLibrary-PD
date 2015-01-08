@@ -4,48 +4,49 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
 
-#include "Hoa3D.pd.h"
+#include "Hoa2D.pd.h"
 
-typedef struct _hoa_wider_3D
+typedef struct _hoa_wider
 {
     t_edspobj       f_ob;
     t_float*        f_ins;
     t_float*        f_outs;
-    Hoa3D::Wider*   f_wider;
+    Hoa2D::Wider*   f_wider;
     
-} t_hoa_wider_3D;
+} t_hoa_wider;
 
-void *hoa_wider_3D_new(t_symbol *s, long argc, t_atom *argv);
-void hoa_wider_3D_free(t_hoa_wider_3D *x);
-void hoa_wider_3D_float(t_hoa_wider_3D *x, float f);
+void *hoa_wider_new(t_symbol *s, long argc, t_atom *argv);
+void hoa_wider_free(t_hoa_wider *x);
+void hoa_wider_float(t_hoa_wider *x, float f);
 
-void hoa_wider_3D_dsp(t_hoa_wider_3D *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags);
-void hoa_wider_3D_perform(t_hoa_wider_3D *x, t_object *dsp, float **ins, long ni, float **outs, long no, long sf, long f,void *up);
-void hoa_wider_3D_perform_offset(t_hoa_wider_3D *x, t_object *dsp, float **ins, long ni, float **outs, long no, long sf, long f,void *up);
+void hoa_wider_dsp(t_hoa_wider *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags);
+void hoa_wider_perform(t_hoa_wider *x, t_object *dsp, float **ins, long ni, float **outs, long no, long sf, long f,void *up);
+void hoa_wider_perform_offset(t_hoa_wider *x, t_object *dsp, float **ins, long ni, float **outs, long no, long sf, long f,void *up);
 
-t_eclass *hoa_wider_3D_class;
+t_eclass *hoa_wider_class;
 
-t_hoa_err hoa_getinfos(t_hoa_wider_3D* x, t_hoa_boxinfos* boxinfos);
+t_hoa_err hoa_getinfos(t_hoa_wider* x, t_hoa_boxinfos* boxinfos);
 
-extern "C" void setup_hoa0x2e3d0x2ewider_tilde(void)
+extern "C" void setup_hoa0x2e2d0x2ewider_tilde(void)
 {
     t_eclass* c;
-    c = eclass_new("hoa.3d.wider~", (method)hoa_wider_3D_new, (method)hoa_wider_3D_free, (short)sizeof(t_hoa_wider_3D), 0, A_GIMME, 0);
+    c = eclass_new("hoa.2d.wider~", (method)hoa_wider_new, (method)hoa_wider_free, (short)sizeof(t_hoa_wider), 0, A_GIMME, 0);
+    class_addcreator((t_newmethod)hoa_wider_new, gensym("hoa.wider~"), A_GIMME, 0);
     
 	eclass_dspinit(c);
     hoa_initclass(c, (method)hoa_getinfos);
-	eclass_addmethod(c, (method)hoa_wider_3D_dsp,       "dsp",      A_CANT, 0);
-    eclass_addmethod(c, (method)hoa_wider_3D_float,    "float",    A_FLOAT, 0);
+	eclass_addmethod(c, (method)hoa_wider_dsp,       "dsp",      A_CANT, 0);
+    eclass_addmethod(c, (method)hoa_wider_float,    "float",    A_FLOAT, 0);
     
     eclass_register(CLASS_OBJ, c);
-    hoa_wider_3D_class = c;
+    hoa_wider_class = c;
 }
 
-void *hoa_wider_3D_new(t_symbol *s, long argc, t_atom *argv)
+void *hoa_wider_new(t_symbol *s, long argc, t_atom *argv)
 {
-    t_hoa_wider_3D *x = NULL;
+    t_hoa_wider *x = NULL;
 	int	order = 1;
-    x = (t_hoa_wider_3D *)eobj_new(hoa_wider_3D_class);
+    x = (t_hoa_wider *)eobj_new(hoa_wider_class);
 	if (x)
 	{
 		if(atom_gettype(argv) == A_LONG)
@@ -53,7 +54,7 @@ void *hoa_wider_3D_new(t_symbol *s, long argc, t_atom *argv)
 		if(order < 1)
             order = 1;
         
-		x->f_wider = new Hoa3D::Wider(order);
+		x->f_wider = new Hoa2D::Wider(order);
 		
         eobj_dspsetup(x, x->f_wider->getNumberOfHarmonics() + 1, x->f_wider->getNumberOfHarmonics());
         
@@ -64,7 +65,7 @@ void *hoa_wider_3D_new(t_symbol *s, long argc, t_atom *argv)
 	return (x);
 }
 
-t_hoa_err hoa_getinfos(t_hoa_wider_3D* x, t_hoa_boxinfos* boxinfos)
+t_hoa_err hoa_getinfos(t_hoa_wider* x, t_hoa_boxinfos* boxinfos)
 {
 	boxinfos->object_type = HOA_OBJECT_2D;
 	boxinfos->autoconnect_inputs = x->f_wider->getNumberOfHarmonics();
@@ -74,20 +75,20 @@ t_hoa_err hoa_getinfos(t_hoa_wider_3D* x, t_hoa_boxinfos* boxinfos)
 	return HOA_ERR_NONE;
 }
 
-void hoa_wider_3D_float(t_hoa_wider_3D *x, float f)
+void hoa_wider_float(t_hoa_wider *x, float f)
 {
     x->f_wider->setWideningValue(f);
 }
 
-void hoa_wider_3D_dsp(t_hoa_wider_3D *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
+void hoa_wider_dsp(t_hoa_wider *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
 {
     if(count[x->f_wider->getNumberOfHarmonics()])
-        object_method(dsp, gensym("dsp_add"), x, (method)hoa_wider_3D_perform, 0, NULL);
+        object_method(dsp, gensym("dsp_add"), x, (method)hoa_wider_perform, 0, NULL);
     else
-        object_method(dsp, gensym("dsp_add"), x, (method)hoa_wider_3D_perform_offset, 0, NULL);
+        object_method(dsp, gensym("dsp_add"), x, (method)hoa_wider_perform_offset, 0, NULL);
 }
 
-void hoa_wider_3D_perform(t_hoa_wider_3D *x, t_object *dsp, float **ins, long numins, float **outs, long numouts, long sampleframes, long f,void *up)
+void hoa_wider_perform(t_hoa_wider *x, t_object *dsp, float **ins, long numins, float **outs, long numouts, long sampleframes, long f,void *up)
 {
 	for(int i = 0; i < numins - 1; i++)
     {
@@ -104,7 +105,7 @@ void hoa_wider_3D_perform(t_hoa_wider_3D *x, t_object *dsp, float **ins, long nu
     }
 }
 
-void hoa_wider_3D_perform_offset(t_hoa_wider_3D *x, t_object *dsp, float **ins, long numins, float **outs, long numouts, long sampleframes, long f,void *up)
+void hoa_wider_perform_offset(t_hoa_wider *x, t_object *dsp, float **ins, long numins, float **outs, long numouts, long sampleframes, long f,void *up)
 {
 	for(int i = 0; i < numins - 1; i++)
     {
@@ -120,7 +121,7 @@ void hoa_wider_3D_perform_offset(t_hoa_wider_3D *x, t_object *dsp, float **ins, 
     }
 }
 
-void hoa_wider_3D_free(t_hoa_wider_3D *x)
+void hoa_wider_free(t_hoa_wider *x)
 {
     eobj_dspfree(x);
 	delete x->f_wider;

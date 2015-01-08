@@ -1,100 +1,102 @@
 #N canvas 408 100 814 589 10;
-#X msg 22 343 \; pd dsp 1;
-#X msg 22 380 \; pd dsp 0;
-#X obj 591 274 s hoameter;
-#X obj 484 203 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 585 262 s hoameter;
+#X obj 478 191 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 1 @max 64 @minmax 1 64 @decimal 0 @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 484 236 channels \$1;
-#X obj 591 203 c.number @size 53 17 @fontname Helvetica @fontweight
+#X msg 478 224 channels \$1;
+#X obj 585 191 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min -360 @max 360 @minmax -360 360 @decimal 0 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 591 236 offset \$1;
-#X text 588 172 Offset of;
-#X text 588 182 channels;
-#X text 678 182 channels;
-#X text 678 172 Rotation of;
-#X msg 681 236 rotation \$1;
-#X obj 681 202 c.menu @size 100 17 @fontname Helvetica @fontweight
+#X msg 585 224 offset \$1;
+#X text 582 160 Offset of;
+#X text 582 170 channels;
+#X text 672 170 channels;
+#X text 672 160 Rotation of;
+#X msg 675 224 rotation \$1;
+#X obj 675 190 c.menu @size 100 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @hover 0 @items Anti-Clockwise Clockwise @states 0 0 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 352 106 phasor~ 0.3;
-#X obj 465 404 s hoameter;
-#X text 488 182 channels;
-#X text 488 172 Number of;
-#X obj 381 322 c.menu @size 100 17 @fontname Helvetica @fontweight
+#X obj 346 94 phasor~ 0.3;
+#X obj 459 392 s hoameter;
+#X text 482 170 channels;
+#X text 482 160 Number of;
+#X obj 375 310 c.menu @size 100 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @hover 0 @items none energy velocity both @states 0 0 0 0 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 381 356 vectors \$1;
-#X text 398 292 Vectors to;
-#X text 398 302 display;
-#X text 671 268 Angles;
-#X msg 526 306 angles 0 15 90 270 345;
-#X msg 558 359 angles 0 30 110 250 330;
-#X obj 67 175 r hoadec;
-#X obj 541 404 s hoadec;
-#X obj 127 121 noise~;
-#X obj 127 153 hoa.2d.encoder~ 3 --------------------;
-#X obj 127 252 hoa.2d.meter~ @size 231 231 @fontname Helvetica @fontweight
+#X msg 375 344 vectors \$1;
+#X text 392 280 Vectors to;
+#X text 392 290 display;
+#X text 665 256 Angles;
+#X msg 520 294 angles 0 15 90 270 345;
+#X msg 552 347 angles 0 30 110 250 330;
+#X obj 61 163 r hoadec;
+#X obj 535 392 s hoadec;
+#X obj 121 109 noise~;
+#X obj 121 141 hoa.2d.encoder~ 3 --------------------;
+#X obj 121 240 hoa.2d.meter~ @size 231 231 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive hoameter @send (null)
 @channels 5 @angles 0 30 110 250 330 @offset 0 @rotation clockwise
 @vectors energy @interval 50 @bgcolor 0.758847 0.758847 0.758847 1
 @bdcolor 0.699562 0.699562 0.699562 1 @coldcolor 0 0.6 0 0.8 @tepidcolor
 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor
 1 0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor 1 0 0 0.8;
-#X text 9 57 hoa.2d.meter~ displays the peak levels for a circurlar
+#X text 3 45 hoa.2d.meter~ displays the peak levels for a circurlar
 array of loudspeakers. It computes and displays the energy and velocity
 vectors.;
-#X msg 541 332 angles 0 72 144 -144 -72;
-#X obj 127 214 hoa.2d.decoder~ 3 irregular 5 @angles 0 30 110 250 330
+#X msg 535 320 angles 0 72 144 -144 -72;
+#X obj 121 202 hoa.2d.decoder~ 3 irregular 5 @angles 0 30 110 250 330
 , f 38;
-#X obj 564 39 hoa.connect;
-#X obj 564 19 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 558 27 hoa.connect;
+#X obj 558 7 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 352 127 hoa.pi~ 2;
-#X obj 145 520 hoa.help.pub;
-#X obj 19 31 c.patcherinfos;
-#X obj 24 14 loadbang;
-#X obj 9 14 hoa.help.header;
-#X obj 415 14 hoa.help.also;
-#X obj 484 146 c.loadmess set 5;
-#X obj 381 276 c.loadmess set 1;
+#X obj 346 115 hoa.pi~ 2;
+#X obj 139 508 hoa.help.pub;
+#X obj 13 19 c.patcherinfos;
+#X obj 18 2 loadbang;
+#X obj 3 2 hoa.help.header;
+#X obj 409 2 hoa.help.also;
+#X obj 478 134 c.loadmess set 5;
+#X obj 375 264 c.loadmess set 1;
+#X obj 45 384 c.dsp~ @size 30 30 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @local 0
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0
+0.8;
+#X connect 1 0 2 0;
+#X connect 2 0 0 0;
 #X connect 3 0 4 0;
-#X connect 4 0 2 0;
-#X connect 5 0 6 0;
-#X connect 6 0 2 0;
-#X connect 11 0 2 0;
-#X connect 12 0 11 0;
-#X connect 13 0 34 1;
-#X connect 17 0 18 0;
-#X connect 18 0 14 0;
-#X connect 22 0 14 0;
-#X connect 22 0 25 0;
-#X connect 23 0 14 0;
-#X connect 23 0 25 0;
-#X connect 24 0 31 0;
-#X connect 26 0 27 0;
-#X connect 27 0 31 0;
-#X connect 27 1 31 1;
-#X connect 27 2 31 2;
-#X connect 27 3 31 3;
-#X connect 27 4 31 4;
-#X connect 27 5 31 5;
-#X connect 27 6 31 6;
-#X connect 30 0 14 0;
-#X connect 30 0 25 0;
-#X connect 31 0 28 0;
-#X connect 31 1 28 1;
-#X connect 31 2 28 2;
-#X connect 31 3 28 3;
-#X connect 31 4 28 4;
-#X connect 33 0 32 0;
-#X connect 34 0 27 1;
-#X connect 36 0 38 0;
-#X connect 37 0 36 0;
-#X connect 40 0 3 0;
-#X connect 41 0 17 0;
+#X connect 4 0 0 0;
+#X connect 9 0 0 0;
+#X connect 10 0 9 0;
+#X connect 11 0 32 1;
+#X connect 15 0 16 0;
+#X connect 16 0 12 0;
+#X connect 20 0 12 0;
+#X connect 20 0 23 0;
+#X connect 21 0 12 0;
+#X connect 21 0 23 0;
+#X connect 22 0 29 0;
+#X connect 24 0 25 0;
+#X connect 25 0 29 0;
+#X connect 25 1 29 1;
+#X connect 25 2 29 2;
+#X connect 25 3 29 3;
+#X connect 25 4 29 4;
+#X connect 25 5 29 5;
+#X connect 25 6 29 6;
+#X connect 28 0 12 0;
+#X connect 28 0 23 0;
+#X connect 29 0 26 0;
+#X connect 29 1 26 1;
+#X connect 29 2 26 2;
+#X connect 29 3 26 3;
+#X connect 29 4 26 4;
+#X connect 31 0 30 0;
+#X connect 32 0 25 1;
+#X connect 34 0 36 0;
+#X connect 35 0 34 0;
+#X connect 38 0 1 0;
+#X connect 39 0 15 0;

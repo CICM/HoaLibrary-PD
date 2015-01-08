@@ -13,7 +13,7 @@ typedef struct _hoa_decoder
     t_float*                f_ins;
     t_float*                f_outs;
     
-    double                  f_angles_of_channels[MAX_CHANNELS];
+    double                  f_angles_of_channels[HOA_MAX_PLANEWAVES];
     double                  f_offset;
     long                    f_pinna;
     long                    f_number_of_channels;
@@ -48,7 +48,7 @@ extern "C" void setup_hoa0x2e2d0x2edecoder_tilde(void)
     eclass_addmethod(c, (method)hoa_decoder_deprecated,    "pinnae",       A_GIMME, 0);
     eclass_addmethod(c, (method)hoa_decoder_deprecated,    "restitution",  A_GIMME, 0);
     
-    CLASS_ATTR_DOUBLE_VARSIZE	(c, "angles",0, t_hoa_decoder, f_angles_of_channels, f_number_of_channels, MAX_CHANNELS);
+    CLASS_ATTR_DOUBLE_VARSIZE	(c, "angles",0, t_hoa_decoder, f_angles_of_channels, f_number_of_channels, HOA_MAX_PLANEWAVES);
 	CLASS_ATTR_ACCESSORS		(c, "angles", NULL, angles_set);
 	CLASS_ATTR_ORDER			(c, "angles", 0, "2");
 	CLASS_ATTR_LABEL			(c, "angles", 0, "Angles of Loudspeakers");
@@ -156,8 +156,8 @@ void *hoa_decoder_new(t_symbol *s, long argc, t_atom *argv)
         x->f_number_of_channels = x->f_decoder->getNumberOfChannels();
     
         eobj_dspsetup(x, x->f_decoder->getNumberOfHarmonics(), x->f_decoder->getNumberOfChannels());
-        x->f_ins = new t_float[x->f_decoder->getNumberOfHarmonics() * SYS_MAXBLKSIZE];
-        x->f_outs= new t_float[MAX_CHANNELS * SYS_MAXBLKSIZE];
+        x->f_ins = new t_float[x->f_decoder->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
+        x->f_outs= new t_float[HOA_MAX_PLANEWAVES * HOA_MAXBLKSIZE];
         
         ebox_attrprocess_viabinbuf(x, d);
 	}

@@ -13,19 +13,17 @@ extern "C"
 #include "hoa.pd_commonsyms.h"
 }
 
-#define HOA_MAX_CHANNELS 256
-#define HOA_MAX_BLOCKSIZE 8192
-#define HOA_UI_BORDERTHICKNESS 1
-#define HOA_UI_CORNERSIZE 8
-#define HOA_DISPLAY_NPOINTS 180
-
-#define  HOA_CONTRAST_WHITE 0.06
-#define  HOA_CONTRAST_BLACK 0.14
+#define HOA_MAX_PLANEWAVES      EPD_MAX_SIGS
+#define HOA_MAXBLKSIZE          8192
+#define HOA_UI_BORDERTHICKNESS  1
+#define HOA_UI_CORNERSIZE       8
+#define HOA_CONTRAST_LIGHTER    0.06f
+#define HOA_CONTRAST_DARKER     0.14f
 
 static t_symbol* _sym_is_hoa	   = gensym("is_hoa");
-static t_symbol* _sym_hoa_version  = gensym("(v2.0)");
+static t_symbol* _sym_hoa_version  = gensym("(v2.1)");
 static t_symbol* _sym_credit_line1 = gensym("by Julien Colafrancesco, Pierre Guillot & Eliott Paris");
-static t_symbol* _sym_credit_line2 = gensym("Copyright \u00a9 2012 - 2014, CICM | Universite Paris 8");
+static t_symbol* _sym_credit_line2 = gensym("Copyright \u00a9 2012 - 2015, CICM | Universite Paris 8");
 
 typedef long t_hoa_err;		///< an integer value suitable to be returned as an hoa error code  @ingroup misc
 

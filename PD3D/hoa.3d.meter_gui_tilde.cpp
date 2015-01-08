@@ -90,9 +90,6 @@ t_symbol* hoa_sym_3d_bottom = gensym("bottom");
 t_symbol* hoa_sym_3d_toponbottom = gensym("top/bottom");
 t_symbol* hoa_sym_3d_topnextbottom = gensym("top-bottom");
 
-#define  contrast_white 0.06
-#define  contrast_black 0.14
-
 extern "C" void setup_hoa0x2e3d0x2emeter_tilde(void)
 {
 	t_eclass *c;
@@ -246,9 +243,9 @@ void *hoa_meter_3d_new(t_symbol *s, int argc, t_atom *argv)
 	x = (t_hoa_meter_3d *)eobj_new(hoa_meter_3d_class);
     
     x->f_ramp = 0;
-    x->f_signals = new t_float[MAX_SPEAKER * SYS_MAXBLKSIZE];
-    x->f_over_leds = new int[MAX_CHANNELS];
-    for(int i = 0; i < MAX_CHANNELS; i++)
+    x->f_signals = new t_float[MAX_SPEAKER * HOA_MAXBLKSIZE];
+    x->f_over_leds = new int[HOA_MAX_PLANEWAVES];
+    for(int i = 0; i < HOA_MAX_PLANEWAVES; i++)
         x->f_over_leds[i] = 0;
     x->f_clock = clock_new(x,(t_method)hoa_meter_3d_tick);
 	x->f_startclock = 0;
@@ -674,8 +671,8 @@ void draw_background(t_hoa_meter_3d *x,  t_object *view, t_rect *rect)
 {
 	t_elayer *g = ebox_start_layer((t_ebox *)x, hoa_sym_3d_background_layer, rect->width, rect->height);
     t_rgba black, white;
-    black = rgba_addContrast(x->f_color_bg, -contrast_black);
-    white = rgba_addContrast(x->f_color_bg, contrast_white);
+    black = rgba_addContrast(x->f_color_bg, -HOA_CONTRAST_DARKER);
+    white = rgba_addContrast(x->f_color_bg, HOA_CONTRAST_LIGHTER);
     
 	if (g)
 	{
@@ -747,8 +744,8 @@ void draw_background(t_hoa_meter_3d *x,  t_object *view, t_rect *rect)
 void draw_leds(t_hoa_meter_3d *x, t_object *view, t_rect *rect)
 {
     t_matrix transform;
-    t_rgba black = rgba_addContrast(x->f_color_bg, -contrast_black);
-    t_rgba white = rgba_addContrast(x->f_color_bg, contrast_white);
+    t_rgba black = rgba_addContrast(x->f_color_bg, -HOA_CONTRAST_DARKER);
+    t_rgba white = rgba_addContrast(x->f_color_bg, HOA_CONTRAST_LIGHTER);
 	t_elayer *g = ebox_start_layer((t_ebox *)x,  hoa_sym_3d_leds_layer, rect->width, rect->height);
     t_rgba mcolor;
     bool viewd = 1;

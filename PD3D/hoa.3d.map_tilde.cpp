@@ -138,9 +138,9 @@ void *hoa_map_3D_tilde_new(t_symbol *s, long argc, t_atom *argv)
 	if (x)
 	{
 		if(atom_gettype(argv) == A_LONG)
-			order = max(atom_getlong(argv), (long)0);
+			order = clip_min(atom_getlong(argv), 0);
         if(argc > 1 && atom_gettype(argv+1) == A_LONG)
-            numberOfSources = clip(atom_getlong(argv+1), 1, 255);
+            numberOfSources = clip_minmax(atom_getlong(argv+1), 1, 255);
         if(argc > 2 && atom_gettype(argv+2) == A_SYM)
         {
             if(atom_getsym(argv+2) == gensym("car") || atom_getsym(argv+2) == gensym("cartesian"))
@@ -168,11 +168,11 @@ void *hoa_map_3D_tilde_new(t_symbol *s, long argc, t_atom *argv)
             eobj_dspsetup(x, x->f_map->getNumberOfSources(), x->f_map->getNumberOfHarmonics());
         
         if(x->f_map->getNumberOfSources() == 1)
-            x->f_sig_ins    = new t_float[4 * SYS_MAXBLKSIZE];
+            x->f_sig_ins    = new t_float[4 * HOA_MAXBLKSIZE];
         else
-            x->f_sig_ins    = new t_float[x->f_map->getNumberOfSources() * SYS_MAXBLKSIZE];
+            x->f_sig_ins    = new t_float[x->f_map->getNumberOfSources() * HOA_MAXBLKSIZE];
 		
-        x->f_sig_outs       = new t_float[x->f_map->getNumberOfHarmonics() * SYS_MAXBLKSIZE];
+        x->f_sig_outs       = new t_float[x->f_map->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
         x->f_lines_vector   = new float[x->f_map->getNumberOfSources() * 3];
         
         ebox_attrprocess_viabinbuf(x, d);
@@ -204,7 +204,7 @@ void hoa_map_3D_tilde_float(t_hoa_map_3D_tilde *x, float f)
 		{
 			if(eobj_getproxy((t_object *)x) == 1)
 			{
-				x->f_lines->setRadius(0, max(f, 0.f));
+				x->f_lines->setRadius(0, clip_min(f, 0.));
 			}
 			else if(eobj_getproxy((t_object *)x) == 2)
 			{
@@ -281,7 +281,7 @@ t_pd_err ramp_set(t_hoa_map_3D_tilde *x, t_object *attr, long argc, t_atom *argv
     {
         if(atom_gettype(argv) == A_LONG || atom_gettype(argv) == A_FLOAT)
         {
-            x->f_ramp = max(atom_getfloat(argv), 0.f);
+            x->f_ramp = clip_min(atom_getfloat(argv), 0);
             x->f_lines->setRamp(x->f_ramp / 1000. * sys_getsr());
         }
     }
@@ -562,7 +562,7 @@ MapPolarLines3D::~MapPolarLines3D()
 
 void MapPolarLines3D::setRamp(unsigned int ramp)
 {
-    m_ramp = max(ramp, (unsigned int)1);
+    m_ramp = clip_min(ramp, (long)1);
 }
 
 void MapPolarLines3D::setRadius(unsigned int index, double radius)

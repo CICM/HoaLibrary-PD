@@ -121,9 +121,6 @@ void linkmap_remove_with_binding_name(t_hoa_map *x, t_symbol* binding_name);
 t_pd_err bindname_set(t_hoa_map *x, void *attr, long argc, t_atom *argv);
 void hoamap_send_binded_map_update(t_hoa_map *x, long flags); // BindingMapMsgFlag
 
-#define  contrast_white 0.06
-#define  contrast_black 0.14
-
 void hoa_map_deprecated(t_hoa_map* x, t_symbol *s, long ac, t_atom* av);
 
 t_symbol *hoa_sym_sources_preset;
@@ -854,7 +851,7 @@ t_pd_err hoa_map_zoom(t_hoa_map *x, t_object *attr, long argc, t_atom *argv)
     if(argc >= 1 && argv && atom_gettype(argv) == A_FLOAT)
     {
         x->f_zoom_factor = atom_getfloat(argv);
-        x->f_zoom_factor = clip(x->f_zoom_factor, MIN_ZOOM, MAX_ZOOM);
+        x->f_zoom_factor = clip_minmax(x->f_zoom_factor, MIN_ZOOM, MAX_ZOOM);
     }
     
     ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
@@ -1181,9 +1178,9 @@ void draw_sources(t_hoa_map *x,  t_object *view, t_rect *rect)
 	t_rgba sourceColor;
 	char description[250];
     
-    t_pt ctr;
-    ctr.x = rect->width * 0.5;
-    ctr.y = rect->height * 0.5;
+    float w = rect->width;
+    float h = rect->height;
+    t_pt ctr = {w*0.5f, h*0.5f};
 	t_pt sourceDisplayPos, groupDisplayPos, textDisplayPos;
 	
 	t_elayer *g = ebox_start_layer((t_ebox *)x, hoa_sym_sources_layer, rect->width, rect->height);
@@ -1306,11 +1303,11 @@ void draw_groups(t_hoa_map *x,  t_object *view, t_rect *rect)
 	
 	t_pt sourceDisplayPos, groupDisplayPos, textDisplayPos;
     
-    t_pt ctr;
-    ctr.x = rect->width * 0.5;
-    ctr.y = rect->height * 0.5;
+    float w = rect->width;
+    float h = rect->height;
+    t_pt ctr = {w*0.5f, h*0.5f};
 	
-	t_elayer *g = ebox_start_layer((t_ebox *)x, hoa_sym_groups_layer, rect->width, rect->height);
+	t_elayer *g = ebox_start_layer((t_ebox *)x, hoa_sym_groups_layer, w, h);
     t_rgba color_sel = rgba_addContrast(x->f_color_bg, -0.14);
     x->f_size_source = ebox_getfontsize((t_ebox *)x) / 2.;
     fontSize = ebox_getfontsize((t_ebox *)x);
@@ -1856,8 +1853,8 @@ void hoa_map_mousedrag(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
                     int srcIndex, grpIndex;
                     double source_radius, source_azimuth, mouse_azimuth, mouse_azimuth_prev, mouse_radius, mouse_radius_prev;
                     grpIndex = x->f_index_of_selected_group;
-                    mouse_radius = max(radius(cursor.x, cursor.y), 0.);
-                    mouse_radius_prev = max(radius(x->f_cursor_position.x, x->f_cursor_position.y), 0.);
+                    mouse_radius = clip_min(radius(cursor.x, cursor.y), 0);
+                    mouse_radius_prev = clip_min(radius(x->f_cursor_position.x, x->f_cursor_position.y), 0);
                     mouse_azimuth = wrap_twopi(azimuth(cursor.x, cursor.y));
                     mouse_azimuth_prev = wrap_twopi(azimuth(x->f_cursor_position.x, x->f_cursor_position.y));
                     
@@ -1885,8 +1882,8 @@ void hoa_map_mousedrag(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
                     int srcIndex, grpIndex;
                     double source_radius, source_azimuth, mouse_azimuth, mouse_azimuth_prev, mouse_radius, mouse_radius_prev;
                     grpIndex = x->f_index_of_selected_group;
-                    mouse_radius = max(radius(cursor.x, cursor.y), 0.);
-                    mouse_radius_prev = max(radius(x->f_cursor_position.x, x->f_cursor_position.y), 0.);
+                    mouse_radius = clip_min(radius(cursor.x, cursor.y), 0);
+                    mouse_radius_prev = clip_min(radius(x->f_cursor_position.x, x->f_cursor_position.y), 0);
                     mouse_azimuth = wrap_twopi(azimuth(cursor.x, cursor.y));
                     mouse_azimuth_prev = wrap_twopi(azimuth(x->f_cursor_position.x, x->f_cursor_position.y));
                     
@@ -2066,7 +2063,7 @@ void hoa_map_mousewheel(t_hoa_map *x, t_object *patcherview, t_pt pt, long modif
     if(modifiers == EMOD_ALT)
     {
 		double newZoom = x->f_zoom_factor + y_inc / 100.;
-        x->f_zoom_factor = clip(newZoom, MIN_ZOOM, MAX_ZOOM);
+        x->f_zoom_factor = clip_minmax(newZoom, MIN_ZOOM, MAX_ZOOM);
         
         ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
         ebox_invalidate_layer((t_ebox *)x, hoa_sym_sources_layer);

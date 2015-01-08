@@ -48,9 +48,6 @@ void draw_harmonics(t_hoa_scope_3D *x,  t_object *view, t_rect *rect);
 t_pd_err    set_order(t_hoa_scope_3D *x, t_object *attr, long ac, t_atom *av);
 t_hoa_err hoa_getinfos(t_hoa_scope_3D* x, t_hoa_boxinfos* boxinfos);
 
-#define  contrast_white 0.06
-#define  contrast_black 0.14
-
 extern "C" void setup_hoa0x2e3d0x2escope_tilde(void)
 {
 	t_eclass *c;
@@ -146,7 +143,7 @@ void *hoa_scope_3D_new(t_symbol *s, int argc, t_atom *argv)
 	x->f_startclock = 0;
 	x->f_scope      = new Hoa3D::Scope(x->f_order, NUMBEROFCIRCLEPOINTS_UI2 * 0.25, NUMBEROFCIRCLEPOINTS_UI2 * 0.5);
     x->f_order      = x->f_scope->getDecompositionOrder();
-    x->f_signals    = new t_float[x->f_scope->getNumberOfHarmonics() * SYS_MAXBLKSIZE];
+    x->f_signals    = new t_float[x->f_scope->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
     x->f_index      = 0;
     
     eobj_dspsetup(x, x->f_scope->getNumberOfHarmonics(), 0);
@@ -270,7 +267,7 @@ t_pd_err set_order(t_hoa_scope_3D *x, t_object *attr, long ac, t_atom *av)
             delete [] x->f_signals;
             x->f_scope      = new Hoa3D::Scope(order, NUMBEROFCIRCLEPOINTS_UI2 * 0.25, NUMBEROFCIRCLEPOINTS_UI2 * 0.5);
             x->f_order      = x->f_scope->getDecompositionOrder();
-            x->f_signals    = new t_float[x->f_scope->getNumberOfHarmonics() * SYS_MAXBLKSIZE];
+            x->f_signals    = new t_float[x->f_scope->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
             
             eobj_resize_inputs((t_ebox *)x, x->f_scope->getNumberOfHarmonics());
             canvas_update_dsp();
@@ -299,8 +296,8 @@ void draw_harmonics(t_hoa_scope_3D *x, t_object *view, t_rect *rect)
     t_rgba color_pos;
     t_rgba color_neg;
 	t_elayer *g = ebox_start_layer((t_ebox *)x, hoa_sym_harmonics_layer, rect->width, rect->height);
-    t_rgba black = rgba_addContrast(x->f_color_bg, -contrast_black);
-    t_rgba white = rgba_addContrast(x->f_color_bg, contrast_white);
+    t_rgba black = rgba_addContrast(x->f_color_bg, -HOA_CONTRAST_DARKER);
+    t_rgba white = rgba_addContrast(x->f_color_bg, HOA_CONTRAST_LIGHTER);
     
 	if (g)
 	{

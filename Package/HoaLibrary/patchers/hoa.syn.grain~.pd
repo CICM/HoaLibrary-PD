@@ -1,5 +1,5 @@
 #N canvas 309 163 1067 544 10;
-#X obj 78 35 c.loadmess;
+#X obj -12 -245 c.loadmess;
 #N canvas 417 312 450 300 array_error 0;
 #X obj 41 112 sel unknown_array;
 #X msg 41 137 : The buffer is not defined.;
@@ -12,22 +12,22 @@
 #X connect 1 0 5 0;
 #X connect 2 0 0 0;
 #X connect 3 0 2 0;
-#X restore 661 200 pd array_error;
-#X text 688 169 Post an error if the;
-#X text 688 179 buffer is not defined;
-#X text 646 146 Array must be defined as an argument.;
-#X obj 78 62 hoa.thisprocess~ unknown_array @size 100 @delay 1000 @feedback
-0.5 @rarefaction 0, f 82;
-#X text 335 96 Extra 1 Retreive the inlet messages.;
-#X obj 387 119 hoa.in extra 1;
-#X text 414 150 Input messages selector;
-#X obj 387 170 route size delay feedback rarefaction array;
-#X obj 387 428 * 1, f 5;
-#X obj 438 428 * 1, f 5;
-#X obj 387 398 t b f;
-#X obj 438 398 t b f;
-#X obj 336 362 hoa.in~ extra 1;
-#X obj 336 500 hoa.out~;
+#X restore 571 -80 pd array_error;
+#X text 598 -111 Post an error if the;
+#X text 598 -101 buffer is not defined;
+#X text 556 -134 Array must be defined as an argument.;
+#X obj -12 -218 hoa.thisprocess~ unknown_array @size 100 @delay 1000
+@feedback 0.5 @rarefaction 0, f 82;
+#X text 245 -184 Extra 1 Retreive the inlet messages.;
+#X obj 297 -161 hoa.in extra 1;
+#X text 324 -130 Input messages selector;
+#X obj 297 -110 route size delay feedback rarefaction array;
+#X obj 297 148 * 1, f 5;
+#X obj 348 148 * 1, f 5;
+#X obj 297 118 t b f;
+#X obj 348 118 t b f;
+#X obj 246 82 hoa.in~ extra 1;
+#X obj 246 220 hoa.out~;
 #N canvas 697 140 608 675 hoa_granular----------------------------
 0;
 #X obj 564 175 clip~ 0 1;
@@ -150,55 +150,55 @@
 #X connect 36 0 5 1;
 #X connect 37 0 21 0;
 #X connect 37 0 18 1;
-#X restore 336 466 pd hoa_granular----------------------------;
-#X obj 241 91 hoa.mode.sel;
-#X obj 78 131 hoa.args.map;
-#X text 357 11 This hoa.processing synthesizes a sound field with quasi-synchronous
-granular synthesis.;
-#X text 211 363 Receive the signal;
-#X text 218 500 Output the signal;
-#X obj 433 231 list split;
-#X obj 461 255 unpack;
-#X obj 387 203 route float list;
-#X obj 484 368 list split;
-#X obj 512 392 unpack;
-#X obj 438 340 route float list;
-#X obj 535 311 list split;
-#X obj 563 335 unpack;
-#X obj 489 283 route float list;
-#X obj 586 228 list split;
-#X obj 614 252 unpack;
-#X obj 540 200 route float list;
-#X text 693 227 list : The item is selected depending on the instance
+#X restore 246 186 pd hoa_granular----------------------------;
+#X obj 151 -189 hoa.mode.sel;
+#X obj -12 -149 hoa.args.map;
+#X text 267 -269 This hoa.processing synthesizes a sound field with
+quasi-synchronous granular synthesis.;
+#X text 121 83 Receive the signal;
+#X text 128 220 Output the signal;
+#X obj 343 -49 list split;
+#X obj 371 -25 unpack;
+#X obj 297 -77 route float list;
+#X obj 394 88 list split;
+#X obj 422 112 unpack;
+#X obj 348 60 route float list;
+#X obj 445 31 list split;
+#X obj 473 55 unpack;
+#X obj 399 3 route float list;
+#X obj 496 -52 list split;
+#X obj 524 -28 unpack;
+#X obj 450 -80 route float list;
+#X text 603 -53 list : The item is selected depending on the instance
 and directly set the grain size \, the delay \, the feedback or the
 rarefaction of the instance (mostly used in the plane waves domain).
 ;
-#X text 693 397 array : The array defines the envelope of the granulation
+#X text 603 117 array : The array defines the envelope of the granulation
 and is shared by all the instances (exept if you use the target message
 to it).;
-#X text 693 287 float : The grain size values are mapped depending
-on the intance and increase while the index and the band of the harmonics
+#X text 603 7 float : The grain size values are mapped depending on
+the intance and increase while the index and the band of the harmonics
 increase. The delay time values are mapped depending on the intance
 and decrease while the index and the band of the harmonics increase.
 The feedback and rarefaction values are not mapped thus all the instances
 have the same values (exept if you use the target message to it).;
-#X obj 85 233 + 1;
-#X obj 86 257 / 1;
-#X obj 86 301 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0.0666667 256;
-#X obj 147 198 / 1;
-#X obj 147 221 t b f;
-#X obj 147 262 -;
-#X msg 147 240 1;
-#X obj 147 301 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 1 256;
-#X text 148 343 factor;
-#X text 144 323 instance;
-#X text 150 333 delay;
-#X text 88 343 factor;
-#X text 84 323 instance;
-#X text 90 333 size;
-#X obj 487 119 hoa.in extra 2;
+#X obj -5 -47 + 1;
+#X obj -4 -23 / 1;
+#X obj -4 21 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 57 -82 / 1;
+#X obj 57 -59 t b f;
+#X obj 57 -18 -;
+#X msg 57 -40 1;
+#X obj 57 21 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X text 58 63 factor;
+#X text 54 43 instance;
+#X text 60 53 delay;
+#X text -2 63 factor;
+#X text -6 43 instance;
+#X text 0 53 size;
+#X obj 397 -161 hoa.in extra 2;
 #X connect 0 0 5 0;
 #X connect 1 0 16 5;
 #X connect 5 0 18 0;

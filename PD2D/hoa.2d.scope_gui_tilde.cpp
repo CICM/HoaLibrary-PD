@@ -8,12 +8,13 @@
 
 typedef struct  _hoa_scope
 {
-	t_edspbox               f_box;
-    unique_ptr<Scope<float>>f_scope;
-    int                     f_index;
+	t_edspbox   j_box;
+    Hoa2D::Scope*   f_scope;
+    int             f_index;
 	t_clock*        f_clock;
 	int             f_startclock;
 	long            f_interval;
+	long            f_order;
     float           f_gain;
 	
 	t_rgba          f_color_bg;
@@ -21,10 +22,10 @@ typedef struct  _hoa_scope
 	t_rgba          f_color_nh;
 	t_rgba          f_color_ph;
 	
-	float           f_center;
-	float           f_radius;
+	double          f_center;
+	double          f_radius;
     t_float*        f_signals;
-    void*           f_attrs;
+   
 } t_hoa_scope;
 
 t_eclass *hoa_scope_class;
@@ -45,9 +46,10 @@ void hoa_scope_paint(t_hoa_scope *x, t_object *view);
 void draw_background(t_hoa_scope *x, t_object *view, t_rect *rect);
 void draw_harmonics(t_hoa_scope *x,  t_object *view, t_rect *rect);
 
-t_pd_err    get_order(t_hoa_scope *x, void *attr, long *argc, t_atom **argv);
-t_pd_err    set_order(t_hoa_scope *x, t_object *attr, long argc, t_atom *argv);
+t_pd_err    set_order(t_hoa_scope *x, t_object *attr, long ac, t_atom *av);
 t_hoa_err hoa_getinfos(t_hoa_scope* x, t_hoa_boxinfos* boxinfos);
+
+void hoa_scope_deprecated(t_hoa_scope* x, t_symbol *s, long ac, t_atom* av);
 
 extern "C" void setup_hoa0x2e2d0x2escope_tilde(void)
 {
@@ -65,6 +67,10 @@ extern "C" void setup_hoa0x2e2d0x2escope_tilde(void)
 	eclass_addmethod(c, (method)hoa_scope_notify,		"notify",		A_CANT, 0);
 	eclass_addmethod(c, (method)hoa_scope_getdrawparams,"getdrawparams", A_CANT, 0);
 	eclass_addmethod(c, (method)hoa_scope_oksize,		"oksize",		A_CANT, 0);
+    
+    eclass_addmethod(c, (method)hoa_scope_deprecated,   "drawcircle",	A_GIMME, 0);
+    eclass_addmethod(c, (method)hoa_scope_deprecated,   "drawangles",	A_GIMME, 0);
+    eclass_addmethod(c, (method)hoa_scope_deprecated,   "drawcontrib",	A_GIMME, 0);
 
     CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
     CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
@@ -73,8 +79,8 @@ extern "C" void setup_hoa0x2e2d0x2escope_tilde(void)
     CLASS_ATTR_INVISIBLE            (c, "send", 1);
 	CLASS_ATTR_DEFAULT              (c, "size", 0, "225. 225.");
 
-    CLASS_ATTR_LONG                 (c, "order", 0, t_hoa_scope, f_attrs);
-    CLASS_ATTR_ACCESSORS            (c, "order", get_order, set_order);
+    CLASS_ATTR_LONG                 (c, "order", 0, t_hoa_scope, f_order);
+    CLASS_ATTR_ACCESSORS            (c, "order", NULL, set_order);
 	CLASS_ATTR_CATEGORY             (c, "order", 0, "Ambisonic");
 	CLASS_ATTR_ORDER                (c, "order", 0, "1");
 	CLASS_ATTR_LABEL                (c, "order", 0, "Ambisonic Order");
@@ -130,42 +136,51 @@ extern "C" void setup_hoa0x2e2d0x2escope_tilde(void)
     hoa_scope_class = c;
 }
 
+void hoa_scope_deprecated(t_hoa_scope* x, t_symbol *s, long ac, t_atom* av)
+{
+    if(atoms_has_attribute(ac, av, gensym("@drawcircle")) || (s && s == gensym("drawcircle")))
+        object_error(x, "%s attribute @drawcircle is deprecated.", eobj_getclassname(x)->s_name);
+    if(atoms_has_attribute(ac, av, gensym("@drawangles")) || (s && s == gensym("drawangles")))
+        object_error(x, "%s attribute @drawangles is deprecated.", eobj_getclassname(x)->s_name);
+    if(atoms_has_attribute(ac, av, gensym("@drawcontrib")) || (s && s == gensym("drawcontrib")))
+        object_error(x, "%s attribute @drawcontrib is deprecated.", eobj_getclassname(x)->s_name);
+}
+
 void *hoa_scope_new(t_symbol *s, int argc, t_atom *argv)
 {
-    long flags;
 	t_hoa_scope *x =  NULL;
 	t_binbuf *d;
+	long flags;
 	
-    d = binbuf_via_atoms(argc, argv);
+	if (!(d = binbuf_via_atoms(argc, argv)))
+		return NULL;
+
 	x = (t_hoa_scope *)eobj_new(hoa_scope_class);
-    if(x && d)
-    {
-        long order = 1;
-        binbuf_get_attribute_long(d, gensym("@order"), &order);
-        x->f_scope      = unique_ptr<Scope<float>>(new Scope<float>(order, HOA_DISPLAY_NPOINTS));
-        x->f_startclock = 0;
-        
-        x->f_signals    = new t_float[HOA_MAX_CHANNELS * HOA_MAX_BLOCKSIZE];
-        x->f_index      = 0;
-        
-        eobj_dspsetup(x, x->f_scope->getNumberOfHarmonics(), 0);
-        
-        flags = 0
-        | EBOX_IGNORELOCKCLICK
-        | EBOX_GROWLINK
-        ;
-        ebox_new((t_ebox *)x, flags);
-        
-        x->f_clock = clock_new(x,(t_method)hoa_scope_tick);
-        x->f_startclock = 0;
-        
-        ebox_attrprocess_viabinbuf(x, d);
-        ebox_ready((t_ebox *)x);
-        
-        return (x);
-    }
     
-	return NULL;
+    x->f_order      = 1;
+	x->f_startclock = 0;
+	x->f_scope      = new Hoa2D::Scope(x->f_order, NUMBEROFCIRCLEPOINTS_UI2);
+    x->f_order      = x->f_scope->getDecompositionOrder();
+    x->f_signals    = new t_float[x->f_scope->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
+    x->f_index      = 0;
+    
+    eobj_dspsetup(x, x->f_scope->getNumberOfHarmonics(), 0);
+    
+	flags = 0
+    | EBOX_IGNORELOCKCLICK
+    | EBOX_GROWLINK
+    ;
+	ebox_new((t_ebox *)x, flags);
+    
+    x->f_clock = clock_new(x,(t_method)hoa_scope_tick);
+	x->f_startclock = 0;
+    
+    hoa_scope_deprecated(x, NULL, argc, argv);
+    
+    ebox_attrprocess_viabinbuf(x, d);
+	ebox_ready((t_ebox *)x);
+	
+	return (x);
 }
 
 t_hoa_err hoa_getinfos(t_hoa_scope* x, t_hoa_boxinfos* boxinfos)
@@ -218,23 +233,31 @@ void hoa_scope_free(t_hoa_scope *x)
 {
 	ebox_free((t_ebox *)x);
     clock_free(x->f_clock);
+    
+    delete x->f_scope;
     delete [] x->f_signals;
 }
 
 void hoa_scope_assist(t_hoa_scope *x, void *b, long m, long a, char *s)
 {
-    ;
+    sprintf(s,"(Signal) %s", x->f_scope->getHarmonicName(a).c_str());
 }
 
 t_pd_err hoa_scope_notify(t_hoa_scope *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
+	t_symbol *name;
 	if (msg == hoa_sym_attr_modified)
 	{
-		if(s == gensym("phcolor") || s == gensym("nhcolor"))
+		name = s;
+		if( name == hoa_sym_bgcolor || name == gensym("order"))
+		{
+			ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
+		}
+		else if(name == gensym("phcolor") || name == gensym("nhcolor"))
 		{
 			ebox_invalidate_layer((t_ebox *)x, hoa_sym_harmonics_layer);
-            ebox_redraw((t_ebox *)x);
 		}
+		ebox_redraw((t_ebox *)x);
 	}
 	return 0;
 }
@@ -254,37 +277,24 @@ long hoa_scope_oksize(t_hoa_scope *x, t_rect *newrect)
 	return 0;
 }
 
-t_pd_err get_order(t_hoa_scope *x, void *attr, long *argc, t_atom **argv)
-{
-    argc[0] = 1;
-    argv[0] = (t_atom *)malloc(sizeof(t_atom));
-    if(argv[0] && argc[0])
-    {
-        atom_setfloat(argv[0], x->f_scope->getDecompositionOrder());
-    }
-    else
-    {
-        argc[0] = 0;
-        argv[0] = NULL;
-    }
-    return 0;
-}
-
-t_pd_err set_order(t_hoa_scope *x, t_object *attr, long argc, t_atom *argv)
+t_pd_err set_order(t_hoa_scope *x, t_object *attr, long ac, t_atom *av)
 {
     long order;
-	if (argc && argv && atom_gettype(argv) == A_LONG)
+	if (ac && av && atom_gettype(av) == A_LONG)
     {
-        order = atom_getlong(argv);
-        if(order >= 1 && order != x->f_scope->getDecompositionOrder())
+        order = atom_getlong(av);
+        if(order != x->f_scope->getDecompositionOrder() && order > 0)
         {
             int dspState = canvas_suspend_dsp();
-            x->f_scope      = unique_ptr<Scope<float>>(new Scope<float>(order, HOA_DISPLAY_NPOINTS));
             
-            ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
-            ebox_redraw((t_ebox *)x);
+            delete x->f_scope;
+            delete [] x->f_signals;
+            x->f_scope      = new Hoa2D::Scope(order, NUMBEROFCIRCLEPOINTS_UI);
+            x->f_order      = x->f_scope->getDecompositionOrder();
+            x->f_signals    = new t_float[x->f_scope->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
             
             eobj_resize_inputs((t_ebox *)x, x->f_scope->getNumberOfHarmonics());
+            canvas_update_dsp();
             canvas_resume_dsp(dspState);
         }
 	}
@@ -307,8 +317,8 @@ void hoa_scope_paint(t_hoa_scope *x, t_object *view)
 void draw_background(t_hoa_scope *x, t_object *view, t_rect *rect)
 {
     t_matrix transform;
-    t_rgba black = rgba_addContrast(x->f_color_bg, -HOA_CONTRAST_BLACK);
-    t_rgba white = rgba_addContrast(x->f_color_bg, HOA_CONTRAST_WHITE);
+    t_rgba black = rgba_addContrast(x->f_color_bg, -HOA_CONTRAST_DARKER);
+    t_rgba white = rgba_addContrast(x->f_color_bg, HOA_CONTRAST_LIGHTER);
     
 	t_elayer *g = ebox_start_layer((t_ebox *)x, hoa_sym_background_layer, rect->width, rect->height);
     
@@ -318,9 +328,9 @@ void draw_background(t_hoa_scope *x, t_object *view, t_rect *rect)
 		egraphics_set_matrix(g, &transform);
         
         double angle, x1, x2, y1, y2, cosa, sina;
-        for(int i = 0; i <= x->f_scope->getNumberOfHarmonics() ; i++)
+        for(int i = 0; i < (x->f_order * 2 + 2) ; i++)
 		{
-            angle = ((double)(i - 0.5) / (x->f_scope->getNumberOfHarmonics() + 1) * HOA_2PI);
+            angle = ((double)(i - 0.5) / (x->f_order * 2 + 2) * HOA_2PI);
 			cosa = cos(angle);
             sina = sin(angle);
             x1 = cosa * x->f_radius * 0.2;
@@ -372,16 +382,16 @@ void draw_harmonics(t_hoa_scope *x, t_object *view, t_rect *rect)
         egraphics_set_color_rgba(g, &x->f_color_ph);
         for(int i = 0; i < x->f_scope->getNumberOfPoints(); i++)
         {
-            if(x->f_scope->getPointValue(i) >= 0)
+            if(x->f_scope->getValue(i) >= 0)
             {
                 if(!pathLength)
                 {
-                    egraphics_move_to(g, x->f_scope->getPointAbscissa(i) * x->f_radius, x->f_scope->getPointOrdinate(i) * x->f_radius);
+                    egraphics_move_to(g, x->f_scope->getAbscissa(i) * x->f_radius, x->f_scope->getOrdinate(i) * x->f_radius);
                     pathLength++;
                 }
                 else
                 {
-                    egraphics_line_to(g, x->f_scope->getPointAbscissa(i) * x->f_radius, x->f_scope->getPointOrdinate(i) * x->f_radius);
+                    egraphics_line_to(g, x->f_scope->getAbscissa(i) * x->f_radius, x->f_scope->getOrdinate(i) * x->f_radius);
                 }
             }
         }
@@ -394,16 +404,16 @@ void draw_harmonics(t_hoa_scope *x, t_object *view, t_rect *rect)
         egraphics_set_color_rgba(g, &x->f_color_nh);
         for(int i = 0; i < x->f_scope->getNumberOfPoints(); i++)
         {
-            if(x->f_scope->getPointValue(i) < 0)
+            if(x->f_scope->getValue(i) < 0)
             {
                 if(!pathLength)
                 {
-                    egraphics_move_to(g, x->f_scope->getPointAbscissa(i) * x->f_radius, x->f_scope->getPointOrdinate(i) * x->f_radius);
+                    egraphics_move_to(g, x->f_scope->getAbscissa(i) * x->f_radius, x->f_scope->getOrdinate(i) * x->f_radius);
                     pathLength++;
                 }
                 else
                 {
-                    egraphics_line_to(g, x->f_scope->getPointAbscissa(i) * x->f_radius, x->f_scope->getPointOrdinate(i) * x->f_radius);
+                    egraphics_line_to(g, x->f_scope->getAbscissa(i) * x->f_radius, x->f_scope->getOrdinate(i) * x->f_radius);
                 }
             }
         }

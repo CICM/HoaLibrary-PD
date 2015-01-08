@@ -1,63 +1,64 @@
 #N canvas 123 102 987 685 10;
-#X msg 360 389 \; pd dsp 1;
-#X msg 360 424 \; pd dsp 0;
-#X obj 290 85 hoa.soundgrain;
-#X obj 290 114 c.gain~ @size 131 10 @fontname Helvetica @fontweight
+#X msg -23 -103 \; pd dsp 1;
+#X msg -23 -68 \; pd dsp 0;
+#X obj -93 -407 hoa.soundgrain;
+#X obj -93 -378 c.gain~ @size 131 10 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @kncolor 0.5 0.5 0.5 1;
-#X obj 575 32 hoa.connect;
-#X obj 575 12 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
-#X obj 467 101 hoa.pi~ 2;
-#X obj 3 21 c.patcherinfos;
-#X obj 3 4 loadbang;
-#X obj 3 4 hoa.help.header;
-#X obj 133 632 hoa.help.pub;
-#X obj 419 4 hoa.help.also;
-#X text 8 48 hoa.fx.ringmod~ uses ring modulation to diffuse a sound
-field.;
-#X obj 290 182 hoa.2d.scope~ @size 183 183 @fontname Helvetica @fontweight
+#X obj 192 -460 hoa.connect;
+#X obj 192 -480 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 84 -391 hoa.pi~ 2;
+#X obj -380 -471 c.patcherinfos;
+#X obj -380 -488 loadbang;
+#X obj -380 -488 hoa.help.header;
+#X obj -250 140 hoa.help.pub;
+#X obj 36 -488 hoa.help.also;
+#X text -375 -444 hoa.fx.ringmod~ uses ring modulation to diffuse a
+sound field.;
+#X obj -93 -310 hoa.2d.scope~ @size 183 183 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
 7 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj 284 573 hoa.2d.decoder~ 7 ambisonics 16;
-#X obj 284 605 hoa.dac~ 1:16 -----------------;
-#X obj 290 132 hoa.2d.encoder~ 7 ------------;
-#X obj 20 362 hoa.2d.scope~ @size 189 189 @fontname Helvetica @fontweight
+#X obj -99 81 hoa.2d.decoder~ 7 ambisonics 16;
+#X obj -99 113 hoa.dac~ 1:16 -----------------;
+#X obj -93 -360 hoa.2d.encoder~ 7 ------------;
+#X obj -363 -130 hoa.2d.scope~ @size 189 189 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
 7 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj 30 190 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj -353 -302 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 20 309 hoa.2d.process~ 7 hoa.fx.ringmod~ harmonics, f 31;
-#X obj 530 244 hoa.2d.projector~ 7 16, f 29;
-#X obj 530 422 hoa.2d.scope~ @size 189 189 @fontname Helvetica @fontweight
+#X obj -363 -183 hoa.2d.process~ 7 hoa.fx.ringmod~ harmonics, f 31
+;
+#X obj 147 -248 hoa.2d.projector~ 7 16, f 29;
+#X obj 147 -70 hoa.2d.scope~ @size 189 189 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
 7 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj 530 378 hoa.2d.recomposer~ 7 16 fixe, f 31;
-#X obj 530 309 hoa.2d.process~ 16 hoa.fx.ringmod~ planewaves, f 31
+#X obj 147 -114 hoa.2d.recomposer~ 7 16 fixe, f 31;
+#X obj 147 -183 hoa.2d.process~ 16 hoa.fx.ringmod~ planewaves, f 31
 ;
-#X obj 713 72 hoa.2d.space @size 189 189 @fontname Helvetica @fontweight
+#X obj 330 -420 hoa.2d.space @size 189 189 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @channels 16 @minmax 0 20 @bgcolor 0.76 0.76 0.76 1 @bdcolor
 0.7 0.7 0.7 1 @spcolor 0.27 0.43 0.54 0.25 @ptcolor 0 0 0 1;
-#X text 722 267 Control the frequency of the ring modulation of each
+#X text 339 -225 Control the frequency of the ring modulation of each
 channel with a list or the hoa.2d.space GUI., f 31;
-#X obj 113 161 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj -270 -331 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 466 76 phasor~ 1;
-#X text 22 100 Control the global frequency of the ring modulation.
+#X obj 83 -416 phasor~ 1;
+#X text -361 -392 Control the global frequency of the ring modulation.
 , f 12;
-#X text 193 109 Control the diffusion factor., f 10;
-#X msg 113 190 diffusion \$1;
-#X obj 113 139 c.loadmess 1;
-#X obj 29 169 c.loadmess 10;
+#X text -190 -383 Control the diffusion factor., f 10;
+#X msg -270 -302 diffusion \$1;
+#X obj -270 -353 c.loadmess 1;
+#X obj -354 -323 c.loadmess 10;
 #X connect 2 0 3 0;
 #X connect 3 0 16 0;
 #X connect 5 0 4 0;

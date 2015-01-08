@@ -56,7 +56,7 @@ void hoa_connect_bang(t_hoa_connect *x)
     int x1, x2, y1, y2;
     int nx1, nx2, ny1, ny2;
     t_gobj *y = NULL;
-    t_gobj *list[256];
+    t_gobj *list[EPD_MAX_SIGS];
     t_outconnect *oc;
     t_glist *cnv;
     t_symbol* name;

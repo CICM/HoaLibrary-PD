@@ -1,4 +1,4 @@
-#N canvas 312 112 946 548 10;
+#N canvas 229 240 946 548 10;
 #X obj 372 -26 hoa.in~;
 #X obj 237 370 hoa.out~;
 #X obj -109 -101 c.loadmess;
@@ -70,9 +70,9 @@ lines.;
 #X text -37 84 factor;
 #X text -41 74 instance;
 #X obj -40 54 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0 256;
+-262144 -1 -1 0.1 256;
 #X obj -109 54 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0 256;
+-262144 -1 -1 10 256;
 #X text -110 74 number of;
 #X text -113 84 instances;
 #X obj 372 17 delwrite~ \$0-hoa.delay 5000;
