@@ -25,6 +25,11 @@ static t_symbol* hoa_sym_inPhase            = gensym("inPhase");
 static t_symbol* hoa_sym_fixe               = gensym("fixe");
 static t_symbol* hoa_sym_fisheye            = gensym("fisheye");
 static t_symbol* hoa_sym_free               = gensym("free");
+
+static t_symbol* hoa_sym_all                = gensym("all");
+static t_symbol* hoa_sym_canvas             = gensym("canvas");
+static t_symbol* hoa_sym_hoathisprocess     = gensym("hoa.thisprocess~");
+
 // Hoa
 static t_symbol* hoa_sym_hoa_getinfos				= gensym("hoa_getinfos");
 

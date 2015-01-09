@@ -1,0 +1,106 @@
+#N canvas 408 103 770 585 10;
+#X obj 361 128 hoa.pi 2;
+#X obj 361 99 loadbang;
+#X obj 280 171 *~;
+#X obj 280 128 phasor~ 0.1;
+#X msg 480 78 \; pd dsp 1;
+#X msg 480 116 \; pd dsp 0;
+#X obj 325 243 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min 1 @max (null) @minmax 1 (null) @decimal 0 @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 325 269 order \$1;
+#X obj 415 298 s hoascope;
+#X obj 325 220 c.loadmess 7;
+#X obj 415 243 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min 1 @max (null) @minmax 1 (null) @decimal 6 @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 415 269 gain \$1;
+#X obj 415 220 c.loadmess 1;
+#X obj 505 243 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min 20 @max 1000 @minmax 20 1000 @decimal 0 @bgcolor 0.75 0.75
+0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 505 269 interval \$1;
+#X obj 464 448 s hoascope;
+#X obj 324 377 c.colorpanel @size 97 14 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @matrix 8 1 @reverse 0 @saturation 1 @hue 0 @lightness 0.5 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X obj 324 396 c.prepend phcolor;
+#X obj 464 377 c.colorpanel @size 97 14 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @matrix 8 1 @reverse 0 @saturation 1 @hue 0.65 @lightness 0.5
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X text 323 196 order :;
+#X text 323 186 Ambisonic;
+#X text 413 186 Gain :;
+#X text 503 196 interval :;
+#X text 323 346 color :;
+#X text 323 336 Positive;
+#X text 463 346 color :;
+#X text 463 336 Negative;
+#X obj 79 160 osc~ 0.1;
+#X text 503 186 Refresh;
+#X obj 505 220 c.loadmess 20;
+#X obj 464 396 c.prepend nhcolor;
+#X obj 79 257 hoa.2d.scope~ @size 207 207 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive hoascope @send (null)
+@order 7 @gain 1 @interval 20 @display excentric @bgcolor 0.76 0.76
+0.76 1 @bdcolor 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 79 211 hoa.2d.encoder~ 7 ----------------;
+#X text 37 66 hoa.2d.scope~ displays the circular harmonics of an ambisonic
+sound field on a disc.;
+#X obj 133 492 hoa.help.pub;
+#X obj 525 510 hoa.connect;
+#X obj 525 490 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 54 32 c.patcherinfos;
+#X obj 59 15 loadbang;
+#X obj 39 15 hoa.help.header;
+#X obj 448 15 hoa.help.also;
+#X obj 594 396 c.prepend display;
+#X obj 596 372 c.menu @size 100 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @hover 0 @items concentric excentric @states 0 0 @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X connect 0 0 2 1;
+#X connect 1 0 0 0;
+#X connect 2 0 32 1;
+#X connect 3 0 2 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 9 0 6 0;
+#X connect 10 0 11 0;
+#X connect 11 0 8 0;
+#X connect 12 0 10 0;
+#X connect 13 0 14 0;
+#X connect 14 0 8 0;
+#X connect 16 0 17 0;
+#X connect 17 0 15 0;
+#X connect 18 0 30 0;
+#X connect 27 0 32 0;
+#X connect 29 0 13 0;
+#X connect 30 0 15 0;
+#X connect 32 0 31 0;
+#X connect 32 1 31 1;
+#X connect 32 2 31 2;
+#X connect 32 3 31 3;
+#X connect 32 4 31 4;
+#X connect 32 5 31 5;
+#X connect 32 6 31 6;
+#X connect 32 7 31 7;
+#X connect 32 8 31 8;
+#X connect 32 9 31 9;
+#X connect 32 10 31 10;
+#X connect 32 11 31 11;
+#X connect 32 12 31 12;
+#X connect 32 13 31 13;
+#X connect 32 14 31 14;
+#X connect 36 0 35 0;
+#X connect 37 0 39 0;
+#X connect 38 0 37 0;
+#X connect 41 0 15 0;
+#X connect 42 1 41 0;
+#X coords 0 585 1 584 85 60 0;

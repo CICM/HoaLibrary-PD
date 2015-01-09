@@ -46,8 +46,8 @@ on the optimization.;
 #X obj 237 158 hoa.2d.encoder~ 3, f 24;
 #X obj 237 217 hoa.2d.scope~ @size 147 147 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-3 @gain 100 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
-0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+3 @gain 100 @interval 100 @display excentric @bgcolor 0.76 0.76 0.76
+1 @bdcolor 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X obj 237 192 hoa.2d.optim~ 3 maxRe, f 24;
 #X connect 0 0 2 1;
 #X connect 1 0 0 0;

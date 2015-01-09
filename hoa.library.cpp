@@ -4,8 +4,6 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "PDCommon/HoaCommon.pd.h"
-#include "PD2D/Hoa2D.pd.h"
 #include "PD3D/Hoa3D.pd.h"
 
 char hoaversion[] = "Beta 2.2";

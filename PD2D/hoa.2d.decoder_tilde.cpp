@@ -4,7 +4,8 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "Hoa2D.pd.h"
+#include "../ThirdParty/HoaLibrary/Hoa2D/Decoder.h"
+#include "../hoa.pd.h"
 
 typedef struct _hoa_decoder
 {

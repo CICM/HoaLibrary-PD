@@ -112,15 +112,15 @@ extern void hoa_map_tilde_float(t_hoa_map_tilde *x, float f)
 		{
 			if(eobj_getproxy((t_object *)x) == 1)
 			{
-                float ord = hoa::ordinate(x->f_lines->getRadius(0), x->f_lines->getAzimuth(0));
-				x->f_lines->setRadius(0, hoa::radius(f, ord));
-                x->f_lines->setAzimuth(0, hoa::azimuth(f, ord));
+                float ord = Math<float>::ordinate(x->f_lines->getRadius(0), x->f_lines->getAzimuth(0));
+				x->f_lines->setRadius(0, Math<float>::radius(f, ord));
+                x->f_lines->setAzimuth(0, Math<float>::azimuth(f, ord));
 			}
 			else if(eobj_getproxy((t_object *)x) == 2)
 			{
-				float abs = hoa::abscissa(x->f_lines->getRadius(0), x->f_lines->getAzimuth(0));
-                x->f_lines->setRadius(0, hoa::radius(abs, f));
-				x->f_lines->setAzimuth(0, hoa::azimuth(abs, f));
+				float abs = Math<float>::abscissa(x->f_lines->getRadius(0), x->f_lines->getAzimuth(0));
+                x->f_lines->setRadius(0, Math<float>::radius(abs, f));
+				x->f_lines->setAzimuth(0, Math<float>::azimuth(abs, f));
 			}
 		}
     }
@@ -141,8 +141,8 @@ extern void hoa_map_tilde_list(t_hoa_map_tilde *x, t_symbol* s, long argc, t_ato
         }
         else if(argc > 3 && (atom_getsym(argv+1) == hoa_sym_cartesian || atom_getsym(argv+1) == hoa_sym_car))
         {
-            x->f_lines->setRadius(index-1, hoa::radius(atom_getfloat(argv+2), atom_getfloat(argv+3)));
-            x->f_lines->setAzimuth(index-1, hoa::azimuth(atom_getfloat(argv+2), atom_getfloat(argv+3)));
+            x->f_lines->setRadius(index-1, Math<float>::radius(atom_getfloat(argv+2), atom_getfloat(argv+3)));
+            x->f_lines->setAzimuth(index-1, Math<float>::azimuth(atom_getfloat(argv+2), atom_getfloat(argv+3)));
         }
         else if(argc > 2 && atom_getsym(argv+1) == hoa_sym_mute)
         {
@@ -219,8 +219,8 @@ extern void hoa_map_tilde_perform_in1(t_hoa_map_tilde *x, t_object *dsp64, t_sam
         for(long i = 0; i < sampleframes; i++)
         {
             x->f_lines->process(x->f_lines_vector);
-            x->f_map->setAzimuth(0, hoa::azimuth(ins[1][i], x->f_lines_vector[1]));
-            x->f_map->setRadius(0, hoa::radius(ins[1][i], x->f_lines_vector[1]));
+            x->f_map->setAzimuth(0, Math<float>::azimuth(ins[1][i], x->f_lines_vector[1]));
+            x->f_map->setRadius(0, Math<float>::radius(ins[1][i], x->f_lines_vector[1]));
             x->f_map->process(&ins[0][i], x->f_sig_outs + numouts * i);
         }
     }
@@ -247,8 +247,8 @@ extern void hoa_map_tilde_perform_in2(t_hoa_map_tilde *x, t_object *dsp64, t_sam
         for(long i = 0; i < sampleframes; i++)
         {
             x->f_lines->process(x->f_lines_vector);
-            x->f_map->setAzimuth(0, hoa::azimuth(x->f_lines_vector[0], ins[2][i]));
-            x->f_map->setRadius(0, hoa::radius(x->f_lines_vector[0], ins[2][i]));
+            x->f_map->setAzimuth(0, Math<float>::azimuth(x->f_lines_vector[0], ins[2][i]));
+            x->f_map->setRadius(0, Math<float>::radius(x->f_lines_vector[0], ins[2][i]));
             x->f_map->process(&ins[0][i], x->f_sig_outs + numouts * i);
         }
     }
@@ -273,8 +273,8 @@ extern void hoa_map_tilde_perform_in1_in2(t_hoa_map_tilde *x, t_object *dsp64, t
     {
         for(long i = 0; i < sampleframes; i++)
         {
-            x->f_map->setAzimuth(0, hoa::azimuth(ins[1][i], ins[2][i]));
-            x->f_map->setRadius(0, hoa::radius(ins[1][i], ins[2][i]));
+            x->f_map->setAzimuth(0, Math<float>::azimuth(ins[1][i], ins[2][i]));
+            x->f_map->setRadius(0, Math<float>::radius(ins[1][i], ins[2][i]));
             x->f_map->process(&ins[0][i], x->f_sig_outs + numouts * i);
             
         }

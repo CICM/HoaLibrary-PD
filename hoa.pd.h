@@ -19,6 +19,7 @@ extern "C"
 #define HOA_UI_CORNERSIZE       8
 #define HOA_CONTRAST_LIGHTER    0.06f
 #define HOA_CONTRAST_DARKER     0.14f
+#define HOA_DISPLAY_NPOINTS     180
 
 static t_symbol* _sym_is_hoa	   = gensym("is_hoa");
 static t_symbol* _sym_hoa_version  = gensym("(v2.1)");
@@ -84,6 +85,30 @@ void hoa_boxinfos_init(t_hoa_boxinfos* boxinfos);
 int hoa_method_true(void *x);
 t_hoa_err hoa_not_implemented_method();
 t_hoa_err hoa_initclass(t_eclass* c, method hoabox_getinfos);
+
+extern "C" void setup_hoa0x2econnect(void);
+extern "C" void setup_hoa0x2edac_tilde(void);
+extern "C" void setup_hoa0x2ein(void);
+extern "C" void setup_hoa0x2ein_tilde(void);
+extern "C" void setup_hoa0x2eout(void);
+extern "C" void setup_hoa0x2eout_tilde(void);
+extern "C" void setup_hoa0x2epi(void);
+extern "C" void setup_hoa0x2epi_tilde(void);
+extern "C" void setup_hoa0x2eprocess_tilde(void);
+extern "C" void setup_hoa0x2ethisprocess_tilde(void);
+extern "C" void setup_hoa0x2emap(void);
+
+extern "C" void setup_hoa0x2e2d0x2ewider_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2escope_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2espace(void);
+extern "C" void setup_hoa0x2e2d0x2erotate_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2erecomposer_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2eprojector_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2eoptim_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2emeter_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2emap_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2eencoder_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2edecoder_tilde(void);
 
 
 #endif

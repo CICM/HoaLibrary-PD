@@ -4,7 +4,9 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "HoaCommon.pd.h"
+#include "../hoa.pd.h"
+#include "../ThirdParty/HoaLibrary/HoaCommon/HoaCommon.h"
+using namespace HoaCommon;
 
 #define MAX_ZOOM 1.
 #define MIN_ZOOM 0.01

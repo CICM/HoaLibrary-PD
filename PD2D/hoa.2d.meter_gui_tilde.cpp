@@ -352,7 +352,7 @@ extern void draw_background(t_hoa_meter *x,  t_object *view, t_rect *rect)
                 angle = x->f_meter->getPlanewaveAzimuthMapped(i) - x->f_meter->getPlanewaveWidth(i) * 0.5f;
                 if(x->f_clockwise == hoa_sym_clockwise)
                     angle = -angle;
-                angle = wrap_twopi(angle);
+                angle = Math<float>::wrap_twopi(angle);
                 
                 egraphics_set_line_width(g, 1.f);
                
@@ -477,10 +477,10 @@ extern void draw_vectors(t_hoa_meter *x, t_object *view, t_rect *rect)
             }
             else
             {
-                double rad = hoa::radius(x->f_vector_coords[2], x->f_vector_coords[3]) * x->f_radius_center * 0.85;
-                double ang = -hoa::azimuth(x->f_vector_coords[2], x->f_vector_coords[3]);
-                x1 = hoa::abscissa(rad, ang);
-                y1 = hoa::ordinate(rad, ang);
+                double rad = Math<float>::radius(x->f_vector_coords[2], x->f_vector_coords[3]) * x->f_radius_center * 0.85;
+                double ang = -Math<float>::azimuth(x->f_vector_coords[2], x->f_vector_coords[3]);
+                x1 = Math<float>::abscissa(rad, ang);
+                y1 = Math<float>::ordinate(rad, ang);
             }
             egraphics_arc(g, x1, y1, size, 0., HOA_2PI);
             egraphics_fill(g);
@@ -495,10 +495,10 @@ extern void draw_vectors(t_hoa_meter *x, t_object *view, t_rect *rect)
             }
             else
             {
-                double rad = hoa::radius(x->f_vector_coords[0], x->f_vector_coords[1]) * x->f_radius_center * 0.85;
-                double ang = -hoa::azimuth(x->f_vector_coords[0], x->f_vector_coords[1]);
-                x1 = hoa::abscissa(rad, ang);
-                y1 = hoa::ordinate(rad, ang);
+                double rad = Math<float>::radius(x->f_vector_coords[0], x->f_vector_coords[1]) * x->f_radius_center * 0.85;
+                double ang = -Math<float>::azimuth(x->f_vector_coords[0], x->f_vector_coords[1]);
+                x1 = Math<float>::abscissa(rad, ang);
+                y1 = Math<float>::ordinate(rad, ang);
             }
             egraphics_arc(g, x1, y1, size, 0., HOA_2PI);
             egraphics_fill(g);
