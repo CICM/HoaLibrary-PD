@@ -4,7 +4,7 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "../hoa.pd.h"
+#include "../hoa.library.h"
 #include "../ThirdParty/HoaLibrary/HoaCommon/HoaCommon.h"
 using namespace HoaCommon;
 
@@ -116,14 +116,10 @@ void hoa_map_mousemove(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
 void hoa_map_mousewheel(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifiers, double x_inc, double y_inc);
 long hoa_map_key(t_hoa_map *x, t_object *patcherview, long keycode, long modifiers, long textcharacter);
 
-t_hoa_err hoa_getinfos(t_hoa_map* x, t_hoa_boxinfos* boxinfos);
-
 void linkmap_add_with_binding_name(t_hoa_map *x, t_symbol* binding_name);
 void linkmap_remove_with_binding_name(t_hoa_map *x, t_symbol* binding_name);
 t_pd_err bindname_set(t_hoa_map *x, void *attr, long argc, t_atom *argv);
 void hoamap_send_binded_map_update(t_hoa_map *x, long flags); // BindingMapMsgFlag
-
-void hoa_map_deprecated(t_hoa_map* x, t_symbol *s, long ac, t_atom* av);
 
 t_symbol *hoa_sym_sources_preset;
 t_symbol* hoa_sym_view_xy = gensym("xy");
@@ -164,12 +160,6 @@ extern "C" void setup_hoa0x2emap(void)
     eclass_addmethod(c, (method) hoa_map_preset,           "preset",            A_CANT,     0);
     eclass_addmethod(c, (method) hoa_map_interpolate,      "interpolate",       A_CANT,     0);
     eclass_addmethod(c, (method) hoa_map_sources_preset,   "sources_preset",    A_GIMME,    0);
-    
-    eclass_addmethod(c, (method) hoa_map_deprecated,        "bgcolor2",         A_GIMME,    0);
-    eclass_addmethod(c, (method) hoa_map_deprecated,        "bordercolor",      A_GIMME,    0);
-    eclass_addmethod(c, (method) hoa_map_deprecated,        "selcolor",         A_GIMME,    0);
-    eclass_addmethod(c, (method) hoa_map_deprecated,        "slot",             A_GIMME,   0);
-    eclass_addmethod(c, (method) hoa_map_deprecated,        "trajectory",       A_GIMME,   0);
     
 	CLASS_ATTR_DEFAULT              (c, "size", 0, "225 225");
     
@@ -226,68 +216,6 @@ extern "C" void setup_hoa0x2emap(void)
     hoa_sym_sources_preset = gensym("sources_preset");
 }
 
-void hoa_map_deprecated(t_hoa_map* x, t_symbol *s, long ac, t_atom* av)
-{
-    t_atom* argv;
-    long argc;
-
-    for(int i = 0; i < ac; i++)
-    {
-        if(atom_gettype(av+i) == A_SYM)
-        {
-            if(atom_getsym(av+i) == gensym("trajectory_parameters"))
-                atom_setsym(av+i, hoa_sym_trajectory_parameters);
-            else if(atom_getsym(av+i) == gensym("slots_parameters"))
-                atom_setsym(av+i, hoa_sym_slots_parameters);
-            else if(atom_getsym(av+i) == gensym("sources_parameters"))
-                atom_setsym(av+i, hoa_sym_sources_parameters);
-            else if(atom_getsym(av+i) == gensym("groups_parameters"))
-                atom_setsym(av+i, hoa_sym_groups_parameters);
-            else if(atom_getsym(av+i) == gensym("s_nosymbol"))
-                atom_setsym(av+i, hoa_sym_null);
-        }
-    }
-    
-    if(s && s == gensym("bordercolor") && ac && av)
-    {
-        object_attr_setvalueof((t_object *)x, gensym("bdcolor"), ac, av);
-        object_error(x, "%s attribute @bordercolor is deprecated, please use @bdcolor.", eobj_getclassname(x)->s_name);
-    }
-    if(s && s == gensym("bgcolor2"))
-        object_error(x, "%s attribute @bgcolor2 is deprecated.", eobj_getclassname(x)->s_name);
-    if(s && s == gensym("selcolor"))
-        object_error(x, "%s attribute @selcolor is deprecated.", eobj_getclassname(x)->s_name);
-    
-    atoms_get_attribute(ac, av, gensym("@bordercolor"), &argc, &argv);
-    if(argc && argv)
-    {
-        object_attr_setvalueof((t_object *)x, gensym("bdcolor"), argc, argv);
-        object_error(x, "%s attribute @bordercolor is deprecated, please use @bdcolor.", eobj_getclassname(x)->s_name);
-        argc = 0;free(argv);argv = NULL;
-    }
-    atoms_get_attribute(ac, av, gensym("@bgcolor2"), &argc, &argv);
-    if(argc && argv)
-    {
-        object_error(x, "%s attribute @bgcolor2 is deprecated.", eobj_getclassname(x)->s_name);
-        argc = 0;free(argv);argv = NULL;
-    }
-    atoms_get_attribute(ac, av, gensym("@selcolor"), &argc, &argv);
-    if(argc && argv)
-    {
-        object_error(x, "%s attribute @selcolor is deprecated.", eobj_getclassname(x)->s_name);
-        argc = 0;free(argv);argv = NULL;
-    }
-    
-    if(atoms_has_attribute(ac, av, hoa_sym_trajectory_parameters))
-        object_error(x, "%s trajectory is deprecated, please use the preset object.", eobj_getclassname(x)->s_name);
-    if(atoms_has_attribute(ac, av, hoa_sym_slots_parameters))
-        object_error(x, "%s slots is deprecated, please use the preset object.", eobj_getclassname(x)->s_name);
-    if(atoms_has_attribute(ac, av, hoa_sym_sources_parameters))
-        object_error(x, "%s sources are no more saved within the canvas, please use the preset object.", eobj_getclassname(x)->s_name);
-    if(atoms_has_attribute(ac, av, hoa_sym_groups_parameters))
-        object_error(x, "%s groups are no more saved within the canvas, please use the preset object.", eobj_getclassname(x)->s_name);
-}
-
 void *hoa_map_new(t_symbol *s, int argc, t_atom *argv)
 {
 	t_hoa_map *x =  NULL;
@@ -322,23 +250,12 @@ void *hoa_map_new(t_symbol *s, int argc, t_atom *argv)
 		
 		ebox_new((t_ebox *)x, flags);
         
-        hoa_map_deprecated(x, NULL, argc, argv);
         ebox_attrprocess_viabinbuf(x, d);
         
         ebox_ready((t_ebox *)x);
     }
     
 	return (x);
-}
-
-t_hoa_err hoa_getinfos(t_hoa_map* x, t_hoa_boxinfos* boxinfos)
-{
-	boxinfos->object_type = HOA_OBJECT_2D;
-	boxinfos->autoconnect_inputs    = 0;
-	boxinfos->autoconnect_outputs   = 0;
-	boxinfos->autoconnect_inputs_type = HOA_CONNECT_TYPE_STANDARD;
-	boxinfos->autoconnect_outputs_type = HOA_CONNECT_TYPE_STANDARD;
-	return HOA_ERR_NONE;
 }
 
 void hoa_map_free(t_hoa_map *x)

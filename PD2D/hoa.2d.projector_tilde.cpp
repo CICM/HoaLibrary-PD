@@ -4,7 +4,7 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "../hoa.pd.h"
+#include "../hoa.library.h"
 #include "../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 using namespace hoa;
 
@@ -40,16 +40,6 @@ extern void *hoa_projector_new(t_symbol *s, long argc, t_atom *argv)
 	}
     
 	return (x);
-}
-
-extern t_hoa_err hoa_getinfos(t_hoa_projector* x, t_hoa_boxinfos* boxinfos)
-{
-	boxinfos->object_type = HOA_OBJECT_2D;
-	boxinfos->autoconnect_inputs = x->f_projector->getNumberOfHarmonics();
-	boxinfos->autoconnect_outputs = x->f_projector->getNumberOfPlanewaves();
-	boxinfos->autoconnect_inputs_type = HOA_CONNECT_TYPE_AMBISONICS;
-	boxinfos->autoconnect_outputs_type = HOA_CONNECT_TYPE_PLANEWAVES;
-	return HOA_ERR_NONE;
 }
 
 extern void hoa_projector_perform(t_hoa_projector *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
@@ -90,7 +80,7 @@ extern "C" void setup_hoa0x2e2d0x2eprojector_tilde(void)
     class_addcreator((t_newmethod)hoa_projector_new, gensym("hoa.projector~"), A_GIMME, 0);
     
     eclass_dspinit(c);
-    hoa_initclass(c, (method)hoa_getinfos);
+    hoa_initclass(c);
     eclass_addmethod(c, (method)hoa_projector_dsp,     "dsp",      A_CANT, 0);
     
     eclass_register(CLASS_OBJ, c);

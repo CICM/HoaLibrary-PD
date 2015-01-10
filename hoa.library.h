@@ -4,10 +4,56 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#ifndef DEF_HOA_PD_COMMONSYMS
-#define DEF_HOA_PD_COMMONSYMS
+#ifndef DEF_HOA_PD
+#define DEF_HOA_PD
 
+extern "C"
+{
 #include "ThirdParty/CicmWrapper/Sources/cicm_wrapper.h"
+}
+
+#define HOA_MAX_PLANEWAVES      EPD_MAX_SIGS
+#define HOA_MAXBLKSIZE          8192
+#define HOA_UI_BORDERTHICKNESS  1
+#define HOA_UI_CORNERSIZE       8
+#define HOA_CONTRAST_LIGHTER    0.06f
+#define HOA_CONTRAST_DARKER     0.14f
+#define HOA_DISPLAY_NPOINTS     180
+
+extern void hoa_initclass(t_eclass* c);
+
+extern "C" void setup_hoa0x2econnect(void);
+extern "C" void setup_hoa0x2edac_tilde(void);
+extern "C" void setup_hoa0x2ein(void);
+extern "C" void setup_hoa0x2ein_tilde(void);
+extern "C" void setup_hoa0x2eout(void);
+extern "C" void setup_hoa0x2eout_tilde(void);
+extern "C" void setup_hoa0x2epi(void);
+extern "C" void setup_hoa0x2epi_tilde(void);
+extern "C" void setup_hoa0x2eprocess_tilde(void);
+extern "C" void setup_hoa0x2ethisprocess_tilde(void);
+extern "C" void setup_hoa0x2emap(void);
+
+extern "C" void setup_hoa0x2e2d0x2ewider_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2escope_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2espace(void);
+extern "C" void setup_hoa0x2e2d0x2erotate_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2erecomposer_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2eprojector_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2eoptim_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2emeter_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2emap_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2eencoder_tilde(void);
+extern "C" void setup_hoa0x2e2d0x2edecoder_tilde(void);
+
+extern "C" void setup_hoa0x2e3d0x2ewider_tilde(void);
+extern "C" void setup_hoa0x2e3d0x2edecoder_tilde(void);
+extern "C" void setup_hoa0x2e3d0x2eencoder_tilde(void);
+extern "C" void setup_hoa0x2e3d0x2eoptim_tilde(void);
+extern "C" void setup_hoa0x2e3d0x2ewider_tilde(void);
+extern "C" void setup_hoa0x2e3d0x2emap_tilde(void);
+extern "C" void setup_hoa0x2e3d0x2emeter_tilde(void);
+extern "C" void setup_hoa0x2e3d0x2escope_tilde(void);
 
 static t_symbol* hoa_sym_none               = gensym("none");
 static t_symbol* hoa_sym_energy             = gensym("energy");
@@ -29,9 +75,6 @@ static t_symbol* hoa_sym_free               = gensym("free");
 static t_symbol* hoa_sym_all                = gensym("all");
 static t_symbol* hoa_sym_canvas             = gensym("canvas");
 static t_symbol* hoa_sym_hoathisprocess     = gensym("hoa.thisprocess~");
-
-// Hoa
-static t_symbol* hoa_sym_hoa_getinfos				= gensym("hoa_getinfos");
 
 // notify
 static t_symbol* hoa_sym_null						= gensym("(null)");
@@ -73,29 +116,10 @@ static t_symbol* hoa_sym_rect 						= gensym("rect");
 static t_symbol* hoa_sym_bgcolor 					= gensym("bgcolor");
 static t_symbol* hoa_sym_bdcolor 					= gensym("bdcolor");
 
-// Patchers
-static t_symbol* hoa_sym_jpatcher 					= gensym("jpatcher");
-static t_symbol* hoa_sym_noedit 					= gensym("noedit");
-static t_symbol* hoa_sym_vis 						= gensym("vis");
-static t_symbol* hoa_sym_invis 						= gensym("invis");
-static t_symbol* hoa_sym_P 							= gensym("#P");
-static t_symbol* hoa_sym_selectbox 					= gensym("selectbox");
-static t_symbol* hoa_sym_insertboxtext 				= gensym("insertboxtext");
-static t_symbol* hoa_sym_gettextptr 				= gensym("gettextptr");
-static t_symbol* hoa_sym_firstview 					= gensym("firstview");
-static t_symbol* hoa_sym_connect 					= gensym("connect");
-static t_symbol* hoa_sym_selectedboxes				= gensym("selectedboxes");
-static t_symbol* hoa_sym_startdrag					= gensym("startdrag");
-
 // Map
 static t_symbol* hoa_sym_source 					= gensym("source");
 static t_symbol* hoa_sym_group 						= gensym("group");
-static t_symbol* hoa_sym_trajectory_parameters 		= gensym("@trajectory_parameters");
-static t_symbol* hoa_sym_slots_parameters 			= gensym("@slots_parameters");
-static t_symbol* hoa_sym_sources_parameters 		= gensym("@sources_parameters");
-static t_symbol* hoa_sym_groups_parameters 			= gensym("@groups_parameters");
 static t_symbol* hoa_sym_slot 						= gensym("slot");
-static t_symbol* hoa_sym_trajectory 				= gensym("trajectory");
 static t_symbol* hoa_sym_remove 					= gensym("remove");
 static t_symbol* hoa_sym_description 				= gensym("description");
 static t_symbol* hoa_sym_color 						= gensym("color");

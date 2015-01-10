@@ -4,7 +4,7 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "../hoa.pd.h"
+#include "../hoa.library.h"
 #include "../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 using namespace hoa;
 
@@ -29,16 +29,6 @@ typedef struct  _hoa_scope
 } t_hoa_scope;
 
 t_eclass *hoa_scope_class;
-
-t_hoa_err hoa_getinfos(t_hoa_scope* x, t_hoa_boxinfos* boxinfos)
-{
-	boxinfos->object_type = HOA_OBJECT_2D;
-	boxinfos->autoconnect_inputs    = x->f_scope->getNumberOfHarmonics();
-	boxinfos->autoconnect_outputs   = 0;
-	boxinfos->autoconnect_inputs_type = HOA_CONNECT_TYPE_AMBISONICS;
-	boxinfos->autoconnect_outputs_type = HOA_CONNECT_TYPE_STANDARD;
-	return HOA_ERR_NONE;
-}
 
 void hoa_scope_perform(t_hoa_scope *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
@@ -301,7 +291,7 @@ extern "C" void setup_hoa0x2e2d0x2escope_tilde(void)
     
     eclass_dspinit(c);
     eclass_init(c, 0);
-    hoa_initclass(c, (method)hoa_getinfos);
+    hoa_initclass(c);
     eclass_addmethod(c, (method)hoa_scope_dsp,			"dsp",          A_CANT, 0);
     eclass_addmethod(c, (method)hoa_scope_paint,		"paint",		A_CANT,	0);
     eclass_addmethod(c, (method)hoa_scope_notify,		"notify",		A_CANT, 0);

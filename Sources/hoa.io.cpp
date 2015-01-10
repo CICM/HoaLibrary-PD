@@ -4,7 +4,7 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
 
-#include "hoa.pd.h"
+#include "hoa.library.h"
 #include "../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
 typedef struct _hoa_out
@@ -128,8 +128,7 @@ extern "C" void setup_hoa0x2eout(void)
     t_eclass* c;
     c = eclass_new("hoa.out", (method)hoa_out_new, (method)eobj_free, (short)sizeof(t_hoa_out), CLASS_NOINLET, A_GIMME, 0);
     
-    hoa_initclass(c, (method)NULL);
-    
+    hoa_initclass(c);
     eclass_addmethod(c, (method)hoa_out_bang,       "bang",     A_CANT,  0);
     eclass_addmethod(c, (method)hoa_out_float,      "float",    A_FLOAT, 0);
     eclass_addmethod(c, (method)hoa_out_symbol,     "symbol",   A_SYMBOL,0);
@@ -199,7 +198,7 @@ extern "C" void setup_hoa0x2ein(void)
     t_eclass* c;
     c = eclass_new("hoa.in", (method)hoa_in_new, (method)hoa_in_free, (short)sizeof(t_hoa_in), CLASS_NOINLET, A_GIMME, 0);
     
-    hoa_initclass(c, (method)NULL);
+    hoa_initclass(c);
     class_sethelpsymbol((t_class *)c, gensym("help/hoa.io"));
     eclass_addmethod(c, (method)hoa_in_bang,       "bang",     A_CANT,  0);
     eclass_addmethod(c, (method)hoa_in_float,      "float",    A_FLOAT, 0);
@@ -252,7 +251,7 @@ extern "C" void setup_hoa0x2eout_tilde(void)
     t_eclass* c;
     c = eclass_new("hoa.out~", (method)hoa_out_tilde_new, (method)eobj_dspfree, (short)sizeof(t_hoa_out_tilde), 0, A_GIMME, 0);
     
-    hoa_initclass(c, (method)NULL);
+    hoa_initclass(c);
     eclass_dspinit(c);
     eclass_addmethod(c, (method)hoa_out_tilde_dsp, "dsp", A_CANT, 0);
     
@@ -310,7 +309,7 @@ extern "C" void setup_hoa0x2ein_tilde(void)
     t_eclass* c;
     c = eclass_new("hoa.in~", (method)hoa_intilde_new, (method)eobj_dspfree, (short)sizeof(t_hoa_in_tilde), CLASS_NOINLET, A_GIMME, 0);
     
-    hoa_initclass(c, (method)NULL);
+    hoa_initclass(c);
     eclass_dspinit(c);
     eclass_addmethod(c, (method)hoa_intilde_dsp, "dsp", A_CANT, 0);
     
@@ -405,7 +404,7 @@ extern "C" void setup_hoa0x2ethisprocess_tilde(void)
     t_eclass* c;
     c = eclass_new("hoa.thisprocess~", (method)hoa_thisprocess_new, (method)hoa_thisprocess_free, (short)sizeof(t_hoa_thisprocess), 0, A_GIMME, 0);
     
-    hoa_initclass(c, (method)NULL);
+    hoa_initclass(c);
     eclass_addmethod(c, (method)hoa_thisprocess_bang,       "bang",     A_CANT, 0);
     eclass_addmethod(c, (method)hoa_thisprocess_click,      "click",    A_CANT, 0);
     

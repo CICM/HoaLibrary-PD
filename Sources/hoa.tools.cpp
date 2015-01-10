@@ -4,20 +4,11 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
 
-#include "hoa.pd.h"
+#include "hoa.library.h"
 #include "../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
 #define DEFDACBLKSIZE 64
 
-extern t_hoa_err hoa_getinfos(t_eobj* x, t_hoa_boxinfos* boxinfos)
-{
-    boxinfos->object_type = HOA_OBJECT_STANDARD;
-    boxinfos->autoconnect_inputs = 0;
-    boxinfos->autoconnect_outputs = 0;
-    boxinfos->autoconnect_inputs_type = HOA_CONNECT_TYPE_STANDARD;
-    boxinfos->autoconnect_outputs_type = HOA_CONNECT_TYPE_STANDARD;
-    return HOA_ERR_NONE;
-}
 typedef struct _hoa_pi
 {	
 	t_eobj p_ob;
@@ -79,7 +70,7 @@ extern "C" void setup_hoa0x2epi(void)
     t_eclass* c;
     c = eclass_new("hoa.pi", (method)pi_new,(method)NULL, sizeof(t_hoa_pi), 0L, A_GIMME, 0);
     
-    hoa_initclass(c, (method)hoa_getinfos);
+    hoa_initclass(c);
     eclass_addmethod(c, (method)pi_bang,     "bang",      A_CANT, 0);
     eclass_addmethod(c, (method)pi_float,    "float",      A_FLOAT, 0);
     
@@ -149,7 +140,7 @@ extern "C" void setup_hoa0x2epi_tilde(void)
     c = eclass_new("hoa.pi~", (method)hoa_pi_tilde_new, (method)NULL, sizeof(t_hoa_pi_tilde), CLASS_NOINLET, A_GIMME, 0);
     
     eclass_dspinit(c);
-    hoa_initclass(c, (method)hoa_getinfos);
+    hoa_initclass(c);
     
     eclass_addmethod(c, (method)hoa_pi_tilde_float,    "float",    A_FLOAT, 0);
     eclass_addmethod(c, (method)hoa_pi_tilde_dsp,      "dsp",      A_CANT, 0);
@@ -259,7 +250,7 @@ extern "C" void setup_hoa0x2edac_tilde(void)
     t_class* c;
     c = class_new(gensym("hoa.dac~"), (t_newmethod)hoa_dac_new, (t_method)hoa_dac_free, (short)sizeof(t_hoa_dac), 0, A_GIMME, 0);
     
-    hoa_initclass((t_eclass *)c, (method)hoa_getinfos);
+    hoa_initclass((t_eclass *)c);
     CLASS_MAINSIGNALIN(c, t_hoa_dac, x_f);
     class_addmethod(c, (t_method)hoa_dac_dsp, gensym("dsp"), A_CANT, 0);
     hoa_dac_class = c;
@@ -373,7 +364,7 @@ extern "C" void setup_hoa0x2econnect(void)
     
     c = eclass_new("hoa.connect", (method)hoa_connect_new, (method)hoa_connect_free, (short)sizeof(t_hoa_connect), 0, A_GIMME, 0);
     
-    hoa_initclass(c, (method)hoa_getinfos);
+    hoa_initclass(c);
     eclass_addmethod(c, (method)hoa_connect_bang,          "bang",             A_CANT, 0);
     
     eclass_register(CLASS_OBJ, c);

@@ -4,7 +4,7 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "hoa.pd.h"
+#include "hoa.library.h"
 #include "../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 using namespace hoa;
 
@@ -226,16 +226,6 @@ void hoa_process_dsp(t_hoa_process *x, t_object *dsp, short *count, double sampl
     }
 
     object_method(dsp, gensym("dsp_add"), x, (method)hoa_process_perform, 0, NULL);
-}
-
-t_hoa_err hoa_getinfos(t_hoa_process* x, t_hoa_boxinfos* boxinfos)
-{
-    boxinfos->object_type = HOA_OBJECT_2D;
-	boxinfos->autoconnect_inputs = 0;
-	boxinfos->autoconnect_outputs = 0;
-	boxinfos->autoconnect_inputs_type = HOA_CONNECT_TYPE_STANDARD;
-	boxinfos->autoconnect_outputs_type = HOA_CONNECT_TYPE_STANDARD;
-	return HOA_ERR_NONE;
 }
 
 void hoa_process_click(t_hoa_process *x)
@@ -1132,7 +1122,7 @@ extern "C" void setup_hoa0x2eprocess_tilde(void)
     class_addcreator((t_newmethod)hoa_process_new, gensym("hoa.3d.process~"), A_GIMME, 0);
     
     eclass_dspinit(c);
-    hoa_initclass(c, (method)hoa_getinfos);
+    hoa_initclass(c);
     eclass_addmethod(c, (method)hoa_process_dsp,        "dsp",      A_CANT, 0);
     eclass_addmethod(c, (method)hoa_process_click,      "click",    A_CANT, 0);
     eclass_addmethod(c, (method)hoa_process_open,       "open",     A_GIMME, 0);

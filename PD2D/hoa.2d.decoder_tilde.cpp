@@ -5,7 +5,7 @@
 */
 
 #include "../ThirdParty/HoaLibrary/Hoa2D/Decoder.h"
-#include "../hoa.pd.h"
+#include "../hoa.library.h"
 
 typedef struct _hoa_decoder
 {
@@ -33,7 +33,6 @@ t_pd_err pinna_set(t_hoa_decoder *x, void *attr, long argc, t_atom *argv);
 t_eclass *hoa_decoder_class;
 t_eclass *hoa_binaural_alias;
 
-t_hoa_err hoa_getinfos(t_hoa_decoder* x, t_hoa_boxinfos* boxinfos);
 void hoa_decoder_deprecated(t_hoa_decoder* x, t_symbol *s, long ac, t_atom* av);
 
 extern "C" void setup_hoa0x2e2d0x2edecoder_tilde(void)
@@ -44,7 +43,7 @@ extern "C" void setup_hoa0x2e2d0x2edecoder_tilde(void)
     class_addcreator((t_newmethod)hoa_decoder_new, gensym("hoa.decoder~"), A_GIMME, 0);
     
 	eclass_dspinit(c);
-    hoa_initclass(c, (method)hoa_getinfos);
+    hoa_initclass(c);
     eclass_addmethod(c, (method)hoa_decoder_dsp,           "dsp",          A_CANT,  0);
     eclass_addmethod(c, (method)hoa_decoder_deprecated,    "pinnae",       A_GIMME, 0);
     eclass_addmethod(c, (method)hoa_decoder_deprecated,    "restitution",  A_GIMME, 0);
@@ -164,16 +163,6 @@ void *hoa_decoder_new(t_symbol *s, long argc, t_atom *argv)
 	}
     
     return (x);
-}
-
-t_hoa_err hoa_getinfos(t_hoa_decoder* x, t_hoa_boxinfos* boxinfos)
-{
-	boxinfos->object_type = HOA_OBJECT_2D;
-	boxinfos->autoconnect_inputs = x->f_decoder->getNumberOfHarmonics();
-	boxinfos->autoconnect_outputs = x->f_decoder->getNumberOfChannels();
-	boxinfos->autoconnect_inputs_type = HOA_CONNECT_TYPE_AMBISONICS;
-	boxinfos->autoconnect_outputs_type = HOA_CONNECT_TYPE_PLANEWAVES;
-	return HOA_ERR_NONE;
 }
 
 void hoa_decoder_dsp(t_hoa_decoder *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)

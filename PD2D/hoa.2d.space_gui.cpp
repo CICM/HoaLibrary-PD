@@ -4,7 +4,7 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "../hoa.pd.h"
+#include "../hoa.library.h"
 #include "../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 using namespace hoa;
 
@@ -54,7 +54,6 @@ void draw_background(t_hoa_space *x, t_object *view, t_rect *rect);
 void draw_space(t_hoa_space *x,  t_object *view, t_rect *rect);
 void draw_points(t_hoa_space *x, t_object *view, t_rect *rect);
 
-t_hoa_err hoa_getinfos(t_hoa_space* x, t_hoa_boxinfos* boxinfos);
 t_pd_err channels_set(t_hoa_space *x, t_object *attr, long argc, t_atom *argv);
 t_pd_err minmax_set(t_hoa_space *x, t_object *attr, long argc, t_atom *argv);
 
@@ -67,7 +66,7 @@ extern "C" void setup_hoa0x2e2d0x2espace(void)
     class_addcreator((t_newmethod)hoa_space_new, gensym("hoa.space"), A_GIMME, 0);
     
     eclass_init(c, 0);
-    hoa_initclass(c, (method)hoa_getinfos);
+    hoa_initclass(c);
     eclass_addmethod(c, (method)hoa_space_assist,          "assist",         A_CANT,	0);
 	eclass_addmethod(c, (method)hoa_space_paint,           "paint",          A_CANT,	0);
 	eclass_addmethod(c, (method)hoa_space_notify,          "notify",         A_CANT, 0);
@@ -214,16 +213,6 @@ void *hoa_space_new(t_symbol *s, int argc, t_atom *argv)
     ebox_ready((t_ebox *)x);
 
     return (x);
-}
-
-t_hoa_err hoa_getinfos(t_hoa_space* x, t_hoa_boxinfos* boxinfos)
-{
-	boxinfos->object_type = HOA_OBJECT_2D;
-	boxinfos->autoconnect_inputs    = 0;
-	boxinfos->autoconnect_outputs   = 0;
-	boxinfos->autoconnect_inputs_type = HOA_CONNECT_TYPE_STANDARD;
-	boxinfos->autoconnect_outputs_type = HOA_CONNECT_TYPE_STANDARD;
-	return HOA_ERR_NONE;
 }
 
 void hoa_space_list(t_hoa_space *x, t_symbol *s, long ac, t_atom *av)

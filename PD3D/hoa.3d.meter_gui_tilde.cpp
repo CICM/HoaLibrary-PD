@@ -74,8 +74,6 @@ void draw_background(t_hoa_meter_3d *x, t_object *view, t_rect *rect);
 void draw_leds(t_hoa_meter_3d *x,  t_object *view, t_rect *rect);
 void draw_vectors(t_hoa_meter_3d *x, t_object *view, t_rect *rect);
 
-t_hoa_err hoa_getinfos(t_hoa_meter_3d* x, t_hoa_boxinfos* boxinfos);
-
 t_symbol* hoa_sym_3d_none = gensym("none");
 t_symbol* hoa_sym_3d_energy = gensym("energy");
 t_symbol* hoa_sym_3d_velocity = gensym("velocity");
@@ -98,7 +96,7 @@ extern "C" void setup_hoa0x2e3d0x2emeter_tilde(void)
     
 	eclass_dspinit(c);
 	eclass_init(c, 0);
-	hoa_initclass(c, (method)hoa_getinfos);
+	hoa_initclass(c);
 	eclass_addmethod(c, (method) hoa_meter_3d_dsp,             "dsp",           A_CANT, 0);
 	eclass_addmethod(c, (method) hoa_meter_3d_assist,          "assist",		A_CANT, 0);
 	eclass_addmethod(c, (method) hoa_meter_3d_paint,           "paint",         A_CANT, 0);
@@ -286,16 +284,6 @@ void *hoa_meter_3d_new(t_symbol *s, int argc, t_atom *argv)
     
 	ebox_ready((t_ebox *)x);
 	return (x);
-}
-
-t_hoa_err hoa_getinfos(t_hoa_meter_3d* x, t_hoa_boxinfos* boxinfos)
-{
-	boxinfos->object_type = HOA_OBJECT_3D;
-	boxinfos->autoconnect_inputs    = x->f_meter->getNumberOfChannels();
-	boxinfos->autoconnect_outputs   = 0;
-	boxinfos->autoconnect_inputs_type = HOA_CONNECT_TYPE_PLANEWAVES;
-	boxinfos->autoconnect_outputs_type = HOA_CONNECT_TYPE_STANDARD;
-	return HOA_ERR_NONE;
 }
 
 void hoa_meter_3d_getdrawparams(t_hoa_meter_3d *x, t_object *patcherview, t_edrawparams *params)

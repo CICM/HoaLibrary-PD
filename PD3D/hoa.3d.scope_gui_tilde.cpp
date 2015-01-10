@@ -46,7 +46,6 @@ void hoa_scope_3D_paint(t_hoa_scope_3D *x, t_object *view);
 void draw_harmonics(t_hoa_scope_3D *x,  t_object *view, t_rect *rect);
 
 t_pd_err    set_order(t_hoa_scope_3D *x, t_object *attr, long ac, t_atom *av);
-t_hoa_err hoa_getinfos(t_hoa_scope_3D* x, t_hoa_boxinfos* boxinfos);
 
 extern "C" void setup_hoa0x2e3d0x2escope_tilde(void)
 {
@@ -56,7 +55,7 @@ extern "C" void setup_hoa0x2e3d0x2escope_tilde(void)
     
     eclass_dspinit(c);
     eclass_init(c, 0);
-	hoa_initclass(c, (method)hoa_getinfos);
+	hoa_initclass(c);
     eclass_addmethod(c, (method)hoa_scope_3D_dsp,			"dsp",          A_CANT, 0);
 	eclass_addmethod(c, (method)hoa_scope_3D_assist,		"assist",		A_CANT,	0);
 	eclass_addmethod(c, (method)hoa_scope_3D_paint,         "paint",		A_CANT,	0);
@@ -161,16 +160,6 @@ void *hoa_scope_3D_new(t_symbol *s, int argc, t_atom *argv)
 	ebox_ready((t_ebox *)x);
 	
 	return (x);
-}
-
-t_hoa_err hoa_getinfos(t_hoa_scope_3D* x, t_hoa_boxinfos* boxinfos)
-{
-	boxinfos->object_type = HOA_OBJECT_2D;
-	boxinfos->autoconnect_inputs    = x->f_scope->getNumberOfHarmonics();
-	boxinfos->autoconnect_outputs   = 0;
-	boxinfos->autoconnect_inputs_type = HOA_CONNECT_TYPE_AMBISONICS;
-	boxinfos->autoconnect_outputs_type = HOA_CONNECT_TYPE_STANDARD;
-	return HOA_ERR_NONE;
 }
 
 void hoa_scope_3D_dsp(t_hoa_scope_3D *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)

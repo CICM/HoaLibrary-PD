@@ -4,7 +4,7 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "../hoa.pd.h"
+#include "../hoa.library.h"
 #include "../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 using namespace hoa;
 
@@ -38,16 +38,6 @@ extern void *hoa_rotate_new(t_symbol *s, long argc, t_atom *argv)
 	}
     
 	return (x);
-}
-
-extern t_hoa_err hoa_getinfos(t_hoa_rotate* x, t_hoa_boxinfos* boxinfos)
-{
-	boxinfos->object_type = HOA_OBJECT_2D;
-	boxinfos->autoconnect_inputs = x->f_rotate->getNumberOfHarmonics();
-	boxinfos->autoconnect_outputs = x->f_rotate->getNumberOfHarmonics();
-	boxinfos->autoconnect_inputs_type = HOA_CONNECT_TYPE_AMBISONICS;
-	boxinfos->autoconnect_outputs_type = HOA_CONNECT_TYPE_AMBISONICS;
-	return HOA_ERR_NONE;
 }
 
 extern void hoa_rotate_float(t_hoa_rotate *x, float f)
@@ -112,7 +102,7 @@ extern "C" void setup_hoa0x2e2d0x2erotate_tilde(void)
     class_addcreator((t_newmethod)hoa_rotate_new, gensym("hoa.rotate~"), A_GIMME, 0);
     
     eclass_dspinit(c);
-    hoa_initclass(c, (method)hoa_getinfos);
+    hoa_initclass(c);
     eclass_addmethod(c, (method)hoa_rotate_dsp,     "dsp",      A_CANT, 0);
     eclass_addmethod(c, (method)hoa_rotate_float,   "float",    A_FLOAT, 0);
     

@@ -6,6 +6,13 @@
 
 #include "PD3D/Hoa3D.pd.h"
 
+extern void hoa_initclass(t_eclass* c)
+{
+    char help[MAXPDSTRING];
+    sprintf(help, "helps/%s", c->c_class.c_name->s_name);
+    class_sethelpsymbol((t_class *)c, gensym(help));
+}
+
 char hoaversion[] = "Beta 2.2";
 #ifdef PD_EXTENDED
 char pdversion[] = "Pd-Extended";
@@ -13,11 +20,12 @@ char pdversion[] = "Pd-Extended";
 char pdversion[] = "Pd-Vanilla";
 #endif
 
-extern "C" void setup_hoa0x2elibrary(void)
+extern "C" void hoa_setup(void)
 {
     post("HOA Library by Julien Colafrancesco, Pierre Guillot & Eliott Paris");
-    post("© 2012 - 2014  CICM | Paris 8 University");
+    post("© 2012 - 2015  CICM | Paris 8 University");
     post("Version %s (%s) for %s", hoaversion, __DATE__, pdversion);
+    post("");
     
     // HOA COMMON //
     setup_hoa0x2econnect();
@@ -54,10 +62,10 @@ extern "C" void setup_hoa0x2elibrary(void)
 	setup_hoa0x2e3d0x2emeter_tilde();
     setup_hoa0x2e3d0x2escope_tilde();  
 
-    pd_library_add_folder("HoaLibrary", "patchers");
-    pd_library_add_folder("HoaLibrary", "clippings");
-    pd_library_add_folder("HoaLibrary", "dependencies");
-    pd_library_add_folder("HoaLibrary", "media");
-    pd_library_add_folder("HoaLibrary", "misc");
+    pd_library_add_folder("Hoa", "patchers");
+    pd_library_add_folder("Hoa", "clippings");
+    pd_library_add_folder("Hoa", "dependencies");
+    pd_library_add_folder("Hoa", "media");
+    pd_library_add_folder("Hoa", "misc");
 }
 

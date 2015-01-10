@@ -96,8 +96,6 @@ void hoa_map_3D_tilde_perform_multisources(t_hoa_map_3D_tilde *x, t_object *dsp6
 
 t_pd_err ramp_set(t_hoa_map_3D_tilde *x, t_object *attr, long argc, t_atom *argv);
 
-t_hoa_err hoa_getinfos(t_hoa_map_3D_tilde* x, t_hoa_boxinfos* boxinfos);
-
 t_eclass *hoa_map_3D_tilde_class;
 
 extern "C" void setup_hoa0x2e3d0x2emap_tilde(void)
@@ -107,7 +105,7 @@ extern "C" void setup_hoa0x2e3d0x2emap_tilde(void)
     c = eclass_new("hoa.3d.map~", (method)hoa_map_3D_tilde_new, (method)hoa_map_3D_tilde_free, (short)sizeof(t_hoa_map_3D_tilde), CLASS_NOINLET, A_GIMME, 0);
     
 	eclass_dspinit(c);
-    hoa_initclass(c, (method)hoa_getinfos);
+    hoa_initclass(c);
 	eclass_addmethod(c, (method)hoa_map_3D_tilde_dsp,          "dsp",      A_CANT, 0);
     eclass_addmethod(c, (method)hoa_map_3D_tilde_list,         "list",     A_GIMME, 0);
     eclass_addmethod(c, (method)hoa_map_3D_tilde_float,        "float",    A_FLOAT, 0);
@@ -179,21 +177,6 @@ void *hoa_map_3D_tilde_new(t_symbol *s, long argc, t_atom *argv)
 	}
     
 	return (x);
-}
-
-t_hoa_err hoa_getinfos(t_hoa_map_3D_tilde* x, t_hoa_boxinfos* boxinfos)
-{
-	boxinfos->object_type = HOA_OBJECT_3D;
-	
-	if(x->f_map->getNumberOfSources() == 1)
-		boxinfos->autoconnect_inputs = 1;
-	else
-		boxinfos->autoconnect_inputs = x->f_map->getNumberOfSources();
-	
-	boxinfos->autoconnect_outputs = x->f_map->getNumberOfHarmonics();
-	boxinfos->autoconnect_inputs_type = HOA_CONNECT_TYPE_STANDARD;
-	boxinfos->autoconnect_outputs_type = HOA_CONNECT_TYPE_AMBISONICS;
-	return HOA_ERR_NONE;
 }
 
 void hoa_map_3D_tilde_float(t_hoa_map_3D_tilde *x, float f)

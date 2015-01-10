@@ -32,8 +32,6 @@ t_pd_err pinna_set(t_hoa_decoder_3D *x, void *attr, long argc, t_atom *argv);;
 t_eclass *hoa_decoder_3D_class;
 t_eclass *hoa_binaural_3d_alias;
 
-t_hoa_err hoa_getinfos(t_hoa_decoder_3D* x, t_hoa_boxinfos* boxinfos);
-
 extern "C" void setup_hoa0x2e3d0x2edecoder_tilde(void)
 {
     t_eclass* c;
@@ -41,7 +39,7 @@ extern "C" void setup_hoa0x2e3d0x2edecoder_tilde(void)
     c = eclass_new("hoa.3d.decoder~", (method)hoa_decoder_3D_new, (method)hoa_decoder_3D_free, (short)sizeof(t_hoa_decoder_3D), 0L, A_GIMME, 0);
     
 	eclass_dspinit(c);
-    hoa_initclass(c, (method)hoa_getinfos);
+    hoa_initclass(c);
     eclass_addmethod(c, (method)hoa_decoder_3D_dsp,           "dsp",          A_CANT,  0);
     
     CLASS_ATTR_DOUBLE_VARSIZE	(c, "angles",0, t_hoa_decoder_3D, f_angles_of_channels, f_number_of_angles, HOA_MAX_PLANEWAVES*2);
@@ -120,16 +118,6 @@ void *hoa_decoder_3D_new(t_symbol *s, long argc, t_atom *argv)
 	}
     
     return (x);
-}
-
-t_hoa_err hoa_getinfos(t_hoa_decoder_3D* x, t_hoa_boxinfos* boxinfos)
-{
-	boxinfos->object_type = HOA_OBJECT_2D;
-	boxinfos->autoconnect_inputs = x->f_decoder->getNumberOfHarmonics();
-	boxinfos->autoconnect_outputs = x->f_decoder->getNumberOfChannels();
-	boxinfos->autoconnect_inputs_type = HOA_CONNECT_TYPE_AMBISONICS;
-	boxinfos->autoconnect_outputs_type = HOA_CONNECT_TYPE_PLANEWAVES;
-	return HOA_ERR_NONE;
 }
 
 void hoa_decoder_3D_dsp(t_hoa_decoder_3D *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)

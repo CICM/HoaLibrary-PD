@@ -1,15 +1,15 @@
 #N canvas 374 96 735 641 10;
-#X obj 52 -400 phasor~ -0.3;
-#X text -205 -396 source;
-#X msg -332 -239 \; pd dsp 1;
-#X msg -332 -204 \; pd dsp 0;
-#X obj -203 65 hoa.dac~ 1:16 -----------------------------;
-#X obj 72 -329 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 434 75 phasor~ -0.3;
+#X text 177 79 source;
+#X msg 50 236 \; pd dsp 1;
+#X msg 50 271 \; pd dsp 0;
+#X obj 179 540 hoa.dac~ 1:16 -----------------------------;
+#X obj 454 146 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj -203 -253 hoa.2d.decoder~ 7 ambisonics 16 -----------;
-#X obj -203 -220 hoa.2d.meter~ @size 261 261 @fontname Helvetica @fontweight
+#X obj 179 222 hoa.2d.decoder~ 7 ambisonics 16 -----------;
+#X obj 179 255 hoa.2d.meter~ @size 261 261 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @channels
 16 @angles 0 22.5 45 67.5 90 112.5 135 157.5 180 202.5 225 247.5 270
 292.5 315 337.5 @offset 0 @rotation anti-clockwise @vectors none @interval
@@ -17,24 +17,24 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @channels
 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor
 1 0 0 0.8;
-#X obj -203 -324 hoa.2d.encoder~ 7 -------------------------;
-#X obj -203 -371 hoa.soundgrain;
-#X obj -203 -342 c.gain~ @size 131 10 @fontname Helvetica @fontweight
+#X obj 179 151 hoa.2d.encoder~ 7 -------------------------;
+#X obj 179 104 hoa.soundgrain;
+#X obj 179 133 c.gain~ @size 131 10 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @kncolor 0.5 0.5 0.5 1;
-#X obj 227 -334 hoa.connect;
-#X obj 227 -354 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 609 141 hoa.connect;
+#X obj 609 121 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 52 -375 hoa.pi~ 2;
-#X obj -380 -455 c.patcherinfos;
-#X obj -380 -472 loadbang;
-#X obj -380 -472 hoa.help.header;
-#X obj -250 86 hoa.help.pub;
-#X obj 36 -472 hoa.help.also;
-#X text -375 -428 hoa.2d.encoder~ creates the circular harmonics of
-a signal depending on a given order and an azimuth.;
-#X text 86 -350 azimuth (-π & π);
+#X obj 434 100 hoa.pi~ 2;
+#X obj 2 20 c.patcherinfos;
+#X obj 2 3 loadbang;
+#X obj 2 3 hoa.help.header;
+#X obj 132 561 hoa.help.pub;
+#X obj 418 3 hoa.help.also;
+#X text 7 47 hoa.2d.encoder~ creates the circular harmonics of a signal
+depending on a given order and an azimuth.;
+#X text 468 125 azimuth (-π & π);
 #X connect 0 0 13 1;
 #X connect 6 0 7 0;
 #X connect 6 0 4 0;
