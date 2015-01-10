@@ -16,7 +16,7 @@ typedef struct _hoa_recomposer
     Recomposer<Hoa2d, t_sample, hoa::Fisheye>*  f_fisheye;
     Line<t_sample>                              f_line;
     Recomposer<Hoa2d, t_sample, hoa::Free>*     f_free;
-    PolarLines<t_sample>*                       f_lines;
+    PolarLines<Hoa2d,t_sample>*                 f_lines;
     t_sample*                                   f_lines_vector;
     
 	t_sample*                                   f_ins;
@@ -70,7 +70,7 @@ extern void *hoa_recomposer_new(t_symbol *s, long argc, t_atom *argv)
         else if(x->f_mode == hoa_sym_free)
         {
             x->f_free       = new Recomposer<Hoa2d, t_sample, Free>(order, numberOfPlanewaves);
-            x->f_lines      = new PolarLines<t_sample>(x->f_free->getNumberOfPlanewaves());
+            x->f_lines      = new PolarLines<Hoa2d,t_sample>(x->f_free->getNumberOfPlanewaves());
             x->f_ins        = new t_float[x->f_free->getNumberOfPlanewaves() * HOA_MAXBLKSIZE];
             x->f_outs       = new t_float[x->f_free->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
             x->f_lines->setRamp(0.1 * sys_getsr());

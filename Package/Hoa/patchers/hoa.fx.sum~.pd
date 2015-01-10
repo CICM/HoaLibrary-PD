@@ -1,0 +1,6 @@
+#N canvas 281 115 814 638 10;
+#X obj 181 227 hoa.in~;
+#X text 61 227 Receive the signal;
+#X text 68 354 Output the signal;
+#X obj 181 353 hoa.out~ extra 1;
+#X connect 0 0 3 0;
