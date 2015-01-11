@@ -4,7 +4,7 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "PD3D/Hoa3D.pd.h"
+#include "hoa.library.h"
 
 extern void hoa_initclass(t_eclass* c)
 {

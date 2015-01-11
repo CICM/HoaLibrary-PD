@@ -1,283 +1,321 @@
-#N canvas 373 23 814 687 10;
-#X text 134 87 source;
-#X msg 57 214 \; pd dsp 1;
-#X msg 57 249 \; pd dsp 0;
-#X obj 351 156 c.number~ @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
-50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
-#X obj 136 131 c.gain~ @size 131 10 @fontname Helvetica @fontweight
+#N canvas 20 23 1000 819 10;
+#X text 134 119 source;
+#X msg 57 246 \; pd dsp 1;
+#X msg 57 281 \; pd dsp 0;
+#X obj 136 163 c.gain~ @size 131 10 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @kncolor 0.5 0.5 0.5 1;
-#X obj 576 28 hoa.connect;
-#X obj 576 8 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 576 60 hoa.connect;
+#X obj 576 40 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 278 128 hoa.pi~ 2;
-#X obj 9 18 c.patcherinfos;
-#X obj 9 1 loadbang;
-#X obj 9 1 hoa.help.header;
-#X obj 425 1 hoa.help.also;
-#X text 351 128 azimuth;
-#X text 501 126 elevation;
-#X text 14 45 hoa.3d.encoder~ creates the spherical harmonics of a
+#X obj 9 50 c.patcherinfos;
+#X obj 9 33 loadbang;
+#X obj 9 33 hoa.help.header;
+#X obj 425 33 hoa.help.also;
+#X text 14 77 hoa.3d.encoder~ creates the spherical harmonics of a
 signal depending on a given order \, an azimuth and an elevation.;
-#X obj 421 77 c.number @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 278 77 c.number @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 505 156 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 107 639 hoa.help.pub;
+#X obj 136 134 hoa.soundcoat;
+#X obj 136 549 hoa.3d.optim~ 3 inPhase ------------------------;
+#X obj 136 572 hoa.3d.decoder~ 3 regular 20 -------------------;
+#X obj 136 610 hoa.dac~ 1:20 ----------------------------------;
+#X obj 279 260 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 278 103 phasor~ -0.5;
-#X obj 107 607 hoa.help.pub;
-#X obj 136 102 hoa.soundcoat;
-#X obj 136 517 hoa.3d.optim~ 3 inPhase ------------------------;
-#X obj 136 540 hoa.3d.decoder~ 3 regular 20 -------------------;
-#X obj 136 578 hoa.dac~ 1:20 ----------------------------------;
-#X text 349 139 (-π & π);
-#X text 493 138 (-π/2 & π/2);
-#X obj 421 128 hoa.pi~ 0.5;
-#X obj 421 103 hoa.tri~ 0.05;
-#X obj 279 318 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 272 298 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 272 356 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 275 334 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 275 392 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 212 299 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 271 153 hoa.pi;
-#X obj 212 357 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 339 297 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 339 355 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 218 333 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 423 151 hoa.pi;
-#X obj 218 391 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 330 334 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 330 392 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 160 334 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 160 392 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 390 334 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 390 392 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 268 381 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 268 439 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 77 383 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 77 441 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 204 383 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 204 441 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 143 382 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 143 440 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 333 381 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 333 439 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 403 381 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 403 439 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 473 381 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 473 439 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 7 413 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 6 471 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 67 413 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 67 471 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 137 413 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 137 471 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 198 413 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 198 471 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 275 413 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 275 471 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 328 413 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 328 471 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 409 413 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 409 471 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 479 413 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 479 471 c.number~ @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
-50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
-#X obj 559 471 c.number~ @size 81 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
-50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
-#X obj 38 93 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+#X obj 38 125 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
 -262144 -1 -1 0 256;
-#X obj 51 143 sig~ 1;
-#X obj 669 309 c.number @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 671 383 hoa.pi;
-#X obj 669 469 c.number @size 78 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 136 179 hoa.3d.encoder~ 5 ------------------------------, f
+#X obj 51 175 sig~ 1;
+#X obj 136 211 hoa.3d.encoder~ 5 ------------------------------, f
 84;
-#X obj 475 507 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 475 449 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 400 506 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 400 448 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 575 507 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 557 447 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 260 506 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 260 448 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 330 506 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 330 448 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X connect 6 0 5 0;
-#X connect 7 0 3 0;
-#X connect 8 0 10 0;
-#X connect 9 0 8 0;
-#X connect 15 0 27 0;
-#X connect 15 0 34 0;
-#X connect 16 0 18 0;
-#X connect 16 0 31 0;
-#X connect 18 0 7 1;
-#X connect 20 0 4 0;
-#X connect 21 0 22 0;
-#X connect 21 1 22 1;
-#X connect 21 2 22 2;
-#X connect 21 3 22 3;
-#X connect 21 4 22 4;
-#X connect 21 5 22 5;
-#X connect 21 6 22 6;
-#X connect 21 7 22 7;
-#X connect 21 8 22 8;
-#X connect 21 9 22 9;
-#X connect 21 10 22 10;
-#X connect 21 11 22 11;
-#X connect 21 12 22 12;
-#X connect 21 13 22 13;
-#X connect 21 14 22 14;
-#X connect 21 15 22 15;
-#X connect 22 0 23 0;
-#X connect 22 1 23 1;
-#X connect 22 2 23 2;
-#X connect 22 3 23 3;
-#X connect 22 4 23 4;
-#X connect 22 5 23 5;
-#X connect 22 6 23 6;
-#X connect 22 7 23 7;
-#X connect 22 8 23 8;
-#X connect 22 9 23 9;
-#X connect 22 10 23 10;
-#X connect 22 11 23 11;
-#X connect 22 12 23 12;
-#X connect 22 13 23 13;
-#X connect 22 14 23 14;
-#X connect 22 15 23 15;
-#X connect 22 16 23 16;
-#X connect 22 17 23 17;
-#X connect 22 18 23 18;
-#X connect 22 19 23 19;
-#X connect 26 0 17 0;
-#X connect 27 0 26 1;
-#X connect 31 0 60 1;
-#X connect 34 0 60 2;
-#X connect 55 0 56 0;
-#X connect 56 0 60 0;
-#X connect 57 0 58 0;
-#X connect 58 0 59 0;
-#X connect 60 0 21 0;
-#X connect 60 0 28 0;
-#X connect 60 1 21 1;
-#X connect 60 1 32 0;
-#X connect 60 2 21 2;
-#X connect 60 2 29 0;
-#X connect 60 3 21 3;
-#X connect 60 3 33 0;
-#X connect 60 4 21 4;
-#X connect 60 4 37 0;
-#X connect 60 5 21 5;
-#X connect 60 5 35 0;
-#X connect 60 6 21 6;
-#X connect 60 6 30 0;
-#X connect 60 7 21 7;
-#X connect 60 7 36 0;
-#X connect 60 8 21 8;
-#X connect 60 8 38 0;
-#X connect 60 9 21 9;
-#X connect 60 9 40 0;
-#X connect 60 10 21 10;
-#X connect 60 10 42 0;
-#X connect 60 11 21 11;
-#X connect 60 11 41 0;
-#X connect 60 12 21 12;
-#X connect 60 12 39 0;
-#X connect 60 13 21 13;
-#X connect 60 13 43 0;
-#X connect 60 14 21 14;
-#X connect 60 14 44 0;
-#X connect 60 15 21 15;
-#X connect 60 15 45 0;
-#X connect 60 16 46 0;
-#X connect 60 17 47 0;
-#X connect 60 18 48 0;
-#X connect 60 19 49 0;
-#X connect 60 20 50 0;
-#X connect 60 21 51 0;
-#X connect 60 22 52 0;
-#X connect 60 23 53 0;
-#X connect 60 24 54 0;
-#X connect 60 30 64 0;
-#X connect 60 31 65 0;
-#X connect 60 32 62 0;
-#X connect 60 33 61 0;
-#X connect 60 34 63 0;
-#X coords 0 687 1 686 100 60 0;
+#X obj 766 165 c.number~ @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 693 137 hoa.pi~ 2;
+#X text 766 137 azimuth;
+#X text 790 251 elevation;
+#X obj 421 109 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 278 109 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 794 281 c.number~ @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 693 112 phasor~ -0.5;
+#X text 764 148 (-π & π);
+#X text 782 263 (-π/2 & π/2);
+#X obj 710 253 hoa.pi~ 0.5;
+#X obj 710 228 hoa.tri~ 0.05;
+#X obj 271 185 hoa.pi;
+#X obj 423 183 hoa.pi;
+#X obj 557 408 c.number~ @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 633 453 c.number~ @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 747 467 hoa.3d.scope~ @size 364 364 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
+5 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
+0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X msg 502 92 0.25;
+#X msg 502 113 0.5;
+#X msg 513 142 0;
+#X connect 5 0 4 0;
+#X connect 6 0 8 0;
+#X connect 7 0 6 0;
+#X connect 12 0 3 0;
+#X connect 13 0 14 0;
+#X connect 13 1 14 1;
+#X connect 13 2 14 2;
+#X connect 13 3 14 3;
+#X connect 13 4 14 4;
+#X connect 13 5 14 5;
+#X connect 13 6 14 6;
+#X connect 13 7 14 7;
+#X connect 13 8 14 8;
+#X connect 13 9 14 9;
+#X connect 13 10 14 10;
+#X connect 13 11 14 11;
+#X connect 13 12 14 12;
+#X connect 13 13 14 13;
+#X connect 13 14 14 14;
+#X connect 13 15 14 15;
+#X connect 14 0 15 0;
+#X connect 14 1 15 1;
+#X connect 14 2 15 2;
+#X connect 14 3 15 3;
+#X connect 14 4 15 4;
+#X connect 14 5 15 5;
+#X connect 14 6 15 6;
+#X connect 14 7 15 7;
+#X connect 14 8 15 8;
+#X connect 14 9 15 9;
+#X connect 14 10 15 10;
+#X connect 14 11 15 11;
+#X connect 14 12 15 12;
+#X connect 14 13 15 13;
+#X connect 14 14 15 14;
+#X connect 14 15 15 15;
+#X connect 14 16 15 16;
+#X connect 14 17 15 17;
+#X connect 14 18 15 18;
+#X connect 14 19 15 19;
+#X connect 40 0 41 0;
+#X connect 41 0 42 0;
+#X connect 42 0 13 0;
+#X connect 42 0 16 0;
+#X connect 42 0 64 0;
+#X connect 42 1 13 1;
+#X connect 42 1 19 0;
+#X connect 42 1 64 1;
+#X connect 42 2 13 2;
+#X connect 42 2 17 0;
+#X connect 42 2 64 2;
+#X connect 42 3 13 3;
+#X connect 42 3 20 0;
+#X connect 42 3 64 3;
+#X connect 42 4 13 4;
+#X connect 42 4 23 0;
+#X connect 42 4 64 4;
+#X connect 42 5 13 5;
+#X connect 42 5 21 0;
+#X connect 42 5 64 5;
+#X connect 42 6 13 6;
+#X connect 42 6 18 0;
+#X connect 42 6 64 6;
+#X connect 42 7 13 7;
+#X connect 42 7 22 0;
+#X connect 42 7 64 7;
+#X connect 42 8 13 8;
+#X connect 42 8 24 0;
+#X connect 42 8 64 8;
+#X connect 42 9 13 9;
+#X connect 42 9 26 0;
+#X connect 42 9 64 9;
+#X connect 42 10 13 10;
+#X connect 42 10 28 0;
+#X connect 42 10 64 10;
+#X connect 42 11 13 11;
+#X connect 42 11 27 0;
+#X connect 42 11 64 11;
+#X connect 42 12 13 12;
+#X connect 42 12 25 0;
+#X connect 42 12 64 12;
+#X connect 42 13 13 13;
+#X connect 42 13 29 0;
+#X connect 42 13 64 13;
+#X connect 42 14 13 14;
+#X connect 42 14 30 0;
+#X connect 42 14 64 14;
+#X connect 42 15 13 15;
+#X connect 42 15 31 0;
+#X connect 42 15 64 15;
+#X connect 42 16 32 0;
+#X connect 42 16 64 16;
+#X connect 42 17 33 0;
+#X connect 42 17 64 17;
+#X connect 42 18 34 0;
+#X connect 42 18 64 18;
+#X connect 42 19 35 0;
+#X connect 42 19 64 19;
+#X connect 42 20 36 0;
+#X connect 42 20 64 20;
+#X connect 42 21 37 0;
+#X connect 42 21 64 21;
+#X connect 42 22 38 0;
+#X connect 42 22 64 22;
+#X connect 42 23 39 0;
+#X connect 42 23 64 23;
+#X connect 42 24 62 0;
+#X connect 42 24 64 24;
+#X connect 42 25 64 25;
+#X connect 42 26 64 26;
+#X connect 42 27 64 27;
+#X connect 42 28 64 28;
+#X connect 42 29 64 29;
+#X connect 42 30 46 0;
+#X connect 42 30 64 30;
+#X connect 42 31 47 0;
+#X connect 42 31 64 31;
+#X connect 42 32 44 0;
+#X connect 42 32 64 32;
+#X connect 42 33 43 0;
+#X connect 42 33 64 33;
+#X connect 42 34 45 0;
+#X connect 42 34 64 34;
+#X connect 42 35 63 0;
+#X connect 42 35 64 35;
+#X connect 49 0 48 0;
+#X connect 52 0 61 0;
+#X connect 53 0 60 0;
+#X connect 55 0 49 1;
+#X connect 58 0 54 0;
+#X connect 59 0 58 1;
+#X connect 60 0 42 1;
+#X connect 61 0 42 2;
+#X connect 65 0 52 0;
+#X connect 66 0 52 0;
+#X connect 67 0 52 0;
+#X coords 0 819 1 818 100 60 0;

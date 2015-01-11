@@ -4,7 +4,9 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
 
-#include "Hoa3D.pd.h"
+#include "../hoa.library.h"
+#include "../ThirdParty/HoaLibrary/Hoa3D/Hoa3D.h"
+using namespace Hoa3D;
 
 #define MAX_SPEAKER 128
 

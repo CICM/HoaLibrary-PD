@@ -4,13 +4,14 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "Hoa3D.pd.h"
+#include "../hoa.library.h"
+#include "../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
+using namespace hoa;
 
 typedef struct  _hoa_scope_3D
 {
-	t_edspbox   j_box;
-    Hoa3D::Scope*   f_scope;
-    int             f_index;
+	t_edspbox               f_box;
+    Scope<Hoa3d, t_sample>* f_scope;
 	t_clock*        f_clock;
 	int             f_startclock;
 	long            f_interval;
@@ -24,7 +25,7 @@ typedef struct  _hoa_scope_3D
 	
 	double          f_center;
 	double          f_radius;
-    t_float*        f_signals;
+    t_sample*       f_signals;
    
 } t_hoa_scope_3D;
 
@@ -32,7 +33,6 @@ t_eclass *hoa_scope_3D_class;
 
 void *hoa_scope_3D_new(t_symbol *s, int argc, t_atom *argv);
 void hoa_scope_3D_free(t_hoa_scope_3D *x);
-void hoa_scope_3D_assist(t_hoa_scope_3D *x, void *b, long m, long a, char *s);
 void hoa_scope_3D_tick(t_hoa_scope_3D *x);
 
 void hoa_scope_3D_dsp(t_hoa_scope_3D *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags);
@@ -57,7 +57,6 @@ extern "C" void setup_hoa0x2e3d0x2escope_tilde(void)
     eclass_init(c, 0);
 	hoa_initclass(c);
     eclass_addmethod(c, (method)hoa_scope_3D_dsp,			"dsp",          A_CANT, 0);
-	eclass_addmethod(c, (method)hoa_scope_3D_assist,		"assist",		A_CANT,	0);
 	eclass_addmethod(c, (method)hoa_scope_3D_paint,         "paint",		A_CANT,	0);
 	eclass_addmethod(c, (method)hoa_scope_3D_notify,		"notify",		A_CANT, 0);
 	eclass_addmethod(c, (method)hoa_scope_3D_getdrawparams,"getdrawparams", A_CANT, 0);
@@ -140,10 +139,9 @@ void *hoa_scope_3D_new(t_symbol *s, int argc, t_atom *argv)
     
     x->f_order      = 1;
 	x->f_startclock = 0;
-	x->f_scope      = new Hoa3D::Scope(x->f_order, NUMBEROFCIRCLEPOINTS_UI2 * 0.25, NUMBEROFCIRCLEPOINTS_UI2 * 0.5);
+	x->f_scope      = new Scope<Hoa3d, t_sample>(x->f_order, HOA_DISPLAY_NPOINTS * 0.25, HOA_DISPLAY_NPOINTS * 0.5);
     x->f_order      = x->f_scope->getDecompositionOrder();
     x->f_signals    = new t_float[x->f_scope->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
-    x->f_index      = 0;
     
     eobj_dspsetup(x, x->f_scope->getNumberOfHarmonics(), 0);
     
@@ -164,7 +162,6 @@ void *hoa_scope_3D_new(t_symbol *s, int argc, t_atom *argv)
 
 void hoa_scope_3D_dsp(t_hoa_scope_3D *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
-    x->f_index = 0;
     object_method(dsp64, gensym("dsp_add"), x, (method)hoa_scope_3D_perform, 0, NULL);
     x->f_startclock = 1;
 }
@@ -176,11 +173,6 @@ void hoa_scope_3D_perform(t_hoa_scope_3D *x, t_object *dsp64, float **ins, long 
         cblas_scopy(sampleframes, ins[i], 1, x->f_signals+i, numins);
     }
     cblas_sscal(numins * sampleframes, x->f_gain, x->f_signals, 1);
-    x->f_index = 0;
-    while(--sampleframes)
-    {
-        x->f_index++;
-    }
     if(x->f_startclock)
 	{
 		x->f_startclock = 0;
@@ -190,7 +182,7 @@ void hoa_scope_3D_perform(t_hoa_scope_3D *x, t_object *dsp64, float **ins, long 
 
 void hoa_scope_3D_tick(t_hoa_scope_3D *x)
 {
-    x->f_scope->process(x->f_signals + x->f_index * x->f_scope->getNumberOfHarmonics());
+    x->f_scope->process(x->f_signals);
     
 	ebox_invalidate_layer((t_ebox *)x, hoa_sym_harmonics_layer);
 	ebox_redraw((t_ebox *)x);
@@ -205,11 +197,6 @@ void hoa_scope_3D_free(t_hoa_scope_3D *x)
     
     delete x->f_scope;
     delete [] x->f_signals;
-}
-
-void hoa_scope_3D_assist(t_hoa_scope_3D *x, void *b, long m, long a, char *s)
-{
-    sprintf(s,"(Signal) %s", x->f_scope->getHarmonicName(a).c_str());
 }
 
 t_pd_err hoa_scope_3D_notify(t_hoa_scope_3D *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
@@ -254,7 +241,7 @@ t_pd_err set_order(t_hoa_scope_3D *x, t_object *attr, long ac, t_atom *av)
             
             delete x->f_scope;
             delete [] x->f_signals;
-            x->f_scope      = new Hoa3D::Scope(order, NUMBEROFCIRCLEPOINTS_UI2 * 0.25, NUMBEROFCIRCLEPOINTS_UI2 * 0.5);
+            x->f_scope      =  new Scope<Hoa3d, t_sample>(order, HOA_DISPLAY_NPOINTS * 0.25, HOA_DISPLAY_NPOINTS * 0.5);
             x->f_order      = x->f_scope->getDecompositionOrder();
             x->f_signals    = new t_float[x->f_scope->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
             
@@ -303,22 +290,22 @@ void draw_harmonics(t_hoa_scope_3D *x, t_object *view, t_rect *rect)
             color_pos = rgba_addContrast(x->f_color_ph, constrast);
             color_neg = rgba_addContrast(x->f_color_nh, constrast);
             egraphics_set_color_rgba(g, &color_pos);
-            double elev = x->f_scope->getElevation(j);
+            double elev = x->f_scope->getPointElevation(j);
             for(int i = 0; i < x->f_scope->getNumberOfColumns(); i++)
             {
-                double azim = x->f_scope->getAzimuth(i);
-                double value = x->f_scope->getValue(j, i);
+                double azim = x->f_scope->getPointAzimuth(i);
+                double value = x->f_scope->getPointValue(j, i);
                 if(value >= 0)
                 {
                     value *= x->f_radius;
                     if(!pathLength)
                     {
-                        egraphics_move_to(g, abscissa(value, azim,elev), ordinate(value, azim, elev));
+                        egraphics_move_to(g, Math<float>::abscissa(value, azim,elev), Math<float>::ordinate(value, azim, elev));
                         pathLength++;
                     }
                     else
                     {
-                        egraphics_line_to(g, abscissa(value, azim,elev), ordinate(value, azim, elev));
+                        egraphics_line_to(g, Math<float>::abscissa(value, azim,elev), Math<float>::ordinate(value, azim, elev));
                     }
                 }
             }
@@ -331,19 +318,19 @@ void draw_harmonics(t_hoa_scope_3D *x, t_object *view, t_rect *rect)
             egraphics_set_color_rgba(g, &color_neg);
             for(int i = 0; i < x->f_scope->getNumberOfColumns(); i++)
             {
-                double azim = x->f_scope->getAzimuth(i);
-                double value = x->f_scope->getValue(j, i);
+                double azim = x->f_scope->getPointAzimuth(i);
+                double value = x->f_scope->getPointValue(j, i);
                 if(value < 0)
                 {
                     value *= -x->f_radius;
                     if(!pathLength)
                     {
-                        egraphics_move_to(g, abscissa(value, azim,elev), ordinate(value, azim, elev));
+                        egraphics_move_to(g, Math<float>::abscissa(value, azim,elev), Math<float>::ordinate(value, azim, elev));
                         pathLength++;
                     }
                     else
                     {
-                        egraphics_line_to(g, abscissa(value, azim,elev), ordinate(value, azim, elev));
+                        egraphics_line_to(g, Math<float>::abscissa(value, azim,elev), Math<float>::ordinate(value, azim, elev));
                     }
                 }
             }
@@ -392,22 +379,22 @@ void draw_harmonics(t_hoa_scope_3D *x, t_object *view, t_rect *rect)
             color_pos = rgba_addContrast(x->f_color_ph, constrast);
             color_neg = rgba_addContrast(x->f_color_nh, constrast);
             egraphics_set_color_rgba(g, &color_pos);
-            double elev = x->f_scope->getElevation(j);
+            double elev = x->f_scope->getPointElevation(j);
             for(int i = 0; i < x->f_scope->getNumberOfColumns(); i++)
             {
-                double azim = x->f_scope->getAzimuth(i);
-                double value = x->f_scope->getValue(j, i);
+                double azim = x->f_scope->getPointAzimuth(i);
+                double value = x->f_scope->getPointValue(j, i);
                 if(value >= 0)
                 {
                     value *= x->f_radius;
                     if(!pathLength)
                     {
-                        egraphics_move_to(g, abscissa(value, azim,elev), ordinate(value, azim, elev));
+                        egraphics_move_to(g, Math<float>::abscissa(value, azim,elev), Math<float>::ordinate(value, azim, elev));
                         pathLength++;
                     }
                     else
                     {
-                        egraphics_line_to(g, abscissa(value, azim,elev), ordinate(value, azim, elev));
+                        egraphics_line_to(g, Math<float>::abscissa(value, azim,elev), Math<float>::ordinate(value, azim, elev));
                     }
                 }
             }
@@ -420,19 +407,19 @@ void draw_harmonics(t_hoa_scope_3D *x, t_object *view, t_rect *rect)
             egraphics_set_color_rgba(g, &color_neg);
             for(int i = 0; i < x->f_scope->getNumberOfColumns(); i++)
             {
-                double azim = x->f_scope->getAzimuth(i);
-                double value = x->f_scope->getValue(j, i);
+                double azim = x->f_scope->getPointAzimuth(i);
+                double value = x->f_scope->getPointValue(j, i);
                 if(value < 0)
                 {
                     value *= -x->f_radius;
                     if(!pathLength)
                     {
-                        egraphics_move_to(g, abscissa(value, azim,elev), ordinate(value, azim, elev));
+                        egraphics_move_to(g, Math<float>::abscissa(value, azim,elev), Math<float>::ordinate(value, azim, elev));
                         pathLength++;
                     }
                     else
                     {
-                        egraphics_line_to(g, abscissa(value, azim,elev), ordinate(value, azim, elev));
+                        egraphics_line_to(g, Math<float>::abscissa(value, azim,elev), Math<float>::ordinate(value, azim, elev));
                     }
                 }
             }

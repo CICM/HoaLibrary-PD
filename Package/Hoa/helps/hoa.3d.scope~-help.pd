@@ -1,74 +1,84 @@
 #N canvas 408 103 684 539 10;
-#X msg 328 -797 \; pd dsp 1;
-#X msg 328 -759 \; pd dsp 0;
-#X obj 173 -622 c.number @size 53 17 @fontname Helvetica @fontweight
+#X msg 446 67 \; pd dsp 1;
+#X msg 446 105 \; pd dsp 0;
+#X obj 291 242 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 1 @max (null) @minmax 1 (null) @decimal 0 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 173 -596 order \$1;
-#X obj 263 -622 c.number @size 53 17 @fontname Helvetica @fontweight
+#X msg 291 268 order \$1;
+#X obj 381 242 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 1 @max (null) @minmax 1 (null) @decimal 6 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 263 -596 gain \$1;
-#X obj 263 -645 c.loadmess 1;
-#X obj 353 -622 c.number @size 53 17 @fontname Helvetica @fontweight
+#X msg 381 268 gain \$1;
+#X obj 381 219 c.loadmess 1;
+#X obj 471 242 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 20 @max 1000 @minmax 20 1000 @decimal 0 @bgcolor 0.75 0.75
 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 353 -596 interval \$1;
-#X obj 172 -498 c.colorpanel @size 97 14 @fontname Helvetica @fontweight
+#X msg 471 268 interval \$1;
+#X obj 290 366 c.colorpanel @size 97 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @matrix 8 1 @reverse 0 @saturation 1 @hue 0 @lightness 0.5 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
-#X obj 172 -479 c.prepend phcolor;
-#X obj 312 -498 c.colorpanel @size 97 14 @fontname Helvetica @fontweight
+#X obj 290 385 c.prepend phcolor;
+#X obj 430 366 c.colorpanel @size 97 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @matrix 8 1 @reverse 0 @saturation 1 @hue 0.65 @lightness 0.5
 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
-#X text 171 -669 order :;
-#X text 171 -679 Ambisonic;
-#X text 261 -679 Gain :;
-#X text 351 -669 interval :;
-#X text 171 -529 color :;
-#X text 171 -539 Positive;
-#X text 311 -529 color :;
-#X text 311 -539 Negative;
-#X text 351 -679 Refresh;
-#X obj 353 -645 c.loadmess 20;
-#X obj 312 -479 c.prepend nhcolor;
-#X obj -19 -383 hoa.help.pub;
-#X obj 373 -365 hoa.connect;
-#X obj 373 -385 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X text 289 195 order :;
+#X text 289 185 Ambisonic;
+#X text 379 185 Gain :;
+#X text 469 195 interval :;
+#X text 289 335 color :;
+#X text 289 325 Positive;
+#X text 429 335 color :;
+#X text 429 325 Negative;
+#X text 469 185 Refresh;
+#X obj 471 219 c.loadmess 20;
+#X obj 430 385 c.prepend nhcolor;
+#X obj 99 481 hoa.help.pub;
+#X obj 491 499 hoa.connect;
+#X obj 491 479 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj -98 -843 c.patcherinfos;
-#X obj -93 -860 loadbang;
-#X obj -113 -860 hoa.help.header;
-#X obj 296 -860 hoa.help.also;
-#X obj -73 -664 hoa.3d.encoder~ 3 ----------------;
-#X obj 173 -645 c.loadmess 3;
-#X obj 263 -567 s hoascope3d;
-#X obj -73 -626 hoa.3d.scope~ @size 207 207 @fontname Helvetica @fontweight
+#X obj 20 21 c.patcherinfos;
+#X obj 25 4 loadbang;
+#X obj 5 4 hoa.help.header;
+#X obj 414 4 hoa.help.also;
+#X obj 45 200 hoa.3d.encoder~ 3 ----------------;
+#X obj 291 219 c.loadmess 3;
+#X obj 381 297 s hoascope3d;
+#X obj 145 134 phasor~ -0.3;
+#X obj 145 159 hoa.pi~ 2;
+#X obj 145 105 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 246 134 hoa.tri~ 0.1 -0.5 0.5;
+#X obj 246 159 hoa.pi~ 1;
+#X obj 246 105 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 430 437 s hoascope3d;
+#X obj 45 149 sig~ 1;
+#X text 3 55 hoa.3d.scope~ displays the spherical harmonics of an ambisonic
+sound field on a disc. The disc is the cross-section of the ambisonic
+sphere at 0° elevation.;
+#X obj 395 137 hoa.pi;
+#X obj 45 238 hoa.3d.scope~ @size 207 207 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive hoascope3d @send (null)
 @order 3 @gain 1 @interval 20 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7
 0.7 0.7 1 @phcolor 1 0 2.38419e-07 1 @nhcolor 0 0.1 1 1;
-#X obj 27 -730 phasor~ -0.3;
-#X obj 27 -705 hoa.pi~ 2;
-#X obj 27 -759 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 5 128 sig~ 1;
+#X obj 84 105 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 128 -730 hoa.tri~ 0.1 -0.5 0.5;
-#X obj 128 -705 hoa.pi~ 1;
-#X obj 128 -759 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 385 105 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 312 -427 s hoascope3d;
-#X obj -73 -715 sig~ 1;
-#X text -115 -809 hoa.3d.scope~ displays the spherical harmonics of
-an ambisonic sound field on a disc. The disc is the cross-section of
-the ambisonic sphere at 0° elevation.;
 #X connect 2 0 3 0;
 #X connect 3 0 32 0;
 #X connect 4 0 5 0;
@@ -77,35 +87,37 @@ the ambisonic sphere at 0° elevation.;
 #X connect 7 0 8 0;
 #X connect 8 0 32 0;
 #X connect 9 0 10 0;
-#X connect 10 0 40 0;
+#X connect 10 0 39 0;
 #X connect 11 0 22 0;
 #X connect 21 0 7 0;
-#X connect 22 0 40 0;
+#X connect 22 0 39 0;
 #X connect 25 0 24 0;
 #X connect 26 0 28 0;
 #X connect 27 0 26 0;
-#X connect 30 0 33 0;
-#X connect 30 1 33 1;
-#X connect 30 2 33 2;
-#X connect 30 3 33 3;
-#X connect 30 4 33 4;
-#X connect 30 5 33 5;
-#X connect 30 6 33 6;
-#X connect 30 7 33 7;
-#X connect 30 8 33 8;
-#X connect 30 9 33 9;
-#X connect 30 10 33 10;
-#X connect 30 11 33 11;
-#X connect 30 12 33 12;
-#X connect 30 13 33 13;
-#X connect 30 14 33 14;
-#X connect 30 15 33 15;
+#X connect 30 1 43 1;
+#X connect 30 2 43 2;
+#X connect 30 3 43 3;
+#X connect 30 4 43 4;
+#X connect 30 5 43 5;
+#X connect 30 6 43 6;
+#X connect 30 7 43 7;
+#X connect 30 8 43 8;
+#X connect 30 9 43 9;
+#X connect 30 10 43 10;
+#X connect 30 11 43 11;
+#X connect 30 12 43 12;
+#X connect 30 13 43 13;
+#X connect 30 14 43 14;
+#X connect 30 15 43 15;
 #X connect 31 0 2 0;
-#X connect 34 0 35 1;
-#X connect 35 0 30 1;
-#X connect 36 0 34 0;
-#X connect 37 0 38 1;
-#X connect 38 0 30 2;
-#X connect 39 0 37 0;
-#X connect 41 0 30 0;
+#X connect 33 0 34 1;
+#X connect 34 0 30 1;
+#X connect 35 0 33 0;
+#X connect 36 0 37 1;
+#X connect 38 0 36 0;
+#X connect 40 0 30 0;
+#X connect 42 0 30 2;
+#X connect 44 0 43 0;
+#X connect 45 0 44 0;
+#X connect 46 0 42 0;
 #X coords 0 539 1 538 85 60 0;
