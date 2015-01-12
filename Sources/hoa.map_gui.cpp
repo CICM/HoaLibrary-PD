@@ -4,9 +4,9 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "../hoa.library.h"
-#include "../ThirdParty/HoaLibrary/HoaCommon/HoaCommon.h"
-using namespace HoaCommon;
+#include "hoa.library.h"
+#include "../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
+using namespace hoa;
 
 #define MAX_ZOOM 1.
 #define MIN_ZOOM 0.01
@@ -22,6 +22,11 @@ typedef enum _BindingMapMsgFlag {
 } BindingMapMsgFlag;
 
 typedef struct _linkmap t_linkmap;
+
+static inline double hoa_pd_distance(double x1, double x2, double y1, double y2, double z1 = 0., double z2 = 0.)
+{
+    return sqrt((x1-x2) * (x1-x2) + (y1-y2) * (y1-y2) + (z1-z2) * (z1-z2));
+}
 
 typedef struct  _hoa_map
 {
@@ -770,7 +775,7 @@ t_pd_err hoa_map_zoom(t_hoa_map *x, t_object *attr, long argc, t_atom *argv)
     if(argc >= 1 && argv && atom_gettype(argv) == A_FLOAT)
     {
         x->f_zoom_factor = atom_getfloat(argv);
-        x->f_zoom_factor = clip_minmax(x->f_zoom_factor, MIN_ZOOM, MAX_ZOOM);
+        x->f_zoom_factor = pd_clip_minmax(x->f_zoom_factor, MIN_ZOOM, MAX_ZOOM);
     }
     
     ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
@@ -1197,8 +1202,8 @@ void draw_sources(t_hoa_map *x,  t_object *view, t_rect *rect)
                     egraphics_set_color_rgba(g, &rgba_red);
                     egraphics_arc(g, sourceDisplayPos.x, sourceDisplayPos.y, x->f_size_source,  0., EPD_2PI);
                     egraphics_stroke(g);
-                    egraphics_move_to(g, sourceDisplayPos.x + abscissa(x->f_size_source * 1., HOA_PI2 / 2.), sourceDisplayPos.y + ordinate(x->f_size_source * 1., HOA_PI2 / 2.));
-                    egraphics_line_to(g, sourceDisplayPos.x + abscissa(x->f_size_source * 1., HOA_PI2 * 5. / 2.), sourceDisplayPos.y + ordinate(x->f_size_source * 1., HOA_PI * 5. / 4.));
+                    egraphics_move_to(g, sourceDisplayPos.x + Math<float>::abscissa(x->f_size_source * 1., HOA_PI2 / 2.), sourceDisplayPos.y + Math<float>::ordinate(x->f_size_source * 1., HOA_PI2 / 2.));
+                    egraphics_line_to(g, sourceDisplayPos.x + Math<float>::abscissa(x->f_size_source * 1., HOA_PI2 * 5. / 2.), sourceDisplayPos.y + Math<float>::ordinate(x->f_size_source * 1., HOA_PI * 5. / 4.));
                     egraphics_stroke(g);
                 }
                 
@@ -1323,7 +1328,7 @@ void draw_groups(t_hoa_map *x,  t_object *view, t_rect *rect)
                     for(int j = 0; j < 2; j++)
                     {
                         egraphics_move_to(g, sourceDisplayPos.x, sourceDisplayPos.y);
-                        egraphics_line_to(g, sourceDisplayPos.x + abscissa(x->f_size_source * 1., HOA_2PI * j / 2. + HOA_PI2 / 2.), sourceDisplayPos.y + ordinate(x->f_size_source * 1., HOA_2PI * j / 2. + HOA_PI2 / 2.));
+                        egraphics_line_to(g, sourceDisplayPos.x + Math<float>::abscissa(x->f_size_source * 1., HOA_2PI * j / 2. + HOA_PI2 / 2.), sourceDisplayPos.y + Math<float>::ordinate(x->f_size_source * 1., HOA_2PI * j / 2. + HOA_PI2 / 2.));
                         egraphics_stroke(g);
                     }
                     
@@ -1399,7 +1404,7 @@ void hoa_map_mousedown(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
             displayed_coords.y = x->f_source_manager->sourceGetHeight(i);
         }
 		
-		distanceSelected_test = distance(displayed_coords.x, displayed_coords.y, cursor.x, cursor.y);
+		distanceSelected_test = hoa_pd_distance(displayed_coords.x, displayed_coords.y, cursor.x, cursor.y);
 		
         if(x->f_source_manager->sourceGetExistence(i) && distanceSelected_test <= distanceSelected)
         {
@@ -1427,7 +1432,7 @@ void hoa_map_mousedown(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
                 displayed_coords.x = x->f_source_manager->groupGetOrdinate(i);
                 displayed_coords.y = x->f_source_manager->groupGetHeight(i);
             }
-			distanceSelected_test = distance(displayed_coords.x, displayed_coords.y, cursor.x, cursor.y);
+			distanceSelected_test = hoa_pd_distance(displayed_coords.x, displayed_coords.y, cursor.x, cursor.y);
 			
 			if(x->f_source_manager->groupGetExistence(i) && distanceSelected_test <= distanceSelected)
 			{
@@ -1632,30 +1637,30 @@ void hoa_map_mousedrag(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
 		{
             if(x->f_coord_view == hoa_sym_view_xy)
             {
-                x->f_source_manager->sourceSetAzimuth(x->f_index_of_selected_source, azimuth(cursor.x, cursor.y));
+                x->f_source_manager->sourceSetAzimuth(x->f_index_of_selected_source, Math<float>::azimuth(cursor.x, cursor.y));
             }
             else if(x->f_coord_view == hoa_sym_view_xz)
             {
-                double source_radius = radius(x->f_source_manager->sourceGetAbscissa(x->f_index_of_selected_source), x->f_source_manager->sourceGetHeight(x->f_index_of_selected_source));
-                double mouse_azimuth = wrap_twopi(azimuth(cursor.x, cursor.y));
+                double source_radius = Math<float>::radius(x->f_source_manager->sourceGetAbscissa(x->f_index_of_selected_source), x->f_source_manager->sourceGetHeight(x->f_index_of_selected_source));
+                double mouse_azimuth = Math<float>::wrap_twopi(Math<float>::azimuth(cursor.x, cursor.y));
                 
-                x->f_source_manager->sourceSetAbscissa(x->f_index_of_selected_source, abscissa(source_radius, mouse_azimuth));
-                x->f_source_manager->sourceSetHeight(x->f_index_of_selected_source, ordinate(source_radius, mouse_azimuth));
+                x->f_source_manager->sourceSetAbscissa(x->f_index_of_selected_source, Math<float>::abscissa(source_radius, mouse_azimuth));
+                x->f_source_manager->sourceSetHeight(x->f_index_of_selected_source, Math<float>::ordinate(source_radius, mouse_azimuth));
             }
             else
             {
-                double source_radius = radius(x->f_source_manager->sourceGetOrdinate(x->f_index_of_selected_source), x->f_source_manager->sourceGetHeight(x->f_index_of_selected_source));
-                double mouse_azimuth = wrap_twopi(azimuth(cursor.x, cursor.y));
+                double source_radius = Math<float>::radius(x->f_source_manager->sourceGetOrdinate(x->f_index_of_selected_source), x->f_source_manager->sourceGetHeight(x->f_index_of_selected_source));
+                double mouse_azimuth = Math<float>::wrap_twopi(Math<float>::azimuth(cursor.x, cursor.y));
                 
-                x->f_source_manager->sourceSetOrdinate(x->f_index_of_selected_source, abscissa(source_radius, mouse_azimuth));
-                x->f_source_manager->sourceSetHeight(x->f_index_of_selected_source, ordinate(source_radius, mouse_azimuth));
+                x->f_source_manager->sourceSetOrdinate(x->f_index_of_selected_source, Math<float>::abscissa(source_radius, mouse_azimuth));
+                x->f_source_manager->sourceSetHeight(x->f_index_of_selected_source, Math<float>::ordinate(source_radius, mouse_azimuth));
             }
 			
 			causeOutput = causeRedraw = causeNotify = 1;
 		}
         else if(modifiers == EMOD_ALT)
 		{
-            x->f_source_manager->sourceSetRadius(x->f_index_of_selected_source, radius(cursor.x, cursor.y));
+            x->f_source_manager->sourceSetRadius(x->f_index_of_selected_source, Math<float>::radius(cursor.x, cursor.y));
 			causeOutput = causeRedraw = causeNotify = 1;
 		}
 		else if((modifiers & EMOD_CTRL) && !(modifiers & EMOD_SHIFT))
@@ -1697,7 +1702,7 @@ void hoa_map_mousedrag(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
 		{
             if(x->f_coord_view == hoa_sym_view_xy)
             {
-                x->f_source_manager->groupSetRelativeAzimuth(x->f_index_of_selected_group, azimuth(cursor.x, cursor.y));
+                x->f_source_manager->groupSetRelativeAzimuth(x->f_index_of_selected_group, Math<float>::azimuth(cursor.x, cursor.y));
             }
             else if(x->f_coord_view == hoa_sym_view_xz)
             {
@@ -1707,8 +1712,8 @@ void hoa_map_mousedrag(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
                     int srcIndex, grpIndex;
                     double source_radius, source_azimuth, mouse_azimuth, mouse_azimuth_prev;
                     grpIndex = x->f_index_of_selected_group;
-                    mouse_azimuth = wrap_twopi(azimuth(cursor.x, cursor.y));
-                    mouse_azimuth_prev = wrap_twopi(azimuth(x->f_cursor_position.x, x->f_cursor_position.y));
+                    mouse_azimuth = Math<float>::wrap_twopi(Math<float>::azimuth(cursor.x, cursor.y));
+                    mouse_azimuth_prev = Math<float>::wrap_twopi(Math<float>::azimuth(x->f_cursor_position.x, x->f_cursor_position.y));
                     
                     for(int i = 0; i < x->f_source_manager->groupGetNumberOfSources(grpIndex); i++)
                     {
@@ -1716,12 +1721,12 @@ void hoa_map_mousedrag(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
                         
                         source_display.x = x->f_source_manager->sourceGetAbscissa(srcIndex);
                         source_display.y = x->f_source_manager->sourceGetHeight(srcIndex);
-                        source_radius = radius(source_display.x, source_display.y);
-                        source_azimuth = azimuth(source_display.x, source_display.y);
+                        source_radius = Math<float>::radius(source_display.x, source_display.y);
+                        source_azimuth = Math<float>::azimuth(source_display.x, source_display.y);
                         source_azimuth += mouse_azimuth - mouse_azimuth_prev;
                         
-                        x->f_source_manager->sourceSetAbscissa(srcIndex, abscissa(source_radius, source_azimuth));
-                        x->f_source_manager->sourceSetHeight(srcIndex, ordinate(source_radius, source_azimuth));
+                        x->f_source_manager->sourceSetAbscissa(srcIndex, Math<float>::abscissa(source_radius, source_azimuth));
+                        x->f_source_manager->sourceSetHeight(srcIndex, Math<float>::ordinate(source_radius, source_azimuth));
                     }
                 }
             }
@@ -1733,8 +1738,8 @@ void hoa_map_mousedrag(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
                     int srcIndex, grpIndex;
                     double source_radius, source_azimuth, mouse_azimuth, mouse_azimuth_prev;
                     grpIndex = x->f_index_of_selected_group;
-                    mouse_azimuth = wrap_twopi(azimuth(cursor.x, cursor.y));
-                    mouse_azimuth_prev = wrap_twopi(azimuth(x->f_cursor_position.x, x->f_cursor_position.y));
+                    mouse_azimuth = Math<float>::wrap_twopi(Math<float>::azimuth(cursor.x, cursor.y));
+                    mouse_azimuth_prev = Math<float>::wrap_twopi(Math<float>::azimuth(x->f_cursor_position.x, x->f_cursor_position.y));
                     
                     for(int i = 0; i < x->f_source_manager->groupGetNumberOfSources(grpIndex); i++)
                     {
@@ -1742,12 +1747,12 @@ void hoa_map_mousedrag(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
                         
                         source_display.x = x->f_source_manager->sourceGetOrdinate(srcIndex);
                         source_display.y = x->f_source_manager->sourceGetHeight(srcIndex);
-                        source_radius = radius(source_display.x, source_display.y);
-                        source_azimuth = azimuth(source_display.x, source_display.y);
+                        source_radius = Math<float>::radius(source_display.x, source_display.y);
+                        source_azimuth = Math<float>::azimuth(source_display.x, source_display.y);
                         source_azimuth += mouse_azimuth - mouse_azimuth_prev;
                         
-                        x->f_source_manager->sourceSetOrdinate(srcIndex, abscissa(source_radius, source_azimuth));
-                        x->f_source_manager->sourceSetHeight(srcIndex, ordinate(source_radius, source_azimuth));
+                        x->f_source_manager->sourceSetOrdinate(srcIndex, Math<float>::abscissa(source_radius, source_azimuth));
+                        x->f_source_manager->sourceSetHeight(srcIndex, Math<float>::ordinate(source_radius, source_azimuth));
                     }
                 }
             }
@@ -1755,14 +1760,14 @@ void hoa_map_mousedrag(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
 		}
         else if(modifiers == EMOD_ALT || modifiers == 274)
 		{
-            x->f_source_manager->groupSetRelativeRadius(x->f_index_of_selected_group, radius(cursor.x, cursor.y));
+            x->f_source_manager->groupSetRelativeRadius(x->f_index_of_selected_group, Math<float>::radius(cursor.x, cursor.y));
 			causeOutput = causeRedraw = causeNotify = 1;
 		}
         else if((modifiers & EMOD_ALT) && (modifiers & EMOD_SHIFT))
 		{
             if(x->f_coord_view == hoa_sym_view_xy)
             {
-                x->f_source_manager->groupSetRelativePolar(x->f_index_of_selected_group, radius(cursor.x, cursor.y), azimuth(cursor.x, cursor.y));
+                x->f_source_manager->groupSetRelativePolar(x->f_index_of_selected_group, Math<float>::radius(cursor.x, cursor.y), Math<float>::azimuth(cursor.x, cursor.y));
             }
             else if(x->f_coord_view == hoa_sym_view_xz)
             {
@@ -1772,10 +1777,10 @@ void hoa_map_mousedrag(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
                     int srcIndex, grpIndex;
                     double source_radius, source_azimuth, mouse_azimuth, mouse_azimuth_prev, mouse_radius, mouse_radius_prev;
                     grpIndex = x->f_index_of_selected_group;
-                    mouse_radius = clip_min(radius(cursor.x, cursor.y), 0);
-                    mouse_radius_prev = clip_min(radius(x->f_cursor_position.x, x->f_cursor_position.y), 0);
-                    mouse_azimuth = wrap_twopi(azimuth(cursor.x, cursor.y));
-                    mouse_azimuth_prev = wrap_twopi(azimuth(x->f_cursor_position.x, x->f_cursor_position.y));
+                    mouse_radius = pd_clip_min(Math<float>::radius(cursor.x, cursor.y), 0);
+                    mouse_radius_prev = pd_clip_min(Math<float>::radius(x->f_cursor_position.x, x->f_cursor_position.y), 0);
+                    mouse_azimuth = Math<float>::wrap_twopi(Math<float>::azimuth(cursor.x, cursor.y));
+                    mouse_azimuth_prev = Math<float>::wrap_twopi(Math<float>::azimuth(x->f_cursor_position.x, x->f_cursor_position.y));
                     
                     for(int i = 0; i < x->f_source_manager->groupGetNumberOfSources(grpIndex); i++)
                     {
@@ -1783,13 +1788,13 @@ void hoa_map_mousedrag(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
                         
                         source_display.x = x->f_source_manager->sourceGetAbscissa(srcIndex);
                         source_display.y = x->f_source_manager->sourceGetHeight(srcIndex);
-                        source_radius = radius(source_display.x, source_display.y);
+                        source_radius = Math<float>::radius(source_display.x, source_display.y);
                         source_radius += mouse_radius - mouse_radius_prev;
-                        source_azimuth = azimuth(source_display.x, source_display.y);
+                        source_azimuth = Math<float>::azimuth(source_display.x, source_display.y);
                         source_azimuth += mouse_azimuth - mouse_azimuth_prev;
                         
-                        x->f_source_manager->sourceSetAbscissa(srcIndex, abscissa(source_radius, source_azimuth));
-                        x->f_source_manager->sourceSetHeight(srcIndex, ordinate(source_radius, source_azimuth));
+                        x->f_source_manager->sourceSetAbscissa(srcIndex, Math<float>::abscissa(source_radius, source_azimuth));
+                        x->f_source_manager->sourceSetHeight(srcIndex, Math<float>::ordinate(source_radius, source_azimuth));
                     }
                 }
             }
@@ -1801,10 +1806,10 @@ void hoa_map_mousedrag(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
                     int srcIndex, grpIndex;
                     double source_radius, source_azimuth, mouse_azimuth, mouse_azimuth_prev, mouse_radius, mouse_radius_prev;
                     grpIndex = x->f_index_of_selected_group;
-                    mouse_radius = clip_min(radius(cursor.x, cursor.y), 0);
-                    mouse_radius_prev = clip_min(radius(x->f_cursor_position.x, x->f_cursor_position.y), 0);
-                    mouse_azimuth = wrap_twopi(azimuth(cursor.x, cursor.y));
-                    mouse_azimuth_prev = wrap_twopi(azimuth(x->f_cursor_position.x, x->f_cursor_position.y));
+                    mouse_radius = pd_clip_min(Math<float>::radius(cursor.x, cursor.y), 0);
+                    mouse_radius_prev = pd_clip_min(Math<float>::radius(x->f_cursor_position.x, x->f_cursor_position.y), 0);
+                    mouse_azimuth = Math<float>::wrap_twopi(Math<float>::azimuth(cursor.x, cursor.y));
+                    mouse_azimuth_prev = Math<float>::wrap_twopi(Math<float>::azimuth(x->f_cursor_position.x, x->f_cursor_position.y));
                     
                     for(int i = 0; i < x->f_source_manager->groupGetNumberOfSources(grpIndex); i++)
                     {
@@ -1812,13 +1817,13 @@ void hoa_map_mousedrag(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
                         
                         source_display.x = x->f_source_manager->sourceGetOrdinate(srcIndex);
                         source_display.y = x->f_source_manager->sourceGetHeight(srcIndex);
-                        source_radius = radius(source_display.x, source_display.y);
+                        source_radius = Math<float>::radius(source_display.x, source_display.y);
                         source_radius += mouse_radius - mouse_radius_prev;
-                        source_azimuth = azimuth(source_display.x, source_display.y);
+                        source_azimuth = Math<float>::azimuth(source_display.x, source_display.y);
                         source_azimuth += mouse_azimuth - mouse_azimuth_prev;
                         
-                        x->f_source_manager->sourceSetOrdinate(srcIndex, abscissa(source_radius, source_azimuth));
-                        x->f_source_manager->sourceSetHeight(srcIndex, ordinate(source_radius, source_azimuth));
+                        x->f_source_manager->sourceSetOrdinate(srcIndex, Math<float>::abscissa(source_radius, source_azimuth));
+                        x->f_source_manager->sourceSetHeight(srcIndex, Math<float>::ordinate(source_radius, source_azimuth));
                     }
                 }
             }
@@ -1982,7 +1987,7 @@ void hoa_map_mousewheel(t_hoa_map *x, t_object *patcherview, t_pt pt, long modif
     if(modifiers == EMOD_ALT)
     {
 		double newZoom = x->f_zoom_factor + y_inc / 100.;
-        x->f_zoom_factor = clip_minmax(newZoom, MIN_ZOOM, MAX_ZOOM);
+        x->f_zoom_factor = pd_clip_minmax(newZoom, MIN_ZOOM, MAX_ZOOM);
         
         ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
         ebox_invalidate_layer((t_ebox *)x, hoa_sym_sources_layer);
@@ -2023,7 +2028,7 @@ void hoa_map_mousemove(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
             displayed_coords.x = x->f_source_manager->sourceGetOrdinate(i);
             displayed_coords.y = x->f_source_manager->sourceGetHeight(i);
         }
-		distanceSelected_test = distance(displayed_coords.x, displayed_coords.y, cursor.x, cursor.y);
+		distanceSelected_test = hoa_pd_distance(displayed_coords.x, displayed_coords.y, cursor.x, cursor.y);
 		
         if(x->f_source_manager->sourceGetExistence(i) && distanceSelected_test <= distanceSelected)
         {
@@ -2052,7 +2057,7 @@ void hoa_map_mousemove(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
                 displayed_coords.x = x->f_source_manager->groupGetOrdinate(i);
                 displayed_coords.y = x->f_source_manager->groupGetHeight(i);
             }
-			distanceSelected_test = distance(displayed_coords.x, displayed_coords.y, cursor.x, cursor.y);
+			distanceSelected_test = hoa_pd_distance(displayed_coords.x, displayed_coords.y, cursor.x, cursor.y);
 			
 			if(x->f_source_manager->groupGetExistence(i) && distanceSelected_test <= distanceSelected)
 			{

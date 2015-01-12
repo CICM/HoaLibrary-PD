@@ -4,8 +4,9 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
 
-#include "hoa.library.h"
+#include "../hoa.library.h"
 #include "../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
+using namespace hoa;
 
 typedef struct _hoa_out
 {

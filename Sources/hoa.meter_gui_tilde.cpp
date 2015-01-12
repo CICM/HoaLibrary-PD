@@ -149,7 +149,7 @@ extern t_pd_err offset_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv
     argv[0] = (t_atom *)malloc(sizeof(t_atom));
     if(argv[0] && argc[0])
     {
-        atom_setfloat(argv[0], x->f_meter->getPlanewavesOffset() / HOA_2PI * 360.);
+        atom_setfloat(argv[0], x->f_meter->getPlanewavesRotation() / HOA_2PI * 360.);
     }
     else
     {
@@ -163,8 +163,8 @@ extern t_pd_err offset_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_FLOAT)
     {
-        x->f_vector->setPlanewavesOffset(atom_getfloat(argv) / 360 * HOA_2PI);
-        x->f_meter->setPlanewavesOffset(atom_getfloat(argv) / 360 * HOA_2PI);
+        x->f_vector->setPlanewavesRotation(atom_getfloat(argv) / 360 * HOA_2PI);
+        x->f_meter->setPlanewavesRotation(atom_getfloat(argv) / 360 * HOA_2PI);
         x->f_vector->computeRendering();
         x->f_meter->computeDisplay();
     }

@@ -1,4 +1,4 @@
-hoa.library-help.pd hoa.library High Order Ambisonics Library.;
+hoa-help.pd hoa.library High Order Ambisonics Library.;
 hoa.2d.decoder~-help.pd hoa.2d.decoder~ An ambisonic decoder.;
 hoa.2d.encoder~-help.pd hoa.2d.encoder~ An ambisonic encoder.;
 hoa.map-help.pd hoa.map A GUI to spatialize sources on a map.;
