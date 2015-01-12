@@ -9,28 +9,6 @@
 /* Begin PBXBuildFile section */
 		59FB02F817A7FAA9001E977D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FB02F717A7FAA9001E977D /* Accelerate.framework */; };
 		8F189F3718EB0DBE00348D89 /* hoa.library.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F189F3418EB0DBE00348D89 /* hoa.library.h */; };
-		8F1F1AEE1A5425390026B9E8 /* Hoa.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F1F1AA71A5425390026B9E8 /* Hoa.h */; };
-		8F1F1AEF1A5425390026B9E8 /* Hoa.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F1F1AA71A5425390026B9E8 /* Hoa.h */; };
-		8F1F1B3A1A5425390026B9E8 /* Hoa3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F1F1ACF1A5425390026B9E8 /* Hoa3D.h */; };
-		8F1F1B3B1A5425390026B9E8 /* Hoa3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F1F1ACF1A5425390026B9E8 /* Hoa3D.h */; };
-		8F1F1B401A5425390026B9E8 /* Meter_3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F1F1AD21A5425390026B9E8 /* Meter_3D.cpp */; };
-		8F1F1B411A5425390026B9E8 /* Meter_3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F1F1AD21A5425390026B9E8 /* Meter_3D.cpp */; };
-		8F1F1B421A5425390026B9E8 /* Meter_3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F1F1AD31A5425390026B9E8 /* Meter_3D.h */; };
-		8F1F1B431A5425390026B9E8 /* Meter_3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F1F1AD31A5425390026B9E8 /* Meter_3D.h */; };
-		8F1F1B481A5425390026B9E8 /* Planewaves_3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F1F1AD61A5425390026B9E8 /* Planewaves_3D.cpp */; };
-		8F1F1B491A5425390026B9E8 /* Planewaves_3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F1F1AD61A5425390026B9E8 /* Planewaves_3D.cpp */; };
-		8F1F1B4A1A5425390026B9E8 /* Planewaves_3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F1F1AD71A5425390026B9E8 /* Planewaves_3D.h */; };
-		8F1F1B4B1A5425390026B9E8 /* Planewaves_3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F1F1AD71A5425390026B9E8 /* Planewaves_3D.h */; };
-		8F1F1B541A5425390026B9E8 /* Vector_3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F1F1ADC1A5425390026B9E8 /* Vector_3D.cpp */; };
-		8F1F1B551A5425390026B9E8 /* Vector_3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F1F1ADC1A5425390026B9E8 /* Vector_3D.cpp */; };
-		8F1F1B561A5425390026B9E8 /* Vector_3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F1F1ADD1A5425390026B9E8 /* Vector_3D.h */; };
-		8F1F1B571A5425390026B9E8 /* Vector_3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F1F1ADD1A5425390026B9E8 /* Vector_3D.h */; };
-		8F1F1B6E1A5425390026B9E8 /* HoaDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F1F1AEA1A5425390026B9E8 /* HoaDefs.h */; };
-		8F1F1B6F1A5425390026B9E8 /* HoaDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F1F1AEA1A5425390026B9E8 /* HoaDefs.h */; };
-		8F1F1B701A5425390026B9E8 /* HoaMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F1F1AEB1A5425390026B9E8 /* HoaMath.h */; };
-		8F1F1B711A5425390026B9E8 /* HoaMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F1F1AEB1A5425390026B9E8 /* HoaMath.h */; };
-		8F1F1B721A5425390026B9E8 /* HoaUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F1F1AEC1A5425390026B9E8 /* HoaUtils.h */; };
-		8F1F1B731A5425390026B9E8 /* HoaUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F1F1AEC1A5425390026B9E8 /* HoaUtils.h */; };
 		8F1F1BB51A5425AF0026B9E8 /* cicm_wrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F1F1B771A5425AF0026B9E8 /* cicm_wrapper.h */; };
 		8F1F1BB61A5425AF0026B9E8 /* cicm_wrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F1F1B771A5425AF0026B9E8 /* cicm_wrapper.h */; };
 		8F1F1BB71A5425AF0026B9E8 /* ebox.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F1F1B791A5425AF0026B9E8 /* ebox.h */; };
@@ -161,6 +139,10 @@
 		8FC2EDAA1A62B32A00DBD231 /* hoa.meter_gui_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2EDA41A62B32A00DBD231 /* hoa.meter_gui_tilde.cpp */; };
 		8FC2EDAD1A62B32A00DBD231 /* hoa.3d.meter_gui_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2EDA61A62B32A00DBD231 /* hoa.3d.meter_gui_tilde.cpp */; };
 		8FC2EDAE1A62B32A00DBD231 /* hoa.3d.meter_gui_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2EDA61A62B32A00DBD231 /* hoa.3d.meter_gui_tilde.cpp */; };
+		8FF8C4FC1A63C1C200C64C6B /* Meter_3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FF8C4FA1A63C1C200C64C6B /* Meter_3D.cpp */; };
+		8FF8C4FD1A63C1C200C64C6B /* Meter_3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FF8C4FA1A63C1C200C64C6B /* Meter_3D.cpp */; };
+		8FF8C4FE1A63C1C200C64C6B /* Meter_3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FF8C4FB1A63C1C200C64C6B /* Meter_3D.h */; };
+		8FF8C4FF1A63C1C200C64C6B /* Meter_3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FF8C4FB1A63C1C200C64C6B /* Meter_3D.h */; };
 		8FFCAC2F1A5C0FC600E38483 /* Decoder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8FFCAC0B1A5C0FC600E38483 /* Decoder.hpp */; };
 		8FFCAC301A5C0FC600E38483 /* Decoder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8FFCAC0B1A5C0FC600E38483 /* Decoder.hpp */; };
 		8FFCAC311A5C0FC600E38483 /* Encoder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8FFCAC0C1A5C0FC600E38483 /* Encoder.hpp */; };
@@ -187,17 +169,6 @@
 		5913846F15DAA36D0029AD16 /* hoa.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = hoa.pd_darwin; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FB02F717A7FAA9001E977D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		8F189F3418EB0DBE00348D89 /* hoa.library.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hoa.library.h; sourceTree = "<group>"; };
-		8F1F1AA71A5425390026B9E8 /* Hoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hoa.h; sourceTree = "<group>"; };
-		8F1F1ACF1A5425390026B9E8 /* Hoa3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hoa3D.h; sourceTree = "<group>"; };
-		8F1F1AD21A5425390026B9E8 /* Meter_3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Meter_3D.cpp; sourceTree = "<group>"; };
-		8F1F1AD31A5425390026B9E8 /* Meter_3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meter_3D.h; sourceTree = "<group>"; };
-		8F1F1AD61A5425390026B9E8 /* Planewaves_3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Planewaves_3D.cpp; sourceTree = "<group>"; };
-		8F1F1AD71A5425390026B9E8 /* Planewaves_3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Planewaves_3D.h; sourceTree = "<group>"; };
-		8F1F1ADC1A5425390026B9E8 /* Vector_3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector_3D.cpp; sourceTree = "<group>"; };
-		8F1F1ADD1A5425390026B9E8 /* Vector_3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector_3D.h; sourceTree = "<group>"; };
-		8F1F1AEA1A5425390026B9E8 /* HoaDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HoaDefs.h; sourceTree = "<group>"; };
-		8F1F1AEB1A5425390026B9E8 /* HoaMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HoaMath.h; sourceTree = "<group>"; };
-		8F1F1AEC1A5425390026B9E8 /* HoaUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HoaUtils.h; sourceTree = "<group>"; };
 		8F1F1B771A5425AF0026B9E8 /* cicm_wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cicm_wrapper.h; sourceTree = "<group>"; };
 		8F1F1B791A5425AF0026B9E8 /* ebox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ebox.h; sourceTree = "<group>"; };
 		8F1F1B7A1A5425AF0026B9E8 /* ebox_attr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ebox_attr.c; sourceTree = "<group>"; };
@@ -263,6 +234,8 @@
 		8FC2EDA31A62B32A00DBD231 /* hoa.decoder_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.decoder_tilde.cpp; sourceTree = "<group>"; };
 		8FC2EDA41A62B32A00DBD231 /* hoa.meter_gui_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.meter_gui_tilde.cpp; sourceTree = "<group>"; };
 		8FC2EDA61A62B32A00DBD231 /* hoa.3d.meter_gui_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.3d.meter_gui_tilde.cpp; sourceTree = "<group>"; };
+		8FF8C4FA1A63C1C200C64C6B /* Meter_3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Meter_3D.cpp; sourceTree = "<group>"; };
+		8FF8C4FB1A63C1C200C64C6B /* Meter_3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meter_3D.h; sourceTree = "<group>"; };
 		8FFCAC0B1A5C0FC600E38483 /* Decoder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Decoder.hpp; sourceTree = "<group>"; };
 		8FFCAC0C1A5C0FC600E38483 /* Encoder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Encoder.hpp; sourceTree = "<group>"; };
 		8FFCAC0D1A5C0FC600E38483 /* Harmonics.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Harmonics.hpp; sourceTree = "<group>"; };
@@ -321,28 +294,9 @@
 			isa = PBXGroup;
 			children = (
 				8FFCAC0A1A5C0FC600E38483 /* Sources */,
-				8F1F1AA71A5425390026B9E8 /* Hoa.h */,
-				8F1F1AC81A5425390026B9E8 /* Hoa3D */,
-				8F1F1AEA1A5425390026B9E8 /* HoaDefs.h */,
-				8F1F1AEB1A5425390026B9E8 /* HoaMath.h */,
-				8F1F1AEC1A5425390026B9E8 /* HoaUtils.h */,
 			);
 			name = HoaLibrary;
 			path = ThirdParty/HoaLibrary;
-			sourceTree = "<group>";
-		};
-		8F1F1AC81A5425390026B9E8 /* Hoa3D */ = {
-			isa = PBXGroup;
-			children = (
-				8F1F1ACF1A5425390026B9E8 /* Hoa3D.h */,
-				8F1F1AD21A5425390026B9E8 /* Meter_3D.cpp */,
-				8F1F1AD31A5425390026B9E8 /* Meter_3D.h */,
-				8F1F1AD61A5425390026B9E8 /* Planewaves_3D.cpp */,
-				8F1F1AD71A5425390026B9E8 /* Planewaves_3D.h */,
-				8F1F1ADC1A5425390026B9E8 /* Vector_3D.cpp */,
-				8F1F1ADD1A5425390026B9E8 /* Vector_3D.h */,
-			);
-			path = Hoa3D;
 			sourceTree = "<group>";
 		};
 		8F1F1B761A5425AF0026B9E8 /* Sources */ = {
@@ -484,6 +438,8 @@
 				8FC2ED881A627E6E00DBD231 /* Voronoi.hpp */,
 				8FC2ED8F1A62A0DC00DBD231 /* Source.hpp */,
 				8FC2EDA01A62A95900DBD231 /* Source.cpp */,
+				8FF8C4FA1A63C1C200C64C6B /* Meter_3D.cpp */,
+				8FF8C4FB1A63C1C200C64C6B /* Meter_3D.h */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -496,37 +452,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FFCAC6D1A5C0FC600E38483 /* Rotate.hpp in Headers */,
-				8F1F1B4A1A5425390026B9E8 /* Planewaves_3D.h in Headers */,
-				8F1F1B421A5425390026B9E8 /* Meter_3D.h in Headers */,
 				8F83E7F51A5E7CD700FDDCC8 /* Signal.hpp in Headers */,
-				8F1F1B721A5425390026B9E8 /* HoaUtils.h in Headers */,
 				8FFCAC2F1A5C0FC600E38483 /* Decoder.hpp in Headers */,
 				8F83E7F81A5EC73100FDDCC8 /* Wider.hpp in Headers */,
 				8FFCAC671A5C0FC600E38483 /* Math.hpp in Headers */,
-				8F1F1AEE1A5425390026B9E8 /* Hoa.h in Headers */,
 				8F1F1BDB1A5425AF0026B9E8 /* ecommon.h in Headers */,
 				8FFCAC311A5C0FC600E38483 /* Encoder.hpp in Headers */,
 				8FFCAC6B1A5C0FC600E38483 /* Planewaves.hpp in Headers */,
 				8FC2ED891A627E6E00DBD231 /* Voronoi.hpp in Headers */,
 				8F83E7EF1A5D820F00FDDCC8 /* Recomposer.hpp in Headers */,
 				8F1F1BEF1A5425AF0026B9E8 /* egraphics.h in Headers */,
-				8F1F1B6E1A5425390026B9E8 /* HoaDefs.h in Headers */,
 				8F1F1BF91A5425AF0026B9E8 /* eobj.h in Headers */,
 				8FFCAC331A5C0FC600E38483 /* Harmonics.hpp in Headers */,
 				8F1F1BC51A5425AF0026B9E8 /* eclass.h in Headers */,
 				8F1F1C0B1A5425AF0026B9E8 /* epopup.h in Headers */,
+				8FF8C4FE1A63C1C200C64C6B /* Meter_3D.h in Headers */,
 				8FFCAC691A5C0FC600E38483 /* Optim.hpp in Headers */,
 				8FFCAC711A5C0FC600E38483 /* Vector.hpp in Headers */,
 				8F1F1C0D1A5425AF0026B9E8 /* estruct.h in Headers */,
 				8F83E7EC1A5D7D9400FDDCC8 /* Projector.hpp in Headers */,
 				8F83E7E31A5D26BF00FDDCC8 /* Tools.hpp in Headers */,
-				8F1F1B561A5425390026B9E8 /* Vector_3D.h in Headers */,
 				8F1F1BD71A5425AF0026B9E8 /* eboxflag.h in Headers */,
 				8F1F1BB71A5425AF0026B9E8 /* ebox.h in Headers */,
 				8FFCAC351A5C0FC600E38483 /* Hoa.hpp in Headers */,
 				8FFCAC651A5C0FC600E38483 /* Defs.hpp in Headers */,
-				8F1F1B3A1A5425390026B9E8 /* Hoa3D.h in Headers */,
-				8F1F1B701A5425390026B9E8 /* HoaMath.h in Headers */,
 				8F1F1C071A5425AF0026B9E8 /* epd_max.h in Headers */,
 				8F1F1BB51A5425AF0026B9E8 /* cicm_wrapper.h in Headers */,
 				8F83E7F21A5E022300FDDCC8 /* Scope.hpp in Headers */,
@@ -543,37 +492,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FFCAC6E1A5C0FC600E38483 /* Rotate.hpp in Headers */,
-				8F1F1B4B1A5425390026B9E8 /* Planewaves_3D.h in Headers */,
-				8F1F1B431A5425390026B9E8 /* Meter_3D.h in Headers */,
 				8F83E7F61A5E7CD700FDDCC8 /* Signal.hpp in Headers */,
-				8F1F1B731A5425390026B9E8 /* HoaUtils.h in Headers */,
 				8FFCAC301A5C0FC600E38483 /* Decoder.hpp in Headers */,
 				8F83E7F91A5EC73100FDDCC8 /* Wider.hpp in Headers */,
 				8FFCAC681A5C0FC600E38483 /* Math.hpp in Headers */,
-				8F1F1AEF1A5425390026B9E8 /* Hoa.h in Headers */,
 				8F1F1BDC1A5425AF0026B9E8 /* ecommon.h in Headers */,
 				8FFCAC321A5C0FC600E38483 /* Encoder.hpp in Headers */,
 				8FFCAC6C1A5C0FC600E38483 /* Planewaves.hpp in Headers */,
 				8FC2ED8A1A627E6E00DBD231 /* Voronoi.hpp in Headers */,
 				8F83E7F01A5D820F00FDDCC8 /* Recomposer.hpp in Headers */,
 				8F1F1BF01A5425AF0026B9E8 /* egraphics.h in Headers */,
-				8F1F1B6F1A5425390026B9E8 /* HoaDefs.h in Headers */,
 				8F1F1BFA1A5425AF0026B9E8 /* eobj.h in Headers */,
 				8FFCAC341A5C0FC600E38483 /* Harmonics.hpp in Headers */,
 				8F1F1BC61A5425AF0026B9E8 /* eclass.h in Headers */,
 				8F1F1C0C1A5425AF0026B9E8 /* epopup.h in Headers */,
+				8FF8C4FF1A63C1C200C64C6B /* Meter_3D.h in Headers */,
 				8FFCAC6A1A5C0FC600E38483 /* Optim.hpp in Headers */,
 				8FFCAC721A5C0FC600E38483 /* Vector.hpp in Headers */,
 				8F1F1C0E1A5425AF0026B9E8 /* estruct.h in Headers */,
 				8F83E7ED1A5D7D9400FDDCC8 /* Projector.hpp in Headers */,
 				8F83E7E41A5D26BF00FDDCC8 /* Tools.hpp in Headers */,
-				8F1F1B571A5425390026B9E8 /* Vector_3D.h in Headers */,
 				8F1F1BD81A5425AF0026B9E8 /* eboxflag.h in Headers */,
 				8F1F1BB81A5425AF0026B9E8 /* ebox.h in Headers */,
 				8FFCAC361A5C0FC600E38483 /* Hoa.hpp in Headers */,
 				8FFCAC661A5C0FC600E38483 /* Defs.hpp in Headers */,
-				8F1F1B3B1A5425390026B9E8 /* Hoa3D.h in Headers */,
-				8F1F1B711A5425390026B9E8 /* HoaMath.h in Headers */,
 				8F1F1C081A5425AF0026B9E8 /* epd_max.h in Headers */,
 				8F1F1BB61A5425AF0026B9E8 /* cicm_wrapper.h in Headers */,
 				8F83E7F31A5E022300FDDCC8 /* Scope.hpp in Headers */,
@@ -659,7 +601,6 @@
 				8F1F1BB91A5425AF0026B9E8 /* ebox_attr.c in Sources */,
 				8F80BF221A613BE500692F98 /* hoa.recomposer_tilde.cpp in Sources */,
 				8F1F1BCD1A5425AF0026B9E8 /* eclass_attrsetter.c in Sources */,
-				8F1F1B541A5425390026B9E8 /* Vector_3D.cpp in Sources */,
 				8F80BF1C1A613BC900692F98 /* hoa.space_gui.cpp in Sources */,
 				8F1F1BC71A5425AF0026B9E8 /* eclass_attrgetter.c in Sources */,
 				8F1F1BFB1A5425AF0026B9E8 /* eobj_basic.c in Sources */,
@@ -684,10 +625,9 @@
 				8F1F1BFF1A5425AF0026B9E8 /* eobj_handle.c in Sources */,
 				8F80BF251A613BEF00692F98 /* hoa.projector_tilde.cpp in Sources */,
 				8F1F1BF31A5425AF0026B9E8 /* egraphics_forms.c in Sources */,
-				8F1F1B401A5425390026B9E8 /* Meter_3D.cpp in Sources */,
 				8FC2EDAD1A62B32A00DBD231 /* hoa.3d.meter_gui_tilde.cpp in Sources */,
-				8F1F1B481A5425390026B9E8 /* Planewaves_3D.cpp in Sources */,
 				8FC2ED861A627B4800DBD231 /* hoa.scope_gui_tilde.cpp in Sources */,
+				8FF8C4FC1A63C1C200C64C6B /* Meter_3D.cpp in Sources */,
 				8F1F1BC91A5425AF0026B9E8 /* eclass_attrnew.c in Sources */,
 				8F1F1BD31A5425AF0026B9E8 /* d_ugen.c in Sources */,
 				8F1F1BF51A5425AF0026B9E8 /* egraphics_matrix.c in Sources */,
@@ -712,7 +652,6 @@
 				8F1F1BBA1A5425AF0026B9E8 /* ebox_attr.c in Sources */,
 				8F80BF231A613BE500692F98 /* hoa.recomposer_tilde.cpp in Sources */,
 				8F1F1BCE1A5425AF0026B9E8 /* eclass_attrsetter.c in Sources */,
-				8F1F1B551A5425390026B9E8 /* Vector_3D.cpp in Sources */,
 				8F80BF1D1A613BC900692F98 /* hoa.space_gui.cpp in Sources */,
 				8F1F1BC81A5425AF0026B9E8 /* eclass_attrgetter.c in Sources */,
 				8F1F1BFC1A5425AF0026B9E8 /* eobj_basic.c in Sources */,
@@ -737,10 +676,9 @@
 				8F1F1C001A5425AF0026B9E8 /* eobj_handle.c in Sources */,
 				8F80BF261A613BEF00692F98 /* hoa.projector_tilde.cpp in Sources */,
 				8F1F1BF41A5425AF0026B9E8 /* egraphics_forms.c in Sources */,
-				8F1F1B411A5425390026B9E8 /* Meter_3D.cpp in Sources */,
 				8FC2EDAE1A62B32A00DBD231 /* hoa.3d.meter_gui_tilde.cpp in Sources */,
-				8F1F1B491A5425390026B9E8 /* Planewaves_3D.cpp in Sources */,
 				8FC2ED871A627B4800DBD231 /* hoa.scope_gui_tilde.cpp in Sources */,
+				8FF8C4FD1A63C1C200C64C6B /* Meter_3D.cpp in Sources */,
 				8F1F1BCA1A5425AF0026B9E8 /* eclass_attrnew.c in Sources */,
 				8F1F1BD41A5425AF0026B9E8 /* d_ugen.c in Sources */,
 				8F1F1BF61A5425AF0026B9E8 /* egraphics_matrix.c in Sources */,

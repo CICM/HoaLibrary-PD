@@ -5,7 +5,7 @@
  */
 
 #include "../hoa.library.h"
-#include "../ThirdParty/HoaLibrary/Hoa3D/Hoa3D.h"
+#include "../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 using namespace Hoa3D;
 
 #define MAX_SPEAKER 128
