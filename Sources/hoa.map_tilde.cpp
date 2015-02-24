@@ -46,13 +46,13 @@ extern void *hoa_map_tilde_new(t_symbol *s, long argc, t_atom *argv)
 	if(x && d)
 	{
 		if(atom_gettype(argv) == A_LONG)
-			order = pd_clip_min(atom_getlong(argv), 0);
+			order = pd_clip_min(atom_getlong(argv), 1);
         if(argc > 1 && atom_gettype(argv+1) == A_LONG)
             numberOfSources = pd_clip_minmax(atom_getlong(argv+1), 1, 255);
         
         if(argc > 2 && atom_gettype(argv+2) == A_SYM)
         {
-            if(atom_getsym(argv+2) == gensym("car") || atom_getsym(argv+2) == gensym("cartesian"))
+            if(atom_getsym(argv+2) == hoa_sym_car || atom_getsym(argv+2) == hoa_sym_cartesian)
                 x->f_mode = 1;
             else
                 x->f_mode = 0;

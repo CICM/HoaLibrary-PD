@@ -31,7 +31,7 @@ typedef struct _hoa_decoder_3D
     t_sample*                   f_outs;
     long                        f_number_of_channels;
     double                      f_angles_of_channels[HOA_MAX_PLANEWAVES * 2];
-    double                      f_offset;
+    double                      f_offset[3];
     long                        f_pinna;
 } t_hoa_decoder_3D;
 
@@ -257,11 +257,11 @@ extern t_pd_err hoa_decoder_3D_offset_set(t_hoa_decoder_3D *x, void *attr, long 
         if(argc > 1 && atom_gettype(argv+1) == A_FLOAT)
             ay = atom_getfloat(argv+1) / 360. * HOA_2PI;
         else
-            ay = x->f_decoder->getPlanewavesRotationX();
+            ay = x->f_decoder->getPlanewavesRotationY();
         if(argc > 2 &&  atom_gettype(argv+2) == A_FLOAT)
             az = atom_getfloat(argv+2) / 360. * HOA_2PI;
         else
-            az = x->f_decoder->getPlanewavesRotationX();
+            az = x->f_decoder->getPlanewavesRotationZ();
         x->f_decoder->setPlanewavesRotation(ax, ay, az);
         x->f_decoder->computeMatrix();
         canvas_resume_dsp(dspState);
