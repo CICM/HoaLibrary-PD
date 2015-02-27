@@ -282,7 +282,7 @@ extern void *hoa_scope_new(t_symbol *s, int argc, t_atom *argv)
         x->f_startclock = 0;
         x->f_scope      = new Scope<Hoa2d, t_sample>(x->f_order, HOA_DISPLAY_NPOINTS);
         x->f_order      = x->f_scope->getDecompositionOrder();
-        x->f_signals    = new t_sample[x->f_scope->getNumberOfHarmonics()];
+        x->f_signals    = new t_sample[x->f_scope->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
         
         eobj_dspsetup(x, x->f_scope->getNumberOfHarmonics(), 0);
         

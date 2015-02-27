@@ -48,8 +48,8 @@ extern void *hoa_decoder_new(t_symbol *s, long argc, t_atom *argv)
 	{
         if(argc && argv && atom_gettype(argv) == A_LONG)
             order = pd_clip_min(atom_getlong(argv), 1);
-        if(argc > 2 && argv && atom_gettype(argv+2) == A_LONG)
-            number_of_channels = pd_clip_min(atom_getlong(argv+2), 1);
+        if(argc > 1 && argv+1 && atom_gettype(argv+1) == A_LONG)
+            number_of_channels = pd_clip_min(atom_getlong(argv+1), 2);
         
         x->f_decoder = new Decoder<Hoa2d, t_sample>(order, number_of_channels);
         x->f_number_of_channels = x->f_decoder->getNumberOfPlanewaves();
