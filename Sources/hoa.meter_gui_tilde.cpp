@@ -132,6 +132,7 @@ extern t_pd_err angles_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
                 x->f_vector->setPlanewaveAzimuth(i, atom_getfloat(argv+i) / 360.f * HOA_2PI);
             }
         }
+
         x->f_meter->computeDisplay();
         x->f_vector->computeRendering();
         
@@ -203,6 +204,7 @@ extern t_pd_err vectors_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
                 x->f_vector_type = hoa_sym_none;
         }
         ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
+        ebox_redraw((t_ebox *)x);
     }
     return 0;
 }
@@ -225,6 +227,10 @@ extern t_pd_err rotation_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv
             else
                 x->f_clockwise = hoa_sym_anticlock;
         }
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
+        ebox_redraw((t_ebox *)x);
     }
     return 0;
 }
@@ -283,12 +289,9 @@ extern void hoa_meter_free(t_hoa_meter *x)
 
 extern t_pd_err hoa_meter_notify(t_hoa_meter *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
-	if (msg == hoa_sym_attr_modified)
+	if(msg == hoa_sym_attr_modified)
 	{
-		ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
-        ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
-        ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
-		ebox_redraw((t_ebox *)x);
+        ;
 	}
 	return 0;
 }
@@ -380,32 +383,29 @@ extern void draw_background(t_hoa_meter *x,  t_object *view, t_rect *rect)
 
 extern void draw_leds(t_hoa_meter *x, t_object *view, t_rect *rect)
 {
-    float j, h, dB;
-    float led_width = 0.49 * rect->width / 18.;
-    
-    t_rgba black = rgba_addContrast(x->f_color_bg, -0.14);
 	t_elayer *g = ebox_start_layer((t_ebox *)x,  hoa_sym_leds_layer, rect->width, rect->height);
     
-	if (g)
+	if(g)
 	{
-        h = led_width * 17.;
+        t_rgba black = rgba_addContrast(x->f_color_bg, -0.14);
+        float led_width = 0.49 * rect->width / 18.;
+        float h = led_width * 17.;
+        
         for(ulong i = 0; i < x->f_meter->getNumberOfPlanewaves(); i++)
         {
-            float angle, radius;
-            if(x->f_clockwise != hoa_sym_clockwise)
-                angle   = x->f_meter->getPlanewaveAzimuthMapped(i) + HOA_PI2;
-            else
-                angle   = -x->f_meter->getPlanewaveAzimuthMapped(i) + HOA_PI2;
+            float angle = x->f_meter->getPlanewaveAzimuthMapped(i);
+            if(x->f_clockwise == hoa_sym_clockwise)
+                angle = -angle;
+            angle = Math<float>::wrap_twopi(angle + HOA_PI2);
             
             const float center_x    = pd_abscissa(x->f_radius - h, angle);
             const float center_y    = -pd_ordinate(x->f_radius - h, angle);
-            
             const float angle_start = angle - x->f_meter->getPlanewaveWidth(i) * 0.5f;
             const float angle_end   = angle + x->f_meter->getPlanewaveWidth(i) * 0.5f;
-            for(j = 11, dB = -34.5; j > -1; j--, dB += 3.)
+            
+            for(float j = 11.f, dB = -34.5f; j > -1; j--, dB += 3.)
             {
-                radius    = (j + 5.) * led_width;
-                
+                float radius    = (j + 5.) * led_width;
                 if(x->f_meter->getPlanewaveEnergy(i) > dB)
                 {
                     if(j > 8)
@@ -431,7 +431,7 @@ extern void draw_leds(t_hoa_meter *x, t_object *view, t_rect *rect)
             }
             if(x->f_meter->getPlanewaveOverLed(i))
             {
-                radius    = (4.) * led_width;
+               float  radius    = (4.) * led_width;
                 egraphics_set_color_rgba(g, &x->f_color_over_signal);
                 egraphics_set_line_width(g, led_width - pd_clip_min(360. / rect->width, 2.));
                 egraphics_arc(g, center_x + rect->width * 0.5f, center_y + rect->width * 0.5f, radius, angle_start, angle_end);
@@ -506,6 +506,8 @@ extern void hoa_meter_paint(t_hoa_meter *x, t_object *view)
     x->f_radius = x->f_center * 0.95;
     x->f_radius_center = x->f_radius / 5.;
     
+    int tocheck;
+    x->f_meter->computeDisplay();
     draw_background(x, view, &rect);
     draw_leds(x, view, &rect);
     draw_vectors(x, view, &rect);
@@ -595,7 +597,7 @@ extern "C" void setup_hoa0x2e2d0x2emeter_tilde(void)
     CLASS_ATTR_ACCESSORS            (c, "rotation", NULL, rotation_set);
     CLASS_ATTR_ORDER                (c, "rotation", 0, "4");
     CLASS_ATTR_LABEL                (c, "rotation", 0, "Rotation of Channels");
-    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "rotation", 0, "0");
+    CLASS_ATTR_SAVE                 (c, "rotation", 1);
     CLASS_ATTR_STYLE                (c, "rotation", 1, "menu");
     CLASS_ATTR_ITEMS                (c, "rotation", 1, "anti-clockwise clockwise");
     

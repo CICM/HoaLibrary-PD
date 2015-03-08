@@ -39,7 +39,7 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X obj 121 141 hoa.2d.encoder~ 3 --------------------;
 #X obj 121 240 hoa.2d.meter~ @size 231 231 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive hoameter @send (null)
-@channels 5 @angles 72 0 144 216 288 @offset 0 @rotation anti-clockwise
+@channels 5 @angles 353 288 144 216 72 @offset 0 @rotation anti-clockwise
 @vectors energy @interval 50 @bgcolor 0.758847 0.758847 0.758847 1
 @bdcolor 0.699562 0.699562 0.699562 1 @coldcolor 0 0.6 0 0.8 @tepidcolor
 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor
@@ -48,8 +48,6 @@ normal @fontslant roman @fontsize 11 @receive hoameter @send (null)
 array of loudspeakers. It computes and displays the energy and velocity
 vectors.;
 #X msg 535 320 angles 0 72 144 -144 -72;
-#X obj 121 202 hoa.2d.decoder~ 3 irregular 5 @angles 0 30 110 250 330
-, f 38;
 #X obj 558 27 hoa.connect;
 #X obj 558 7 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -66,46 +64,48 @@ vectors.;
 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0
 0.8;
 #X obj 570 433 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 90 256;
-#X msg 529 468 angles 0 -72 144 -144 72;
+-262144 -1 -1 -7 256;
 #X msg 529 491 angles 72 0 144 -144 -72;
+#X obj 121 202 hoa.2d.decoder~ 3 5 @angles 0 30 110 250 330, f 38
+;
+#X msg 529 468 angles \$1 -72 144 -144 72;
 #X connect 1 0 2 0;
 #X connect 2 0 0 0;
 #X connect 3 0 4 0;
 #X connect 4 0 0 0;
 #X connect 9 0 0 0;
 #X connect 10 0 9 0;
-#X connect 11 0 32 1;
+#X connect 11 0 31 1;
 #X connect 15 0 16 0;
 #X connect 16 0 12 0;
 #X connect 20 0 12 0;
 #X connect 20 0 23 0;
 #X connect 21 0 12 0;
 #X connect 21 0 23 0;
-#X connect 22 0 29 0;
+#X connect 22 0 42 0;
 #X connect 24 0 25 0;
-#X connect 25 0 29 0;
-#X connect 25 1 29 1;
-#X connect 25 2 29 2;
-#X connect 25 3 29 3;
-#X connect 25 4 29 4;
-#X connect 25 5 29 5;
-#X connect 25 6 29 6;
+#X connect 25 0 42 0;
+#X connect 25 1 42 1;
+#X connect 25 2 42 2;
+#X connect 25 3 42 3;
+#X connect 25 4 42 4;
+#X connect 25 5 42 5;
+#X connect 25 6 42 6;
 #X connect 28 0 12 0;
 #X connect 28 0 23 0;
-#X connect 29 0 26 0;
-#X connect 29 1 26 1;
-#X connect 29 2 26 2;
-#X connect 29 3 26 3;
-#X connect 29 4 26 4;
-#X connect 31 0 30 0;
-#X connect 32 0 25 1;
-#X connect 34 0 36 0;
-#X connect 35 0 34 0;
-#X connect 38 0 1 0;
-#X connect 39 0 15 0;
-#X connect 41 0 42 0;
-#X connect 42 0 12 0;
-#X connect 42 0 23 0;
+#X connect 30 0 29 0;
+#X connect 31 0 25 1;
+#X connect 33 0 35 0;
+#X connect 34 0 33 0;
+#X connect 37 0 1 0;
+#X connect 38 0 15 0;
+#X connect 40 0 43 0;
+#X connect 41 0 12 0;
+#X connect 41 0 23 0;
+#X connect 42 0 26 0;
+#X connect 42 1 26 1;
+#X connect 42 2 26 2;
+#X connect 42 3 26 3;
+#X connect 42 4 26 4;
 #X connect 43 0 12 0;
 #X connect 43 0 23 0;
