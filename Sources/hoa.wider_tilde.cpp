@@ -153,9 +153,9 @@ extern void hoa_wider_dsp(t_hoa_wider *x, t_object *dsp, short *count, double sa
 extern void hoa_wider_3D_dsp(t_hoa_wider_3D *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
 {
     if(count[x->f_wider->getNumberOfHarmonics()])
-        object_method(dsp, gensym("dsp_add"), x, (method)hoa_wider_perform, 0, NULL);
+        object_method(dsp, gensym("dsp_add"), x, (method)hoa_wider_3D_perform, 0, NULL);
     else
-        object_method(dsp, gensym("dsp_add"), x, (method)hoa_wider_perform_offset, 0, NULL);
+        object_method(dsp, gensym("dsp_add"), x, (method)hoa_wider_3D_perform_offset, 0, NULL);
 }
 
 extern void hoa_wider_free(t_hoa_wider *x)
