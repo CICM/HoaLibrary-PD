@@ -51,7 +51,6 @@ typedef struct  _hoa_map
     t_rgba      f_color_bg;
     t_rgba      f_color_bd;
     
-    double      f_size_source;
 	double		f_zoom_factor;
     
     t_rect		f_rect_selection;
@@ -1110,8 +1109,7 @@ void draw_sources(t_hoa_map *x,  t_object *view, t_rect *rect)
 	t_elayer *g = ebox_start_layer((t_ebox *)x, hoa_sym_sources_layer, rect->width, rect->height);
 	t_rgba color_sel = rgba_addContrast(x->f_color_bg, -0.14);
     double font_size = ebox_getfontsize((t_ebox *)x);
-    x->f_size_source = font_size / 2.5;
-    
+    double source_size = font_size / 2.5;
     
 	if (g)
     {
@@ -1148,8 +1146,8 @@ void draw_sources(t_hoa_map *x,  t_object *view, t_rect *rect)
                 else
                     sprintf(description,"%i", i+1);
 				
-				textDisplayPos.x = sourceDisplayPos.x - 2. * x->f_size_source;
-                textDisplayPos.y = sourceDisplayPos.y - x->f_size_source - font_size - 1.;
+				textDisplayPos.x = sourceDisplayPos.x - 2. * source_size;
+                textDisplayPos.y = sourceDisplayPos.y - source_size - font_size - 1.;
 
                 etext_layout_settextcolor(jtl, &sourceColor);
                 etext_layout_set(jtl, description, &x->j_box.b_font, textDisplayPos.x, textDisplayPos.y, font_size * 10., font_size * 2., ETEXT_LEFT, ETEXT_JCENTER, ETEXT_NOWRAP);
@@ -1158,7 +1156,7 @@ void draw_sources(t_hoa_map *x,  t_object *view, t_rect *rect)
                 if (x->f_index_of_selected_source == i)
                 {
                     egraphics_set_color_rgba(g, &color_sel);
-                    egraphics_arc(g, sourceDisplayPos.x, sourceDisplayPos.y, x->f_size_source * 1.5,  0., EPD_2PI);
+                    egraphics_arc(g, sourceDisplayPos.x, sourceDisplayPos.y, source_size * 1.5,  0., EPD_2PI);
                     egraphics_fill(g);
                     int groupIndex;
 					
@@ -1191,19 +1189,19 @@ void draw_sources(t_hoa_map *x,  t_object *view, t_rect *rect)
                 if(!x->f_source_manager->sourceGetMute(i))
                 {
                     egraphics_set_color_rgba(g, &sourceColor); 
-                    egraphics_arc(g, sourceDisplayPos.x, sourceDisplayPos.y, x->f_size_source,  0., EPD_2PI);
+                    egraphics_arc(g, sourceDisplayPos.x, sourceDisplayPos.y, source_size,  0., EPD_2PI);
                     egraphics_fill(g);
                 }
                 else
                 {
                     egraphics_set_color_rgba(g, &sourceColor);
-                    egraphics_arc(g, sourceDisplayPos.x, sourceDisplayPos.y, x->f_size_source,  0., EPD_2PI);
+                    egraphics_arc(g, sourceDisplayPos.x, sourceDisplayPos.y, source_size,  0., EPD_2PI);
                     egraphics_fill(g);
                     egraphics_set_color_rgba(g, &rgba_red);
-                    egraphics_arc(g, sourceDisplayPos.x, sourceDisplayPos.y, x->f_size_source,  0., EPD_2PI);
+                    egraphics_arc(g, sourceDisplayPos.x, sourceDisplayPos.y, source_size,  0., EPD_2PI);
                     egraphics_stroke(g);
-                    egraphics_move_to(g, sourceDisplayPos.x + Math<float>::abscissa(x->f_size_source * 1., HOA_PI2 / 2.), sourceDisplayPos.y + Math<float>::ordinate(x->f_size_source * 1., HOA_PI2 / 2.));
-                    egraphics_line_to(g, sourceDisplayPos.x + Math<float>::abscissa(x->f_size_source * 1., HOA_PI2 * 5. / 2.), sourceDisplayPos.y + Math<float>::ordinate(x->f_size_source * 1., HOA_PI * 5. / 4.));
+                    egraphics_move_to(g, sourceDisplayPos.x + Math<float>::abscissa(source_size * 1., HOA_PI2 / 2.), sourceDisplayPos.y + Math<float>::ordinate(source_size * 1., HOA_PI2 / 2.));
+                    egraphics_line_to(g, sourceDisplayPos.x + Math<float>::abscissa(source_size * 1., HOA_PI2 * 5. / 2.), sourceDisplayPos.y + Math<float>::ordinate(source_size * 1., HOA_PI * 5. / 4.));
                     egraphics_stroke(g);
                 }
                 
@@ -1220,7 +1218,6 @@ void draw_sources(t_hoa_map *x,  t_object *view, t_rect *rect)
 void draw_groups(t_hoa_map *x,  t_object *view, t_rect *rect)
 {
 	int i;
-	double fontSize;
 	t_etext *jtl;
 	t_rgba sourceColor;    
 	char description[250] = {0};
@@ -1233,8 +1230,9 @@ void draw_groups(t_hoa_map *x,  t_object *view, t_rect *rect)
 	
 	t_elayer *g = ebox_start_layer((t_ebox *)x, hoa_sym_groups_layer, w, h);
     t_rgba color_sel = rgba_addContrast(x->f_color_bg, -0.14);
-    x->f_size_source = ebox_getfontsize((t_ebox *)x) / 2.;
-    fontSize = ebox_getfontsize((t_ebox *)x);
+    double font_size = ebox_getfontsize((t_ebox *)x);
+    double source_size = ebox_getfontsize((t_ebox *)x) / 2.;
+    
     
 	if (g)
     {
@@ -1271,17 +1269,17 @@ void draw_groups(t_hoa_map *x,  t_object *view, t_rect *rect)
                 else
                     sprintf(description,"%i", i+1);
 				
-				textDisplayPos.x = sourceDisplayPos.x - 2. * x->f_size_source;
-                textDisplayPos.y = sourceDisplayPos.y - x->f_size_source - fontSize - 1.;
+				textDisplayPos.x = sourceDisplayPos.x - 2. * source_size;
+                textDisplayPos.y = sourceDisplayPos.y - source_size - font_size - 1.;
                 
                 etext_layout_settextcolor(jtl, &sourceColor);
-                etext_layout_set(jtl, description, &x->j_box.b_font, textDisplayPos.x, textDisplayPos.y, fontSize * 10., fontSize * 2., ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
+                etext_layout_set(jtl, description, &x->j_box.b_font, textDisplayPos.x, textDisplayPos.y, font_size * 10., font_size * 2., ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
                 etext_layout_draw(jtl, g);
                 
                 if (x->f_index_of_selected_group == i)
                 {
                     egraphics_set_color_rgba(g, &color_sel);
-                    egraphics_arc(g, sourceDisplayPos.x, sourceDisplayPos.y, x->f_size_source * 1.5,  0., EPD_2PI);
+                    egraphics_arc(g, sourceDisplayPos.x, sourceDisplayPos.y, source_size * 1.5,  0., EPD_2PI);
                     egraphics_fill(g);
                     
 					for(int index = 0; index < x->f_source_manager->groupGetNumberOfSources(i); index++)
@@ -1314,7 +1312,7 @@ void draw_groups(t_hoa_map *x,  t_object *view, t_rect *rect)
                 if(!x->f_source_manager->groupGetMute(i))
                 {
                     egraphics_set_color_rgba(g, &sourceColor);
-                    egraphics_arc(g, sourceDisplayPos.x, sourceDisplayPos.y, x->f_size_source * 1.,  0., EPD_2PI);
+                    egraphics_arc(g, sourceDisplayPos.x, sourceDisplayPos.y, source_size * 1.,  0., EPD_2PI);
                     egraphics_stroke(g);
                     etext_layout_draw(jtl, g);
                 
@@ -1323,12 +1321,12 @@ void draw_groups(t_hoa_map *x,  t_object *view, t_rect *rect)
                 if(x->f_source_manager->groupGetMute(i))
                 {
                     egraphics_set_color_rgba(g, &rgba_red);
-                    egraphics_arc(g, sourceDisplayPos.x, sourceDisplayPos.y, x->f_size_source,  0., EPD_2PI);
+                    egraphics_arc(g, sourceDisplayPos.x, sourceDisplayPos.y, source_size,  0., EPD_2PI);
                     egraphics_stroke(g);
                     for(int j = 0; j < 2; j++)
                     {
                         egraphics_move_to(g, sourceDisplayPos.x, sourceDisplayPos.y);
-                        egraphics_line_to(g, sourceDisplayPos.x + Math<float>::abscissa(x->f_size_source * 1., HOA_2PI * j / 2. + HOA_PI2 / 2.), sourceDisplayPos.y + Math<float>::ordinate(x->f_size_source * 1., HOA_2PI * j / 2. + HOA_PI2 / 2.));
+                        egraphics_line_to(g, sourceDisplayPos.x + Math<float>::abscissa(source_size * 1., HOA_2PI * j / 2. + HOA_PI2 / 2.), sourceDisplayPos.y + Math<float>::ordinate(source_size * 1., HOA_2PI * j / 2. + HOA_PI2 / 2.));
                         egraphics_stroke(g);
                     }
                     
@@ -1371,8 +1369,8 @@ void hoa_map_mousedown(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
     t_pt cursor;
     cursor.x = ((pt.x / x->rect.width * 2.) - 1.) / x->f_zoom_factor;
     cursor.y = ((-pt.y / x->rect.height * 2.) + 1.) / x->f_zoom_factor;
-    double maxwh = x->rect.height;
-	double distanceSelected = (x->f_size_source / maxwh * 2.) / x->f_zoom_factor;
+    int todo;
+	double distanceSelected = ebox_getfontsize((t_ebox *)x) / (x->f_zoom_factor * 2.);
 	double distanceSelected_test;
 
     x->f_cursor_position.x = cursor.x;
@@ -1405,7 +1403,6 @@ void hoa_map_mousedown(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
         }
 		
 		distanceSelected_test = hoa_pd_distance(displayed_coords.x, displayed_coords.y, cursor.x, cursor.y);
-		
         if(x->f_source_manager->sourceGetExistence(i) && distanceSelected_test <= distanceSelected)
         {
             distanceSelected = distanceSelected_test;
@@ -2001,9 +1998,9 @@ void hoa_map_mousemove(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
 	t_pt cursor, displayed_coords;
     cursor.x = ((pt.x / x->rect.width * 2.) - 1.) / x->f_zoom_factor;
     cursor.y = ((-pt.y / x->rect.height * 2.) + 1.) / x->f_zoom_factor;
-    double maxwh = max(x->rect.width, x->rect.height);
-    double distanceSelected = (x->f_size_source / maxwh * 2.) / x->f_zoom_factor;
-	double distanceSelected_test;
+    int todo;
+    double distanceSelected = ebox_getfontsize((t_ebox *)x) / (x->f_zoom_factor * 2.);
+    double distanceSelected_test;
     x->f_cursor_position.x = cursor.x;
     x->f_cursor_position.y = cursor.y;
     

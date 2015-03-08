@@ -57,7 +57,7 @@ extern void *hoa_decoder_new(t_symbol *s, long argc, t_atom *argv)
         eobj_dspsetup(x, x->f_decoder->getNumberOfHarmonics(), x->f_decoder->getNumberOfPlanewaves());
         x->f_ins = new t_float[x->f_decoder->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
         x->f_outs= new t_float[HOA_MAX_PLANEWAVES * HOA_MAXBLKSIZE];
-        
+    
         ebox_attrprocess_viabinbuf(x, d);
         
         return x;

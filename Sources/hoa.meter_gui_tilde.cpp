@@ -134,12 +134,12 @@ extern t_pd_err angles_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
         }
         x->f_meter->computeDisplay();
         x->f_vector->computeRendering();
+        
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
+        ebox_redraw((t_ebox *)x);
     }
-
-	ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
-	ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
-	ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
-	ebox_redraw((t_ebox *)x);
     return 0;
 }
 
@@ -295,7 +295,6 @@ extern t_pd_err hoa_meter_notify(t_hoa_meter *x, t_symbol *s, t_symbol *msg, voi
 
 extern void draw_background(t_hoa_meter *x,  t_object *view, t_rect *rect)
 {
-	int i;
     float coso, sino, angle, x1, y1, x2, y2;
     t_rgba black, white;
 	t_matrix transform;
@@ -337,7 +336,7 @@ extern void draw_background(t_hoa_meter *x,  t_object *view, t_rect *rect)
         
         if(x->f_meter->getNumberOfPlanewaves() != 1)
         {
-            for(i = 0; i < x->f_meter->getNumberOfPlanewaves(); i++)
+            for(ulong i = 0; i < x->f_meter->getNumberOfPlanewaves(); i++)
             {
                 angle = x->f_meter->getPlanewaveAzimuthMapped(i) - x->f_meter->getPlanewaveWidth(i) * 0.5f;
                 if(x->f_clockwise == hoa_sym_clockwise)
@@ -381,9 +380,7 @@ extern void draw_background(t_hoa_meter *x,  t_object *view, t_rect *rect)
 
 extern void draw_leds(t_hoa_meter *x, t_object *view, t_rect *rect)
 {
-    int i;
     float j, h, dB;
-    float angle_start, angle, angle_end, radius, center_x, center_y;
     float led_width = 0.49 * rect->width / 18.;
     
     t_rgba black = rgba_addContrast(x->f_color_bg, -0.14);
@@ -392,18 +389,19 @@ extern void draw_leds(t_hoa_meter *x, t_object *view, t_rect *rect)
 	if (g)
 	{
         h = led_width * 17.;
-        for(i = 0; i < x->f_meter->getNumberOfPlanewaves(); i++)
+        for(ulong i = 0; i < x->f_meter->getNumberOfPlanewaves(); i++)
         {
+            float angle, radius;
             if(x->f_clockwise != hoa_sym_clockwise)
                 angle   = x->f_meter->getPlanewaveAzimuthMapped(i) + HOA_PI2;
             else
                 angle   = -x->f_meter->getPlanewaveAzimuthMapped(i) + HOA_PI2;
             
-            center_x    = pd_abscissa(x->f_radius - h, angle);
-            center_y    = -pd_ordinate(x->f_radius - h, angle);
+            const float center_x    = pd_abscissa(x->f_radius - h, angle);
+            const float center_y    = -pd_ordinate(x->f_radius - h, angle);
             
-            angle_start = angle - x->f_meter->getPlanewaveWidth(i) * 0.5f;
-            angle_end   = angle + x->f_meter->getPlanewaveWidth(i) * 0.5f;
+            const float angle_start = angle - x->f_meter->getPlanewaveWidth(i) * 0.5f;
+            const float angle_end   = angle + x->f_meter->getPlanewaveWidth(i) * 0.5f;
             for(j = 11, dB = -34.5; j > -1; j--, dB += 3.)
             {
                 radius    = (j + 5.) * led_width;

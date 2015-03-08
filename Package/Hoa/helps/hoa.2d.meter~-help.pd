@@ -39,7 +39,7 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X obj 121 141 hoa.2d.encoder~ 3 --------------------;
 #X obj 121 240 hoa.2d.meter~ @size 231 231 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive hoameter @send (null)
-@channels 5 @angles 0 30 110 250 330 @offset 0 @rotation clockwise
+@channels 5 @angles 72 0 144 216 288 @offset 0 @rotation anti-clockwise
 @vectors energy @interval 50 @bgcolor 0.758847 0.758847 0.758847 1
 @bdcolor 0.699562 0.699562 0.699562 1 @coldcolor 0 0.6 0 0.8 @tepidcolor
 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor
@@ -65,6 +65,10 @@ vectors.;
 @fontslant roman @fontsize 11 @receive (null) @send (null) @local 0
 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0
 0.8;
+#X obj 570 433 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 90 256;
+#X msg 529 468 angles 0 -72 144 -144 72;
+#X msg 529 491 angles 72 0 144 -144 -72;
 #X connect 1 0 2 0;
 #X connect 2 0 0 0;
 #X connect 3 0 4 0;
@@ -100,3 +104,8 @@ vectors.;
 #X connect 35 0 34 0;
 #X connect 38 0 1 0;
 #X connect 39 0 15 0;
+#X connect 41 0 42 0;
+#X connect 42 0 12 0;
+#X connect 42 0 23 0;
+#X connect 43 0 12 0;
+#X connect 43 0 23 0;
