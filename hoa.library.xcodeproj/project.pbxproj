@@ -127,8 +127,6 @@
 		8FAC0C8B196985A400E09ACB /* hoa.library.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F189F3418EB0DBE00348D89 /* hoa.library.h */; };
 		8FC2ED861A627B4800DBD231 /* hoa.scope_gui_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2ED851A627B4800DBD231 /* hoa.scope_gui_tilde.cpp */; };
 		8FC2ED871A627B4800DBD231 /* hoa.scope_gui_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2ED851A627B4800DBD231 /* hoa.scope_gui_tilde.cpp */; };
-		8FC2ED891A627E6E00DBD231 /* Voronoi.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8FC2ED881A627E6E00DBD231 /* Voronoi.hpp */; };
-		8FC2ED8A1A627E6E00DBD231 /* Voronoi.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8FC2ED881A627E6E00DBD231 /* Voronoi.hpp */; };
 		8FC2ED961A62A0DC00DBD231 /* Source.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8FC2ED8F1A62A0DC00DBD231 /* Source.hpp */; };
 		8FC2ED971A62A0DC00DBD231 /* Source.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8FC2ED8F1A62A0DC00DBD231 /* Source.hpp */; };
 		8FC2EDA11A62A95900DBD231 /* Source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2EDA01A62A95900DBD231 /* Source.cpp */; };
@@ -228,7 +226,6 @@
 		8F83E80F1A60346F00FDDCC8 /* hoa.wider_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.wider_tilde.cpp; sourceTree = "<group>"; };
 		8FAC0C91196985A400E09ACB /* hoa.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = hoa.pd_darwin; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FC2ED851A627B4800DBD231 /* hoa.scope_gui_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.scope_gui_tilde.cpp; sourceTree = "<group>"; };
-		8FC2ED881A627E6E00DBD231 /* Voronoi.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Voronoi.hpp; sourceTree = "<group>"; };
 		8FC2ED8F1A62A0DC00DBD231 /* Source.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Source.hpp; sourceTree = "<group>"; };
 		8FC2EDA01A62A95900DBD231 /* Source.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Source.cpp; sourceTree = "<group>"; };
 		8FC2EDA31A62B32A00DBD231 /* hoa.decoder_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.decoder_tilde.cpp; sourceTree = "<group>"; };
@@ -435,7 +432,6 @@
 				8FFCAC2E1A5C0FC600E38483 /* Vector.hpp */,
 				8F83E7E51A5D277800FDDCC8 /* Meter.hpp */,
 				8F83E7F71A5EC73100FDDCC8 /* Wider.hpp */,
-				8FC2ED881A627E6E00DBD231 /* Voronoi.hpp */,
 				8FC2ED8F1A62A0DC00DBD231 /* Source.hpp */,
 				8FC2EDA01A62A95900DBD231 /* Source.cpp */,
 				8FF8C4FA1A63C1C200C64C6B /* Meter_3D.cpp */,
@@ -459,7 +455,6 @@
 				8F1F1BDB1A5425AF0026B9E8 /* ecommon.h in Headers */,
 				8FFCAC311A5C0FC600E38483 /* Encoder.hpp in Headers */,
 				8FFCAC6B1A5C0FC600E38483 /* Planewaves.hpp in Headers */,
-				8FC2ED891A627E6E00DBD231 /* Voronoi.hpp in Headers */,
 				8F83E7EF1A5D820F00FDDCC8 /* Recomposer.hpp in Headers */,
 				8F1F1BEF1A5425AF0026B9E8 /* egraphics.h in Headers */,
 				8F1F1BF91A5425AF0026B9E8 /* eobj.h in Headers */,
@@ -499,7 +494,6 @@
 				8F1F1BDC1A5425AF0026B9E8 /* ecommon.h in Headers */,
 				8FFCAC321A5C0FC600E38483 /* Encoder.hpp in Headers */,
 				8FFCAC6C1A5C0FC600E38483 /* Planewaves.hpp in Headers */,
-				8FC2ED8A1A627E6E00DBD231 /* Voronoi.hpp in Headers */,
 				8F83E7F01A5D820F00FDDCC8 /* Recomposer.hpp in Headers */,
 				8F1F1BF01A5425AF0026B9E8 /* egraphics.h in Headers */,
 				8F1F1BFA1A5425AF0026B9E8 /* eobj.h in Headers */,

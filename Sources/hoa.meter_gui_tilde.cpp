@@ -38,7 +38,7 @@ typedef struct  _hoa_meter
     
 	t_clock*                f_clock;
     void*                   f_attrs;
-    
+
 } t_hoa_meter;
 
 t_eclass *hoa_meter_class;
@@ -272,6 +272,7 @@ extern void hoa_meter_tick(t_hoa_meter *x)
     x->f_meter->tick(1000 / x->f_interval);
 	ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
 	ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
+    ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
   	ebox_redraw((t_ebox *)x);
     
 	if (sys_getdspstate())
@@ -310,31 +311,22 @@ extern void draw_background(t_hoa_meter *x,  t_object *view, t_rect *rect)
 	{
         egraphics_matrix_init(&transform, 1, 0, 0, -1, rect->width * .5, rect->width * .5);
         egraphics_set_matrix(g, &transform);
-       
         egraphics_rotate(g, -HOA_PI2);
         
 		egraphics_set_line_width(g, 1.);
-
-		egraphics_set_color_rgba(g, &x->f_color_bg);
-		egraphics_arc(g, 0.f, 0.f, x->f_radius, 0., HOA_2PI);
-		egraphics_fill(g);
-
-		egraphics_set_color_rgba(g, &x->f_color_bg);
-		egraphics_arc(g, 0.f, 0.f, x->f_radius_center, 0., HOA_2PI);
-		egraphics_fill(g);
 		
         egraphics_set_color_rgba(g, &white);
         egraphics_set_line_width(g, 1.f);
-        egraphics_arc(g, 1, 1, x->f_radius,  0., HOA_2PI);
+        egraphics_circle(g, 1, 1, x->f_radius);
         egraphics_stroke(g);
-        egraphics_arc(g, 1, 1, x->f_radius_center,  0., HOA_2PI);
+        egraphics_circle(g, 1, 1, x->f_radius_center);
         egraphics_stroke(g);
         
         egraphics_set_color_rgba(g, &black);
         egraphics_set_line_width(g, 1.f);
-        egraphics_arc(g, 0.f, 0.f, x->f_radius,  0., HOA_2PI);
+        egraphics_circle(g, 0.f, 0.f, x->f_radius);
         egraphics_stroke(g);
-        egraphics_arc(g, 0.f, 0.f, x->f_radius_center,  0., HOA_2PI);
+        egraphics_circle(g, 0.f, 0.f, x->f_radius_center);
         egraphics_stroke(g);
         
         if(x->f_meter->getNumberOfPlanewaves() != 1)
@@ -344,7 +336,6 @@ extern void draw_background(t_hoa_meter *x,  t_object *view, t_rect *rect)
                 angle = x->f_meter->getPlanewaveAzimuthMapped(i) - x->f_meter->getPlanewaveWidth(i) * 0.5f;
                 if(x->f_clockwise == hoa_sym_clockwise)
                     angle = -angle;
-                angle = Math<float>::wrap_twopi(angle);
                 
                 egraphics_set_line_width(g, 1.f);
                
@@ -368,7 +359,6 @@ extern void draw_background(t_hoa_meter *x,  t_object *view, t_rect *rect)
                 egraphics_set_color_rgba(g, &white);
                 egraphics_stroke(g);
                 
-                
 				egraphics_move_to(g, x1, y1);
 				egraphics_line_to(g, x2, y2);
                 
@@ -383,29 +373,33 @@ extern void draw_background(t_hoa_meter *x,  t_object *view, t_rect *rect)
 
 extern void draw_leds(t_hoa_meter *x, t_object *view, t_rect *rect)
 {
+    float angle, width;
+    const float height = 0.49 * rect->width / 18.;
+    const float lwidth = height - pd_clip_min(360. / rect->width, 2.);
+    t_matrix transform;
 	t_elayer *g = ebox_start_layer((t_ebox *)x,  hoa_sym_leds_layer, rect->width, rect->height);
-    
+
 	if(g)
 	{
         t_rgba black = rgba_addContrast(x->f_color_bg, -0.14);
-        float led_width = 0.49 * rect->width / 18.;
-        float h = led_width * 17.;
+        
+        
+        egraphics_matrix_init(&transform, 1, 0, 0, -1, rect->width * .5, rect->width * .5);
+        egraphics_set_matrix(g, &transform);
+        egraphics_rotate(g, HOA_PI2);
         
         for(ulong i = 0; i < x->f_meter->getNumberOfPlanewaves(); i++)
         {
-            float angle = x->f_meter->getPlanewaveAzimuthMapped(i);
+            width = x->f_meter->getPlanewaveWidth(i) * 0.5f;
+            angle = x->f_meter->getPlanewaveAzimuthMapped(i);
             if(x->f_clockwise == hoa_sym_clockwise)
-                angle = -angle;
-            angle = Math<float>::wrap_twopi(angle + HOA_PI2);
-            
-            const float center_x    = pd_abscissa(x->f_radius - h, angle);
-            const float center_y    = -pd_ordinate(x->f_radius - h, angle);
-            const float angle_start = angle - x->f_meter->getPlanewaveWidth(i) * 0.5f;
-            const float angle_end   = angle + x->f_meter->getPlanewaveWidth(i) * 0.5f;
-            
+                egraphics_rotate(g, -angle);
+            else
+                egraphics_rotate(g, angle);
+     
             for(float j = 11.f, dB = -34.5f; j > -1; j--, dB += 3.)
             {
-                float radius    = (j + 5.) * led_width;
+                float radius    = (j + 5.) * height;
                 if(x->f_meter->getPlanewaveEnergy(i) > dB)
                 {
                     if(j > 8)
@@ -416,27 +410,32 @@ extern void draw_leds(t_hoa_meter *x, t_object *view, t_rect *rect)
                         egraphics_set_color_rgba(g, &x->f_color_warm_signal);
                     else
                         egraphics_set_color_rgba(g, &x->f_color_hot_signal);
-                    
-                    egraphics_set_line_width(g, led_width - pd_clip_min(360. / rect->width, 2.));
-                    egraphics_arc(g, center_x + rect->width * 0.5f, center_y + rect->width * 0.5f, radius, angle_start, angle_end);
+            
+                    egraphics_set_line_width(g, lwidth);
+                    egraphics_arc(g, 0., 0., radius,  width, 3.f * width);
                     egraphics_stroke(g);
                 }
                 else if(j != -1)
                 {
                     egraphics_set_color_rgba(g, &black);
-                    egraphics_set_line_width(g, led_width - pd_clip_min(360. / rect->width, 2.));
-                    egraphics_arc(g, center_x + rect->width * 0.5f, center_y + rect->width * 0.5f, radius,  angle_start, angle_end);
+                    egraphics_set_line_width(g, lwidth);
+                    egraphics_arc(g, 0., 0., radius,  width, 3.f * width);
                     egraphics_stroke(g);
                 }
             }
             if(x->f_meter->getPlanewaveOverLed(i))
             {
-               float  radius    = (4.) * led_width;
+                float  radius    = (4.) * height;
                 egraphics_set_color_rgba(g, &x->f_color_over_signal);
-                egraphics_set_line_width(g, led_width - pd_clip_min(360. / rect->width, 2.));
-                egraphics_arc(g, center_x + rect->width * 0.5f, center_y + rect->width * 0.5f, radius, angle_start, angle_end);
+                egraphics_set_line_width(g, lwidth);
+                egraphics_arc(g, 0., 0., radius,  width, 3.f * width);
                 egraphics_stroke(g);
             }
+            
+            if(x->f_clockwise == hoa_sym_clockwise)
+                egraphics_rotate(g, angle);
+            else
+                egraphics_rotate(g, -angle);
         }
 		ebox_end_layer((t_ebox*)x,  hoa_sym_leds_layer);
 	}
@@ -470,7 +469,7 @@ extern void draw_vectors(t_hoa_meter *x, t_object *view, t_rect *rect)
                 x1 = Math<float>::abscissa(rad, ang);
                 y1 = Math<float>::ordinate(rad, ang);
             }
-            egraphics_arc(g, x1, y1, size, 0., HOA_2PI);
+            egraphics_circle(g, x1, y1, size);
             egraphics_fill(g);
 		}
         if(x->f_vector_type == hoa_sym_both || x->f_vector_type == hoa_sym_velocity)
@@ -488,7 +487,7 @@ extern void draw_vectors(t_hoa_meter *x, t_object *view, t_rect *rect)
                 x1 = Math<float>::abscissa(rad, ang);
                 y1 = Math<float>::ordinate(rad, ang);
             }
-            egraphics_arc(g, x1, y1, size, 0., HOA_2PI);
+            egraphics_circle(g, x1, y1, size);
             egraphics_fill(g);
 		}
         
@@ -506,11 +505,9 @@ extern void hoa_meter_paint(t_hoa_meter *x, t_object *view)
     x->f_radius = x->f_center * 0.95;
     x->f_radius_center = x->f_radius / 5.;
     
-    int tocheck;
-    x->f_meter->computeDisplay();
-    draw_background(x, view, &rect);
     draw_leds(x, view, &rect);
     draw_vectors(x, view, &rect);
+    draw_background(x, view, &rect);
 }
 
 extern void *hoa_meter_new(t_symbol *s, int argc, t_atom *argv)
@@ -536,6 +533,7 @@ extern void *hoa_meter_new(t_symbol *s, int argc, t_atom *argv)
         | EBOX_GROWLINK
         | EBOX_IGNORELOCKCLICK
         ;
+
         ebox_new((t_ebox *)x, flags);
         ebox_attrprocess_viabinbuf(x, d);
         
