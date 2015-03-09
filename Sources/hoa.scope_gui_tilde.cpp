@@ -186,7 +186,7 @@ extern void draw_background(t_hoa_scope *x, t_object *view, t_rect *rect)
 		{
             egraphics_set_line_width(g, 3);
             egraphics_set_color_rgba(g, &white);
-            egraphics_arc(g, 0, 0, (double)i * 0.2 * x->f_radius,  0., HOA_2PI);
+            egraphics_circle(g, 0, 0, (double)i * 0.2 * x->f_radius);
             egraphics_stroke(g);
             egraphics_set_line_width(g, 1);
             egraphics_set_color_rgba(g, &black);
@@ -567,7 +567,7 @@ extern void draw_harmonics(t_hoa_scope_3D *x, t_object *view, t_rect *rect)
         {
             egraphics_set_line_width(g, 3);
             egraphics_set_color_rgba(g, &white);
-            egraphics_arc(g, 0, 0, (double)i * 0.2 * x->f_radius,  0., HOA_2PI);
+            egraphics_circle(g, 0, 0, (double)i * 0.2 * x->f_radius);
             egraphics_stroke(g);
             egraphics_set_line_width(g, 1);
             egraphics_set_color_rgba(g, &black);

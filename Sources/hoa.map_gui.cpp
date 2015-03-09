@@ -1027,7 +1027,7 @@ void draw_background(t_hoa_map *x,  t_object *view, t_rect *rect)
 	if (g)
     {
         egraphics_set_color_rgba(g, &x->f_color_bg);
-        egraphics_arc(g, rect->width / 2., rect->width / 2., (rect->width / 2.) * (1. / MIN_ZOOM * x->f_zoom_factor) - 1.,  0., EPD_2PI);
+        egraphics_circle(g, rect->width / 2., rect->width / 2., (rect->width / 2.) * (1. / MIN_ZOOM * x->f_zoom_factor) - 1.);
         egraphics_fill(g);
         
         /* Circles */
@@ -1037,12 +1037,12 @@ void draw_background(t_hoa_map *x,  t_object *view, t_rect *rect)
             
             egraphics_set_line_width(g, 2);
             egraphics_set_color_rgba(g, &x->f_color_bg);
-            egraphics_arc(g, rect->width / 2 - 0.5, rect->width / 2 - 0.5, (double)i * radius - 1.,  0., EPD_2PI);
+            egraphics_circle(g, rect->width / 2 - 0.5, rect->width / 2 - 0.5, (double)i * radius - 1.);
             egraphics_stroke(g);
             
             egraphics_set_line_width(g, 1);
             egraphics_set_color_rgba(g, &black);
-            egraphics_arc(g, rect->width / 2, rect->width / 2, (double)i * radius - 1.,  0., EPD_2PI);
+            egraphics_circle(g, rect->width / 2, rect->width / 2, (double)i * radius - 1.);
             egraphics_stroke(g);
             
         }
@@ -1156,7 +1156,7 @@ void draw_sources(t_hoa_map *x,  t_object *view, t_rect *rect)
                 if (x->f_index_of_selected_source == i)
                 {
                     egraphics_set_color_rgba(g, &color_sel);
-                    egraphics_arc(g, sourceDisplayPos.x, sourceDisplayPos.y, source_size * 1.5,  0., EPD_2PI);
+                    egraphics_circle(g, sourceDisplayPos.x, sourceDisplayPos.y, source_size * 1.5);
                     egraphics_fill(g);
                     int groupIndex;
 					
@@ -1189,16 +1189,16 @@ void draw_sources(t_hoa_map *x,  t_object *view, t_rect *rect)
                 if(!x->f_source_manager->sourceGetMute(i))
                 {
                     egraphics_set_color_rgba(g, &sourceColor); 
-                    egraphics_arc(g, sourceDisplayPos.x, sourceDisplayPos.y, source_size,  0., EPD_2PI);
+                    egraphics_circle(g, sourceDisplayPos.x, sourceDisplayPos.y, source_size);
                     egraphics_fill(g);
                 }
                 else
                 {
                     egraphics_set_color_rgba(g, &sourceColor);
-                    egraphics_arc(g, sourceDisplayPos.x, sourceDisplayPos.y, source_size,  0., EPD_2PI);
+                    egraphics_circle(g, sourceDisplayPos.x, sourceDisplayPos.y, source_size);
                     egraphics_fill(g);
                     egraphics_set_color_rgba(g, &rgba_red);
-                    egraphics_arc(g, sourceDisplayPos.x, sourceDisplayPos.y, source_size,  0., EPD_2PI);
+                    egraphics_circle(g, sourceDisplayPos.x, sourceDisplayPos.y, source_size);
                     egraphics_stroke(g);
                     egraphics_move_to(g, sourceDisplayPos.x + Math<float>::abscissa(source_size * 1., HOA_PI2 / 2.), sourceDisplayPos.y + Math<float>::ordinate(source_size * 1., HOA_PI2 / 2.));
                     egraphics_line_to(g, sourceDisplayPos.x + Math<float>::abscissa(source_size * 1., HOA_PI2 * 5. / 2.), sourceDisplayPos.y + Math<float>::ordinate(source_size * 1., HOA_PI * 5. / 4.));
@@ -1279,7 +1279,7 @@ void draw_groups(t_hoa_map *x,  t_object *view, t_rect *rect)
                 if (x->f_index_of_selected_group == i)
                 {
                     egraphics_set_color_rgba(g, &color_sel);
-                    egraphics_arc(g, sourceDisplayPos.x, sourceDisplayPos.y, source_size * 1.5,  0., EPD_2PI);
+                    egraphics_circle(g, sourceDisplayPos.x, sourceDisplayPos.y, source_size * 1.5);
                     egraphics_fill(g);
                     
 					for(int index = 0; index < x->f_source_manager->groupGetNumberOfSources(i); index++)
@@ -1312,7 +1312,7 @@ void draw_groups(t_hoa_map *x,  t_object *view, t_rect *rect)
                 if(!x->f_source_manager->groupGetMute(i))
                 {
                     egraphics_set_color_rgba(g, &sourceColor);
-                    egraphics_arc(g, sourceDisplayPos.x, sourceDisplayPos.y, source_size * 1.,  0., EPD_2PI);
+                    egraphics_circle(g, sourceDisplayPos.x, sourceDisplayPos.y, source_size * 1.);
                     egraphics_stroke(g);
                     etext_layout_draw(jtl, g);
                 
@@ -1321,7 +1321,7 @@ void draw_groups(t_hoa_map *x,  t_object *view, t_rect *rect)
                 if(x->f_source_manager->groupGetMute(i))
                 {
                     egraphics_set_color_rgba(g, &rgba_red);
-                    egraphics_arc(g, sourceDisplayPos.x, sourceDisplayPos.y, source_size,  0., EPD_2PI);
+                    egraphics_circle(g, sourceDisplayPos.x, sourceDisplayPos.y, source_size);
                     egraphics_stroke(g);
                     for(int j = 0; j < 2; j++)
                     {
