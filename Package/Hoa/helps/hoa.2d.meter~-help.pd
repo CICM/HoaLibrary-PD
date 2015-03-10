@@ -39,7 +39,7 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X obj 121 141 hoa.2d.encoder~ 3 --------------------;
 #X obj 121 240 hoa.2d.meter~ @size 231 231 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive hoameter @send (null)
-@channels 5 @angles 0 15 90 270 345 @offset 0 @rotation anti-clockwise
+@channels 5 @angles 0 30 110 250 330 @offset 0 @rotation anti-clockwise
 @vectors energy @interval 50 @bgcolor 0.758847 0.758847 0.758847 1
 @bdcolor 0.699562 0.699562 0.699562 1 @coldcolor 0 0.6 0 0.8 @tepidcolor
 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor
@@ -63,12 +63,15 @@ vectors.;
 @fontslant roman @fontsize 11 @receive (null) @send (null) @local 0
 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0
 0.8;
+#X obj 121 167 hoa.2d.optim~ 3 inPhase, f 38;
 #X obj 121 191 hoa.2d.decoder~ 3 5 @angles 0 30 110 250 330, f 38
 ;
+#X msg 612 119 18;
 #X connect 1 0 2 0;
 #X connect 2 0 0 0;
 #X connect 3 0 4 0;
 #X connect 4 0 0 0;
+#X connect 4 0 23 0;
 #X connect 9 0 0 0;
 #X connect 10 0 9 0;
 #X connect 11 0 31 1;
@@ -78,7 +81,7 @@ vectors.;
 #X connect 20 0 23 0;
 #X connect 21 0 12 0;
 #X connect 21 0 23 0;
-#X connect 22 0 40 0;
+#X connect 22 0 41 0;
 #X connect 24 0 25 0;
 #X connect 25 0 40 0;
 #X connect 25 1 40 1;
@@ -95,8 +98,16 @@ vectors.;
 #X connect 34 0 33 0;
 #X connect 37 0 1 0;
 #X connect 38 0 15 0;
-#X connect 40 0 26 0;
-#X connect 40 1 26 1;
-#X connect 40 2 26 2;
-#X connect 40 3 26 3;
-#X connect 40 4 26 4;
+#X connect 40 0 41 0;
+#X connect 40 1 41 1;
+#X connect 40 2 41 2;
+#X connect 40 3 41 3;
+#X connect 40 4 41 4;
+#X connect 40 5 41 5;
+#X connect 40 6 41 6;
+#X connect 41 0 26 0;
+#X connect 41 1 26 1;
+#X connect 41 2 26 2;
+#X connect 41 3 26 3;
+#X connect 41 4 26 4;
+#X connect 42 0 3 0;

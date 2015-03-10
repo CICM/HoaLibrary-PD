@@ -41,6 +41,7 @@ extern void *hoa_decoder_new(t_symbol *s, long argc, t_atom *argv)
 {
     int	order = 1;
     int number_of_channels = 4;
+    t_symbol* mode = gensym("ambisonic");
     t_hoa_decoder *x = (t_hoa_decoder *)eobj_new(hoa_decoder_class);
     t_binbuf *d      = binbuf_via_atoms(argc,argv);
 	
@@ -48,10 +49,19 @@ extern void *hoa_decoder_new(t_symbol *s, long argc, t_atom *argv)
 	{
         if(argc && argv && atom_gettype(argv) == A_LONG)
             order = pd_clip_min(atom_getlong(argv), 1);
-        if(argc > 1 && argv+1 && atom_gettype(argv+1) == A_LONG)
-            number_of_channels = pd_clip_min(atom_getlong(argv+1), 2);
+        if(argc > 1 && argv+1 && atom_gettype(argv+1) == A_SYM)
+            mode = atom_getsym(argv+1);
+        if(argc > 2 && argv+2 && atom_gettype(argv+2) == A_LONG)
+            number_of_channels = pd_clip_min(atom_getlong(argv+2), 1);
         
-        x->f_decoder = new Decoder<Hoa2d, t_sample>(order, number_of_channels);
+        if(mode == gensym("irregular"))
+        {
+            x->f_decoder = new Decoder<Hoa2d, t_sample>::Irregular(order, number_of_channels);
+        }
+        else
+        {
+            x->f_decoder = new Decoder<Hoa2d, t_sample>::Regular(order, number_of_channels);
+        }
         x->f_number_of_channels = x->f_decoder->getNumberOfPlanewaves();
     
         eobj_dspsetup(x, x->f_decoder->getNumberOfHarmonics(), x->f_decoder->getNumberOfPlanewaves());
@@ -117,6 +127,7 @@ extern t_pd_err hoa_decoder_offset_set(t_hoa_decoder *x, void *attr, long argc, 
 {
     if(argc && argv && atom_gettype(argv) == A_FLOAT)
     {
+        post("offset");
         int dspState = canvas_suspend_dsp();
         x->f_decoder->setPlanewavesRotation(atom_getfloat(argv) / 360. * HOA_2PI);
         x->f_decoder->computeMatrix();
@@ -146,7 +157,6 @@ extern "C" void setup_hoa0x2e2d0x2edecoder_tilde(void)
     
     CLASS_ATTR_DOUBLE_VARSIZE	(c, "angles",0, t_hoa_decoder, f_angles_of_channels, f_number_of_channels, HOA_MAX_PLANEWAVES);
     CLASS_ATTR_ACCESSORS		(c, "angles", NULL, hoa_decoder_angles_set);
-    CLASS_ATTR_ORDER			(c, "angles", 0, "2");
     CLASS_ATTR_LABEL			(c, "angles", 0, "Angles of Loudspeakers");
     
     CLASS_ATTR_DOUBLE           (c, "offset", 0, t_hoa_decoder, f_offset);
@@ -154,7 +164,6 @@ extern "C" void setup_hoa0x2e2d0x2edecoder_tilde(void)
     CLASS_ATTR_LABEL            (c, "offset", 0, "Offset of Channels");
     CLASS_ATTR_ACCESSORS		(c, "offset", NULL, hoa_decoder_offset_set);
     CLASS_ATTR_DEFAULT          (c, "offset", 0, "0");
-    CLASS_ATTR_ORDER            (c, "offset", 0, "3");
     CLASS_ATTR_SAVE             (c, "offset", 0);
     
     CLASS_ATTR_LONG				(c, "pinna", 0 , t_hoa_decoder, f_pinna);

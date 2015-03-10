@@ -31,12 +31,12 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X text 13 257 Offset of the loudspeakers in degrees;
-#X msg 837 255 offset \$1;
-#X obj 837 222 c.number @size 53 17 @fontname Helvetica @fontweight
+#X msg 807 230 offset \$1;
+#X obj 807 197 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X text 834 201 Offset of the loudspeakers in degrees;
+#X text 804 176 Offset of the loudspeakers in degrees;
 #X obj 97 318 hoa.2d.optim~ 7 maxRe ---------------------;
 #X obj 839 328 hoa.2d.optim~ 7 inPhase -------------------;
 #X obj 97 404 hoa.2d.meter~ @size 261 261 @fontname Helvetica @fontweight
@@ -79,14 +79,14 @@ with the object. You have to write it in the box or to send a message.
 #X obj 707 174 phasor~ 0.3;
 #X obj 458 164 hoa.soundrone;
 #X text 465 540 Binaural mode is used for headphones.;
-#X obj 97 351 hoa.2d.decoder~ 7 16 ----------------------;
-#X obj 839 356 hoa.2d.decoder~ 7 5 @angles 0 30 110 250 330, f 43
-;
+#X obj 97 351 hoa.2d.decoder~ 7 regular 16 --------------;
+#X obj 839 356 hoa.2d.decoder~ 7 irregular 5 @angles 0 30 110 250 330
+, f 43;
 #X connect 5 0 24 0;
 #X connect 9 0 36 0;
 #X connect 10 0 9 0;
-#X connect 12 0 18 0;
 #X connect 12 0 37 0;
+#X connect 12 0 18 0;
 #X connect 13 0 12 0;
 #X connect 15 0 36 0;
 #X connect 15 1 36 1;
