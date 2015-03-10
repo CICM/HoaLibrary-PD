@@ -41,7 +41,7 @@ extern void *hoa_decoder_new(t_symbol *s, long argc, t_atom *argv)
 {
     int	order = 1;
     int number_of_channels = 4;
-    t_symbol* mode = gensym("ambisonic");
+    t_symbol* mode = gensym("regular");
     t_hoa_decoder *x = (t_hoa_decoder *)eobj_new(hoa_decoder_class);
     t_binbuf *d      = binbuf_via_atoms(argc,argv);
 	
@@ -57,6 +57,10 @@ extern void *hoa_decoder_new(t_symbol *s, long argc, t_atom *argv)
         if(mode == gensym("irregular"))
         {
             x->f_decoder = new Decoder<Hoa2d, t_sample>::Irregular(order, number_of_channels);
+        }
+        else if(mode == gensym("binaural"))
+        {
+            x->f_decoder = new Decoder<Hoa2d, t_sample>::Binaural(order);
         }
         else
         {
@@ -94,6 +98,7 @@ extern void hoa_decoder_perform64(t_hoa_decoder *x, t_object *dsp64, t_sample **
 
 extern void hoa_decoder_dsp(t_hoa_decoder *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
+    x->f_decoder->computeMatrix(maxvectorsize);
     object_method(dsp64, gensym("dsp_add64"), x, (method)hoa_decoder_perform64, 0, NULL);
 }
 
@@ -107,7 +112,6 @@ extern t_pd_err hoa_decoder_angles_set(t_hoa_decoder *x, void *attr, long argc, 
             if(atom_gettype(argv+i) == A_FLOAT)
                 x->f_decoder->setPlanewaveAzimuth(i, atom_getfloat(argv+i) / 360. * HOA_2PI);
         }
-        x->f_decoder->computeMatrix();
         canvas_resume_dsp(dspState);
     }
     
@@ -127,10 +131,8 @@ extern t_pd_err hoa_decoder_offset_set(t_hoa_decoder *x, void *attr, long argc, 
 {
     if(argc && argv && atom_gettype(argv) == A_FLOAT)
     {
-        post("offset");
         int dspState = canvas_suspend_dsp();
         x->f_decoder->setPlanewavesRotation(atom_getfloat(argv) / 360. * HOA_2PI);
-        x->f_decoder->computeMatrix();
         canvas_resume_dsp(dspState);
     }
     return 0;
