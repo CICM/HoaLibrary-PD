@@ -18,17 +18,17 @@ This version is compatible with Pure Data and Pure Data Extented.
 
 Installation:
 
-Copy the "HoaLibrary" folder in your Pure Data "package" folder and add "hoa.library" in startup preferences. 
-You can also copy the "HoaLibrary" folder in another folder than the default package folder, then you have to add this folder in the path preferences and add "HoaLibrary/hoa.library" in the startup preferences. 
+Copy the "Hoa" folder in your Pure Data "package" folder and add "hoa" in startup preferences. 
+You can also copy the "Hoa" folder in another folder than the default package folder, then you have to add this base folder in the path preferences (for example : "/Users/Pierre/GitHub/HoaLibrary-PD/Package" and add "Hoa/hoa" in the startup preferences. 
  
-For PD-Extented or Linux 32 bits, replace the hoa.library external (.pd_linux, .pd_darwin or .dll) with the one that matchs to your system and your PD distribution from the externals folder. 
+For PD-Extented or Linux 32 bits, replace the hoa external (.pd_linux, .pd_darwin or .dll) with the one that matchs to your system and your PD distribution from the externals folder. 
 
-For PD-Extented use the startup flags "-lib hoa.library" (or "-lib HoaLibrary/hoa.library" if you use another folder than the default ones). 
+For PD-Extented use the startup flags "-lib hoa" (or "-lib Hoa/hoa" if you use another folder than the default ones). 
 
-In the help menu of Pure Data, the HoaLibrary folder constains informations, helps and tutorials.
+In the help menu of Pure Data, the Hoa folder constains informations, helps and tutorials.
 
 Uninstall:
-Remove the "HoaLibrary" folder and the startup flag .
+Remove the "Hoa" folder and the startup flag .
 
 Important:
 You need to install the Cream library, if you want that the Hoa library to work properly.
