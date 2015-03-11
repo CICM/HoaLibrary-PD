@@ -17,8 +17,6 @@ typedef struct _hoa_decoder
     long                        f_number_of_channels;
     double                      f_angles_of_channels[HOA_MAX_PLANEWAVES];
     double                      f_offset;
-    long                        f_pinna;
-    
 } t_hoa_decoder;
 
 t_eclass *hoa_decoder_class;
@@ -32,7 +30,6 @@ typedef struct _hoa_decoder_3D
     long                        f_number_of_channels;
     double                      f_angles_of_channels[HOA_MAX_PLANEWAVES * 2];
     double                      f_offset[3];
-    long                        f_pinna;
 } t_hoa_decoder_3D;
 
 t_eclass *hoa_decoder_3D_class;
@@ -118,15 +115,6 @@ extern t_pd_err hoa_decoder_angles_set(t_hoa_decoder *x, void *attr, long argc, 
     return 0;
 }
 
-extern t_pd_err hoa_decoder_pinna_set(t_hoa_decoder *x, void *attr, long argc, t_atom *argv)
-{
-    if(argc && argv && atom_gettype(argv) == A_SYM)
-	{
-        ;
-    }
-    return 0;
-}
-
 extern t_pd_err hoa_decoder_offset_set(t_hoa_decoder *x, void *attr, long argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_FLOAT)
@@ -168,10 +156,6 @@ extern "C" void setup_hoa0x2e2d0x2edecoder_tilde(void)
     CLASS_ATTR_DEFAULT          (c, "offset", 0, "0");
     CLASS_ATTR_SAVE             (c, "offset", 0);
     
-    CLASS_ATTR_LONG				(c, "pinna", 0 , t_hoa_decoder, f_pinna);
-    CLASS_ATTR_ACCESSORS		(c, "pinna", NULL, hoa_decoder_pinna_set);
-    CLASS_ATTR_LABEL			(c, "pinna", 0, "Pinna Size");
-    
     eclass_register(CLASS_OBJ, c);
     hoa_decoder_class = c;
 }
@@ -179,6 +163,7 @@ extern "C" void setup_hoa0x2e2d0x2edecoder_tilde(void)
 extern void *hoa_decoder_3D_new(t_symbol *s, long argc, t_atom *argv)
 {
     int	order = 1;
+    t_symbol* mode = gensym("regular");
     int number_of_channels = 4;
     t_hoa_decoder_3D *x = (t_hoa_decoder_3D *)eobj_new(hoa_decoder_3D_class);
     t_binbuf *d         = binbuf_via_atoms(argc,argv);
@@ -187,10 +172,24 @@ extern void *hoa_decoder_3D_new(t_symbol *s, long argc, t_atom *argv)
     {
         if(argc && argv && atom_gettype(argv) == A_LONG)
             order = pd_clip_min(atom_getlong(argv), 1);
-        if(argc > 2 && argv && atom_gettype(argv+2) == A_LONG)
+        if(argc > 1 && argv+1 && atom_gettype(argv+1) == A_SYM)
+            mode = atom_getsym(argv+1);
+        if(argc > 2 && argv+2 && atom_gettype(argv+2) == A_LONG)
             number_of_channels = pd_clip_min(atom_getlong(argv+2), 1);
         
-        x->f_decoder = new Decoder<Hoa3d, t_sample>(order, number_of_channels);
+        if(mode == gensym("irregular"))
+        {
+            //x->f_decoder = new Decoder<Hoa2d, t_sample>::Irregular(order, number_of_channels);
+        }
+        else if(mode == gensym("binaural"))
+        {
+            x->f_decoder = new Decoder<Hoa3d, t_sample>::Binaural(order);
+        }
+        else
+        {
+            x->f_decoder = new Decoder<Hoa3d, t_sample>::Regular(order, number_of_channels);
+        }
+        
         x->f_number_of_channels = x->f_decoder->getNumberOfPlanewaves() * 2;
         
         eobj_dspsetup(x, x->f_decoder->getNumberOfHarmonics(), x->f_decoder->getNumberOfPlanewaves());
@@ -224,6 +223,7 @@ extern void hoa_decoder_3D_perform64(t_hoa_decoder_3D *x, t_object *dsp64, t_sam
 
 extern void hoa_decoder_3D_dsp(t_hoa_decoder_3D *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
+    x->f_decoder->computeMatrix(maxvectorsize);
     object_method(dsp64, gensym("dsp_add64"), x, (method)hoa_decoder_3D_perform64, 0, NULL);
 }
 
@@ -248,7 +248,6 @@ extern t_pd_err hoa_decoder_3D_angles_set(t_hoa_decoder_3D *x, void *attr, long 
                 
             }
         }
-        x->f_decoder->computeMatrix();
         canvas_resume_dsp(dspState);
     }
 
@@ -274,17 +273,7 @@ extern t_pd_err hoa_decoder_3D_offset_set(t_hoa_decoder_3D *x, void *attr, long 
         else
             az = x->f_decoder->getPlanewavesRotationZ();
         x->f_decoder->setPlanewavesRotation(ax, ay, az);
-        x->f_decoder->computeMatrix();
         canvas_resume_dsp(dspState);
-    }
-    return 0;
-}
-
-extern t_pd_err hoa_decoder_3D_pinna_set(t_hoa_decoder_3D *x, void *attr, long argc, t_atom *argv)
-{
-    if(argc && argv && atom_gettype(argv) == A_SYM)
-    {
-        ;
     }
     return 0;
 }
@@ -319,10 +308,6 @@ extern "C" void setup_hoa0x2e3d0x2edecoder_tilde(void)
     CLASS_ATTR_DEFAULT          (c, "offset", 0, "0 0");
     CLASS_ATTR_ORDER            (c, "offset", 0, "3");
     CLASS_ATTR_SAVE             (c, "offset", 0);
-    
-    CLASS_ATTR_LONG				(c, "pinna", 0 , t_hoa_decoder_3D, f_pinna);
-    CLASS_ATTR_ACCESSORS		(c, "pinna", NULL, hoa_decoder_3D_pinna_set);
-    CLASS_ATTR_LABEL			(c, "pinna", 0, "Pinna Size");
     
     eclass_register(CLASS_OBJ, c);
     hoa_decoder_3D_class = c;
