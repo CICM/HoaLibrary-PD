@@ -21,7 +21,7 @@ typedef struct  _hoa_meter
     
     t_symbol*               f_vector_type;
     t_symbol*               f_clockwise;
-	
+    
     t_rgba                  f_color_bg;
     t_rgba                  f_color_bd;
 	t_rgba                  f_color_cold_signal;
@@ -41,9 +41,45 @@ typedef struct  _hoa_meter
 
 } t_hoa_meter;
 
-t_eclass *hoa_meter_class;
+static t_eclass *hoa_meter_class;
 
-extern void hoa_meter_getdrawparams(t_hoa_meter *x, t_object *patcherview, t_edrawparams *params)
+typedef struct  _hoa_meter_3d
+{
+    t_edspbox               f_box;
+    Meter<Hoa3d, t_sample>* f_meter;
+    Vector<Hoa3d, t_sample>*f_vector;
+    t_sample*               f_signals;
+    t_sample                f_vector_coords[6];
+    long                    f_ramp;
+    int                     f_startclock;
+    long                    f_interval;
+    
+    t_symbol*               f_vector_type;
+    t_symbol*               f_clockwise;
+    t_symbol*               f_view;
+    
+    t_rgba                  f_color_bg;
+    t_rgba                  f_color_bd;
+    t_rgba                  f_color_cold_signal;
+    t_rgba                  f_color_tepid_signal;
+    t_rgba                  f_color_warm_signal;
+    t_rgba                  f_color_hot_signal;
+    t_rgba                  f_color_over_signal;
+    t_rgba                  f_color_energy_vector;
+    t_rgba                  f_color_velocity_vector;
+    
+    double                  f_radius;
+    double                  f_center;
+    double                  f_radius_center;
+    
+    t_clock*                f_clock;
+    void*                   f_attrs;
+    
+} t_hoa_meter_3d;
+
+static t_eclass *hoa_meter_3d_class;
+
+static void hoa_meter_getdrawparams(t_hoa_meter *x, t_object *patcherview, t_edrawparams *params)
 {
     params->d_boxfillcolor = x->f_color_bg;
     params->d_bordercolor = x->f_color_bd;
@@ -51,13 +87,52 @@ extern void hoa_meter_getdrawparams(t_hoa_meter *x, t_object *patcherview, t_edr
 	params->d_cornersize = 8;
 }
 
-extern void hoa_meter_oksize(t_hoa_meter *x, t_rect *newrect)
+static void hoa_meter_3d_getdrawparams(t_hoa_meter_3d *x, t_object *patcherview, t_edrawparams *params)
+{
+    params->d_boxfillcolor = x->f_color_bg;
+    params->d_bordercolor = x->f_color_bd;
+    params->d_borderthickness = 1;
+    params->d_cornersize = 8;
+}
+
+static void hoa_meter_oksize(t_hoa_meter *x, t_rect *newrect)
 {
     newrect->width = pd_clip_min(newrect->width, 20.);
     newrect->height = pd_clip_min(newrect->height, 20.);
 }
 
-extern t_pd_err channels_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv)
+static void hoa_meter_3d_oksize(t_hoa_meter_3d *x, t_rect *newrect)
+{
+    newrect->width = pd_clip_min(newrect->width, 20.);
+    newrect->height = pd_clip_min(newrect->height, 20.);
+    double delta1 = newrect->width - x->f_box.b_rect_last.width;
+    double delta2 = newrect->height - x->f_box.b_rect_last.height;
+    
+    if(x->f_view == hoa_sym_topnextbottom)
+    {
+        if(fabs(delta1) < fabs(delta2))
+            newrect->width = newrect->height * 2;
+        else
+            newrect->height = newrect->width * 0.5;
+    }
+    else if(x->f_view == hoa_sym_toponbottom)
+    {
+        if(fabs(delta1) < fabs(delta2))
+            newrect->width = newrect->height * 0.5;
+        else
+            newrect->height = newrect->width * 2;
+    }
+    else
+    {
+        if(fabs(delta1) < fabs(delta2))
+            newrect->width = newrect->height;
+        else
+            newrect->height = newrect->width;
+    }
+    x->f_box.b_rect_last = *newrect;
+}
+
+static t_pd_err channels_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv)
 {
     argc[0] = 1;
     argv[0] = (t_atom *)malloc(sizeof(t_atom));
@@ -73,7 +148,24 @@ extern t_pd_err channels_get(t_hoa_meter *x, void *attr, long *argc, t_atom **ar
     return 0;
 }
 
-extern t_pd_err channels_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
+static t_pd_err channels_3d_get(t_hoa_meter_3d *x, void *attr, long *argc, t_atom **argv)
+{
+    argc[0] = 1;
+    argv[0] = (t_atom *)malloc(sizeof(t_atom));
+    if(argv[0] && argc[0])
+    {
+        atom_setfloat(argv[0], x->f_meter->getNumberOfPlanewaves());
+    }
+    else
+    {
+        argc[0] = 0;
+        argv[0] = NULL;
+    }
+    return 0;
+}
+
+
+static t_pd_err channels_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
 {
     if(argc && argv)
     {
@@ -103,14 +195,46 @@ extern t_pd_err channels_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv
     return NULL;
 }
 
-extern t_pd_err angles_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv)
+t_pd_err channels_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
+{
+    if(argc && argv)
+    {
+        if(atom_gettype(argv) == A_FLOAT)
+        {
+            long d = pd_clip_minmax(atom_getfloat(argv), 4, HOA_MAX_PLANEWAVES);
+            if(d != x->f_meter->getNumberOfPlanewaves())
+            {
+                int dspState = canvas_suspend_dsp();
+                delete x->f_meter;
+                x->f_meter = new Meter<Hoa3d, t_sample>(d);
+                delete x->f_vector;
+                x->f_vector = new Vector<Hoa3d, t_sample>(d);
+                
+                x->f_meter->computeDisplay();
+                x->f_vector->computeRendering();
+                eobj_resize_inputs((t_ebox *)x, x->f_meter->getNumberOfPlanewaves());
+                
+                ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
+                ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
+                ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
+                ebox_redraw((t_ebox *)x);
+                canvas_resume_dsp(dspState);
+            }
+        }
+    }
+    return NULL;
+}
+
+static t_pd_err angles_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv)
 {
     argc[0] = x->f_meter->getNumberOfPlanewaves();
     argv[0] = (t_atom *)malloc(sizeof(t_atom) * x->f_meter->getNumberOfPlanewaves());
     if(argv[0] && argc[0])
     {
-        for(int i = 0; i < x->f_meter->getNumberOfPlanewaves(); i++)
+        for(ulong i = 0; i < x->f_meter->getNumberOfPlanewaves(); i++)
+        {
             atom_setfloat(argv[0]+i, x->f_meter->getPlanewaveAzimuth(i) / HOA_2PI * 360.);
+        }
     }
     else
     {
@@ -120,7 +244,27 @@ extern t_pd_err angles_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv
     return 0;
 }
 
-extern t_pd_err angles_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
+static t_pd_err angles_3d_get(t_hoa_meter_3d *x, void *attr, long *argc, t_atom **argv)
+{
+    argc[0] = x->f_meter->getNumberOfPlanewaves();
+    argv[0] = (t_atom *)malloc(sizeof(t_atom) * x->f_meter->getNumberOfPlanewaves() * 2);
+    if(argv[0] && argc[0])
+    {
+        for(ulong i = 0; i < x->f_meter->getNumberOfPlanewaves(); i++)
+        {
+            atom_setfloat(argv[0]+i*2, x->f_meter->getPlanewaveAzimuth(i) / HOA_2PI * 360.);
+            atom_setfloat(argv[0]+i*2+1, x->f_meter->getPlanewaveElevation(i) / HOA_2PI * 360.);
+        }
+    }
+    else
+    {
+        argc[0] = 0;
+        argv[0] = NULL;
+    }
+    return 0;
+}
+
+static t_pd_err angles_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
 {
     if(argc && argv)
     {
@@ -144,7 +288,40 @@ extern t_pd_err angles_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
     return 0;
 }
 
-extern t_pd_err offset_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv)
+static t_pd_err angles_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
+{
+    if(argc && argv)
+    {
+        for(int i = 0; i < x->f_meter->getNumberOfPlanewaves() && i < argc; i++)
+        {
+            if(atom_gettype(argv+i) == A_FLOAT)
+            {
+                if(i%2)
+                {
+                    x->f_meter->setPlanewaveElevation((i-1)/2, atom_getfloat(argv+i) / 360.f * HOA_2PI);
+                    x->f_vector->setPlanewaveElevation((i-1)/2, atom_getfloat(argv+i) / 360.f * HOA_2PI);
+                }
+                else
+                {
+                    x->f_meter->setPlanewaveAzimuth(i/2, atom_getfloat(argv+i) / 360.f * HOA_2PI);
+                    x->f_vector->setPlanewaveAzimuth(i/2, atom_getfloat(argv+i) / 360.f * HOA_2PI);
+                }
+            }
+        }
+        
+        x->f_meter->computeDisplay();
+        x->f_vector->computeRendering();
+        
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
+        ebox_redraw((t_ebox *)x);
+    }
+    
+    return 0;
+}
+
+static t_pd_err offset_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv)
 {
     argc[0] = 1;
     argv[0] = (t_atom *)malloc(sizeof(t_atom));
@@ -160,7 +337,25 @@ extern t_pd_err offset_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv
     return 0;
 }
 
-extern t_pd_err offset_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
+t_pd_err offset_3d_get(t_hoa_meter_3d *x, void *attr, long *argc, t_atom **argv)
+{
+    argc[0] = 3;
+    argv[0] = (t_atom *)malloc(3 * sizeof(t_atom));
+    if(argv[0] && argc[0])
+    {
+        atom_setfloat(argv[0], x->f_meter->getPlanewavesRotationX() / HOA_2PI * 360.);
+        atom_setfloat(argv[0]+1, x->f_meter->getPlanewavesRotationY() / HOA_2PI * 360.);
+        atom_setfloat(argv[0]+2, x->f_meter->getPlanewavesRotationZ() / HOA_2PI * 360.);
+    }
+    else
+    {
+        argc[0] = 0;
+        argv[0] = NULL;
+    }
+    return 0;
+}
+
+static t_pd_err offset_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_FLOAT)
     {
@@ -168,16 +363,50 @@ extern t_pd_err offset_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
         x->f_meter->setPlanewavesRotation(atom_getfloat(argv) / 360 * HOA_2PI);
         x->f_vector->computeRendering();
         x->f_meter->computeDisplay();
+        
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
+        ebox_redraw((t_ebox *)x);
     }
     
-    ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
-	ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
-	ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
-	ebox_redraw((t_ebox *)x);
     return 0;
 }
 
-extern t_pd_err vectors_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
+static t_pd_err offset_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
+{
+    if(argc && argv)
+    {
+        double ax, ay, az;
+        if(atom_gettype(argv) == A_FLOAT)
+            ax = atom_getfloat(argv) / 360. * HOA_2PI;
+        else
+            ax = x->f_meter->getPlanewavesRotationX();
+        
+        if(argc > 1 && atom_gettype(argv+1) == A_FLOAT)
+            ay = atom_getfloat(argv+1) / 360. * HOA_2PI;
+        else
+            ay = x->f_meter->getPlanewavesRotationY();
+        
+        if(argc > 2 &&  atom_gettype(argv+2) == A_FLOAT)
+            az = atom_getfloat(argv+2) / 360. * HOA_2PI;
+        else
+            az = x->f_meter->getPlanewavesRotationZ();
+        
+        x->f_meter->setPlanewavesRotation(ax, ay, az);
+        x->f_vector->setPlanewavesRotation(ax, ay, az);
+        
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
+        ebox_redraw((t_ebox *)x);
+
+    }
+    
+    return 0;
+}
+
+static t_pd_err vectors_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
 {
     if(argc && argv)
     {
@@ -209,7 +438,39 @@ extern t_pd_err vectors_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
     return 0;
 }
 
-extern t_pd_err rotation_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
+static t_pd_err vectors_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
+{
+    if(argc && argv)
+    {
+        if(atom_gettype(argv) == A_SYM)
+        {
+            if(atom_getsym(argv) == hoa_sym_energy)
+                x->f_vector_type = hoa_sym_energy;
+            else if(atom_getsym(argv) == hoa_sym_velocity)
+                x->f_vector_type = hoa_sym_velocity;
+            else if(atom_getsym(argv) == hoa_sym_both)
+                x->f_vector_type = hoa_sym_both;
+            else
+                x->f_vector_type = hoa_sym_none;
+        }
+        else if(atom_gettype(argv) == A_FLOAT)
+        {
+            if(atom_getlong(argv) == 1)
+                x->f_vector_type = hoa_sym_energy;
+            else if(atom_getlong(argv) == 2)
+                x->f_vector_type = hoa_sym_velocity;
+            else if(atom_getlong(argv) == 3)
+                x->f_vector_type = hoa_sym_both;
+            else
+                x->f_vector_type = hoa_sym_none;
+        }
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
+        ebox_redraw((t_ebox *)x);
+    }
+    return 0;
+}
+
+static t_pd_err rotation_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
 {
     if(argc && argv)
     {
@@ -227,6 +488,7 @@ extern t_pd_err rotation_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv
             else
                 x->f_clockwise = hoa_sym_anticlock;
         }
+        
         ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
         ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
         ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
@@ -235,7 +497,73 @@ extern t_pd_err rotation_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv
     return 0;
 }
 
-extern void hoa_meter_perform(t_hoa_meter *x, t_object *dsp, t_sample **ins, long numins, t_sample **outs, long no, long sampleframes, long f,void *up)
+static t_pd_err rotation_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
+{
+    if(argc && argv)
+    {
+        if(atom_gettype(argv) == A_SYM)
+        {
+            if(atom_getsym(argv) == hoa_sym_clockwise)
+                x->f_clockwise = hoa_sym_clockwise;
+            else
+                x->f_clockwise = hoa_sym_anticlock;
+        }
+        else if(atom_gettype(argv) == A_FLOAT)
+        {
+            if(atom_getlong(argv) == 1)
+                x->f_clockwise = hoa_sym_clockwise;
+            else
+                x->f_clockwise = hoa_sym_anticlock;
+        }
+        
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
+        ebox_redraw((t_ebox *)x);
+    }
+    return 0;
+}
+
+static t_pd_err view_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
+{
+    t_symbol* view = x->f_view;
+    if(argc && argv)
+    {
+        
+        if(atom_gettype(argv) == A_SYM)
+        {
+            if(atom_getsym(argv) == hoa_sym_bottom)
+                view = hoa_sym_bottom;
+            else if(atom_getsym(argv) == hoa_sym_topnextbottom)
+                view = hoa_sym_topnextbottom;
+            else if(atom_getsym(argv) == hoa_sym_toponbottom)
+                view = hoa_sym_toponbottom;
+            else
+                view = hoa_sym_top;
+        }
+        else if(atom_gettype(argv) == A_FLOAT)
+        {
+            if(atom_getlong(argv) == 1)
+                view = hoa_sym_bottom;
+            else if(atom_getlong(argv) == 2)
+                view = hoa_sym_topnextbottom;
+            else if(atom_getlong(argv) == 3)
+                view = hoa_sym_toponbottom;
+            else
+                view = hoa_sym_top;
+        }
+        
+        if(view != x->f_view)
+        {
+            x->f_view = view;
+            x->f_box.b_rect_last = x->f_box.b_rect;
+            object_attr_setvalueof((t_object *)x, gensym("size"), 0, NULL);
+        }
+    }
+    return 0;
+}
+
+static void hoa_meter_perform(t_hoa_meter *x, t_object *dsp, t_sample **ins, long numins, t_sample **outs, long no, long sampleframes, long f,void *up)
 {
 	for(long i = 0; i < numins; i++)
     {
@@ -252,7 +580,25 @@ extern void hoa_meter_perform(t_hoa_meter *x, t_object *dsp, t_sample **ins, lon
     }
 }
 
-extern void hoa_meter_dsp(t_hoa_meter *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
+static void hoa_meter_3d_perform(t_hoa_meter_3d *x, t_object *dsp, float **ins, long numins, float **outs, long no, long sampleframes, long f,void *up)
+{
+    for(int i = 0; i < numins; i++)
+    {
+        cblas_scopy(sampleframes, ins[i], 1, x->f_signals+i, numins);
+    }
+    for(x->f_ramp = 0; x->f_ramp < sampleframes; x->f_ramp++)
+    {
+        x->f_meter->process(x->f_signals + numins * x->f_ramp);
+    }
+    if(x->f_startclock)
+    {
+        x->f_startclock = 0;
+        clock_delay(x->f_clock,0);
+    }
+    
+}
+
+static void hoa_meter_dsp(t_hoa_meter *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
 {
     x->f_meter->setVectorSize(maxvectorsize);
     object_method(dsp, gensym("dsp_add"), x, (method)hoa_meter_perform, 0, NULL);
@@ -260,7 +606,15 @@ extern void hoa_meter_dsp(t_hoa_meter *x, t_object *dsp, short *count, double sa
 }
 
 
-extern void hoa_meter_tick(t_hoa_meter *x)
+static void hoa_meter_3d_dsp(t_hoa_meter_3d *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
+{
+    x->f_meter->setVectorSize(maxvectorsize);
+    object_method(dsp, gensym("dsp_add"), x, (method)hoa_meter_3d_perform, 0, NULL);
+    x->f_startclock = 1;
+}
+
+
+static void hoa_meter_tick(t_hoa_meter *x)
 {
     if(x->f_vector_type == hoa_sym_both)
         x->f_vector->process(x->f_signals, x->f_vector_coords);
@@ -279,7 +633,24 @@ extern void hoa_meter_tick(t_hoa_meter *x)
 		clock_delay(x->f_clock, x->f_interval);
 }
 
-extern void hoa_meter_free(t_hoa_meter *x)
+static void hoa_meter_3d_tick(t_hoa_meter_3d *x)
+{
+    if(x->f_vector_type == hoa_sym_both)
+        x->f_vector->process(x->f_signals, x->f_vector_coords);
+    else if(x->f_vector_type == hoa_sym_velocity)
+        x->f_vector->processVelocity(x->f_signals, x->f_vector_coords);
+    else if(x->f_vector_type == hoa_sym_energy)
+        x->f_vector->processEnergy(x->f_signals, x->f_vector_coords + 3);
+    
+    ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
+    ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
+    ebox_redraw((t_ebox *)x);
+    
+    if (sys_getdspstate())
+        clock_delay(x->f_clock, x->f_interval);
+}
+
+static void hoa_meter_free(t_hoa_meter *x)
 {
 	ebox_free((t_ebox *)x);
     clock_free(x->f_clock);
@@ -288,16 +659,16 @@ extern void hoa_meter_free(t_hoa_meter *x)
     delete [] x->f_signals;
 }
 
-extern t_pd_err hoa_meter_notify(t_hoa_meter *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
+static void hoa_meter_3d_free(t_hoa_meter_3d *x)
 {
-	if(msg == hoa_sym_attr_modified)
-	{
-        ;
-	}
-	return 0;
+    ebox_free((t_ebox *)x);
+    clock_free(x->f_clock);
+    delete x->f_meter;
+    delete x->f_vector;
+    delete [] x->f_signals;
 }
 
-extern void draw_background(t_hoa_meter *x,  t_object *view, t_rect *rect)
+static void draw_background(t_hoa_meter *x,  t_object *view, t_rect *rect)
 {
     float coso, sino, angle, x1, y1, x2, y2;
     t_rgba black, white;
@@ -371,7 +742,7 @@ extern void draw_background(t_hoa_meter *x,  t_object *view, t_rect *rect)
 	ebox_paint_layer((t_ebox *)x, hoa_sym_background_layer, 0., 0.);
 }
 
-extern void draw_leds(t_hoa_meter *x, t_object *view, t_rect *rect)
+static void draw_leds(t_hoa_meter *x, t_object *view, t_rect *rect)
 {
     float angle, width;
     const float height = 0.49 * rect->width / 18.;
@@ -442,7 +813,7 @@ extern void draw_leds(t_hoa_meter *x, t_object *view, t_rect *rect)
 	ebox_paint_layer((t_ebox *)x, hoa_sym_leds_layer, 0., 0.);
 }
 
-extern void draw_vectors(t_hoa_meter *x, t_object *view, t_rect *rect)
+static void draw_vectors(t_hoa_meter *x, t_object *view, t_rect *rect)
 {
 	double x1, y1, size;
 	t_matrix transform;
@@ -496,7 +867,7 @@ extern void draw_vectors(t_hoa_meter *x, t_object *view, t_rect *rect)
 	ebox_paint_layer((t_ebox *)x, hoa_sym_vector_layer, 0., 0.);
 }
 
-extern void hoa_meter_paint(t_hoa_meter *x, t_object *view)
+static void hoa_meter_paint(t_hoa_meter *x, t_object *view)
 {
     t_rect rect;
     ebox_get_rect_for_view((t_ebox *)x, &rect);
@@ -510,7 +881,7 @@ extern void hoa_meter_paint(t_hoa_meter *x, t_object *view)
     draw_background(x, view, &rect);
 }
 
-extern void *hoa_meter_new(t_symbol *s, int argc, t_atom *argv)
+static void *hoa_meter_new(t_symbol *s, int argc, t_atom *argv)
 {
     long flags;
     t_hoa_meter *x  = (t_hoa_meter *)eobj_new(hoa_meter_class);
@@ -545,6 +916,50 @@ extern void *hoa_meter_new(t_symbol *s, int argc, t_atom *argv)
     return NULL;
 }
 
+static void *hoa_meter_3d_new(t_symbol *s, int argc, t_atom *argv)
+{
+    long flags;
+    t_hoa_meter_3d *x =  (t_hoa_meter_3d *)eobj_new(hoa_meter_3d_class);
+    t_binbuf *d       = binbuf_via_atoms(argc, argv);
+
+    if(x && d)
+    {
+        x->f_ramp = 0;
+        x->f_meter  = new Meter<Hoa3d, t_sample>(4);
+        x->f_vector = new Vector<Hoa3d, t_sample>(4);
+        x->f_signals = new t_float[HOA_MAX_PLANEWAVES * HOA_MAXBLKSIZE];
+
+        x->f_clock = clock_new(x,(t_method)hoa_meter_3d_tick);
+        x->f_startclock = 0;
+        eobj_dspsetup((t_ebox *)x, x->f_meter->getNumberOfPlanewaves(), 0);
+        
+        flags = 0
+        | EBOX_GROWINDI
+        | EBOX_IGNORELOCKCLICK
+        ;
+        ebox_new((t_ebox *)x, flags);
+        
+        t_atom *av;
+        long    ac;
+        binbuf_get_attribute(d, gensym("@size"), &ac, &av);
+        if(ac && av)
+        {
+            x->f_box.b_rect.width = atom_getfloat(av);
+            x->f_box.b_rect.height = atom_getfloat(av+1);
+            x->f_box.b_rect_last = x->f_box.b_rect;
+            free(av);
+        }
+        
+        ebox_attrprocess_viabinbuf(x, d);
+        ebox_ready((t_ebox *)x);
+        
+        return x;
+    }
+    
+    
+    return NULL;
+}
+
 extern "C" void setup_hoa0x2e2d0x2emeter_tilde(void)
 {
     t_eclass *c;
@@ -557,7 +972,6 @@ extern "C" void setup_hoa0x2e2d0x2emeter_tilde(void)
     hoa_initclass(c);
     eclass_addmethod(c, (method) hoa_meter_dsp,             "dsp",           A_CANT, 0);
     eclass_addmethod(c, (method) hoa_meter_paint,           "paint",		 A_CANT, 0);
-    eclass_addmethod(c, (method) hoa_meter_notify,          "notify",        A_CANT, 0);
     eclass_addmethod(c, (method) hoa_meter_getdrawparams,   "getdrawparams", A_CANT, 0);
     eclass_addmethod(c, (method) hoa_meter_oksize,          "oksize",        A_CANT, 0);
     
@@ -675,4 +1089,3 @@ extern "C" void setup_hoa0x2e2d0x2emeter_tilde(void)
     eclass_register(CLASS_BOX, c);
     hoa_meter_class = c;
 }
-

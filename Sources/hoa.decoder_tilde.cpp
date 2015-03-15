@@ -19,9 +19,9 @@ typedef struct _hoa_decoder
     double                      f_offset;
 } t_hoa_decoder;
 
-t_eclass *hoa_decoder_class;
+static t_eclass *hoa_decoder_class;
 
-typedef struct _hoa_decoder_3D
+typedef struct _hoa_decoder_3d
 {
     t_edspobj                   f_obj;
     Decoder<Hoa3d, t_sample>*   f_decoder;
@@ -30,11 +30,11 @@ typedef struct _hoa_decoder_3D
     long                        f_number_of_channels;
     double                      f_angles_of_channels[HOA_MAX_PLANEWAVES * 2];
     double                      f_offset[3];
-} t_hoa_decoder_3D;
+} t_hoa_decoder_3d;
 
-t_eclass *hoa_decoder_3D_class;
+static t_eclass *hoa_decoder_3d_class;
 
-extern void *hoa_decoder_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_decoder_new(t_symbol *s, long argc, t_atom *argv)
 {
     int	order = 1;
     int number_of_channels = 4;
@@ -77,7 +77,7 @@ extern void *hoa_decoder_new(t_symbol *s, long argc, t_atom *argv)
     return NULL;
 }
 
-extern void hoa_decoder_perform64(t_hoa_decoder *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_decoder_perform64(t_hoa_decoder *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     for(long i = 0; i < numins; i++)
     {
@@ -93,13 +93,13 @@ extern void hoa_decoder_perform64(t_hoa_decoder *x, t_object *dsp64, t_sample **
     }
 }
 
-extern void hoa_decoder_dsp(t_hoa_decoder *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
+static void hoa_decoder_dsp(t_hoa_decoder *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
     x->f_decoder->computeMatrix(maxvectorsize);
     object_method(dsp64, gensym("dsp_add64"), x, (method)hoa_decoder_perform64, 0, NULL);
 }
 
-extern t_pd_err hoa_decoder_angles_set(t_hoa_decoder *x, void *attr, long argc, t_atom *argv)
+static t_pd_err hoa_decoder_angles_set(t_hoa_decoder *x, void *attr, long argc, t_atom *argv)
 {
     if(argc && argv)
     {
@@ -115,7 +115,7 @@ extern t_pd_err hoa_decoder_angles_set(t_hoa_decoder *x, void *attr, long argc, 
     return 0;
 }
 
-extern t_pd_err hoa_decoder_offset_set(t_hoa_decoder *x, void *attr, long argc, t_atom *argv)
+static t_pd_err hoa_decoder_offset_set(t_hoa_decoder *x, void *attr, long argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_FLOAT)
     {
@@ -126,7 +126,7 @@ extern t_pd_err hoa_decoder_offset_set(t_hoa_decoder *x, void *attr, long argc, 
     return 0;
 }
 
-extern void hoa_decoder_free(t_hoa_decoder *x)
+static void hoa_decoder_free(t_hoa_decoder *x)
 {
     eobj_dspfree(x);
 	delete x->f_decoder;
@@ -160,12 +160,12 @@ extern "C" void setup_hoa0x2e2d0x2edecoder_tilde(void)
     hoa_decoder_class = c;
 }
 
-extern void *hoa_decoder_3D_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_decoder_3d_new(t_symbol *s, long argc, t_atom *argv)
 {
     int	order = 1;
     t_symbol* mode = gensym("regular");
     int number_of_channels = 4;
-    t_hoa_decoder_3D *x = (t_hoa_decoder_3D *)eobj_new(hoa_decoder_3D_class);
+    t_hoa_decoder_3d *x = (t_hoa_decoder_3d *)eobj_new(hoa_decoder_3d_class);
     t_binbuf *d         = binbuf_via_atoms(argc,argv);
     
     if(x && d)
@@ -204,7 +204,7 @@ extern void *hoa_decoder_3D_new(t_symbol *s, long argc, t_atom *argv)
     return NULL;
 }
 
-extern void hoa_decoder_3D_perform64(t_hoa_decoder_3D *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_decoder_3d_perform64(t_hoa_decoder_3d *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     for(long i = 0; i < numins; i++)
     {
@@ -221,13 +221,13 @@ extern void hoa_decoder_3D_perform64(t_hoa_decoder_3D *x, t_object *dsp64, t_sam
     
 }
 
-extern void hoa_decoder_3D_dsp(t_hoa_decoder_3D *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
+static void hoa_decoder_3d_dsp(t_hoa_decoder_3d *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
     x->f_decoder->computeMatrix(maxvectorsize);
-    object_method(dsp64, gensym("dsp_add64"), x, (method)hoa_decoder_3D_perform64, 0, NULL);
+    object_method(dsp64, gensym("dsp_add64"), x, (method)hoa_decoder_3d_perform64, 0, NULL);
 }
 
-extern t_pd_err hoa_decoder_3D_angles_set(t_hoa_decoder_3D *x, void *attr, long argc, t_atom *argv)
+static t_pd_err hoa_decoder_3d_angles_set(t_hoa_decoder_3d *x, void *attr, long argc, t_atom *argv)
 {
     if(argc && argv)
     {
@@ -254,7 +254,7 @@ extern t_pd_err hoa_decoder_3D_angles_set(t_hoa_decoder_3D *x, void *attr, long 
     return 0;
 }
 
-extern t_pd_err hoa_decoder_3D_offset_set(t_hoa_decoder_3D *x, void *attr, long argc, t_atom *argv)
+static t_pd_err hoa_decoder_3d_offset_set(t_hoa_decoder_3d *x, void *attr, long argc, t_atom *argv)
 {
     if(argc && argv)
     {
@@ -278,7 +278,7 @@ extern t_pd_err hoa_decoder_3D_offset_set(t_hoa_decoder_3D *x, void *attr, long 
     return 0;
 }
 
-extern void hoa_decoder_3D_free(t_hoa_decoder_3D *x)
+static void hoa_decoder_3d_free(t_hoa_decoder_3d *x)
 {
     eobj_dspfree(x);
     delete x->f_decoder;
@@ -290,26 +290,26 @@ extern "C" void setup_hoa0x2e3d0x2edecoder_tilde(void)
 {
     t_eclass* c;
     
-    c = eclass_new("hoa.3d.decoder~", (method)hoa_decoder_3D_new, (method)hoa_decoder_3D_free, (short)sizeof(t_hoa_decoder_3D), 0L, A_GIMME, 0);
+    c = eclass_new("hoa.3d.decoder~", (method)hoa_decoder_3d_new, (method)hoa_decoder_3d_free, (short)sizeof(t_hoa_decoder_3d), 0L, A_GIMME, 0);
     
     eclass_dspinit(c);
     hoa_initclass(c);
-    eclass_addmethod(c, (method)hoa_decoder_3D_dsp,           "dsp",          A_CANT,  0);
+    eclass_addmethod(c, (method)hoa_decoder_3d_dsp,           "dsp",          A_CANT,  0);
     
-    CLASS_ATTR_DOUBLE_VARSIZE	(c, "angles",0, t_hoa_decoder_3D, f_angles_of_channels, f_number_of_channels, HOA_MAX_PLANEWAVES*2);
-    CLASS_ATTR_ACCESSORS		(c, "angles", NULL, hoa_decoder_3D_angles_set);
+    CLASS_ATTR_DOUBLE_VARSIZE	(c, "angles",0, t_hoa_decoder_3d, f_angles_of_channels, f_number_of_channels, HOA_MAX_PLANEWAVES*2);
+    CLASS_ATTR_ACCESSORS		(c, "angles", NULL, hoa_decoder_3d_angles_set);
     CLASS_ATTR_ORDER			(c, "angles", 0, "2");
     CLASS_ATTR_LABEL			(c, "angles", 0, "Angles of Loudspeakers");
     
-    CLASS_ATTR_DOUBLE_ARRAY     (c, "offset", 0, t_hoa_decoder_3D, f_offset, 3);
+    CLASS_ATTR_DOUBLE_ARRAY     (c, "offset", 0, t_hoa_decoder_3d, f_offset, 3);
     CLASS_ATTR_CATEGORY			(c, "offset", 0, "Planewaves");
     CLASS_ATTR_LABEL            (c, "offset", 0, "Offset of Channels");
-    CLASS_ATTR_ACCESSORS		(c, "offset", NULL, hoa_decoder_3D_offset_set);
+    CLASS_ATTR_ACCESSORS		(c, "offset", NULL, hoa_decoder_3d_offset_set);
     CLASS_ATTR_DEFAULT          (c, "offset", 0, "0 0");
     CLASS_ATTR_ORDER            (c, "offset", 0, "3");
     CLASS_ATTR_SAVE             (c, "offset", 0);
     
     eclass_register(CLASS_OBJ, c);
-    hoa_decoder_3D_class = c;
+    hoa_decoder_3d_class = c;
 }
 

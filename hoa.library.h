@@ -63,6 +63,10 @@ static t_symbol* hoa_sym_clockwise          = gensym("clockwise");
 static t_symbol* hoa_sym_anticlock          = gensym("anti-clockwise");
 static t_symbol* hoa_sym_vector_layer       = gensym("vectors_layer");
 static t_symbol* hoa_sym_leds_layer         = gensym("leds_layers");
+static t_symbol* hoa_sym_top                = gensym("top");
+static t_symbol* hoa_sym_bottom             = gensym("bottom");
+static t_symbol* hoa_sym_toponbottom        = gensym("top/bottom");
+static t_symbol* hoa_sym_topnextbottom      = gensym("top-bottom");
 
 static t_symbol* hoa_sym_basic              = gensym("basic");
 static t_symbol* hoa_sym_maxRe              = gensym("maxRe");
@@ -178,5 +182,6 @@ static t_symbol* hoa_sym_getname 					= gensym("getname");
 static t_symbol* hoa_sym_zoom 						= gensym("zoom");
 static t_symbol* hoa_sym_number 					= gensym("number");
 static t_symbol* hoa_sym_index 						= gensym("index");
+
 
 #endif

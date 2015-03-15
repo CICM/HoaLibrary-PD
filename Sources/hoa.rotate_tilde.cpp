@@ -17,9 +17,9 @@ typedef struct _hoa_rotate
     
 } t_hoa_rotate;
 
-t_eclass *hoa_rotate_class;
+static t_eclass *hoa_rotate_class;
 
-extern void *hoa_rotate_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_rotate_new(t_symbol *s, long argc, t_atom *argv)
 {
     int	order = 4;
     t_hoa_rotate *x = (t_hoa_rotate *)eobj_new(hoa_rotate_class);
@@ -40,12 +40,12 @@ extern void *hoa_rotate_new(t_symbol *s, long argc, t_atom *argv)
 	return (x);
 }
 
-extern void hoa_rotate_float(t_hoa_rotate *x, float f)
+static void hoa_rotate_float(t_hoa_rotate *x, float f)
 {
     x->f_rotate->setYaw(f);
 }
 
-extern void hoa_rotate_perform(t_hoa_rotate *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_rotate_perform(t_hoa_rotate *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     for(long i = 0; i < numouts; i++)
     {
@@ -62,7 +62,7 @@ extern void hoa_rotate_perform(t_hoa_rotate *x, t_object *dsp64, t_sample **ins,
     }
 }
 
-extern void hoa_rotate_perform_offset(t_hoa_rotate *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_rotate_perform_offset(t_hoa_rotate *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     for(long i = 0; i < numouts; i++)
     {
@@ -78,7 +78,7 @@ extern void hoa_rotate_perform_offset(t_hoa_rotate *x, t_object *dsp64, t_sample
     }
 }
 
-extern void hoa_rotate_dsp(t_hoa_rotate *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
+static void hoa_rotate_dsp(t_hoa_rotate *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
 {
     if(count[x->f_rotate->getNumberOfHarmonics()])
         object_method(dsp, gensym("dsp_add"), x, (method)hoa_rotate_perform, 0, NULL);
@@ -86,7 +86,7 @@ extern void hoa_rotate_dsp(t_hoa_rotate *x, t_object *dsp, short *count, double 
         object_method(dsp, gensym("dsp_add"), x, (method)hoa_rotate_perform_offset, 0, NULL);
 }
 
-extern void hoa_rotate_free(t_hoa_rotate *x)
+static void hoa_rotate_free(t_hoa_rotate *x)
 {
 	eobj_dspfree(x);
 	delete x->f_rotate;

@@ -28,9 +28,9 @@ typedef struct  _hoa_scope
 	double                  f_radius;
 } t_hoa_scope;
 
-t_eclass *hoa_scope_class;
+static t_eclass *hoa_scope_class;
 
-typedef struct  _hoa_scope_3D
+typedef struct  _hoa_scope_3d
 {
     t_edspbox               f_box;
     Scope<Hoa3d, t_sample>* f_scope;
@@ -48,11 +48,11 @@ typedef struct  _hoa_scope_3D
     
     double                  f_center;
     double                  f_radius;
-} t_hoa_scope_3D;
+} t_hoa_scope_3d;
 
-t_eclass *hoa_scope_3D_class;
+static t_eclass *hoa_scope_3d_class;
 
-extern void hoa_scope_perform(t_hoa_scope *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_scope_perform(t_hoa_scope *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     for(long i = 0; i < numins; i++)
     {
@@ -66,7 +66,7 @@ extern void hoa_scope_perform(t_hoa_scope *x, t_object *dsp64, t_sample **ins, l
 	}
 }
 
-extern void hoa_scope_tick(t_hoa_scope *x)
+static void hoa_scope_tick(t_hoa_scope *x)
 {
     x->f_scope->process(x->f_signals);
     
@@ -76,13 +76,13 @@ extern void hoa_scope_tick(t_hoa_scope *x)
 		clock_delay(x->f_clock, x->f_interval);
 }
 
-extern void hoa_scope_dsp(t_hoa_scope *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
+static void hoa_scope_dsp(t_hoa_scope *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
     object_method(dsp64, gensym("dsp_add"), x, (method)hoa_scope_perform, 0, NULL);
     x->f_startclock = 1;
 }
 
-extern void hoa_scope_free(t_hoa_scope *x)
+static void hoa_scope_free(t_hoa_scope *x)
 {
 	ebox_free((t_ebox *)x);
     clock_free(x->f_clock);
@@ -91,7 +91,7 @@ extern void hoa_scope_free(t_hoa_scope *x)
     delete [] x->f_signals;
 }
 
-extern t_pd_err hoa_scope_notify(t_hoa_scope *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
+static t_pd_err hoa_scope_notify(t_hoa_scope *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
 	if(msg == hoa_sym_attr_modified)
 	{
@@ -108,7 +108,7 @@ extern t_pd_err hoa_scope_notify(t_hoa_scope *x, t_symbol *s, t_symbol *msg, voi
 	return 0;
 }
 
-extern void hoa_scope_getdrawparams(t_hoa_scope *x, t_object *patcherview, t_edrawparams *params)
+static void hoa_scope_getdrawparams(t_hoa_scope *x, t_object *patcherview, t_edrawparams *params)
 {
 	params->d_boxfillcolor = x->f_color_bg;
     params->d_bordercolor = x->f_color_bd;
@@ -116,14 +116,14 @@ extern void hoa_scope_getdrawparams(t_hoa_scope *x, t_object *patcherview, t_edr
 	params->d_cornersize = 8;
 }
 
-extern long hoa_scope_oksize(t_hoa_scope *x, t_rect *newrect)
+static long hoa_scope_oksize(t_hoa_scope *x, t_rect *newrect)
 {
 	if (newrect->width < 20)
 		newrect->width = newrect->height = 20;
 	return 0;
 }
 
-extern t_pd_err hoa_scope_set_order(t_hoa_scope *x, t_object *attr, long ac, t_atom *av)
+static t_pd_err hoa_scope_set_order(t_hoa_scope *x, t_object *attr, long ac, t_atom *av)
 {
     long order;
 	if (ac && av && atom_gettype(av) == A_LONG)
@@ -148,7 +148,7 @@ extern t_pd_err hoa_scope_set_order(t_hoa_scope *x, t_object *attr, long ac, t_a
 	return 0;
 }
 
-extern void draw_background(t_hoa_scope *x, t_object *view, t_rect *rect)
+static void draw_background(t_hoa_scope *x, t_object *view, t_rect *rect)
 {
     t_matrix transform;
     t_rgba black = rgba_addContrast(x->f_color_bg, -HOA_CONTRAST_DARKER);
@@ -198,7 +198,7 @@ extern void draw_background(t_hoa_scope *x, t_object *view, t_rect *rect)
 	ebox_paint_layer((t_ebox *)x, hoa_sym_background_layer, 0., 0.);
 }
 
-extern void draw_harmonics(t_hoa_scope *x, t_object *view, t_rect *rect)
+static void draw_harmonics(t_hoa_scope *x, t_object *view, t_rect *rect)
 {
     char pathLength;
     t_matrix transform;
@@ -260,7 +260,7 @@ extern void draw_harmonics(t_hoa_scope *x, t_object *view, t_rect *rect)
 	ebox_paint_layer((t_ebox *)x, hoa_sym_harmonics_layer, 0., 0.);
 }
 
-extern void hoa_scope_paint(t_hoa_scope *x, t_object *view)
+static void hoa_scope_paint(t_hoa_scope *x, t_object *view)
 {
     t_rect rect;
     ebox_get_rect_for_view((t_ebox *)x, &rect);
@@ -270,7 +270,7 @@ extern void hoa_scope_paint(t_hoa_scope *x, t_object *view)
     draw_harmonics(x, view, &rect);
 }
 
-extern void *hoa_scope_new(t_symbol *s, int argc, t_atom *argv)
+static void *hoa_scope_new(t_symbol *s, int argc, t_atom *argv)
 {
     long flags;
     t_hoa_scope *x  = (t_hoa_scope *)eobj_new(hoa_scope_class);
@@ -385,7 +385,7 @@ extern "C" void setup_hoa0x2e2d0x2escope_tilde(void)
 }
 
 
-extern void hoa_scope_3D_perform(t_hoa_scope_3D *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_scope_3d_perform(t_hoa_scope_3d *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     for(long i = 0; i < numins; i++)
     {
@@ -399,13 +399,13 @@ extern void hoa_scope_3D_perform(t_hoa_scope_3D *x, t_object *dsp64, t_sample **
     }
 }
 
-extern void hoa_scope_3D_dsp(t_hoa_scope_3D *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
+static void hoa_scope_3d_dsp(t_hoa_scope_3d *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
-    object_method(dsp64, gensym("dsp_add"), x, (method)hoa_scope_3D_perform, 0, NULL);
+    object_method(dsp64, gensym("dsp_add"), x, (method)hoa_scope_3d_perform, 0, NULL);
     x->f_startclock = 1;
 }
 
-extern void hoa_scope_3D_tick(t_hoa_scope_3D *x)
+static void hoa_scope_3d_tick(t_hoa_scope_3d *x)
 {
     x->f_scope->process(x->f_signals);
     
@@ -415,7 +415,7 @@ extern void hoa_scope_3D_tick(t_hoa_scope_3D *x)
         clock_delay(x->f_clock, x->f_interval);
 }
 
-extern t_pd_err hoa_scope_3D_notify(t_hoa_scope_3D *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
+static t_pd_err hoa_scope_3d_notify(t_hoa_scope_3d *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
     if (msg == hoa_sym_attr_modified)
     {
@@ -428,7 +428,7 @@ extern t_pd_err hoa_scope_3D_notify(t_hoa_scope_3D *x, t_symbol *s, t_symbol *ms
     return 0;
 }
 
-extern void hoa_scope_3D_getdrawparams(t_hoa_scope_3D *x, t_object *patcherview, t_edrawparams *params)
+static void hoa_scope_3d_getdrawparams(t_hoa_scope_3d *x, t_object *patcherview, t_edrawparams *params)
 {
     params->d_boxfillcolor = x->f_color_bg;
     params->d_bordercolor = x->f_color_bd;
@@ -436,14 +436,14 @@ extern void hoa_scope_3D_getdrawparams(t_hoa_scope_3D *x, t_object *patcherview,
     params->d_cornersize = 8;
 }
 
-extern long hoa_scope_3D_oksize(t_hoa_scope_3D *x, t_rect *newrect)
+static long hoa_scope_3d_oksize(t_hoa_scope_3d *x, t_rect *newrect)
 {
     if (newrect->width < 20)
         newrect->width = newrect->height = 20;
     return 0;
 }
 
-extern t_pd_err hoa_scope_3D_set_order(t_hoa_scope_3D *x, t_object *attr, long ac, t_atom *av)
+static t_pd_err hoa_scope_3d_set_order(t_hoa_scope_3d *x, t_object *attr, long ac, t_atom *av)
 {
     long order;
     if (ac && av && atom_gettype(av) == A_LONG)
@@ -468,7 +468,7 @@ extern t_pd_err hoa_scope_3D_set_order(t_hoa_scope_3D *x, t_object *attr, long a
     return 0;
 }
 
-extern void draw_harmonics(t_hoa_scope_3D *x, t_object *view, t_rect *rect)
+static void draw_harmonics(t_hoa_scope_3d *x, t_object *view, t_rect *rect)
 {
     char pathLength;
     t_matrix transform;
@@ -637,7 +637,7 @@ extern void draw_harmonics(t_hoa_scope_3D *x, t_object *view, t_rect *rect)
     ebox_paint_layer((t_ebox *)x, hoa_sym_harmonics_layer, 0., 0.);
 }
 
-extern void hoa_scope_3D_paint(t_hoa_scope_3D *x, t_object *view)
+static void hoa_scope_3d_paint(t_hoa_scope_3d *x, t_object *view)
 {
     t_rect rect;
     ebox_get_rect_for_view((t_ebox *)x, &rect);
@@ -648,10 +648,10 @@ extern void hoa_scope_3D_paint(t_hoa_scope_3D *x, t_object *view)
     draw_harmonics(x, view, &rect);
 }
 
-extern void *hoa_scope_3D_new(t_symbol *s, int argc, t_atom *argv)
+static void *hoa_scope_3d_new(t_symbol *s, int argc, t_atom *argv)
 {
     long flags;
-    t_hoa_scope_3D *x = (t_hoa_scope_3D *)eobj_new(hoa_scope_3D_class);
+    t_hoa_scope_3d *x = (t_hoa_scope_3d *)eobj_new(hoa_scope_3d_class);
     t_binbuf *d       = binbuf_via_atoms(argc, argv);
     
     if(x && d)
@@ -670,7 +670,7 @@ extern void *hoa_scope_3D_new(t_symbol *s, int argc, t_atom *argv)
         ;
         ebox_new((t_ebox *)x, flags);
         
-        x->f_clock = clock_new(x,(t_method)hoa_scope_3D_tick);
+        x->f_clock = clock_new(x,(t_method)hoa_scope_3d_tick);
         x->f_startclock = 0;
         
         ebox_attrprocess_viabinbuf(x, d);
@@ -682,7 +682,7 @@ extern void *hoa_scope_3D_new(t_symbol *s, int argc, t_atom *argv)
     return NULL;
 }
 
-extern void hoa_scope_3D_free(t_hoa_scope_3D *x)
+static void hoa_scope_3d_free(t_hoa_scope_3d *x)
 {
     ebox_free((t_ebox *)x);
     clock_free(x->f_clock);
@@ -694,16 +694,16 @@ extern "C" void setup_hoa0x2e3d0x2escope_tilde(void)
 {
     t_eclass *c;
     
-    c = eclass_new("hoa.3d.scope~", (method)hoa_scope_3D_new, (method)hoa_scope_3D_free, (short)sizeof(t_hoa_scope_3D), 0L, A_GIMME, 0);
+    c = eclass_new("hoa.3d.scope~", (method)hoa_scope_3d_new, (method)hoa_scope_3d_free, (short)sizeof(t_hoa_scope_3d), 0L, A_GIMME, 0);
     
     eclass_dspinit(c);
     eclass_init(c, 0);
     hoa_initclass(c);
-    eclass_addmethod(c, (method)hoa_scope_3D_dsp,			"dsp",          A_CANT, 0);
-    eclass_addmethod(c, (method)hoa_scope_3D_paint,         "paint",		A_CANT,	0);
-    eclass_addmethod(c, (method)hoa_scope_3D_notify,		"notify",		A_CANT, 0);
-    eclass_addmethod(c, (method)hoa_scope_3D_getdrawparams,"getdrawparams", A_CANT, 0);
-    eclass_addmethod(c, (method)hoa_scope_3D_oksize,		"oksize",		A_CANT, 0);
+    eclass_addmethod(c, (method)hoa_scope_3d_dsp,			"dsp",          A_CANT, 0);
+    eclass_addmethod(c, (method)hoa_scope_3d_paint,         "paint",		A_CANT,	0);
+    eclass_addmethod(c, (method)hoa_scope_3d_notify,		"notify",		A_CANT, 0);
+    eclass_addmethod(c, (method)hoa_scope_3d_getdrawparams,"getdrawparams", A_CANT, 0);
+    eclass_addmethod(c, (method)hoa_scope_3d_oksize,		"oksize",		A_CANT, 0);
     
     CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
     CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
@@ -712,8 +712,8 @@ extern "C" void setup_hoa0x2e3d0x2escope_tilde(void)
     CLASS_ATTR_INVISIBLE            (c, "send", 1);
     CLASS_ATTR_DEFAULT              (c, "size", 0, "225. 225.");
     
-    CLASS_ATTR_LONG                 (c, "order", 0, t_hoa_scope_3D, f_order);
-    CLASS_ATTR_ACCESSORS            (c, "order", NULL, hoa_scope_3D_set_order);
+    CLASS_ATTR_LONG                 (c, "order", 0, t_hoa_scope_3d, f_order);
+    CLASS_ATTR_ACCESSORS            (c, "order", NULL, hoa_scope_3d_set_order);
     CLASS_ATTR_CATEGORY             (c, "order", 0, "Ambisonic");
     CLASS_ATTR_ORDER                (c, "order", 0, "1");
     CLASS_ATTR_LABEL                (c, "order", 0, "Ambisonic Order");
@@ -721,7 +721,7 @@ extern "C" void setup_hoa0x2e3d0x2escope_tilde(void)
     CLASS_ATTR_DEFAULT              (c, "order", 0, "1");
     CLASS_ATTR_SAVE                 (c, "order", 1);
     
-    CLASS_ATTR_FLOAT                (c, "gain", 0, t_hoa_scope_3D, f_gain);
+    CLASS_ATTR_FLOAT                (c, "gain", 0, t_hoa_scope_3d, f_gain);
     CLASS_ATTR_CATEGORY             (c, "gain", 0, "Behavior");
     CLASS_ATTR_ORDER                (c, "gain", 0, "1");
     CLASS_ATTR_LABEL                (c, "gain", 0, "Gain");
@@ -729,7 +729,7 @@ extern "C" void setup_hoa0x2e3d0x2escope_tilde(void)
     CLASS_ATTR_DEFAULT              (c, "gain", 0, "1.");
     CLASS_ATTR_SAVE                 (c, "gain", 1);
     
-    CLASS_ATTR_LONG                 (c, "interval", 0, t_hoa_scope_3D, f_interval);
+    CLASS_ATTR_LONG                 (c, "interval", 0, t_hoa_scope_3d, f_interval);
     CLASS_ATTR_CATEGORY             (c, "interval", 0, "Behavior");
     CLASS_ATTR_ORDER                (c, "interval", 0, "2");
     CLASS_ATTR_LABEL                (c, "interval", 0, "Refresh Interval in Milliseconds");
@@ -737,28 +737,28 @@ extern "C" void setup_hoa0x2e3d0x2escope_tilde(void)
     CLASS_ATTR_DEFAULT              (c, "interval", 0, "100");
     CLASS_ATTR_SAVE                 (c, "interval", 1);
     
-    CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_hoa_scope_3D, f_color_bg);
+    CLASS_ATTR_RGBA                 (c, "bgcolor", 0, t_hoa_scope_3d, f_color_bg);
     CLASS_ATTR_CATEGORY             (c, "bgcolor", 0, "Color");
     CLASS_ATTR_STYLE                (c, "bgcolor", 0, "rgba");
     CLASS_ATTR_LABEL                (c, "bgcolor", 0, "Background Color");
     CLASS_ATTR_ORDER                (c, "bgcolor", 0, "1");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bgcolor", 0, "0.76 0.76 0.76 1.");
     
-    CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_hoa_scope_3D, f_color_bd);
+    CLASS_ATTR_RGBA                 (c, "bdcolor", 0, t_hoa_scope_3d, f_color_bd);
     CLASS_ATTR_CATEGORY             (c, "bdcolor", 0, "Color");
     CLASS_ATTR_STYLE                (c, "bdcolor", 0, "rgba");
     CLASS_ATTR_LABEL                (c, "bdcolor", 0, "Border Color");
     CLASS_ATTR_ORDER                (c, "bdcolor", 0, "2");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "bdcolor", 0, "0.7 0.7 0.7 1.");
     
-    CLASS_ATTR_RGBA                 (c, "phcolor", 0, t_hoa_scope_3D, f_color_ph);
+    CLASS_ATTR_RGBA                 (c, "phcolor", 0, t_hoa_scope_3d, f_color_ph);
     CLASS_ATTR_CATEGORY             (c, "phcolor", 0, "Color");
     CLASS_ATTR_STYLE                (c, "phcolor", 0, "rgba");
     CLASS_ATTR_LABEL                (c, "phcolor", 0, "Positive Harmonics Color");
     CLASS_ATTR_ORDER                (c, "phcolor", 0, "3");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "phcolor", 0, "1. 0. 0. 1.");
     
-    CLASS_ATTR_RGBA                 (c, "nhcolor", 0, t_hoa_scope_3D, f_color_nh);
+    CLASS_ATTR_RGBA                 (c, "nhcolor", 0, t_hoa_scope_3d, f_color_nh);
     CLASS_ATTR_CATEGORY             (c, "nhcolor", 0, "Color");
     CLASS_ATTR_STYLE                (c, "nhcolor", 0, "rgba");
     CLASS_ATTR_LABEL                (c, "nhcolor", 0, "Negative Harmonics Color");
@@ -766,7 +766,7 @@ extern "C" void setup_hoa0x2e3d0x2escope_tilde(void)
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "nhcolor", 0, "0. 0. 1. 1.");
     
     eclass_register(CLASS_BOX, c);
-    hoa_scope_3D_class = c;
+    hoa_scope_3d_class = c;
 }
 
 

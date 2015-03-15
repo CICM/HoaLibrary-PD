@@ -15,7 +15,7 @@ typedef struct _hoa_out
     int    f_extra;
 } t_hoa_out;
 
-t_eclass *hoa_out_class;
+static t_eclass *hoa_out_class;
 
 typedef struct _hoa_in
 {
@@ -23,7 +23,7 @@ typedef struct _hoa_in
     int    f_extra;
 } t_hoa_in;
 
-t_eclass *hoa_in_class;
+static t_eclass *hoa_in_class;
 
 typedef struct _hoa_out_tilde
 {
@@ -32,7 +32,7 @@ typedef struct _hoa_out_tilde
     int         f_extra;
 } t_hoa_out_tilde;
 
-t_eclass *hoa_out_tilde_class;
+static t_eclass *hoa_out_tilde_class;
 
 typedef struct _hoa_in_tilde
 {
@@ -41,7 +41,7 @@ typedef struct _hoa_in_tilde
     int         f_extra;
 } t_hoa_in_tilde;
 
-t_eclass *hoa_intilde_class;
+static t_eclass *hoa_intilde_class;
 
 typedef struct _hoa_thisprocess
 {
@@ -67,9 +67,9 @@ typedef struct _hoa_thisprocess
     double      f_time;
 } t_hoa_thisprocess;
 
-t_eclass *hoa_thisprocess_class;
+static t_eclass *hoa_thisprocess_class;
 
-extern void *hoa_out_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_out_new(t_symbol *s, long argc, t_atom *argv)
 {
     t_hoa_out *x = NULL;
     
@@ -94,31 +94,31 @@ extern void *hoa_out_new(t_symbol *s, long argc, t_atom *argv)
     return x;
 }
 
-extern void hoa_out_bang(t_hoa_out *x)
+static void hoa_out_bang(t_hoa_out *x)
 {
     if(x->f_outlet)
         outlet_bang(x->f_outlet);
 }
 
-extern void hoa_out_float(t_hoa_out *x, float f)
+static void hoa_out_float(t_hoa_out *x, float f)
 {
     if(x->f_outlet)
         outlet_float(x->f_outlet, f);
 }
 
-extern void hoa_out_symbol(t_hoa_out *x, t_symbol* s)
+static void hoa_out_symbol(t_hoa_out *x, t_symbol* s)
 {
     if(x->f_outlet)
         outlet_symbol(x->f_outlet, s);
 }
 
-extern void hoa_out_list(t_hoa_out *x, t_symbol* s, int argc, t_atom* argv)
+static void hoa_out_list(t_hoa_out *x, t_symbol* s, int argc, t_atom* argv)
 {
     if(x->f_outlet)
         outlet_list(x->f_outlet, s, argc, argv);
 }
 
-extern void hoa_out_anything(t_hoa_out *x, t_symbol* s, int argc, t_atom* argv)
+static void hoa_out_anything(t_hoa_out *x, t_symbol* s, int argc, t_atom* argv)
 {
     if(x->f_outlet)
         outlet_anything(x->f_outlet, s, argc, argv);
@@ -140,7 +140,7 @@ extern "C" void setup_hoa0x2eout(void)
     hoa_out_class = c;
 }
 
-extern void *hoa_in_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_in_new(t_symbol *s, long argc, t_atom *argv)
 {
     t_hoa_in *x = NULL;
     
@@ -164,32 +164,32 @@ extern void *hoa_in_new(t_symbol *s, long argc, t_atom *argv)
     return x;
 }
 
-extern void hoa_in_free(t_hoa_in *x)
+static void hoa_in_free(t_hoa_in *x)
 {
     eobj_free(x);
 }
 
-extern void hoa_in_bang(t_hoa_in *x)
+static void hoa_in_bang(t_hoa_in *x)
 {
     outlet_bang(x->f_obj.o_obj.ob_outlet);
 }
 
-extern void hoa_in_float(t_hoa_in *x, float f)
+static void hoa_in_float(t_hoa_in *x, float f)
 {
     outlet_float(x->f_obj.o_obj.ob_outlet, f);
 }
 
-extern void hoa_in_symbol(t_hoa_in *x, t_symbol* s)
+static void hoa_in_symbol(t_hoa_in *x, t_symbol* s)
 {
     outlet_symbol(x->f_obj.o_obj.ob_outlet, s);
 }
 
-extern void hoa_in_list(t_hoa_in *x, t_symbol* s, int argc, t_atom* argv)
+static void hoa_in_list(t_hoa_in *x, t_symbol* s, int argc, t_atom* argv)
 {
     outlet_list(x->f_obj.o_obj.ob_outlet, s, argc, argv);
 }
 
-extern void hoa_in_anything(t_hoa_in *x, t_symbol* s, int argc, t_atom* argv)
+static void hoa_in_anything(t_hoa_in *x, t_symbol* s, int argc, t_atom* argv)
 {
     outlet_anything(x->f_obj.o_obj.ob_outlet, s, argc, argv);
 }
@@ -211,7 +211,7 @@ extern "C" void setup_hoa0x2ein(void)
     hoa_in_class = c;
 }
 
-extern void *hoa_out_tilde_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_out_tilde_new(t_symbol *s, long argc, t_atom *argv)
 {
     t_hoa_out_tilde *x = NULL;
     
@@ -236,12 +236,12 @@ extern void *hoa_out_tilde_new(t_symbol *s, long argc, t_atom *argv)
 	return x;
 }
 
-extern void hoa_out_tilde_perform(t_hoa_out_tilde *x, t_object *dsp, float **inps, long ni, float **outs, long no, long sf, long f,void *up)
+static void hoa_out_tilde_perform(t_hoa_out_tilde *x, t_object *dsp, float **inps, long ni, float **outs, long no, long sf, long f,void *up)
 {
     cblas_saxpy(sf, 1.f, inps[0], 1, x->f_signal, 1);
 }
 
-extern void hoa_out_tilde_dsp(t_hoa_out_tilde *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
+static void hoa_out_tilde_dsp(t_hoa_out_tilde *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
 {
     if(x->f_signal)
         object_method(dsp, gensym("dsp_add"), x, (method)hoa_out_tilde_perform, 0, NULL);
@@ -261,7 +261,7 @@ extern "C" void setup_hoa0x2eout_tilde(void)
     
 }
 
-extern void *hoa_intilde_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_intilde_new(t_symbol *s, long argc, t_atom *argv)
 {
     t_hoa_in_tilde *x = NULL;
     
@@ -286,18 +286,18 @@ extern void *hoa_intilde_new(t_symbol *s, long argc, t_atom *argv)
     return x;
 }
 
-extern void hoa_intilde_perform(t_hoa_in_tilde *x, t_object *dsp, float **ins, long ni, float **outs, long no, long sf, long f,void *up)
+static void hoa_intilde_perform(t_hoa_in_tilde *x, t_object *dsp, float **ins, long ni, float **outs, long no, long sf, long f,void *up)
 {
     memcpy(outs[0], x->f_signal, sf * sizeof(t_sample));
 }
 
-extern void hoa_intilde_perform_zero(t_hoa_in_tilde *x, t_object *dsp, float **ins, long ni, float **outs, long no, long sf, long f,void *up)
+static void hoa_intilde_perform_zero(t_hoa_in_tilde *x, t_object *dsp, float **ins, long ni, float **outs, long no, long sf, long f,void *up)
 {
     memset(outs[0], 0, sf * sizeof(t_sample));
 }
 
 
-extern void hoa_intilde_dsp(t_hoa_in_tilde *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
+static void hoa_intilde_dsp(t_hoa_in_tilde *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
 {
     if(x->f_signal)
         object_method(dsp, gensym("dsp_add"), x, (method)hoa_intilde_perform, 0, NULL);
@@ -319,7 +319,7 @@ extern "C" void setup_hoa0x2ein_tilde(void)
     
 }
 
-extern void *hoa_thisprocess_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_thisprocess_new(t_symbol *s, long argc, t_atom *argv)
 {
     int i;
     t_hoa_thisprocess *x =  NULL;
@@ -352,7 +352,7 @@ extern void *hoa_thisprocess_new(t_symbol *s, long argc, t_atom *argv)
     return (x);
 }
 
-extern void hoa_thisprocess_bang(t_hoa_thisprocess *x)
+static void hoa_thisprocess_bang(t_hoa_thisprocess *x)
 {
     char        attr_char[MAXPDSTRING];
     for(int i = 0; i < x->f_n_attrs; i++)
@@ -376,14 +376,14 @@ extern void hoa_thisprocess_bang(t_hoa_thisprocess *x)
     outlet_symbol(x->f_out_attrs, gensym("done"));
 }
 
-extern void hoa_thisprocess_click(t_hoa_thisprocess *x)
+static void hoa_thisprocess_click(t_hoa_thisprocess *x)
 {
     if(clock_gettimesince(x->f_time) < 250.)
         hoa_thisprocess_bang(x);
     x->f_time = clock_getsystime();
 }
 
-extern void hoa_thisprocess_free(t_hoa_thisprocess *x)
+static void hoa_thisprocess_free(t_hoa_thisprocess *x)
 {
     int i;
     if(x->f_argc)

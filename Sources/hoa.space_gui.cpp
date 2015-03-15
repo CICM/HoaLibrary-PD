@@ -32,7 +32,7 @@ typedef struct _hoa_space
     
 } t_hoa_space;
 
-t_eclass *hoa_space_class;
+static t_eclass *hoa_space_class;
 
 void *hoa_space_new(t_symbol *s, int argc, t_atom *argv);
 void hoa_space_free(t_hoa_space *x);

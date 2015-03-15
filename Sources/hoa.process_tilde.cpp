@@ -14,7 +14,7 @@ extern "C"
 }
 
 #ifdef PD_EXTENDED
-EXTERN t_canvas *canvas_list;
+extern t_canvas *canvas_list;
 #endif
 
 t_canvas *sys_getcanvaslist()
@@ -134,7 +134,7 @@ typedef struct _hoa_process
     t_sample**          f_outlets_signals;
 } t_hoa_process;
 
-t_eclass *hoa_process_class;
+static t_eclass *hoa_process_class;
 
 void hoa_process_perform(t_hoa_process *x, t_object *dsp, float **inps, long ni, float **outs, long nouts, long sampleframe, long f,void *up)
 {
@@ -236,7 +236,7 @@ void hoa_process_click(t_hoa_process *x)
     }
 }
 
-extern void hoa_process_open(t_hoa_process *x, t_symbol* s, int argc, t_atom* argv)
+static void hoa_process_open(t_hoa_process *x, t_symbol* s, int argc, t_atom* argv)
 {
     if(argc && argv && atom_gettype(argv) == A_SYM && atom_getsym(argv) == hoa_sym_all)
     {
@@ -284,7 +284,7 @@ extern void hoa_process_open(t_hoa_process *x, t_symbol* s, int argc, t_atom* ar
     }
 }
 
-extern void hoa_process_target(t_hoa_process *x, t_symbol* s, int argc, t_atom* argv)
+static void hoa_process_target(t_hoa_process *x, t_symbol* s, int argc, t_atom* argv)
 {
     if(atom_gettype(argv) == A_SYM && atom_getsym(argv) == hoa_sym_none)
     {
@@ -889,7 +889,7 @@ void hoa_process_load_canvas(t_hoa_process *x, t_symbol *s, long argc, t_atom* a
     canvas_resume_dsp(state);
 }
 
-extern void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
 {
     if(argc < 2 || atom_gettype(argv) != A_LONG || atom_gettype(argv+1) != A_SYM)
     {

@@ -26,7 +26,7 @@ typedef struct _hoa_pi_tilde
     double      p_phase;
 } t_hoa_pi_tilde;
 
-t_eclass *hoa_pi_tilde_class;
+static t_eclass *hoa_pi_tilde_class;
 
 typedef struct _hoa_dac
 {
@@ -43,9 +43,9 @@ typedef struct _hoa_connect
     t_eobj      f_obj;
 } t_hoa_connect;
 
-t_eclass *hoa_connect_class;
+static t_eclass *hoa_connect_class;
 
-extern void *pi_new(t_symbol *s, int argc, t_atom *argv)
+static void *pi_new(t_symbol *s, int argc, t_atom *argv)
 {
     t_hoa_pi *x = (t_hoa_pi *)eobj_new(pi_class);
 	x->p_value = 1.;
@@ -55,12 +55,12 @@ extern void *pi_new(t_symbol *s, int argc, t_atom *argv)
 	return(x);
 }
 
-extern void pi_bang(t_hoa_pi *x)
+static void pi_bang(t_hoa_pi *x)
 {
     outlet_float(x->p_outlet, (float)HOA_PI * x->p_value);
 }
 
-extern void pi_float(t_hoa_pi *x, float n)
+static void pi_float(t_hoa_pi *x, float n)
 {
 	x->p_value = n;
 	pi_bang(x);
@@ -79,7 +79,7 @@ extern "C" void setup_hoa0x2epi(void)
     pi_class = c;
 }
 
-extern void *hoa_pi_tilde_new(t_symbol *s, int argc, t_atom *argv)
+static void *hoa_pi_tilde_new(t_symbol *s, int argc, t_atom *argv)
 {
     t_hoa_pi_tilde *x = (t_hoa_pi_tilde *)eobj_new(hoa_pi_tilde_class);
     x->p_value = 1.;
@@ -90,7 +90,7 @@ extern void *hoa_pi_tilde_new(t_symbol *s, int argc, t_atom *argv)
     return(x);
 }
 
-extern void hoa_pi_tilde_float(t_hoa_pi_tilde *x, float n)
+static void hoa_pi_tilde_float(t_hoa_pi_tilde *x, float n)
 {
     if(eobj_getproxy(x))
     {
@@ -103,7 +103,7 @@ extern void hoa_pi_tilde_float(t_hoa_pi_tilde *x, float n)
     }
 }
 
-extern void hoa_pi_tilde_perform(t_hoa_pi_tilde *x, t_object *dsp64, float **ins, long numins, float **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_pi_tilde_perform(t_hoa_pi_tilde *x, t_object *dsp64, float **ins, long numins, float **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     for(int i = 0; i < sampleframes; i++)
     {
@@ -112,19 +112,19 @@ extern void hoa_pi_tilde_perform(t_hoa_pi_tilde *x, t_object *dsp64, float **ins
     }
 }
 
-extern void hoa_pi_tilde_perform_phase(t_hoa_pi_tilde *x, t_object *dsp64, float **ins, long numins, float **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_pi_tilde_perform_phase(t_hoa_pi_tilde *x, t_object *dsp64, float **ins, long numins, float **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     for(int i = 0; i < sampleframes; i++)
         outs[0][i] = HOA_PI * x->p_value * ins[1][i];
 }
 
-extern void hoa_pi_tilde_perform_offset(t_hoa_pi_tilde *x, t_object *dsp64, float **ins, long numins, float **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_pi_tilde_perform_offset(t_hoa_pi_tilde *x, t_object *dsp64, float **ins, long numins, float **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     for(int i = 0; i < sampleframes; i++)
         outs[0][i] = HOA_PI * x->p_value * x->p_phase;
 }
 
-extern void hoa_pi_tilde_dsp(t_hoa_pi_tilde *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
+static void hoa_pi_tilde_dsp(t_hoa_pi_tilde *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
     if(count[0])
         object_method(dsp64, gensym("dsp_add64"), x, (method)hoa_pi_tilde_perform, 0, NULL);
@@ -150,7 +150,7 @@ extern "C" void setup_hoa0x2epi_tilde(void)
     hoa_pi_tilde_class = c;
 }
 
-extern void *hoa_dac_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_dac_new(t_symbol *s, long argc, t_atom *argv)
 {
     int i, j;
     int min, max;
@@ -222,7 +222,7 @@ extern void *hoa_dac_new(t_symbol *s, long argc, t_atom *argv)
     return (x);
 }
 
-extern void hoa_dac_dsp(t_hoa_dac *x, t_signal **sp)
+static void hoa_dac_dsp(t_hoa_dac *x, t_signal **sp)
 {
     t_int i, *ip;
     t_signal **sp2;
@@ -237,7 +237,7 @@ extern void hoa_dac_dsp(t_hoa_dac *x, t_signal **sp)
     }
 }
 
-extern void hoa_dac_free(t_hoa_dac *x)
+static void hoa_dac_free(t_hoa_dac *x)
 {
 #ifndef _WINDOWS
     freebytes(x->x_vec, x->x_n * sizeof(*x->x_vec));
@@ -257,12 +257,12 @@ extern "C" void setup_hoa0x2edac_tilde(void)
     hoa_dac_class = c;
 }
 
-extern void *hoa_connect_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_connect_new(t_symbol *s, long argc, t_atom *argv)
 {
     return (t_hoa_connect *)eobj_new(hoa_connect_class);
 }
 
-extern void hoa_connect_bang(t_hoa_connect *x)
+static void hoa_connect_bang(t_hoa_connect *x)
 {
     int i, j, index = 0;
     int x1, x2, y1, y2;
@@ -354,7 +354,7 @@ extern void hoa_connect_bang(t_hoa_connect *x)
     canvas_dirty(eobj_getcanvas(x), 1);
 }
 
-extern void hoa_connect_free(t_hoa_connect *x)
+static void hoa_connect_free(t_hoa_connect *x)
 {
     eobj_free(x);
 }

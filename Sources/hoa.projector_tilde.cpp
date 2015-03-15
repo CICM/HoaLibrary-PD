@@ -16,9 +16,9 @@ typedef struct _hoa_projector
     t_sample*                   f_outs;
 } t_hoa_projector;
 
-t_eclass *hoa_projector_class;
+static t_eclass *hoa_projector_class;
 
-extern void *hoa_projector_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_projector_new(t_symbol *s, long argc, t_atom *argv)
 {
     int	order = 1;
     int numberOfPlanewaves = 4;
@@ -42,7 +42,7 @@ extern void *hoa_projector_new(t_symbol *s, long argc, t_atom *argv)
 	return (x);
 }
 
-extern void hoa_projector_perform(t_hoa_projector *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_projector_perform(t_hoa_projector *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     for(long i = 0; i < numins; i++)
     {
@@ -58,12 +58,12 @@ extern void hoa_projector_perform(t_hoa_projector *x, t_object *dsp64, t_sample 
     }
 }
 
-extern void hoa_projector_dsp(t_hoa_projector *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
+static void hoa_projector_dsp(t_hoa_projector *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
 {
     object_method(dsp, gensym("dsp_add"), x, (method)hoa_projector_perform, 0, NULL);
 }
 
-extern void hoa_projector_free(t_hoa_projector *x)
+static void hoa_projector_free(t_hoa_projector *x)
 {
 	eobj_dspfree(x);
 	delete x->f_projector;

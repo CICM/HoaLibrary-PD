@@ -47,7 +47,7 @@ typedef struct  _hoa_meter_3d
     
 } t_hoa_meter_3d;
 
-t_eclass *hoa_meter_3d_class;
+static t_eclass *hoa_meter_3d_class;
 
 void *hoa_meter_3d_new(t_symbol *s, int argc, t_atom *argv);
 void hoa_meter_3d_free(t_hoa_meter_3d *x);
@@ -271,7 +271,6 @@ void *hoa_meter_3d_new(t_symbol *s, int argc, t_atom *argv)
     | EBOX_IGNORELOCKCLICK
     ;
 	ebox_new((t_ebox *)x, flags);
-
     
     binbuf_get_attribute(d, gensym("@size"), &ac, &av);
     if(ac && av)

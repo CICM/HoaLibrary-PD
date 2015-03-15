@@ -139,6 +139,8 @@
 		8FC2EDAA1A62B32A00DBD231 /* hoa.meter_gui_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2EDA41A62B32A00DBD231 /* hoa.meter_gui_tilde.cpp */; };
 		8FC2EDAD1A62B32A00DBD231 /* hoa.3d.meter_gui_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2EDA61A62B32A00DBD231 /* hoa.3d.meter_gui_tilde.cpp */; };
 		8FC2EDAE1A62B32A00DBD231 /* hoa.3d.meter_gui_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2EDA61A62B32A00DBD231 /* hoa.3d.meter_gui_tilde.cpp */; };
+		8FDAB82E1AB1F4B3002D98AC /* Voronoi.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8FDAB82D1AB1F4B3002D98AC /* Voronoi.hpp */; };
+		8FDAB82F1AB1F4B3002D98AC /* Voronoi.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8FDAB82D1AB1F4B3002D98AC /* Voronoi.hpp */; };
 		8FF8C4FC1A63C1C200C64C6B /* Meter_3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FF8C4FA1A63C1C200C64C6B /* Meter_3D.cpp */; };
 		8FF8C4FD1A63C1C200C64C6B /* Meter_3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FF8C4FA1A63C1C200C64C6B /* Meter_3D.cpp */; };
 		8FF8C4FE1A63C1C200C64C6B /* Meter_3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FF8C4FB1A63C1C200C64C6B /* Meter_3D.h */; };
@@ -234,6 +236,7 @@
 		8FC2EDA31A62B32A00DBD231 /* hoa.decoder_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.decoder_tilde.cpp; sourceTree = "<group>"; };
 		8FC2EDA41A62B32A00DBD231 /* hoa.meter_gui_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.meter_gui_tilde.cpp; sourceTree = "<group>"; };
 		8FC2EDA61A62B32A00DBD231 /* hoa.3d.meter_gui_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.3d.meter_gui_tilde.cpp; sourceTree = "<group>"; };
+		8FDAB82D1AB1F4B3002D98AC /* Voronoi.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Voronoi.hpp; sourceTree = "<group>"; };
 		8FF8C4FA1A63C1C200C64C6B /* Meter_3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Meter_3D.cpp; sourceTree = "<group>"; };
 		8FF8C4FB1A63C1C200C64C6B /* Meter_3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meter_3D.h; sourceTree = "<group>"; };
 		8FFCAC0B1A5C0FC600E38483 /* Decoder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Decoder.hpp; sourceTree = "<group>"; };
@@ -435,6 +438,7 @@
 				8F83E7F41A5E7CD700FDDCC8 /* Signal.hpp */,
 				8FFCAC2E1A5C0FC600E38483 /* Vector.hpp */,
 				8F83E7E51A5D277800FDDCC8 /* Meter.hpp */,
+				8FDAB82D1AB1F4B3002D98AC /* Voronoi.hpp */,
 				8F83E7F71A5EC73100FDDCC8 /* Wider.hpp */,
 				8FC2ED8F1A62A0DC00DBD231 /* Source.hpp */,
 				8FC2EDA01A62A95900DBD231 /* Source.cpp */,
@@ -472,6 +476,7 @@
 				8F83E7EC1A5D7D9400FDDCC8 /* Projector.hpp in Headers */,
 				8F83E7E31A5D26BF00FDDCC8 /* Tools.hpp in Headers */,
 				8F1F1BD71A5425AF0026B9E8 /* eboxflag.h in Headers */,
+				8FDAB82E1AB1F4B3002D98AC /* Voronoi.hpp in Headers */,
 				8F1F1BB71A5425AF0026B9E8 /* ebox.h in Headers */,
 				8F9D78C61AAF07160091BFDF /* Hrtf.hpp in Headers */,
 				8FFCAC351A5C0FC600E38483 /* Hoa.hpp in Headers */,
@@ -512,6 +517,7 @@
 				8F83E7ED1A5D7D9400FDDCC8 /* Projector.hpp in Headers */,
 				8F83E7E41A5D26BF00FDDCC8 /* Tools.hpp in Headers */,
 				8F1F1BD81A5425AF0026B9E8 /* eboxflag.h in Headers */,
+				8FDAB82F1AB1F4B3002D98AC /* Voronoi.hpp in Headers */,
 				8F1F1BB81A5425AF0026B9E8 /* ebox.h in Headers */,
 				8F9D78C71AAF07160091BFDF /* Hrtf.hpp in Headers */,
 				8FFCAC361A5C0FC600E38483 /* Hoa.hpp in Headers */,

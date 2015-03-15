@@ -82,7 +82,7 @@ typedef struct _linkmap
 	}
 } t_linkmap;
 
-t_eclass *hoa_map_class;
+static t_eclass *hoa_map_class;
 
 void *hoa_map_new(t_symbol *s, int argc, t_atom *argv);
 void hoa_map_free(t_hoa_map *x);

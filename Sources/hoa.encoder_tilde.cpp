@@ -15,18 +15,18 @@ typedef struct _hoa_encoder
     Encoder<Hoa2d, t_sample>* f_encoder;
 } t_hoa_encoder;
 
-t_eclass *hoa_encoder_class;
+static t_eclass *hoa_encoder_class;
 
-typedef struct _hoa_encoder_3D
+typedef struct _hoa_encoder_3d
 {
     t_edspobj                 f_obj;
     t_sample*                 f_signals;
     Encoder<Hoa3d, t_sample>* f_encoder;
-} t_hoa_encoder_3D;
+} t_hoa_encoder_3d;
 
-t_eclass *hoa_encoder_3D_class;
+static t_eclass *hoa_encoder_3d_class;
 
-extern void *hoa_encoder_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_encoder_new(t_symbol *s, long argc, t_atom *argv)
 {
 	int	order = 1;
     t_hoa_encoder *x = (t_hoa_encoder *)eobj_new(hoa_encoder_class);
@@ -45,12 +45,12 @@ extern void *hoa_encoder_new(t_symbol *s, long argc, t_atom *argv)
 	return NULL;
 }
 
-extern void hoa_encoder_float(t_hoa_encoder *x, float f)
+static void hoa_encoder_float(t_hoa_encoder *x, float f)
 {
     x->f_encoder->setAzimuth(f);
 }
 
-extern void hoa_encoder_perform(t_hoa_encoder *x, t_object *dsp, t_sample **ins, long nins, t_sample **outs, long numouts, long sampleframes, long f,void *up)
+static void hoa_encoder_perform(t_hoa_encoder *x, t_object *dsp, t_sample **ins, long nins, t_sample **outs, long numouts, long sampleframes, long f,void *up)
 {
     for(long i = 0; i < sampleframes; i++)
     {
@@ -63,7 +63,7 @@ extern void hoa_encoder_perform(t_hoa_encoder *x, t_object *dsp, t_sample **ins,
     }
 }
 
-extern void hoa_encoder_perform_offset(t_hoa_encoder *x, t_object *dsp, t_sample **ins, long nins, t_sample **outs, long numouts, long sampleframes, long f,void *up)
+static void hoa_encoder_perform_offset(t_hoa_encoder *x, t_object *dsp, t_sample **ins, long nins, t_sample **outs, long numouts, long sampleframes, long f,void *up)
 {
     for(long i = 0; i < sampleframes; i++)
     {
@@ -75,7 +75,7 @@ extern void hoa_encoder_perform_offset(t_hoa_encoder *x, t_object *dsp, t_sample
     }
 }
 
-extern void hoa_encoder_dsp(t_hoa_encoder *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
+static void hoa_encoder_dsp(t_hoa_encoder *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
 {
     if(count[1])
         object_method(dsp, gensym("dsp_add"), x, (method)hoa_encoder_perform, 0, NULL);
@@ -84,7 +84,7 @@ extern void hoa_encoder_dsp(t_hoa_encoder *x, t_object *dsp, short *count, doubl
 }
 
 
-extern void hoa_encoder_free(t_hoa_encoder *x)
+static void hoa_encoder_free(t_hoa_encoder *x)
 {
 	eobj_dspfree(x);
 	delete x->f_encoder;
@@ -106,10 +106,10 @@ extern "C" void setup_hoa0x2e2d0x2eencoder_tilde(void)
     hoa_encoder_class = c;
 }
 
-extern void *hoa_encoder_3D_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_encoder_3d_new(t_symbol *s, long argc, t_atom *argv)
 {
     int	order = 1;
-    t_hoa_encoder_3D *x = (t_hoa_encoder_3D *)eobj_new(hoa_encoder_3D_class);
+    t_hoa_encoder_3d *x = (t_hoa_encoder_3d *)eobj_new(hoa_encoder_3d_class);
     if(x)
     {
         if(atom_gettype(argv) == A_LONG)
@@ -123,7 +123,7 @@ extern void *hoa_encoder_3D_new(t_symbol *s, long argc, t_atom *argv)
     return x;
 }
 
-extern void hoa_encoder_3D_float(t_hoa_encoder_3D *x, float f)
+static void hoa_encoder_3d_float(t_hoa_encoder_3d *x, float f)
 {
     if(eobj_getproxy(x) == 1)
         x->f_encoder->setAzimuth(f);
@@ -131,7 +131,7 @@ extern void hoa_encoder_3D_float(t_hoa_encoder_3D *x, float f)
         x->f_encoder->setElevation(f);
 }
 
-extern void hoa_encoder_3D_perform(t_hoa_encoder_3D *x, t_object *dsp, float **ins, long nins, float **outs, long numouts, long sampleframes, long f,void *up)
+static void hoa_encoder_3d_perform(t_hoa_encoder_3d *x, t_object *dsp, float **ins, long nins, float **outs, long numouts, long sampleframes, long f,void *up)
 {
     for(long i = 0; i < sampleframes; i++)
     {
@@ -145,7 +145,7 @@ extern void hoa_encoder_3D_perform(t_hoa_encoder_3D *x, t_object *dsp, float **i
     }
 }
 
-extern void hoa_encoder_3D_perform_azimuth(t_hoa_encoder_3D *x, t_object *dsp, t_sample **ins, long nins, t_sample **outs, long numouts, long sampleframes, long f,void *up)
+static void hoa_encoder_3d_perform_azimuth(t_hoa_encoder_3d *x, t_object *dsp, t_sample **ins, long nins, t_sample **outs, long numouts, long sampleframes, long f,void *up)
 {
     for(long i = 0; i < sampleframes; i++)
     {
@@ -158,7 +158,7 @@ extern void hoa_encoder_3D_perform_azimuth(t_hoa_encoder_3D *x, t_object *dsp, t
     }
 }
 
-extern void hoa_encoder_3D_perform_elevation(t_hoa_encoder_3D *x, t_object *dsp, t_sample **ins, long nins, t_sample **outs, long numouts, long sampleframes, long f,void *up)
+static void hoa_encoder_3d_perform_elevation(t_hoa_encoder_3d *x, t_object *dsp, t_sample **ins, long nins, t_sample **outs, long numouts, long sampleframes, long f,void *up)
 {
     for(long i = 0; i < sampleframes; i++)
     {
@@ -171,7 +171,7 @@ extern void hoa_encoder_3D_perform_elevation(t_hoa_encoder_3D *x, t_object *dsp,
     }
 }
 
-extern void hoa_encoder_3D_perform_offset(t_hoa_encoder_3D *x, t_object *dsp, t_sample **ins, long nins, t_sample **outs, long numouts, long sampleframes, long f,void *up)
+static void hoa_encoder_3d_perform_offset(t_hoa_encoder_3d *x, t_object *dsp, t_sample **ins, long nins, t_sample **outs, long numouts, long sampleframes, long f,void *up)
 {
     for(long i = 0; i < sampleframes; i++)
     {
@@ -183,20 +183,20 @@ extern void hoa_encoder_3D_perform_offset(t_hoa_encoder_3D *x, t_object *dsp, t_
     }
 }
 
-extern void hoa_encoder_3D_dsp(t_hoa_encoder_3D *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
+static void hoa_encoder_3d_dsp(t_hoa_encoder_3d *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
 {
     if(count[1] && count[2])
-        object_method(dsp, gensym("dsp_add"), x, (method)hoa_encoder_3D_perform, 0, NULL);
+        object_method(dsp, gensym("dsp_add"), x, (method)hoa_encoder_3d_perform, 0, NULL);
     else if(count[1] && !count[2])
-        object_method(dsp, gensym("dsp_add"), x, (method)hoa_encoder_3D_perform_azimuth, 0, NULL);
+        object_method(dsp, gensym("dsp_add"), x, (method)hoa_encoder_3d_perform_azimuth, 0, NULL);
     else if(!count[1] && count[2])
-        object_method(dsp, gensym("dsp_add"), x, (method)hoa_encoder_3D_perform_elevation, 0, NULL);
+        object_method(dsp, gensym("dsp_add"), x, (method)hoa_encoder_3d_perform_elevation, 0, NULL);
     else
-        object_method(dsp, gensym("dsp_add"), x, (method)hoa_encoder_3D_perform_offset, 0, NULL);
+        object_method(dsp, gensym("dsp_add"), x, (method)hoa_encoder_3d_perform_offset, 0, NULL);
 }
 
 
-extern void hoa_encoder_3D_free(t_hoa_encoder_3D *x)
+static void hoa_encoder_3d_free(t_hoa_encoder_3d *x)
 {
     eobj_dspfree(x);
     delete x->f_encoder;
@@ -206,13 +206,13 @@ extern void hoa_encoder_3D_free(t_hoa_encoder_3D *x)
 extern "C" void setup_hoa0x2e3d0x2eencoder_tilde(void)
 {
     t_eclass *c;
-    c = eclass_new("hoa.3d.encoder~",(method)hoa_encoder_3D_new,(method)hoa_encoder_3D_free,sizeof(t_hoa_encoder_3D), CLASS_NOINLET, A_GIMME, 0);
+    c = eclass_new("hoa.3d.encoder~",(method)hoa_encoder_3d_new,(method)hoa_encoder_3d_free,sizeof(t_hoa_encoder_3d), CLASS_NOINLET, A_GIMME, 0);
     
     eclass_dspinit(c);
     hoa_initclass(c);
-    eclass_addmethod(c, (method)hoa_encoder_3D_dsp,     "dsp",		A_CANT, 0);
-    eclass_addmethod(c, (method)hoa_encoder_3D_float,   "float",   A_FLOAT, 0);
+    eclass_addmethod(c, (method)hoa_encoder_3d_dsp,     "dsp",		A_CANT, 0);
+    eclass_addmethod(c, (method)hoa_encoder_3d_float,   "float",   A_FLOAT, 0);
     
     eclass_register(CLASS_OBJ, c);
-    hoa_encoder_3D_class = c;
+    hoa_encoder_3d_class = c;
 }

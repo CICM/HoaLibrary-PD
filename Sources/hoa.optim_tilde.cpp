@@ -18,9 +18,9 @@ typedef struct _hoa_optim
     t_symbol*                       f_mode;
 } t_hoa_optim;
 
-t_eclass *hoa_optim_class;
+static t_eclass *hoa_optim_class;
 
-typedef struct _hoa_optim_3D
+typedef struct _hoa_optim_3d
 {
     t_edspobj                       f_obj;
     Optim<Hoa3d, t_sample, MaxRe>*  f_maxRe;
@@ -28,11 +28,11 @@ typedef struct _hoa_optim_3D
     t_sample*                       f_ins;
     t_sample*                       f_outs;
     t_symbol*                       f_mode;
-} t_hoa_optim_3D;
+} t_hoa_optim_3d;
 
-t_eclass *hoa_optim_3D_class;
+static t_eclass *hoa_optim_3d_class;
 
-extern void hoa_optim_perform_basic(t_hoa_optim *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_optim_perform_basic(t_hoa_optim *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     for(long i = 0; i < numins; i++)
     {
@@ -44,7 +44,7 @@ extern void hoa_optim_perform_basic(t_hoa_optim *x, t_object *dsp64, t_sample **
     }
 }
 
-extern void hoa_optim_perform_maxRe(t_hoa_optim *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_optim_perform_maxRe(t_hoa_optim *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
 	for(long i = 0; i < numins; i++)
     {
@@ -60,7 +60,7 @@ extern void hoa_optim_perform_maxRe(t_hoa_optim *x, t_object *dsp64, t_sample **
     }
 }
 
-extern void hoa_optim_perform_inPhase(t_hoa_optim *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_optim_perform_inPhase(t_hoa_optim *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     for(long i = 0; i < numins; i++)
     {
@@ -76,7 +76,7 @@ extern void hoa_optim_perform_inPhase(t_hoa_optim *x, t_object *dsp64, t_sample 
     }
 }
 
-extern void hoa_optim_dsp(t_hoa_optim *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
+static void hoa_optim_dsp(t_hoa_optim *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
 {
     if(x->f_mode == hoa_sym_basic)
         object_method(dsp, gensym("dsp_add"), x, (method)hoa_optim_perform_basic, 0, NULL);
@@ -86,7 +86,7 @@ extern void hoa_optim_dsp(t_hoa_optim *x, t_object *dsp, short *count, double sa
         object_method(dsp, gensym("dsp_add"), x, (method)hoa_optim_perform_inPhase, 0, NULL);
 }
 
-extern void hoa_optim_symbol(t_hoa_optim *x, t_symbol* s)
+static void hoa_optim_symbol(t_hoa_optim *x, t_symbol* s)
 {
     if(s != x->f_mode && (s == hoa_sym_basic || s == hoa_sym_maxRe || s == hoa_sym_inPhase))
     {
@@ -96,7 +96,7 @@ extern void hoa_optim_symbol(t_hoa_optim *x, t_symbol* s)
     }
 }
 
-extern void *hoa_optim_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_optim_new(t_symbol *s, long argc, t_atom *argv)
 {
     int	order = 1;
     t_hoa_optim *x  = (t_hoa_optim *)eobj_new(hoa_optim_class);
@@ -126,7 +126,7 @@ extern void *hoa_optim_new(t_symbol *s, long argc, t_atom *argv)
    	return NULL;
 }
 
-extern void hoa_optim_free(t_hoa_optim *x)
+static void hoa_optim_free(t_hoa_optim *x)
 {
 	eobj_dspfree(x);
 	delete x->f_maxRe;
@@ -151,7 +151,7 @@ extern "C" void setup_hoa0x2e2d0x2eoptim_tilde(void)
     hoa_optim_class = c;
 }
 
-extern void hoa_optim_3D_perform_basic(t_hoa_optim_3D *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_optim_3d_perform_basic(t_hoa_optim_3d *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     for(long i = 0; i < numins; i++)
     {
@@ -163,7 +163,7 @@ extern void hoa_optim_3D_perform_basic(t_hoa_optim_3D *x, t_object *dsp64, t_sam
     }
 }
 
-extern void hoa_optim_3D_perform_maxRe(t_hoa_optim_3D *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_optim_3d_perform_maxRe(t_hoa_optim_3d *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     for(long i = 0; i < numins; i++)
     {
@@ -179,7 +179,7 @@ extern void hoa_optim_3D_perform_maxRe(t_hoa_optim_3D *x, t_object *dsp64, t_sam
     }
 }
 
-extern void hoa_optim_3D_perform_inPhase(t_hoa_optim_3D *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_optim_3d_perform_inPhase(t_hoa_optim_3d *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     for(long i = 0; i < numins; i++)
     {
@@ -195,17 +195,17 @@ extern void hoa_optim_3D_perform_inPhase(t_hoa_optim_3D *x, t_object *dsp64, t_s
     }
 }
 
-extern void hoa_optim_3D_dsp(t_hoa_optim_3D *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
+static void hoa_optim_3d_dsp(t_hoa_optim_3d *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
 {
     if(x->f_mode == hoa_sym_basic)
-        object_method(dsp, gensym("dsp_add"), x, (method)hoa_optim_3D_perform_basic, 0, NULL);
+        object_method(dsp, gensym("dsp_add"), x, (method)hoa_optim_3d_perform_basic, 0, NULL);
     else if(x->f_mode == hoa_sym_maxRe)
-        object_method(dsp, gensym("dsp_add"), x, (method)hoa_optim_3D_perform_maxRe, 0, NULL);
+        object_method(dsp, gensym("dsp_add"), x, (method)hoa_optim_3d_perform_maxRe, 0, NULL);
     else if(x->f_mode == hoa_sym_inPhase)
-        object_method(dsp, gensym("dsp_add"), x, (method)hoa_optim_3D_perform_inPhase, 0, NULL);
+        object_method(dsp, gensym("dsp_add"), x, (method)hoa_optim_3d_perform_inPhase, 0, NULL);
 }
 
-extern void hoa_optim_3D_symbol(t_hoa_optim_3D *x, t_symbol* s)
+static void hoa_optim_3d_symbol(t_hoa_optim_3d *x, t_symbol* s)
 {
     if(s != x->f_mode && (s == hoa_sym_basic || s == hoa_sym_maxRe || s == hoa_sym_inPhase))
     {
@@ -215,10 +215,10 @@ extern void hoa_optim_3D_symbol(t_hoa_optim_3D *x, t_symbol* s)
     }
 }
 
-extern void *hoa_optim_3D_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_optim_3d_new(t_symbol *s, long argc, t_atom *argv)
 {
     int	order = 1;
-    t_hoa_optim_3D *x  = (t_hoa_optim_3D *)eobj_new(hoa_optim_3D_class);
+    t_hoa_optim_3d *x  = (t_hoa_optim_3d *)eobj_new(hoa_optim_3d_class);
     t_binbuf *d     = binbuf_via_atoms(argc,argv);
     
     if(x && d)
@@ -231,7 +231,7 @@ extern void *hoa_optim_3D_new(t_symbol *s, long argc, t_atom *argv)
         x->f_mode   = hoa_sym_inPhase;
         if(argc > 1 && atom_gettype(argv+1) == A_SYM)
         {
-            hoa_optim_3D_symbol(x, atom_getsymbol(argv+1));
+            hoa_optim_3d_symbol(x, atom_getsymbol(argv+1));
         }
         
         eobj_dspsetup(x, x->f_maxRe->getNumberOfHarmonics(), x->f_maxRe->getNumberOfHarmonics());
@@ -245,7 +245,7 @@ extern void *hoa_optim_3D_new(t_symbol *s, long argc, t_atom *argv)
    	return NULL;
 }
 
-extern void hoa_optim_3D_free(t_hoa_optim_3D *x)
+static void hoa_optim_3d_free(t_hoa_optim_3d *x)
 {
     eobj_dspfree(x);
     delete x->f_maxRe;
@@ -257,14 +257,14 @@ extern void hoa_optim_3D_free(t_hoa_optim_3D *x)
 extern "C" void setup_hoa0x2e3d0x2eoptim_tilde(void)
 {
     t_eclass *c;
-    c = eclass_new("hoa.3d.optim~",(method)hoa_optim_3D_new,(method)hoa_optim_3D_free,sizeof(t_hoa_optim_3D), 0L, A_GIMME, 0);
+    c = eclass_new("hoa.3d.optim~",(method)hoa_optim_3d_new,(method)hoa_optim_3d_free,sizeof(t_hoa_optim_3d), 0L, A_GIMME, 0);
     
     eclass_dspinit(c);
     hoa_initclass(c);
-    eclass_addmethod(c, (method)hoa_optim_3D_dsp,    "dsp",		A_CANT, 0);
-    eclass_addmethod(c, (method)hoa_optim_3D_symbol, "symbol",  A_SYM,  0);
+    eclass_addmethod(c, (method)hoa_optim_3d_dsp,    "dsp",		A_CANT, 0);
+    eclass_addmethod(c, (method)hoa_optim_3d_symbol, "symbol",  A_SYM,  0);
     
     eclass_register(CLASS_OBJ, c);
-    hoa_optim_3D_class = c;
+    hoa_optim_3d_class = c;
 }
 

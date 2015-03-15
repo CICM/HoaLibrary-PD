@@ -26,9 +26,9 @@ typedef struct _hoa_recomposer
     
 } t_hoa_recomposer;
 
-t_eclass *hoa_recomposer_class;
+static t_eclass *hoa_recomposer_class;
 
-extern void *hoa_recomposer_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_recomposer_new(t_symbol *s, long argc, t_atom *argv)
 {
     int	order = 1;
     int numberOfPlanewaves = 4;
@@ -91,7 +91,7 @@ extern void *hoa_recomposer_new(t_symbol *s, long argc, t_atom *argv)
    	return NULL;
 }
 
-extern void hoa_recomposer_float(t_hoa_recomposer *x, float f)
+static void hoa_recomposer_float(t_hoa_recomposer *x, float f)
 {
     if(x->f_mode == hoa_sym_fisheye)
     {
@@ -99,7 +99,7 @@ extern void hoa_recomposer_float(t_hoa_recomposer *x, float f)
     }
 }
 
-extern void hoa_recomposer_angle(t_hoa_recomposer *x, t_symbol *s, short ac, t_atom *av)
+static void hoa_recomposer_angle(t_hoa_recomposer *x, t_symbol *s, short ac, t_atom *av)
 {
     if(ac && av && x->f_mode == hoa_sym_free)
     {
@@ -113,7 +113,7 @@ extern void hoa_recomposer_angle(t_hoa_recomposer *x, t_symbol *s, short ac, t_a
     }
 }
 
-extern void hoa_recomposer_wide(t_hoa_recomposer *x, t_symbol *s, short ac, t_atom *av)
+static void hoa_recomposer_wide(t_hoa_recomposer *x, t_symbol *s, short ac, t_atom *av)
 {
     if(ac && av && x->f_mode == hoa_sym_free)
     {
@@ -127,7 +127,7 @@ extern void hoa_recomposer_wide(t_hoa_recomposer *x, t_symbol *s, short ac, t_at
     }
 }
 
-extern void hoa_recomposer_perform_fixe(t_hoa_recomposer *x, t_object *dsp64, float **ins, long numins, float **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_recomposer_perform_fixe(t_hoa_recomposer *x, t_object *dsp64, float **ins, long numins, float **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     for(int i = 0; i < numins; i++)
     {
@@ -143,7 +143,7 @@ extern void hoa_recomposer_perform_fixe(t_hoa_recomposer *x, t_object *dsp64, fl
     }
 }
 
-extern void hoa_recomposer_perform_fisheye(t_hoa_recomposer *x, t_object *dsp64, float **ins, long numins, float **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_recomposer_perform_fisheye(t_hoa_recomposer *x, t_object *dsp64, float **ins, long numins, float **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     ulong numberOfPlanewaves = x->f_fisheye->getNumberOfPlanewaves();
     for(ulong i = 0; i < numberOfPlanewaves; i++)
@@ -161,7 +161,7 @@ extern void hoa_recomposer_perform_fisheye(t_hoa_recomposer *x, t_object *dsp64,
     }
 }
 
-extern void hoa_recomposer_perform_fisheye_offset(t_hoa_recomposer *x, t_object *dsp64, float **ins, long numins, float **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_recomposer_perform_fisheye_offset(t_hoa_recomposer *x, t_object *dsp64, float **ins, long numins, float **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     ulong numberOfPlanewaves = x->f_fisheye->getNumberOfPlanewaves();
     for(ulong i = 0; i < numberOfPlanewaves; i++)
@@ -179,7 +179,7 @@ extern void hoa_recomposer_perform_fisheye_offset(t_hoa_recomposer *x, t_object 
     }
 }
 
-extern void hoa_recomposer_perform_free(t_hoa_recomposer *x, t_object *dsp64, float **ins, long numins, float **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_recomposer_perform_free(t_hoa_recomposer *x, t_object *dsp64, float **ins, long numins, float **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     int numberOfPlanewaves = x->f_free->getNumberOfPlanewaves();
     
@@ -202,7 +202,7 @@ extern void hoa_recomposer_perform_free(t_hoa_recomposer *x, t_object *dsp64, fl
     }
 }
 
-extern void hoa_recomposer_dsp(t_hoa_recomposer *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
+static void hoa_recomposer_dsp(t_hoa_recomposer *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
     if(x->f_mode == hoa_sym_fixe)
     {
@@ -223,7 +223,7 @@ extern void hoa_recomposer_dsp(t_hoa_recomposer *x, t_object *dsp64, short *coun
     }
 }
 
-extern void hoa_recomposer_free(t_hoa_recomposer *x)
+static void hoa_recomposer_free(t_hoa_recomposer *x)
 {
 	eobj_dspfree(x);
     if(x->f_mode == hoa_sym_fixe)
@@ -244,7 +244,7 @@ extern void hoa_recomposer_free(t_hoa_recomposer *x)
 	delete [] x->f_outs;
 }
 
-extern t_pd_err ramp_set(t_hoa_recomposer *x, t_object *attr, long argc, t_atom *argv)
+static t_pd_err ramp_set(t_hoa_recomposer *x, t_object *attr, long argc, t_atom *argv)
 {
     if(argc && argv)
     {
