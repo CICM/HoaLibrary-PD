@@ -524,7 +524,7 @@ static t_pd_err rotation_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom
     return 0;
 }
 
-static t_pd_err view_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
+static t_pd_err view_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
 {
     t_symbol* view = x->f_view;
     if(argc && argv)
@@ -742,6 +742,80 @@ static void draw_background(t_hoa_meter *x,  t_object *view, t_rect *rect)
 	ebox_paint_layer((t_ebox *)x, hoa_sym_background_layer, 0., 0.);
 }
 
+static void draw_3d_background(t_hoa_meter_3d *x,  t_object *view, t_rect *rect)
+{
+    t_elayer *g = ebox_start_layer((t_ebox *)x, hoa_sym_background_layer, rect->width, rect->height);
+    t_rgba black, white;
+    black = rgba_addContrast(x->f_color_bg, -HOA_CONTRAST_DARKER);
+    white = rgba_addContrast(x->f_color_bg, HOA_CONTRAST_LIGHTER);
+    
+    if (g)
+    {
+        if(x->f_view == hoa_sym_topnextbottom)
+        {
+            egraphics_set_color_rgba(g, &white);
+            egraphics_set_line_width(g, 3.);
+            egraphics_circle(g, x->f_center, x->f_center, x->f_radius);
+            egraphics_stroke(g);
+            egraphics_set_color_rgba(g, &black);
+            egraphics_set_line_width(g, 1.);
+            egraphics_stroke(g);
+            
+            egraphics_set_color_rgba(g, &white);
+            egraphics_set_line_width(g, 3.);
+            egraphics_line_fast(g, x->f_center * 2, 0, x->f_center * 2, x->f_center * 2);
+            egraphics_set_color_rgba(g, &black);
+            egraphics_set_line_width(g, 1.);
+            egraphics_line_fast(g, x->f_center * 2, 0, x->f_center * 2, x->f_center * 2);
+            
+            egraphics_set_color_rgba(g, &white);
+            egraphics_set_line_width(g, 3.);
+            egraphics_circle(g, x->f_center * 3, x->f_center, x->f_radius);
+            egraphics_stroke(g);
+            egraphics_set_color_rgba(g, &black);
+            egraphics_set_line_width(g, 1.);
+            egraphics_stroke(g);
+        }
+        else if(x->f_view == hoa_sym_toponbottom)
+        {
+            egraphics_set_color_rgba(g, &white);
+            egraphics_set_line_width(g, 3.);
+            egraphics_circle(g, x->f_center, x->f_center, x->f_radius);
+            egraphics_stroke(g);
+            egraphics_set_color_rgba(g, &black);
+            egraphics_set_line_width(g, 1.);
+            egraphics_stroke(g);
+            
+            egraphics_set_color_rgba(g, &white);
+            egraphics_set_line_width(g, 3.);
+            egraphics_line_fast(g, 0, x->f_center * 2, x->f_center * 2, x->f_center * 2);
+            egraphics_set_color_rgba(g, &black);
+            egraphics_set_line_width(g, 1.);
+            egraphics_line_fast(g, 0, x->f_center * 2, x->f_center * 2, x->f_center * 2);
+            
+            egraphics_set_color_rgba(g, &white);
+            egraphics_set_line_width(g, 3.);
+            egraphics_circle(g, x->f_center, x->f_center * 3, x->f_radius);
+            egraphics_stroke(g);
+            egraphics_set_color_rgba(g, &black);
+            egraphics_set_line_width(g, 1.);
+            egraphics_stroke(g);
+        }
+        else
+        {
+            egraphics_set_color_rgba(g, &white);
+            egraphics_set_line_width(g, 3.);
+            egraphics_circle(g, x->f_center, x->f_center, x->f_radius);
+            egraphics_stroke(g);
+            egraphics_set_color_rgba(g, &black);
+            egraphics_set_line_width(g, 1.);
+            egraphics_stroke(g);
+        }
+        ebox_end_layer((t_ebox*)x, hoa_sym_background_layer);
+    }
+    ebox_paint_layer((t_ebox *)x, hoa_sym_background_layer, 0., 0.);
+}
+
 static void draw_leds(t_hoa_meter *x, t_object *view, t_rect *rect)
 {
     float angle, width;
@@ -867,6 +941,93 @@ static void draw_vectors(t_hoa_meter *x, t_object *view, t_rect *rect)
 	ebox_paint_layer((t_ebox *)x, hoa_sym_vector_layer, 0., 0.);
 }
 
+static void draw_3d_vectors(t_hoa_meter_3d *x, t_object *view, t_rect *rect)
+{
+    double x1, y1, size;
+    t_matrix transform;
+    t_elayer *g = ebox_start_layer((t_ebox *)x,  hoa_sym_vector_layer, rect->width, rect->height);
+    t_rgba color;
+    double distance;
+    if (g)
+    {
+        egraphics_matrix_init(&transform, 1, 0, 0, -1, x->f_center, x->f_center);
+        egraphics_set_matrix(g, &transform);
+        size = x->f_center / 32.;
+        
+        if(x->f_vector_type == hoa_sym_both || x->f_vector_type == hoa_sym_energy)
+        {
+            double rad = Math<float>::radius(x->f_vector_coords[3], x->f_vector_coords[4], x->f_vector_coords[5]);
+            distance = (fabs(rad) * 0.5 + 0.5);
+            color = rgba_addContrast(x->f_color_energy_vector, -(1. - distance));
+            egraphics_set_color_rgba(g, &color);
+            if(x->f_clockwise == hoa_sym_anticlock)
+            {
+                x1 = x->f_vector_coords[3] * x->f_radius;
+                y1 = x->f_vector_coords[4] * x->f_radius;
+            }
+            else
+            {
+                double ang = -Math<float>::azimuth(x->f_vector_coords[3], x->f_vector_coords[4], x->f_vector_coords[5]);
+                x1 = Math<float>::abscissa(rad * x->f_radius, ang);
+                y1 = Math<float>::ordinate(rad * x->f_radius, ang);
+            }
+            
+            if((x->f_vector_coords[5] >= 0 && (x->f_view == hoa_sym_top || x->f_view == hoa_sym_toponbottom || x->f_view == hoa_sym_topnextbottom)) ||  (x->f_vector_coords[5] <= 0 && x->f_view == hoa_sym_bottom))
+            {
+                egraphics_arc(g, x1, y1, size * distance, 0., HOA_2PI);
+                egraphics_fill(g);
+            }
+            else if(x->f_vector_coords[5] <= 0 && x->f_view == hoa_sym_toponbottom)
+            {
+                egraphics_arc(g, x1, y1 - x->f_center * 2, size * distance, 0., HOA_2PI);
+                egraphics_fill(g);
+            }
+            else if(x->f_vector_coords[5] <= 0 && x->f_view == hoa_sym_topnextbottom)
+            {
+                egraphics_arc(g, x1 + x->f_center * 2, y1, size * distance, 0., HOA_2PI);
+                egraphics_fill(g);
+            }
+        }
+        if(x->f_vector_type == hoa_sym_both || x->f_vector_type == hoa_sym_velocity)
+        {
+            double rad = Math<float>::radius(x->f_vector_coords[0], x->f_vector_coords[1], x->f_vector_coords[2]);
+            distance = (fabs(rad) * 0.5 + 0.5);
+            color = rgba_addContrast(x->f_color_velocity_vector, -(1. - distance));
+            egraphics_set_color_rgba(g, &color);
+            if(x->f_clockwise == hoa_sym_anticlock)
+            {
+                x1 = x->f_vector_coords[0] * x->f_radius;
+                y1 = x->f_vector_coords[1] * x->f_radius;
+            }
+            else
+            {
+                double ang = -Math<float>::azimuth(x->f_vector_coords[0], x->f_vector_coords[1], x->f_vector_coords[2]);
+                x1 = Math<float>::abscissa(rad * x->f_radius, ang);
+                y1 = Math<float>::ordinate(rad * x->f_radius, ang);
+            }
+            
+            if((x->f_vector_coords[2] >= 0 && (x->f_view == hoa_sym_top || x->f_view == hoa_sym_toponbottom || x->f_view == hoa_sym_topnextbottom)) ||  (x->f_vector_coords[2] <= 0 && x->f_view == hoa_sym_bottom))
+            {
+                egraphics_arc(g, x1, y1, size * distance, 0., HOA_2PI);
+                egraphics_fill(g);
+            }
+            else if(x->f_vector_coords[2] <= 0 && x->f_view == hoa_sym_toponbottom)
+            {
+                egraphics_arc(g, x1, y1 - x->f_center * 2, size * distance, 0., HOA_2PI);
+                egraphics_fill(g);
+            }
+            else if(x->f_vector_coords[2] <= 0 && x->f_view == hoa_sym_topnextbottom)
+            {
+                egraphics_arc(g, x1 + x->f_center * 2, y1, size * distance, 0., HOA_2PI);
+                egraphics_fill(g);
+            }
+        }
+        
+        ebox_end_layer((t_ebox*)x,  hoa_sym_vector_layer);
+    }
+    ebox_paint_layer((t_ebox *)x, hoa_sym_vector_layer, 0., 0.);
+}
+
 static void hoa_meter_paint(t_hoa_meter *x, t_object *view)
 {
     t_rect rect;
@@ -879,6 +1040,22 @@ static void hoa_meter_paint(t_hoa_meter *x, t_object *view)
     draw_leds(x, view, &rect);
     draw_vectors(x, view, &rect);
     draw_background(x, view, &rect);
+}
+
+static void hoa_meter_3d_paint(t_hoa_meter_3d *x, t_object *view)
+{
+    t_rect rect;
+    ebox_get_rect_for_view((t_ebox *)x, &rect);
+    
+    if(x->f_view == hoa_sym_topnextbottom)
+        x->f_center = rect.width * .25;
+    else
+        x->f_center = rect.width * .5;
+    x->f_radius = x->f_center * 0.95;
+    
+    //draw_3d_leds(x, view, &rect);
+    draw_3d_vectors(x, view, &rect);
+    draw_3d_background(x, view, &rect);
 }
 
 static void *hoa_meter_new(t_symbol *s, int argc, t_atom *argv)
@@ -1088,4 +1265,141 @@ extern "C" void setup_hoa0x2e2d0x2emeter_tilde(void)
     
     eclass_register(CLASS_BOX, c);
     hoa_meter_class = c;
+}
+
+extern "C" void setup_hoa0x2e3d0x2emeter_tilde(void)
+{
+    t_eclass *c;
+    
+    c = eclass_new("hoa.3d.meter~", (method)hoa_meter_3d_new, (method)hoa_meter_3d_free, (short)sizeof(t_hoa_meter_3d), 0L, A_GIMME, 0);
+    
+    eclass_dspinit(c);
+    eclass_init(c, 0);
+    hoa_initclass(c);
+    eclass_addmethod(c, (method) hoa_meter_3d_dsp,             "dsp",           A_CANT, 0);
+    eclass_addmethod(c, (method) hoa_meter_3d_paint,           "paint",         A_CANT, 0);
+    eclass_addmethod(c, (method) hoa_meter_3d_getdrawparams,   "getdrawparams", A_CANT, 0);
+    eclass_addmethod(c, (method) hoa_meter_3d_oksize,          "oksize",        A_CANT, 0);
+    
+    CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontslant", 1);
+    CLASS_ATTR_INVISIBLE            (c, "fontsize", 1);
+    CLASS_ATTR_INVISIBLE            (c, "send", 1);
+    CLASS_ATTR_DEFAULT              (c, "size", 0, "225. 225.");
+    
+    CLASS_ATTR_LONG                 (c, "channels", 0 , t_hoa_meter_3d, f_attrs);
+    CLASS_ATTR_ACCESSORS            (c, "channels", channels_3d_get, channels_3d_set);
+    CLASS_ATTR_ORDER                (c, "channels", 0, "1");
+    CLASS_ATTR_LABEL                (c, "channels", 0, "Number of Channels");
+    CLASS_ATTR_SAVE                 (c, "channels", 1);
+    CLASS_ATTR_DEFAULT              (c, "channels", 0, "8");
+    CLASS_ATTR_STYLE                (c, "channels", 1, "number");
+    
+    CLASS_ATTR_FLOAT_VARSIZE        (c, "angles", 0, t_hoa_meter_3d, f_attrs, f_attrs, HOA_MAX_PLANEWAVES);
+    CLASS_ATTR_ACCESSORS            (c, "angles", angles_3d_get, angles_3d_set);
+    CLASS_ATTR_ORDER                (c, "angles", 0, "2");
+    CLASS_ATTR_LABEL                (c, "angles", 0, "Angles of Channels");
+    CLASS_ATTR_SAVE                 (c, "angles", 1);
+    CLASS_ATTR_DEFAULT              (c, "angles", 0, "45 35.2644 135 35.2644 225 35.2644 315 35.2644 45 -35.2644 135 -35.2644 225 -35.2644 315 -35.2644");
+    
+    CLASS_ATTR_DOUBLE_ARRAY         (c, "offset", 0, t_hoa_meter_3d, f_attrs, 3);
+    CLASS_ATTR_ACCESSORS            (c, "offset", offset_3d_get, offset_3d_set);
+    CLASS_ATTR_ORDER                (c, "offset", 0, "3");
+    CLASS_ATTR_LABEL                (c, "offset", 0, "Offset of Channels");
+    CLASS_ATTR_DEFAULT              (c, "offset", 0, "0 0 0");
+    CLASS_ATTR_SAVE                 (c, "offset", 1);
+    CLASS_ATTR_STYLE                (c, "offset", 1, "number");
+    
+    CLASS_ATTR_SYMBOL               (c, "rotation", 0, t_hoa_meter_3d, f_clockwise);
+    CLASS_ATTR_ACCESSORS            (c, "rotation", NULL, rotation_3d_set);
+    CLASS_ATTR_ORDER                (c, "rotation", 0, "4");
+    CLASS_ATTR_LABEL                (c, "rotation", 0, "Rotation of Channels");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "rotation", 0, "anti-clockwise");
+    CLASS_ATTR_STYLE                (c, "rotation", 1, "menu");
+    CLASS_ATTR_ITEMS                (c, "rotation", 1, "anti-clockwise clockwise");
+    
+    CLASS_ATTR_SYMBOL               (c, "view", 0 , t_hoa_meter_3d, f_view);
+    CLASS_ATTR_ACCESSORS            (c, "view", NULL, view_3d_set);
+    CLASS_ATTR_ORDER                (c, "view", 0, "5");
+    CLASS_ATTR_LABEL                (c, "view", 0, "Number of Channels");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "view", 0, "top");
+    CLASS_ATTR_STYLE                (c, "view", 1, "menu");
+    CLASS_ATTR_ITEMS                (c, "view", 1, "top bottom top-bottom top/bottom");
+    
+    CLASS_ATTR_SYMBOL               (c, "vectors", 0, t_hoa_meter_3d, f_vector_type);
+    CLASS_ATTR_ACCESSORS            (c, "vectors", NULL, vectors_3d_set);
+    CLASS_ATTR_ORDER                (c, "vectors", 0, "2");
+    CLASS_ATTR_LABEL                (c, "vectors", 0, "Vectors");
+    CLASS_ATTR_DEFAULT              (c, "vectors", 0, "Energy");
+    CLASS_ATTR_SAVE                 (c, "vectors", 1);
+    CLASS_ATTR_STYLE                (c, "vectors", 1, "menu");
+    CLASS_ATTR_ITEMS                (c, "vectors", 1, "none energy velocity both");
+    
+    CLASS_ATTR_LONG                 (c, "interval", 0, t_hoa_meter_3d, f_interval);
+    CLASS_ATTR_ORDER                (c, "interval", 0, "5");
+    CLASS_ATTR_LABEL                (c, "interval", 0, "Refresh Interval (in ms)");
+    CLASS_ATTR_FILTER_MIN           (c, "interval", 20);
+    CLASS_ATTR_DEFAULT              (c, "interval", 0, "50");
+    CLASS_ATTR_SAVE                 (c, "interval", 1);
+    CLASS_ATTR_STYLE                (c, "interval", 1, "number");
+    
+    CLASS_ATTR_RGBA					(c, "bgcolor", 0, t_hoa_meter_3d, f_color_bg);
+    CLASS_ATTR_CATEGORY				(c, "bgcolor", 0, "Color");
+    CLASS_ATTR_STYLE				(c, "bgcolor", 0, "rgba");
+    CLASS_ATTR_LABEL				(c, "bgcolor", 0, "Background Color");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT	(c, "bgcolor", 0, "0.76 0.76 0.76 1.");
+    CLASS_ATTR_STYLE                (c, "bgcolor", 1, "color");
+    
+    CLASS_ATTR_RGBA					(c, "bdcolor", 0, t_hoa_meter_3d, f_color_bd);
+    CLASS_ATTR_CATEGORY				(c, "bdcolor", 0, "Color");
+    CLASS_ATTR_STYLE                (c, "bdcolor", 0, "rgba");
+    CLASS_ATTR_LABEL				(c, "bdcolor", 0, "Border Color");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT	(c, "bdcolor", 0, "0.7 0.7 0.7 1.");
+    CLASS_ATTR_STYLE                (c, "bdcolor", 1, "color");
+    
+    CLASS_ATTR_RGBA                 (c, "coldcolor", 0, t_hoa_meter_3d, f_color_cold_signal);
+    CLASS_ATTR_LABEL                (c, "coldcolor", 0, "Cold Signal Color");
+    CLASS_ATTR_ORDER                (c, "coldcolor", 0, "4");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "coldcolor", 0, "0. 0.6 0. 0.8");
+    CLASS_ATTR_STYLE                (c, "coldcolor", 1, "color");
+    
+    CLASS_ATTR_RGBA                 (c, "tepidcolor", 0, t_hoa_meter_3d, f_color_tepid_signal);
+    CLASS_ATTR_LABEL                (c, "tepidcolor", 0, "Tepid Signal Color");
+    CLASS_ATTR_ORDER                (c, "tepidcolor", 0, "5");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "tepidcolor", 0, "0.6 0.73 0. 0.8");
+    CLASS_ATTR_STYLE                (c, "tepidcolor", 1, "color");
+    
+    CLASS_ATTR_RGBA                 (c, "warmcolor", 0, t_hoa_meter_3d, f_color_warm_signal);
+    CLASS_ATTR_LABEL                (c, "warmcolor", 0, "Warm Signal Color");
+    CLASS_ATTR_ORDER                (c, "warmcolor", 0, "6");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "warmcolor", 0, ".85 .85 0. 0.8");
+    CLASS_ATTR_STYLE                (c, "warmcolor", 1, "color");
+    
+    CLASS_ATTR_RGBA                 (c, "hotcolor", 0, t_hoa_meter_3d, f_color_hot_signal);
+    CLASS_ATTR_LABEL                (c, "hotcolor", 0, "Hot Signal Color");
+    CLASS_ATTR_ORDER                (c, "hotcolor", 0, "7");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "hotcolor", 0, "1. 0.6 0. 0.8");
+    CLASS_ATTR_STYLE                (c, "hotcolor", 1, "color");
+    
+    CLASS_ATTR_RGBA                 (c, "overcolor", 0, t_hoa_meter_3d, f_color_over_signal);
+    CLASS_ATTR_LABEL                (c, "overcolor", 0, "Overload Signal Color");
+    CLASS_ATTR_ORDER                (c, "overcolor", 0, "8");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "overcolor", 0, "1. 0. 0. 0.8");
+    CLASS_ATTR_STYLE                (c, "overcolor", 1, "color");
+    
+    CLASS_ATTR_RGBA                 (c, "energycolor", 0, t_hoa_meter_3d, f_color_energy_vector);
+    CLASS_ATTR_LABEL                (c, "energycolor", 0, "Energy Vector Color");
+    CLASS_ATTR_ORDER                (c, "energycolor", 0, "9");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "energycolor", 0, "0. 0. 1. 0.8");
+    CLASS_ATTR_STYLE                (c, "energycolor", 1, "color");
+    
+    CLASS_ATTR_RGBA                 (c, "velocitycolor", 0, t_hoa_meter_3d, f_color_velocity_vector);
+    CLASS_ATTR_LABEL                (c, "velocitycolor", 0, "Velocity Vector Color");
+    CLASS_ATTR_ORDER                (c, "velocitycolor", 0, "9");
+    CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "velocitycolor", 0, "1. 0. 0. 0.8");
+    CLASS_ATTR_STYLE                (c, "velocitycolor", 1, "color");
+    
+    eclass_register(CLASS_BOX, c);
+    hoa_meter_3d_class = c;
 }

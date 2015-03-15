@@ -137,14 +137,8 @@
 		8FC2EDA81A62B32A00DBD231 /* hoa.decoder_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2EDA31A62B32A00DBD231 /* hoa.decoder_tilde.cpp */; };
 		8FC2EDA91A62B32A00DBD231 /* hoa.meter_gui_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2EDA41A62B32A00DBD231 /* hoa.meter_gui_tilde.cpp */; };
 		8FC2EDAA1A62B32A00DBD231 /* hoa.meter_gui_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2EDA41A62B32A00DBD231 /* hoa.meter_gui_tilde.cpp */; };
-		8FC2EDAD1A62B32A00DBD231 /* hoa.3d.meter_gui_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2EDA61A62B32A00DBD231 /* hoa.3d.meter_gui_tilde.cpp */; };
-		8FC2EDAE1A62B32A00DBD231 /* hoa.3d.meter_gui_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2EDA61A62B32A00DBD231 /* hoa.3d.meter_gui_tilde.cpp */; };
 		8FDAB82E1AB1F4B3002D98AC /* Voronoi.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8FDAB82D1AB1F4B3002D98AC /* Voronoi.hpp */; };
 		8FDAB82F1AB1F4B3002D98AC /* Voronoi.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8FDAB82D1AB1F4B3002D98AC /* Voronoi.hpp */; };
-		8FF8C4FC1A63C1C200C64C6B /* Meter_3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FF8C4FA1A63C1C200C64C6B /* Meter_3D.cpp */; };
-		8FF8C4FD1A63C1C200C64C6B /* Meter_3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FF8C4FA1A63C1C200C64C6B /* Meter_3D.cpp */; };
-		8FF8C4FE1A63C1C200C64C6B /* Meter_3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FF8C4FB1A63C1C200C64C6B /* Meter_3D.h */; };
-		8FF8C4FF1A63C1C200C64C6B /* Meter_3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FF8C4FB1A63C1C200C64C6B /* Meter_3D.h */; };
 		8FFCAC2F1A5C0FC600E38483 /* Decoder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8FFCAC0B1A5C0FC600E38483 /* Decoder.hpp */; };
 		8FFCAC301A5C0FC600E38483 /* Decoder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8FFCAC0B1A5C0FC600E38483 /* Decoder.hpp */; };
 		8FFCAC311A5C0FC600E38483 /* Encoder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8FFCAC0C1A5C0FC600E38483 /* Encoder.hpp */; };
@@ -235,10 +229,7 @@
 		8FC2EDA01A62A95900DBD231 /* Source.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Source.cpp; sourceTree = "<group>"; };
 		8FC2EDA31A62B32A00DBD231 /* hoa.decoder_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.decoder_tilde.cpp; sourceTree = "<group>"; };
 		8FC2EDA41A62B32A00DBD231 /* hoa.meter_gui_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.meter_gui_tilde.cpp; sourceTree = "<group>"; };
-		8FC2EDA61A62B32A00DBD231 /* hoa.3d.meter_gui_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.3d.meter_gui_tilde.cpp; sourceTree = "<group>"; };
 		8FDAB82D1AB1F4B3002D98AC /* Voronoi.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Voronoi.hpp; sourceTree = "<group>"; };
-		8FF8C4FA1A63C1C200C64C6B /* Meter_3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Meter_3D.cpp; sourceTree = "<group>"; };
-		8FF8C4FB1A63C1C200C64C6B /* Meter_3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meter_3D.h; sourceTree = "<group>"; };
 		8FFCAC0B1A5C0FC600E38483 /* Decoder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Decoder.hpp; sourceTree = "<group>"; };
 		8FFCAC0C1A5C0FC600E38483 /* Encoder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Encoder.hpp; sourceTree = "<group>"; };
 		8FFCAC0D1A5C0FC600E38483 /* Harmonics.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Harmonics.hpp; sourceTree = "<group>"; };
@@ -400,7 +391,6 @@
 			children = (
 				8FC2EDA31A62B32A00DBD231 /* hoa.decoder_tilde.cpp */,
 				8FC2EDA41A62B32A00DBD231 /* hoa.meter_gui_tilde.cpp */,
-				8FC2EDA61A62B32A00DBD231 /* hoa.3d.meter_gui_tilde.cpp */,
 				8F80BF151A613B0A00692F98 /* hoa.encoder_tilde.cpp */,
 				8F80BF161A613B0A00692F98 /* hoa.map_tilde.cpp */,
 				8F83E80A1A60346F00FDDCC8 /* hoa.io.cpp */,
@@ -442,8 +432,6 @@
 				8F83E7F71A5EC73100FDDCC8 /* Wider.hpp */,
 				8FC2ED8F1A62A0DC00DBD231 /* Source.hpp */,
 				8FC2EDA01A62A95900DBD231 /* Source.cpp */,
-				8FF8C4FA1A63C1C200C64C6B /* Meter_3D.cpp */,
-				8FF8C4FB1A63C1C200C64C6B /* Meter_3D.h */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -469,7 +457,6 @@
 				8FFCAC331A5C0FC600E38483 /* Harmonics.hpp in Headers */,
 				8F1F1BC51A5425AF0026B9E8 /* eclass.h in Headers */,
 				8F1F1C0B1A5425AF0026B9E8 /* epopup.h in Headers */,
-				8FF8C4FE1A63C1C200C64C6B /* Meter_3D.h in Headers */,
 				8FFCAC691A5C0FC600E38483 /* Optim.hpp in Headers */,
 				8FFCAC711A5C0FC600E38483 /* Vector.hpp in Headers */,
 				8F1F1C0D1A5425AF0026B9E8 /* estruct.h in Headers */,
@@ -510,7 +497,6 @@
 				8FFCAC341A5C0FC600E38483 /* Harmonics.hpp in Headers */,
 				8F1F1BC61A5425AF0026B9E8 /* eclass.h in Headers */,
 				8F1F1C0C1A5425AF0026B9E8 /* epopup.h in Headers */,
-				8FF8C4FF1A63C1C200C64C6B /* Meter_3D.h in Headers */,
 				8FFCAC6A1A5C0FC600E38483 /* Optim.hpp in Headers */,
 				8FFCAC721A5C0FC600E38483 /* Vector.hpp in Headers */,
 				8F1F1C0E1A5425AF0026B9E8 /* estruct.h in Headers */,
@@ -631,9 +617,7 @@
 				8F1F1BFF1A5425AF0026B9E8 /* eobj_handle.c in Sources */,
 				8F80BF251A613BEF00692F98 /* hoa.projector_tilde.cpp in Sources */,
 				8F1F1BF31A5425AF0026B9E8 /* egraphics_forms.c in Sources */,
-				8FC2EDAD1A62B32A00DBD231 /* hoa.3d.meter_gui_tilde.cpp in Sources */,
 				8FC2ED861A627B4800DBD231 /* hoa.scope_gui_tilde.cpp in Sources */,
-				8FF8C4FC1A63C1C200C64C6B /* Meter_3D.cpp in Sources */,
 				8F1F1BC91A5425AF0026B9E8 /* eclass_attrnew.c in Sources */,
 				8F1F1BD31A5425AF0026B9E8 /* d_ugen.c in Sources */,
 				8F1F1BF51A5425AF0026B9E8 /* egraphics_matrix.c in Sources */,
@@ -682,9 +666,7 @@
 				8F1F1C001A5425AF0026B9E8 /* eobj_handle.c in Sources */,
 				8F80BF261A613BEF00692F98 /* hoa.projector_tilde.cpp in Sources */,
 				8F1F1BF41A5425AF0026B9E8 /* egraphics_forms.c in Sources */,
-				8FC2EDAE1A62B32A00DBD231 /* hoa.3d.meter_gui_tilde.cpp in Sources */,
 				8FC2ED871A627B4800DBD231 /* hoa.scope_gui_tilde.cpp in Sources */,
-				8FF8C4FD1A63C1C200C64C6B /* Meter_3D.cpp in Sources */,
 				8F1F1BCA1A5425AF0026B9E8 /* eclass_attrnew.c in Sources */,
 				8F1F1BD41A5425AF0026B9E8 /* d_ugen.c in Sources */,
 				8F1F1BF61A5425AF0026B9E8 /* egraphics_matrix.c in Sources */,
