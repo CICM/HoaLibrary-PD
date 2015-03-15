@@ -233,7 +233,7 @@ static t_pd_err angles_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv
     {
         for(ulong i = 0; i < x->f_meter->getNumberOfPlanewaves(); i++)
         {
-            atom_setfloat(argv[0]+i, x->f_meter->getPlanewaveAzimuth(i) / HOA_2PI * 360.);
+            atom_setfloat(argv[0]+i, x->f_meter->getPlanewaveAzimuth(i, false) / HOA_2PI * 360.);
         }
     }
     else
@@ -252,8 +252,8 @@ static t_pd_err angles_3d_get(t_hoa_meter_3d *x, void *attr, long *argc, t_atom 
     {
         for(ulong i = 0; i < x->f_meter->getNumberOfPlanewaves(); i++)
         {
-            atom_setfloat(argv[0]+i*2, x->f_meter->getPlanewaveAzimuth(i) / HOA_2PI * 360.);
-            atom_setfloat(argv[0]+i*2+1, x->f_meter->getPlanewaveElevation(i) / HOA_2PI * 360.);
+            atom_setfloat(argv[0]+i*2, x->f_meter->getPlanewaveAzimuth(i, false) / HOA_2PI * 360.);
+            atom_setfloat(argv[0]+i*2+1, x->f_meter->getPlanewaveElevation(i, false) / HOA_2PI * 360.);
         }
     }
     else

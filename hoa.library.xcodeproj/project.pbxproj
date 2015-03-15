@@ -84,6 +84,8 @@
 		8F1F1C0D1A5425AF0026B9E8 /* estruct.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F1F1BB31A5425AF0026B9E8 /* estruct.h */; };
 		8F1F1C0E1A5425AF0026B9E8 /* estruct.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F1F1BB31A5425AF0026B9E8 /* estruct.h */; };
 		8F26F18B17E76274005FCB97 /* hoa.library.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F26F18A17E76273005FCB97 /* hoa.library.cpp */; };
+		8F32017D1AB5D66100C889C4 /* Source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F32017C1AB5D66100C889C4 /* Source.cpp */; };
+		8F32017E1AB5D66100C889C4 /* Source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F32017C1AB5D66100C889C4 /* Source.cpp */; };
 		8F80BF171A613B0A00692F98 /* hoa.encoder_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F80BF151A613B0A00692F98 /* hoa.encoder_tilde.cpp */; };
 		8F80BF181A613B0A00692F98 /* hoa.encoder_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F80BF151A613B0A00692F98 /* hoa.encoder_tilde.cpp */; };
 		8F80BF191A613B0A00692F98 /* hoa.map_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F80BF161A613B0A00692F98 /* hoa.map_tilde.cpp */; };
@@ -131,8 +133,6 @@
 		8FC2ED871A627B4800DBD231 /* hoa.scope_gui_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2ED851A627B4800DBD231 /* hoa.scope_gui_tilde.cpp */; };
 		8FC2ED961A62A0DC00DBD231 /* Source.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8FC2ED8F1A62A0DC00DBD231 /* Source.hpp */; };
 		8FC2ED971A62A0DC00DBD231 /* Source.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8FC2ED8F1A62A0DC00DBD231 /* Source.hpp */; };
-		8FC2EDA11A62A95900DBD231 /* Source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2EDA01A62A95900DBD231 /* Source.cpp */; };
-		8FC2EDA21A62A95900DBD231 /* Source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2EDA01A62A95900DBD231 /* Source.cpp */; };
 		8FC2EDA71A62B32A00DBD231 /* hoa.decoder_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2EDA31A62B32A00DBD231 /* hoa.decoder_tilde.cpp */; };
 		8FC2EDA81A62B32A00DBD231 /* hoa.decoder_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2EDA31A62B32A00DBD231 /* hoa.decoder_tilde.cpp */; };
 		8FC2EDA91A62B32A00DBD231 /* hoa.meter_gui_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2EDA41A62B32A00DBD231 /* hoa.meter_gui_tilde.cpp */; };
@@ -203,6 +203,7 @@
 		8F1F1BB11A5425AF0026B9E8 /* epopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = epopup.h; sourceTree = "<group>"; };
 		8F1F1BB31A5425AF0026B9E8 /* estruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = estruct.h; sourceTree = "<group>"; };
 		8F26F18A17E76273005FCB97 /* hoa.library.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.library.cpp; sourceTree = "<group>"; };
+		8F32017C1AB5D66100C889C4 /* Source.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Source.cpp; sourceTree = "<group>"; };
 		8F80BF151A613B0A00692F98 /* hoa.encoder_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.encoder_tilde.cpp; sourceTree = "<group>"; };
 		8F80BF161A613B0A00692F98 /* hoa.map_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.map_tilde.cpp; sourceTree = "<group>"; };
 		8F80BF1B1A613BC900692F98 /* hoa.space_gui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.space_gui.cpp; sourceTree = "<group>"; };
@@ -226,7 +227,6 @@
 		8FAC0C91196985A400E09ACB /* hoa.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = hoa.pd_darwin; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FC2ED851A627B4800DBD231 /* hoa.scope_gui_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.scope_gui_tilde.cpp; sourceTree = "<group>"; };
 		8FC2ED8F1A62A0DC00DBD231 /* Source.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Source.hpp; sourceTree = "<group>"; };
-		8FC2EDA01A62A95900DBD231 /* Source.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Source.cpp; sourceTree = "<group>"; };
 		8FC2EDA31A62B32A00DBD231 /* hoa.decoder_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.decoder_tilde.cpp; sourceTree = "<group>"; };
 		8FC2EDA41A62B32A00DBD231 /* hoa.meter_gui_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.meter_gui_tilde.cpp; sourceTree = "<group>"; };
 		8FDAB82D1AB1F4B3002D98AC /* Voronoi.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Voronoi.hpp; sourceTree = "<group>"; };
@@ -431,7 +431,7 @@
 				8FDAB82D1AB1F4B3002D98AC /* Voronoi.hpp */,
 				8F83E7F71A5EC73100FDDCC8 /* Wider.hpp */,
 				8FC2ED8F1A62A0DC00DBD231 /* Source.hpp */,
-				8FC2EDA01A62A95900DBD231 /* Source.cpp */,
+				8F32017C1AB5D66100C889C4 /* Source.cpp */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -598,7 +598,6 @@
 				8F1F1BFB1A5425AF0026B9E8 /* eobj_basic.c in Sources */,
 				8FC2EDA71A62B32A00DBD231 /* hoa.decoder_tilde.cpp in Sources */,
 				8F80BF171A613B0A00692F98 /* hoa.encoder_tilde.cpp in Sources */,
-				8FC2EDA11A62A95900DBD231 /* Source.cpp in Sources */,
 				8F1F1C031A5425AF0026B9E8 /* eobj_router.c in Sources */,
 				8F1F1BCB1A5425AF0026B9E8 /* eclass_attroptions.c in Sources */,
 				8F1F1BD91A5425AF0026B9E8 /* ecommon.c in Sources */,
@@ -622,6 +621,7 @@
 				8F1F1BD31A5425AF0026B9E8 /* d_ugen.c in Sources */,
 				8F1F1BF51A5425AF0026B9E8 /* egraphics_matrix.c in Sources */,
 				8F1F1BED1A5425AF0026B9E8 /* egraphics.c in Sources */,
+				8F32017D1AB5D66100C889C4 /* Source.cpp in Sources */,
 				8F1F1BD11A5425AF0026B9E8 /* eclass_widget.c in Sources */,
 				8F1F1BC31A5425AF0026B9E8 /* ebox_window.c in Sources */,
 				8F83E81A1A60346F00FDDCC8 /* hoa.wider_tilde.cpp in Sources */,
@@ -647,7 +647,6 @@
 				8F1F1BFC1A5425AF0026B9E8 /* eobj_basic.c in Sources */,
 				8FC2EDA81A62B32A00DBD231 /* hoa.decoder_tilde.cpp in Sources */,
 				8F80BF181A613B0A00692F98 /* hoa.encoder_tilde.cpp in Sources */,
-				8FC2EDA21A62A95900DBD231 /* Source.cpp in Sources */,
 				8F1F1C041A5425AF0026B9E8 /* eobj_router.c in Sources */,
 				8F1F1BCC1A5425AF0026B9E8 /* eclass_attroptions.c in Sources */,
 				8F1F1BDA1A5425AF0026B9E8 /* ecommon.c in Sources */,
@@ -671,6 +670,7 @@
 				8F1F1BD41A5425AF0026B9E8 /* d_ugen.c in Sources */,
 				8F1F1BF61A5425AF0026B9E8 /* egraphics_matrix.c in Sources */,
 				8F1F1BEE1A5425AF0026B9E8 /* egraphics.c in Sources */,
+				8F32017E1AB5D66100C889C4 /* Source.cpp in Sources */,
 				8F1F1BD21A5425AF0026B9E8 /* eclass_widget.c in Sources */,
 				8F1F1BC41A5425AF0026B9E8 /* ebox_window.c in Sources */,
 				8F83E81B1A60346F00FDDCC8 /* hoa.wider_tilde.cpp in Sources */,
