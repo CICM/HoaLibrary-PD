@@ -1119,80 +1119,53 @@ static void draw_3d_leds(t_hoa_meter_3d *x, t_object *view, t_rect *rect)
     t_elayer *g = ebox_start_layer((t_ebox *)x,  hoa_sym_leds_layer, rect->width, rect->height);
     if(g)
     {
-        t_rgba black = rgba_addContrast(x->f_color_bg, -0.14);
-        const bool top = (x->f_view == hoa_sym_bottom) ? false : true;
         egraphics_matrix_init(&transform, 1, 0, 0, -1, x->f_center, x->f_center);
         egraphics_set_matrix(g, &transform);
+        t_rgba black = rgba_addContrast(x->f_color_bg, -0.14);
+        const float width = x->f_radius - 1.;
+        const bool top = (x->f_view == hoa_sym_bottom) ? false : true;
         
         for(ulong i = 0; i < x->f_meter->getNumberOfPlanewaves(); i++)
         {
             Meter<Hoa3d, t_sample>::Path const& path = x->f_meter->getPlanewavePath(i, top);
             if(path.size() > 2)
             {
-                float angle1 = pd_angle(path[0].x, path[0].y);
-                float radius1= pd_radius(path[0].x, path[0].y);
-                egraphics_move_to(g, path[0].x * x->f_radius + x->f_center, path[0].y * x->f_radius + x->f_center);
+                float angle1 = Math<double>::azimuth(path[0].x, path[0].y);
+                float radius1= Math<double>::radius(path[0].x, path[0].y);
+                egraphics_move_to(g, path[0].x * width, path[0].y * width);
                 for(int j = 1; j < path.size(); j++)
                 {
-                    const float angle2 = pd_angle(path[j].x, path[j].y);
-                    const float radius2= pd_radius(path[j].x, path[j].y);
-                    float extend = angle2 - angle1;
-                    if(extend > HOA_PI)
-                    {
-                        extend -= HOA_2PI;
-                    }
-                    else if(extend < -HOA_PI)
-                    {
-                        extend += HOA_2PI;
-                    }
-                    
-                    if(fabs(extend) > HOA_EPSILON && fabs(radius2 - radius1) < HOA_EPSILON && fabs(fabs(extend) - HOA_PI) > 1e-6)
+                    const float angle2 = Math<double>::azimuth(path[j].x, path[j].y);
+                    const float radius2= Math<double>::radius(path[j].x, path[j].y);
+                    const float extend = Math<double>::wrap_pi(angle2 - angle1);
+                    if(fabs(extend) > HOA_EPSILON && fabs(radius2 - radius1) < HOA_EPSILON && fabs(fabs(extend) - HOA_PI) > 1e-3)
                     {
                         egraphics_arc_to(g, 0., 0., extend);
                     }
                     else
                     {
-                        egraphics_line_to(g, path[j].x * x->f_radius, path[j].y * x->f_radius);
+                        egraphics_line_to(g, path[j].x * width, path[j].y * width);
                     }
                     angle1 = angle2;
                     radius1 = radius2;
                 }
                 
-                const float angle2 = pd_angle(path[0].x, path[0].y);
-                const float radius2 = pd_radius(path[0].x, path[0].y);
-                float extend = angle2 - angle1;
-                if(extend > HOA_PI)
-                {
-                    extend -= HOA_2PI;
-                }
-                else if(extend < -HOA_PI)
-                {
-                    extend += HOA_2PI;
-                }
-                
-                if(fabs(extend) > HOA_EPSILON && fabs(radius2 - radius1) < HOA_EPSILON && fabs(fabs(extend) - HOA_PI) > 1e-6)
+                const float angle2 = Math<double>::azimuth(path[0].x, path[0].y);
+                const float radius2 = Math<double>::radius(path[0].x, path[0].y);
+                const float extend = Math<double>::wrap_pi(angle2 - angle1);
+                if(fabs(extend) > HOA_EPSILON && fabs(radius2 - radius1) < HOA_EPSILON && fabs(fabs(extend) - HOA_PI) > 1e-3)
                 {
                     egraphics_arc_to(g, 0., 0., extend);
                 }
                 else
                 {
-                    egraphics_line_to(g, path[0].x * x->f_radius, path[0].y * x->f_radius);
+                    egraphics_line_to(g, path[0].x * width, path[0].y * width);
                 }
             
                 egraphics_set_color_rgba(g, &x->f_color_cold_signal);
                 egraphics_fill_preserve(g);
                 egraphics_set_color_rgba(g, &black);
                 egraphics_stroke(g);
-            }
-        }
-        
-        for(ulong i = 0; i < x->f_meter->getNumberOfPlanewaves(); i++)
-        {
-            if((top && x->f_meter->getPlanewaveHeight(i) >= 0.) || (!top && x->f_meter->getPlanewaveHeight(i) <= 0.))
-            {
-                egraphics_circle(g, x->f_meter->getPlanewaveAbscissa(i) * x->f_radius, x->f_meter->getPlanewaveOrdinate(i) * x->f_radius, 3.);
-                egraphics_set_color_rgba(g, &x->f_color_hot_signal);
-                egraphics_fill(g);
             }
         }
         
@@ -1294,9 +1267,9 @@ static void hoa_meter_3d_paint(t_hoa_meter_3d *x, t_object *view)
     ebox_get_rect_for_view((t_ebox *)x, &rect);
     
     if(x->f_view == hoa_sym_topnextbottom)
-        x->f_center = rect.width * .25;
+        x->f_center = rect.width * 0.25;
     else
-        x->f_center = rect.width * .5;
+        x->f_center = rect.width * 0.5;
     x->f_radius = x->f_center * 0.95;
     
     draw_3d_leds(x, view, &rect);
