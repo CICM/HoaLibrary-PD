@@ -176,7 +176,7 @@ static void draw_background(t_hoa_scope *x, t_object *view, t_rect *rect)
 			egraphics_line_to(g, x2, y2);
             egraphics_set_line_width(g, 3);
             egraphics_set_color_rgba(g, &white);
-            egraphics_stroke(g);
+            egraphics_stroke_preserve(g);
             egraphics_set_color_rgba(g, &black);
 			egraphics_set_line_width(g, 1);
 			egraphics_stroke(g);
@@ -187,7 +187,7 @@ static void draw_background(t_hoa_scope *x, t_object *view, t_rect *rect)
             egraphics_set_line_width(g, 3);
             egraphics_set_color_rgba(g, &white);
             egraphics_circle(g, 0, 0, (double)i * 0.2 * x->f_radius);
-            egraphics_stroke(g);
+            egraphics_stroke_preserve(g);
             egraphics_set_line_width(g, 1);
             egraphics_set_color_rgba(g, &black);
             egraphics_stroke(g);
@@ -557,7 +557,7 @@ static void draw_harmonics(t_hoa_scope_3d *x, t_object *view, t_rect *rect)
             egraphics_line_to(g, x2, y2);
             egraphics_set_line_width(g, 3);
             egraphics_set_color_rgba(g, &white);
-            egraphics_stroke(g);
+            egraphics_stroke_preserve(g);
             egraphics_set_color_rgba(g, &black);
             egraphics_set_line_width(g, 1);
             egraphics_stroke(g);
@@ -568,7 +568,7 @@ static void draw_harmonics(t_hoa_scope_3d *x, t_object *view, t_rect *rect)
             egraphics_set_line_width(g, 3);
             egraphics_set_color_rgba(g, &white);
             egraphics_circle(g, 0, 0, (double)i * 0.2 * x->f_radius);
-            egraphics_stroke(g);
+            egraphics_stroke_preserve(g);
             egraphics_set_line_width(g, 1);
             egraphics_set_color_rgba(g, &black);
             egraphics_stroke(g);

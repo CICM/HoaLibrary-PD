@@ -339,7 +339,7 @@ void draw_background(t_hoa_space *x, t_object *view, t_rect *rect)
 			egraphics_line_to(g, x2, y2);
             egraphics_set_line_width(g, 3);
             egraphics_set_color_rgba(g, &white);
-            egraphics_stroke(g);
+            egraphics_stroke_preserve(g);
             
             egraphics_set_color_rgba(g, &black);
 			egraphics_set_line_width(g, 1);
@@ -349,10 +349,10 @@ void draw_background(t_hoa_space *x, t_object *view, t_rect *rect)
         
         for(int i = 5; i > 0; i--)
 		{
-            egraphics_arc(g, 0, 0, (double)i * 0.2 * x->f_radius,  0., HOA_2PI);
+            egraphics_circle(g, 0, 0, (double)i * 0.2 * x->f_radius);
             egraphics_set_line_width(g, 3);
             egraphics_set_color_rgba(g, &white);
-            egraphics_stroke(g);
+            egraphics_stroke_preserve(g);
             
             egraphics_set_line_width(g, 1);
             egraphics_set_color_rgba(g, &black);
@@ -440,7 +440,7 @@ void draw_points(t_hoa_space *x, t_object *view, t_rect *rect)
             angle -= HOA_2PI / (double)x->f_number_of_channels;
             abscissa = Math<float>::abscissa(radius, angle);
             ordinate = Math<float>::ordinate(radius, angle);
-            egraphics_arc(g, abscissa, ordinate, 3., 0., HOA_2PI);
+            egraphics_circle(g, abscissa, ordinate, 3.);
             egraphics_fill(g);
         }
         
