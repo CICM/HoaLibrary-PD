@@ -361,16 +361,14 @@ static void draw_background(t_hoa_meter *x,  t_object *view, t_rect *rect)
 static void draw_leds(t_hoa_meter *x, t_object *view, t_rect *rect)
 {
     float angle, width;
-    const float height = 0.49 * rect->width / 18.;
+    const float height = 0.49 * rect->width / 17.;
     const float lwidth = height - pd_clip_min(360. / rect->width, 2.);
     t_matrix transform;
     t_elayer *g = ebox_start_layer((t_ebox *)x,  hoa_sym_leds_layer, rect->width, rect->height);
     
     if(g)
     {
-        t_rgba black = rgba_addContrast(x->f_color_bg, -0.14);
-        
-        
+        t_rgba black = rgba_addContrast(x->f_color_bg, -HOA_CONTRAST_DARKER);
         egraphics_matrix_init(&transform, 1, 0, 0, -1, rect->width * .5, rect->width * .5);
         egraphics_set_matrix(g, &transform);
         egraphics_rotate(g, HOA_PI2);
@@ -384,16 +382,16 @@ static void draw_leds(t_hoa_meter *x, t_object *view, t_rect *rect)
             else
                 egraphics_rotate(g, angle);
             
-            for(float j = 11.f, dB = -34.5f; j > -1; j--, dB += 3.)
+            for(float j = 12.f, dB = -39.f; j > 0; j--, dB += 3.)
             {
-                float radius    = (j + 5.) * height;
+                float radius    = (j + 4.) * height;
                 if(x->f_meter->getPlanewaveEnergy(i) > dB)
                 {
-                    if(j > 8)
+                    if(j > 9)
                         egraphics_set_color_rgba(g, &x->f_color_cold_signal);
-                    else if(j > 5)
+                    else if(j > 6)
                         egraphics_set_color_rgba(g, &x->f_color_tepid_signal);
-                    else if(j > 2)
+                    else if(j > 3)
                         egraphics_set_color_rgba(g, &x->f_color_warm_signal);
                     else
                         egraphics_set_color_rgba(g, &x->f_color_hot_signal);
@@ -402,7 +400,7 @@ static void draw_leds(t_hoa_meter *x, t_object *view, t_rect *rect)
                     egraphics_arc(g, 0., 0., radius,  width, 3.f * width);
                     egraphics_stroke(g);
                 }
-                else if(j != -1)
+                else if(j)
                 {
                     egraphics_set_color_rgba(g, &black);
                     egraphics_set_line_width(g, lwidth);
@@ -412,10 +410,16 @@ static void draw_leds(t_hoa_meter *x, t_object *view, t_rect *rect)
             }
             if(x->f_meter->getPlanewaveOverLed(i))
             {
-                float  radius    = (4.) * height;
                 egraphics_set_color_rgba(g, &x->f_color_over_signal);
                 egraphics_set_line_width(g, lwidth);
-                egraphics_arc(g, 0., 0., radius,  width, 3.f * width);
+                egraphics_arc(g, 0., 0., 4. * height,  width, 3.f * width);
+                egraphics_stroke(g);
+            }
+            else
+            {
+                egraphics_set_color_rgba(g, &black);
+                egraphics_set_line_width(g, lwidth);
+                egraphics_arc(g, 0., 0., 4. * height,  width, 3.f * width);
                 egraphics_stroke(g);
             }
             
@@ -1031,6 +1035,7 @@ static void hoa_meter_3d_tick(t_hoa_meter_3d *x)
     else if(x->f_vector_type == hoa_sym_energy)
         x->f_vector->processEnergy(x->f_signals, x->f_vector_coords + 3);
     
+    x->f_meter->tick(1000 / x->f_interval);
     ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
     ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
     ebox_redraw((t_ebox *)x);
@@ -1042,18 +1047,16 @@ static void hoa_meter_3d_tick(t_hoa_meter_3d *x)
 static void draw_3d_background(t_hoa_meter_3d *x,  t_object *view, t_rect *rect)
 {
     t_elayer *g = ebox_start_layer((t_ebox *)x, hoa_sym_background_layer, rect->width, rect->height);
-    t_rgba black, white;
-    black = rgba_addContrast(x->f_color_bg, -HOA_CONTRAST_DARKER);
-    white = rgba_addContrast(x->f_color_bg, HOA_CONTRAST_LIGHTER);
-    
-    if (g)
+    if(g)
     {
+        t_rgba black = rgba_addContrast(x->f_color_bg, -HOA_CONTRAST_DARKER);
+        t_rgba white = rgba_addContrast(x->f_color_bg, HOA_CONTRAST_LIGHTER);
         if(x->f_view == hoa_sym_topnextbottom)
         {
             egraphics_set_color_rgba(g, &white);
             egraphics_set_line_width(g, 3.);
             egraphics_circle(g, x->f_center, x->f_center, x->f_radius);
-            egraphics_stroke(g);
+            egraphics_stroke_preserve(g);
             egraphics_set_color_rgba(g, &black);
             egraphics_set_line_width(g, 1.);
             egraphics_stroke(g);
@@ -1068,7 +1071,7 @@ static void draw_3d_background(t_hoa_meter_3d *x,  t_object *view, t_rect *rect)
             egraphics_set_color_rgba(g, &white);
             egraphics_set_line_width(g, 3.);
             egraphics_circle(g, x->f_center * 3, x->f_center, x->f_radius);
-            egraphics_stroke(g);
+            egraphics_stroke_preserve(g);
             egraphics_set_color_rgba(g, &black);
             egraphics_set_line_width(g, 1.);
             egraphics_stroke(g);
@@ -1078,7 +1081,7 @@ static void draw_3d_background(t_hoa_meter_3d *x,  t_object *view, t_rect *rect)
             egraphics_set_color_rgba(g, &white);
             egraphics_set_line_width(g, 3.);
             egraphics_circle(g, x->f_center, x->f_center, x->f_radius);
-            egraphics_stroke(g);
+            egraphics_stroke_preserve(g);
             egraphics_set_color_rgba(g, &black);
             egraphics_set_line_width(g, 1.);
             egraphics_stroke(g);
@@ -1093,7 +1096,7 @@ static void draw_3d_background(t_hoa_meter_3d *x,  t_object *view, t_rect *rect)
             egraphics_set_color_rgba(g, &white);
             egraphics_set_line_width(g, 3.);
             egraphics_circle(g, x->f_center, x->f_center * 3, x->f_radius);
-            egraphics_stroke(g);
+            egraphics_stroke_preserve(g);
             egraphics_set_color_rgba(g, &black);
             egraphics_set_line_width(g, 1.);
             egraphics_stroke(g);
@@ -1103,7 +1106,7 @@ static void draw_3d_background(t_hoa_meter_3d *x,  t_object *view, t_rect *rect)
             egraphics_set_color_rgba(g, &white);
             egraphics_set_line_width(g, 3.);
             egraphics_circle(g, x->f_center, x->f_center, x->f_radius);
-            egraphics_stroke(g);
+            egraphics_stroke_preserve(g);
             egraphics_set_color_rgba(g, &black);
             egraphics_set_line_width(g, 1.);
             egraphics_stroke(g);
@@ -1113,16 +1116,46 @@ static void draw_3d_background(t_hoa_meter_3d *x,  t_object *view, t_rect *rect)
     ebox_paint_layer((t_ebox *)x, hoa_sym_background_layer, 0., 0.);
 }
 
+static t_rgba* meter_3d_getcolor(t_hoa_meter_3d *x, const bool peak, const double db)
+{
+    if(peak)
+    {
+        return &x->f_color_over_signal;
+    }
+    else if(db >= -12.)
+    {
+        return &x->f_color_hot_signal;
+    }
+    else if(db >= -21)
+    {
+        return &x->f_color_warm_signal;
+    }
+    else if(db >= -30.)
+    {
+        return &x->f_color_tepid_signal;
+    }
+    else if(db >= -39.)
+    {
+        return &x->f_color_cold_signal;
+    }
+    else
+    {
+        return &x->f_color_bd;
+    }
+}
+
 static void draw_3d_leds(t_hoa_meter_3d *x, t_object *view, t_rect *rect)
 {
     t_matrix transform;
     t_elayer *g = ebox_start_layer((t_ebox *)x,  hoa_sym_leds_layer, rect->width, rect->height);
     if(g)
     {
+        t_rgba black = rgba_addContrast(x->f_color_bg, -HOA_CONTRAST_DARKER);
+        t_rgba white = rgba_addContrast(x->f_color_bg, HOA_CONTRAST_LIGHTER);
         egraphics_matrix_init(&transform, 1, 0, 0, -1, x->f_center, x->f_center);
         egraphics_set_matrix(g, &transform);
-        t_rgba black = rgba_addContrast(x->f_color_bg, -0.14);
-        const float width = x->f_radius - 1.;
+        
+        const float width = x->f_radius - 2.;
         const bool top = (x->f_view == hoa_sym_bottom) ? false : true;
         
         for(ulong i = 0; i < x->f_meter->getNumberOfPlanewaves(); i++)
@@ -1162,10 +1195,76 @@ static void draw_3d_leds(t_hoa_meter_3d *x, t_object *view, t_rect *rect)
                     egraphics_line_to(g, path[0].x * width, path[0].y * width);
                 }
             
-                egraphics_set_color_rgba(g, &x->f_color_cold_signal);
+                egraphics_set_color_rgba(g, meter_3d_getcolor(x, x->f_meter->getPlanewaveOverLed(i), x->f_meter->getPlanewaveEnergy(i)));
                 egraphics_fill_preserve(g);
+                egraphics_set_line_width(g, 1.);
+                egraphics_set_color_rgba(g, &white);
+                egraphics_stroke_preserve(g);
+                egraphics_set_line_width(g, 2.);
                 egraphics_set_color_rgba(g, &black);
                 egraphics_stroke(g);
+            }
+        }
+        
+        if(x->f_view == hoa_sym_toponbottom || x->f_view == hoa_sym_topnextbottom)
+        {
+            if(x->f_view == hoa_sym_toponbottom)
+            {
+                egraphics_matrix_init(&transform, 1, 0, 0, -1, x->f_center, rect->width + x->f_center);
+                egraphics_set_matrix(g, &transform);
+            }
+            else
+            {
+                egraphics_matrix_init(&transform, 1, 0, 0, -1, rect->height + x->f_center, x->f_center);
+                egraphics_set_matrix(g, &transform);
+            }
+               
+            for(ulong i = 0; i < x->f_meter->getNumberOfPlanewaves(); i++)
+            {
+                Meter<Hoa3d, t_sample>::Path const& path = x->f_meter->getPlanewavePath(i, false);
+                if(path.size() > 2)
+                {
+                    float angle1 = Math<double>::azimuth(path[0].x, path[0].y);
+                    float radius1= Math<double>::radius(path[0].x, path[0].y);
+                    egraphics_move_to(g, path[0].x * width, path[0].y * width);
+                    for(int j = 1; j < path.size(); j++)
+                    {
+                        const float angle2 = Math<double>::azimuth(path[j].x, path[j].y);
+                        const float radius2= Math<double>::radius(path[j].x, path[j].y);
+                        const float extend = Math<double>::wrap_pi(angle2 - angle1);
+                        if(fabs(extend) > HOA_EPSILON && fabs(radius2 - radius1) < HOA_EPSILON && fabs(fabs(extend) - HOA_PI) > 1e-3)
+                        {
+                            egraphics_arc_to(g, 0., 0., extend);
+                        }
+                        else
+                        {
+                            egraphics_line_to(g, path[j].x * width, path[j].y * width);
+                        }
+                        angle1 = angle2;
+                        radius1 = radius2;
+                    }
+                    
+                    const float angle2 = Math<double>::azimuth(path[0].x, path[0].y);
+                    const float radius2 = Math<double>::radius(path[0].x, path[0].y);
+                    const float extend = Math<double>::wrap_pi(angle2 - angle1);
+                    if(fabs(extend) > HOA_EPSILON && fabs(radius2 - radius1) < HOA_EPSILON && fabs(fabs(extend) - HOA_PI) > 1e-3)
+                    {
+                        egraphics_arc_to(g, 0., 0., extend);
+                    }
+                    else
+                    {
+                        egraphics_line_to(g, path[0].x * width, path[0].y * width);
+                    }
+                    
+                    egraphics_set_color_rgba(g, meter_3d_getcolor(x, x->f_meter->getPlanewaveOverLed(i), x->f_meter->getPlanewaveEnergy(i)));
+                    egraphics_fill_preserve(g);
+                    egraphics_set_line_width(g, 1.);
+                    egraphics_set_color_rgba(g, &white);
+                    egraphics_stroke_preserve(g);
+                    egraphics_set_line_width(g, 2.);
+                    egraphics_set_color_rgba(g, &black);
+                    egraphics_stroke(g);
+                }
             }
         }
         
@@ -1207,17 +1306,17 @@ static void draw_3d_vectors(t_hoa_meter_3d *x, t_object *view, t_rect *rect)
             
             if((x->f_vector_coords[5] >= 0 && (x->f_view == hoa_sym_top || x->f_view == hoa_sym_toponbottom || x->f_view == hoa_sym_topnextbottom)) ||  (x->f_vector_coords[5] <= 0 && x->f_view == hoa_sym_bottom))
             {
-                egraphics_arc(g, x1, y1, size * distance, 0., HOA_2PI);
+                egraphics_circle(g, x1, y1, size * distance);
                 egraphics_fill(g);
             }
             else if(x->f_vector_coords[5] <= 0 && x->f_view == hoa_sym_toponbottom)
             {
-                egraphics_arc(g, x1, y1 - x->f_center * 2, size * distance, 0., HOA_2PI);
+                egraphics_circle(g, x1, y1 - x->f_center * 2, size * distance);
                 egraphics_fill(g);
             }
             else if(x->f_vector_coords[5] <= 0 && x->f_view == hoa_sym_topnextbottom)
             {
-                egraphics_arc(g, x1 + x->f_center * 2, y1, size * distance, 0., HOA_2PI);
+                egraphics_circle(g, x1 + x->f_center * 2, y1, size * distance);
                 egraphics_fill(g);
             }
         }
@@ -1241,17 +1340,17 @@ static void draw_3d_vectors(t_hoa_meter_3d *x, t_object *view, t_rect *rect)
             
             if((x->f_vector_coords[2] >= 0 && (x->f_view == hoa_sym_top || x->f_view == hoa_sym_toponbottom || x->f_view == hoa_sym_topnextbottom)) ||  (x->f_vector_coords[2] <= 0 && x->f_view == hoa_sym_bottom))
             {
-                egraphics_arc(g, x1, y1, size * distance, 0., HOA_2PI);
+                egraphics_circle(g, x1, y1, size * distance);
                 egraphics_fill(g);
             }
             else if(x->f_vector_coords[2] <= 0 && x->f_view == hoa_sym_toponbottom)
             {
-                egraphics_arc(g, x1, y1 - x->f_center * 2, size * distance, 0., HOA_2PI);
+                egraphics_circle(g, x1, y1 - x->f_center * 2, size * distance);
                 egraphics_fill(g);
             }
             else if(x->f_vector_coords[2] <= 0 && x->f_view == hoa_sym_topnextbottom)
             {
-                egraphics_arc(g, x1 + x->f_center * 2, y1, size * distance, 0., HOA_2PI);
+                egraphics_circle(g, x1 + x->f_center * 2, y1, size * distance);
                 egraphics_fill(g);
             }
         }
