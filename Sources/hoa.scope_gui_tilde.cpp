@@ -658,7 +658,7 @@ static void *hoa_scope_3d_new(t_symbol *s, int argc, t_atom *argv)
     {
         x->f_order      = 1;
         x->f_startclock = 0;
-        x->f_scope      = new Scope<Hoa3d, t_sample>(x->f_order, HOA_DISPLAY_NPOINTS * 0.25, HOA_DISPLAY_NPOINTS * 0.5);
+        x->f_scope      = new Scope<Hoa3d, t_sample>(x->f_order, HOA_DISPLAY_NPOINTS * 0.125, HOA_DISPLAY_NPOINTS * 0.25);
         x->f_order      = x->f_scope->getDecompositionOrder();
         x->f_signals    = new t_sample[x->f_scope->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
         

@@ -1280,7 +1280,7 @@ static void draw_3d_vectors(t_hoa_meter_3d *x, t_object *view, t_rect *rect)
     t_elayer *g = ebox_start_layer((t_ebox *)x,  hoa_sym_vector_layer, rect->width, rect->height);
     t_rgba color;
     double distance;
-    if (g)
+    if(g)
     {
         egraphics_matrix_init(&transform, 1, 0, 0, -1, x->f_center, x->f_center);
         egraphics_set_matrix(g, &transform);

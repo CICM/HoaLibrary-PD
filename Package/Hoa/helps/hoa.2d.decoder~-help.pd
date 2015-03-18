@@ -2,12 +2,12 @@
 #X text 4 82 1st argument is the order.;
 #X text 4 138 3rd argument is the number of loudspeakers (minmum 2
 * order + 1 for ambisonic mode).;
-#X obj 403 404 c.meter~ @size 9 71 @fontname Helvetica @fontweight
+#X obj 458 417 c.meter~ @size 9 71 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @bgcolor 0.7 0.7 0.7 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor 0 0.6 0
 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
 1 0.6 0 0.8 @overcolor 1 0 0 0.8;
-#X obj 781 410 c.meter~ @size 9 71 @fontname Helvetica @fontweight
+#X obj 707 417 c.meter~ @size 9 71 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @bgcolor 0.7 0.7 0.7 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor 0 0.6 0
 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
@@ -69,7 +69,7 @@ loudpspeakers array).;
 with the object. You have to write it in the box or to send a message.
 ;
 #X obj 420 3 hoa.help.also;
-#X obj 457 506 hoa.dac~ 1 2 -----------------------------;
+#X obj 458 506 hoa.dac~ 1 2 -----------------------------;
 #X obj 458 387 hoa.2d.decoder~ 7 binaural 2 -------------;
 #X obj 707 174 phasor~ 0.3;
 #X obj 458 164 hoa.soundrone;
@@ -125,6 +125,7 @@ artefact.;
 #X connect 23 0 15 0;
 #X connect 23 0 31 0;
 #X connect 23 0 2 0;
+#X connect 23 0 30 0;
 #X connect 23 1 14 1;
 #X connect 23 1 15 1;
 #X connect 23 1 31 1;
@@ -168,14 +169,13 @@ artefact.;
 #X connect 23 14 15 14;
 #X connect 23 14 31 14;
 #X connect 23 14 3 0;
+#X connect 23 14 30 1;
 #X connect 24 0 26 0;
 #X connect 25 0 24 0;
 #X connect 32 0 22 1;
 #X connect 33 0 4 0;
 #X connect 35 0 16 0;
-#X connect 35 0 30 0;
 #X connect 35 1 16 1;
-#X connect 35 1 30 1;
 #X connect 35 2 16 2;
 #X connect 35 3 16 3;
 #X connect 35 4 16 4;
