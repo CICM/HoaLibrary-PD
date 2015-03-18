@@ -95,7 +95,7 @@ static void hoa_decoder_perform64(t_hoa_decoder *x, t_object *dsp64, t_sample **
 
 static void hoa_decoder_dsp(t_hoa_decoder *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
-    x->f_decoder->computeMatrix(maxvectorsize);
+    x->f_decoder->computeRendering(maxvectorsize);
     object_method(dsp64, gensym("dsp_add64"), x, (method)hoa_decoder_perform64, 0, NULL);
 }
 
@@ -223,7 +223,7 @@ static void hoa_decoder_3d_perform64(t_hoa_decoder_3d *x, t_object *dsp64, t_sam
 
 static void hoa_decoder_3d_dsp(t_hoa_decoder_3d *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
-    x->f_decoder->computeMatrix(maxvectorsize);
+    x->f_decoder->computeRendering(maxvectorsize);
     object_method(dsp64, gensym("dsp_add64"), x, (method)hoa_decoder_3d_perform64, 0, NULL);
 }
 

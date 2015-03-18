@@ -43,51 +43,7 @@ typedef struct  _hoa_meter
 
 static t_eclass *hoa_meter_class;
 
-typedef struct  _hoa_meter_3d
-{
-    t_edspbox               f_box;
-    Meter<Hoa3d, t_sample>* f_meter;
-    Vector<Hoa3d, t_sample>*f_vector;
-    t_sample*               f_signals;
-    t_sample                f_vector_coords[6];
-    long                    f_ramp;
-    int                     f_startclock;
-    long                    f_interval;
-    
-    t_symbol*               f_vector_type;
-    t_symbol*               f_clockwise;
-    t_symbol*               f_view;
-    
-    t_rgba                  f_color_bg;
-    t_rgba                  f_color_bd;
-    t_rgba                  f_color_cold_signal;
-    t_rgba                  f_color_tepid_signal;
-    t_rgba                  f_color_warm_signal;
-    t_rgba                  f_color_hot_signal;
-    t_rgba                  f_color_over_signal;
-    t_rgba                  f_color_energy_vector;
-    t_rgba                  f_color_velocity_vector;
-    
-    double                  f_radius;
-    double                  f_center;
-    double                  f_radius_center;
-    
-    t_clock*                f_clock;
-    void*                   f_attrs;
-    
-} t_hoa_meter_3d;
-
-static t_eclass *hoa_meter_3d_class;
-
 static void hoa_meter_getdrawparams(t_hoa_meter *x, t_object *patcherview, t_edrawparams *params)
-{
-    params->d_boxfillcolor = x->f_color_bg;
-    params->d_bordercolor = x->f_color_bd;
-	params->d_borderthickness = 1;
-	params->d_cornersize = 8;
-}
-
-static void hoa_meter_3d_getdrawparams(t_hoa_meter_3d *x, t_object *patcherview, t_edrawparams *params)
 {
     params->d_boxfillcolor = x->f_color_bg;
     params->d_bordercolor = x->f_color_bd;
@@ -95,41 +51,11 @@ static void hoa_meter_3d_getdrawparams(t_hoa_meter_3d *x, t_object *patcherview,
     params->d_cornersize = 8;
 }
 
+
 static void hoa_meter_oksize(t_hoa_meter *x, t_rect *newrect)
 {
     newrect->width = pd_clip_min(newrect->width, 20.);
     newrect->height = pd_clip_min(newrect->height, 20.);
-}
-
-static void hoa_meter_3d_oksize(t_hoa_meter_3d *x, t_rect *newrect)
-{
-    newrect->width = pd_clip_min(newrect->width, 20.);
-    newrect->height = pd_clip_min(newrect->height, 20.);
-    double delta1 = newrect->width - x->f_box.b_rect_last.width;
-    double delta2 = newrect->height - x->f_box.b_rect_last.height;
-    
-    if(x->f_view == hoa_sym_topnextbottom)
-    {
-        if(fabs(delta1) < fabs(delta2))
-            newrect->width = newrect->height * 2;
-        else
-            newrect->height = newrect->width * 0.5;
-    }
-    else if(x->f_view == hoa_sym_toponbottom)
-    {
-        if(fabs(delta1) < fabs(delta2))
-            newrect->width = newrect->height * 0.5;
-        else
-            newrect->height = newrect->width * 2;
-    }
-    else
-    {
-        if(fabs(delta1) < fabs(delta2))
-            newrect->width = newrect->height;
-        else
-            newrect->height = newrect->width;
-    }
-    x->f_box.b_rect_last = *newrect;
 }
 
 static t_pd_err channels_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv)
@@ -148,23 +74,6 @@ static t_pd_err channels_get(t_hoa_meter *x, void *attr, long *argc, t_atom **ar
     return 0;
 }
 
-static t_pd_err channels_3d_get(t_hoa_meter_3d *x, void *attr, long *argc, t_atom **argv)
-{
-    argc[0] = 1;
-    argv[0] = (t_atom *)malloc(sizeof(t_atom));
-    if(argv[0] && argc[0])
-    {
-        atom_setfloat(argv[0], x->f_meter->getNumberOfPlanewaves());
-    }
-    else
-    {
-        argc[0] = 0;
-        argv[0] = NULL;
-    }
-    return 0;
-}
-
-
 static t_pd_err channels_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
 {
     if(argc && argv)
@@ -180,37 +89,7 @@ static t_pd_err channels_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv
                 delete x->f_vector;
                 x->f_vector = new Vector<Hoa2d, t_sample>(d);
                 
-                x->f_meter->computeDisplay();
-                x->f_vector->computeRendering();
-                eobj_resize_inputs((t_ebox *)x, x->f_meter->getNumberOfPlanewaves());
-                
-                ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
-                ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
-                ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
-                ebox_redraw((t_ebox *)x);
-                canvas_resume_dsp(dspState);
-            }
-        }
-    }
-    return NULL;
-}
-
-t_pd_err channels_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
-{
-    if(argc && argv)
-    {
-        if(atom_gettype(argv) == A_FLOAT)
-        {
-            long d = pd_clip_minmax(atom_getfloat(argv), 4, HOA_MAX_PLANEWAVES);
-            if(d != x->f_meter->getNumberOfPlanewaves())
-            {
-                int dspState = canvas_suspend_dsp();
-                delete x->f_meter;
-                x->f_meter = new Meter<Hoa3d, t_sample>(d);
-                delete x->f_vector;
-                x->f_vector = new Vector<Hoa3d, t_sample>(d);
-                
-                x->f_meter->computeDisplay();
+                x->f_meter->computeRendering();
                 x->f_vector->computeRendering();
                 eobj_resize_inputs((t_ebox *)x, x->f_meter->getNumberOfPlanewaves());
                 
@@ -244,26 +123,6 @@ static t_pd_err angles_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv
     return 0;
 }
 
-static t_pd_err angles_3d_get(t_hoa_meter_3d *x, void *attr, long *argc, t_atom **argv)
-{
-    argc[0] = x->f_meter->getNumberOfPlanewaves();
-    argv[0] = (t_atom *)malloc(sizeof(t_atom) * x->f_meter->getNumberOfPlanewaves() * 2);
-    if(argv[0] && argc[0])
-    {
-        for(ulong i = 0; i < x->f_meter->getNumberOfPlanewaves(); i++)
-        {
-            atom_setfloat(argv[0]+i*2, x->f_meter->getPlanewaveAzimuth(i, false) / HOA_2PI * 360.);
-            atom_setfloat(argv[0]+i*2+1, x->f_meter->getPlanewaveElevation(i, false) / HOA_2PI * 360.);
-        }
-    }
-    else
-    {
-        argc[0] = 0;
-        argv[0] = NULL;
-    }
-    return 0;
-}
-
 static t_pd_err angles_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
 {
     if(argc && argv)
@@ -276,8 +135,8 @@ static t_pd_err angles_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
                 x->f_vector->setPlanewaveAzimuth(i, atom_getfloat(argv+i) / 360.f * HOA_2PI);
             }
         }
-
-        x->f_meter->computeDisplay();
+        
+        x->f_meter->computeRendering();
         x->f_vector->computeRendering();
         
         ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
@@ -285,39 +144,6 @@ static t_pd_err angles_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
         ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
         ebox_redraw((t_ebox *)x);
     }
-    return 0;
-}
-
-static t_pd_err angles_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
-{
-    if(argc && argv)
-    {
-        for(int i = 0; i < x->f_meter->getNumberOfPlanewaves() && i < argc; i++)
-        {
-            if(atom_gettype(argv+i) == A_FLOAT)
-            {
-                if(i%2)
-                {
-                    x->f_meter->setPlanewaveElevation((i-1)/2, atom_getfloat(argv+i) / 360.f * HOA_2PI);
-                    x->f_vector->setPlanewaveElevation((i-1)/2, atom_getfloat(argv+i) / 360.f * HOA_2PI);
-                }
-                else
-                {
-                    x->f_meter->setPlanewaveAzimuth(i/2, atom_getfloat(argv+i) / 360.f * HOA_2PI);
-                    x->f_vector->setPlanewaveAzimuth(i/2, atom_getfloat(argv+i) / 360.f * HOA_2PI);
-                }
-            }
-        }
-        
-        x->f_meter->computeDisplay();
-        x->f_vector->computeRendering();
-        
-        ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
-        ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
-        ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
-        ebox_redraw((t_ebox *)x);
-    }
-    
     return 0;
 }
 
@@ -337,24 +163,6 @@ static t_pd_err offset_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv
     return 0;
 }
 
-t_pd_err offset_3d_get(t_hoa_meter_3d *x, void *attr, long *argc, t_atom **argv)
-{
-    argc[0] = 3;
-    argv[0] = (t_atom *)malloc(3 * sizeof(t_atom));
-    if(argv[0] && argc[0])
-    {
-        atom_setfloat(argv[0], x->f_meter->getPlanewavesRotationX() / HOA_2PI * 360.);
-        atom_setfloat(argv[0]+1, x->f_meter->getPlanewavesRotationY() / HOA_2PI * 360.);
-        atom_setfloat(argv[0]+2, x->f_meter->getPlanewavesRotationZ() / HOA_2PI * 360.);
-    }
-    else
-    {
-        argc[0] = 0;
-        argv[0] = NULL;
-    }
-    return 0;
-}
-
 static t_pd_err offset_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_FLOAT)
@@ -362,47 +170,13 @@ static t_pd_err offset_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
         x->f_vector->setPlanewavesRotation(atom_getfloat(argv) / 360 * HOA_2PI);
         x->f_meter->setPlanewavesRotation(atom_getfloat(argv) / 360 * HOA_2PI);
         x->f_vector->computeRendering();
-        x->f_meter->computeDisplay();
+        x->f_meter->computeRendering();
         
         ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
         ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
         ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
         ebox_redraw((t_ebox *)x);
     }
-    
-    return 0;
-}
-
-static t_pd_err offset_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
-{
-    if(argc && argv)
-    {
-        double ax, ay, az;
-        if(atom_gettype(argv) == A_FLOAT)
-            ax = atom_getfloat(argv) / 360. * HOA_2PI;
-        else
-            ax = x->f_meter->getPlanewavesRotationX();
-        
-        if(argc > 1 && atom_gettype(argv+1) == A_FLOAT)
-            ay = atom_getfloat(argv+1) / 360. * HOA_2PI;
-        else
-            ay = x->f_meter->getPlanewavesRotationY();
-        
-        if(argc > 2 &&  atom_gettype(argv+2) == A_FLOAT)
-            az = atom_getfloat(argv+2) / 360. * HOA_2PI;
-        else
-            az = x->f_meter->getPlanewavesRotationZ();
-        
-        x->f_meter->setPlanewavesRotation(ax, ay, az);
-        x->f_vector->setPlanewavesRotation(ax, ay, az);
-        
-        ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
-        ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
-        ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
-        ebox_redraw((t_ebox *)x);
-
-    }
-    
     return 0;
 }
 
@@ -438,37 +212,6 @@ static t_pd_err vectors_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
     return 0;
 }
 
-static t_pd_err vectors_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
-{
-    if(argc && argv)
-    {
-        if(atom_gettype(argv) == A_SYM)
-        {
-            if(atom_getsym(argv) == hoa_sym_energy)
-                x->f_vector_type = hoa_sym_energy;
-            else if(atom_getsym(argv) == hoa_sym_velocity)
-                x->f_vector_type = hoa_sym_velocity;
-            else if(atom_getsym(argv) == hoa_sym_both)
-                x->f_vector_type = hoa_sym_both;
-            else
-                x->f_vector_type = hoa_sym_none;
-        }
-        else if(atom_gettype(argv) == A_FLOAT)
-        {
-            if(atom_getlong(argv) == 1)
-                x->f_vector_type = hoa_sym_energy;
-            else if(atom_getlong(argv) == 2)
-                x->f_vector_type = hoa_sym_velocity;
-            else if(atom_getlong(argv) == 3)
-                x->f_vector_type = hoa_sym_both;
-            else
-                x->f_vector_type = hoa_sym_none;
-        }
-        ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
-        ebox_redraw((t_ebox *)x);
-    }
-    return 0;
-}
 
 static t_pd_err rotation_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
 {
@@ -497,92 +240,9 @@ static t_pd_err rotation_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv
     return 0;
 }
 
-static t_pd_err rotation_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
-{
-    if(argc && argv)
-    {
-        if(atom_gettype(argv) == A_SYM)
-        {
-            if(atom_getsym(argv) == hoa_sym_clockwise)
-                x->f_clockwise = hoa_sym_clockwise;
-            else
-                x->f_clockwise = hoa_sym_anticlock;
-        }
-        else if(atom_gettype(argv) == A_FLOAT)
-        {
-            if(atom_getlong(argv) == 1)
-                x->f_clockwise = hoa_sym_clockwise;
-            else
-                x->f_clockwise = hoa_sym_anticlock;
-        }
-        
-        ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
-        ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
-        ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
-        ebox_redraw((t_ebox *)x);
-    }
-    return 0;
-}
-
-static t_pd_err view_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
-{
-    t_symbol* view = x->f_view;
-    if(argc && argv)
-    {
-        
-        if(atom_gettype(argv) == A_SYM)
-        {
-            if(atom_getsym(argv) == hoa_sym_bottom)
-                view = hoa_sym_bottom;
-            else if(atom_getsym(argv) == hoa_sym_topnextbottom)
-                view = hoa_sym_topnextbottom;
-            else if(atom_getsym(argv) == hoa_sym_toponbottom)
-                view = hoa_sym_toponbottom;
-            else
-                view = hoa_sym_top;
-        }
-        else if(atom_gettype(argv) == A_FLOAT)
-        {
-            if(atom_getlong(argv) == 1)
-                view = hoa_sym_bottom;
-            else if(atom_getlong(argv) == 2)
-                view = hoa_sym_topnextbottom;
-            else if(atom_getlong(argv) == 3)
-                view = hoa_sym_toponbottom;
-            else
-                view = hoa_sym_top;
-        }
-        
-        if(view != x->f_view)
-        {
-            x->f_view = view;
-            x->f_box.b_rect_last = x->f_box.b_rect;
-            object_attr_setvalueof((t_object *)x, gensym("size"), 0, NULL);
-        }
-    }
-    return 0;
-}
-
 static void hoa_meter_perform(t_hoa_meter *x, t_object *dsp, t_sample **ins, long numins, t_sample **outs, long no, long sampleframes, long f,void *up)
 {
-	for(long i = 0; i < numins; i++)
-    {
-        cblas_scopy(sampleframes, ins[i], 1, x->f_signals+i, numins);
-    }
-    for(x->f_ramp = 0; x->f_ramp < sampleframes; x->f_ramp++)
-    {
-        x->f_meter->process(x->f_signals + numins * x->f_ramp);
-    }
-    if(x->f_startclock)
-	{
-		x->f_startclock = 0;
-		clock_delay(x->f_clock,0);
-    }
-}
-
-static void hoa_meter_3d_perform(t_hoa_meter_3d *x, t_object *dsp, float **ins, long numins, float **outs, long no, long sampleframes, long f,void *up)
-{
-    for(int i = 0; i < numins; i++)
+    for(long i = 0; i < numins; i++)
     {
         cblas_scopy(sampleframes, ins[i], 1, x->f_signals+i, numins);
     }
@@ -595,22 +255,6 @@ static void hoa_meter_3d_perform(t_hoa_meter_3d *x, t_object *dsp, float **ins, 
         x->f_startclock = 0;
         clock_delay(x->f_clock,0);
     }
-    
-}
-
-static void hoa_meter_dsp(t_hoa_meter *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
-{
-    x->f_meter->setVectorSize(maxvectorsize);
-    object_method(dsp, gensym("dsp_add"), x, (method)hoa_meter_perform, 0, NULL);
-    x->f_startclock = 1;
-}
-
-
-static void hoa_meter_3d_dsp(t_hoa_meter_3d *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
-{
-    x->f_meter->setVectorSize(maxvectorsize);
-    object_method(dsp, gensym("dsp_add"), x, (method)hoa_meter_3d_perform, 0, NULL);
-    x->f_startclock = 1;
 }
 
 
@@ -621,71 +265,43 @@ static void hoa_meter_tick(t_hoa_meter *x)
     else if(x->f_vector_type == hoa_sym_velocity)
         x->f_vector->processVelocity(x->f_signals, x->f_vector_coords);
     else if(x->f_vector_type == hoa_sym_energy)
-         x->f_vector->processEnergy(x->f_signals, x->f_vector_coords + 2);
+        x->f_vector->processEnergy(x->f_signals, x->f_vector_coords + 2);
     
     x->f_meter->tick(1000 / x->f_interval);
-	ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
-	ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
-    ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
-  	ebox_redraw((t_ebox *)x);
-    
-	if (sys_getdspstate())
-		clock_delay(x->f_clock, x->f_interval);
-}
-
-static void hoa_meter_3d_tick(t_hoa_meter_3d *x)
-{
-    if(x->f_vector_type == hoa_sym_both)
-        x->f_vector->process(x->f_signals, x->f_vector_coords);
-    else if(x->f_vector_type == hoa_sym_velocity)
-        x->f_vector->processVelocity(x->f_signals, x->f_vector_coords);
-    else if(x->f_vector_type == hoa_sym_energy)
-        x->f_vector->processEnergy(x->f_signals, x->f_vector_coords + 3);
-    
     ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
     ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
+    ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
     ebox_redraw((t_ebox *)x);
     
     if (sys_getdspstate())
         clock_delay(x->f_clock, x->f_interval);
 }
 
-static void hoa_meter_free(t_hoa_meter *x)
+static void hoa_meter_dsp(t_hoa_meter *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
 {
-	ebox_free((t_ebox *)x);
-    clock_free(x->f_clock);
-    delete x->f_meter;
-    delete x->f_vector;
-    delete [] x->f_signals;
-}
-
-static void hoa_meter_3d_free(t_hoa_meter_3d *x)
-{
-    ebox_free((t_ebox *)x);
-    clock_free(x->f_clock);
-    delete x->f_meter;
-    delete x->f_vector;
-    delete [] x->f_signals;
+    x->f_meter->setVectorSize(maxvectorsize);
+    object_method(dsp, gensym("dsp_add"), x, (method)hoa_meter_perform, 0, NULL);
+    x->f_startclock = 1;
 }
 
 static void draw_background(t_hoa_meter *x,  t_object *view, t_rect *rect)
 {
     float coso, sino, angle, x1, y1, x2, y2;
     t_rgba black, white;
-	t_matrix transform;
-	t_elayer *g = ebox_start_layer((t_ebox *)x, hoa_sym_background_layer, rect->width, rect->height);
+    t_matrix transform;
+    t_elayer *g = ebox_start_layer((t_ebox *)x, hoa_sym_background_layer, rect->width, rect->height);
     
     black = rgba_addContrast(x->f_color_bg, -HOA_CONTRAST_DARKER);
     white = rgba_addContrast(x->f_color_bg, HOA_CONTRAST_LIGHTER);
     
-	if (g)
-	{
+    if (g)
+    {
         egraphics_matrix_init(&transform, 1, 0, 0, -1, rect->width * .5, rect->width * .5);
         egraphics_set_matrix(g, &transform);
         egraphics_rotate(g, -HOA_PI2);
         
-		egraphics_set_line_width(g, 1.);
-		
+        egraphics_set_line_width(g, 1.);
+        
         egraphics_set_color_rgba(g, &white);
         egraphics_set_line_width(g, 1.f);
         egraphics_circle(g, 1, 1, x->f_radius);
@@ -709,7 +325,7 @@ static void draw_background(t_hoa_meter *x,  t_object *view, t_rect *rect)
                     angle = -angle;
                 
                 egraphics_set_line_width(g, 1.f);
-               
+                
                 coso = cosf(angle);
                 sino = sinf(angle);
                 x1 = x->f_radius_center * coso;
@@ -730,86 +346,12 @@ static void draw_background(t_hoa_meter *x,  t_object *view, t_rect *rect)
                 egraphics_set_color_rgba(g, &white);
                 egraphics_stroke(g);
                 
-				egraphics_move_to(g, x1, y1);
-				egraphics_line_to(g, x2, y2);
+                egraphics_move_to(g, x1, y1);
+                egraphics_line_to(g, x2, y2);
                 
                 egraphics_set_color_rgba(g, &black);
-				egraphics_stroke(g);
-			}
-        }
-		ebox_end_layer((t_ebox*)x, hoa_sym_background_layer);
-	}
-	ebox_paint_layer((t_ebox *)x, hoa_sym_background_layer, 0., 0.);
-}
-
-static void draw_3d_background(t_hoa_meter_3d *x,  t_object *view, t_rect *rect)
-{
-    t_elayer *g = ebox_start_layer((t_ebox *)x, hoa_sym_background_layer, rect->width, rect->height);
-    t_rgba black, white;
-    black = rgba_addContrast(x->f_color_bg, -HOA_CONTRAST_DARKER);
-    white = rgba_addContrast(x->f_color_bg, HOA_CONTRAST_LIGHTER);
-    
-    if (g)
-    {
-        if(x->f_view == hoa_sym_topnextbottom)
-        {
-            egraphics_set_color_rgba(g, &white);
-            egraphics_set_line_width(g, 3.);
-            egraphics_circle(g, x->f_center, x->f_center, x->f_radius);
-            egraphics_stroke(g);
-            egraphics_set_color_rgba(g, &black);
-            egraphics_set_line_width(g, 1.);
-            egraphics_stroke(g);
-            
-            egraphics_set_color_rgba(g, &white);
-            egraphics_set_line_width(g, 3.);
-            egraphics_line_fast(g, x->f_center * 2, 0, x->f_center * 2, x->f_center * 2);
-            egraphics_set_color_rgba(g, &black);
-            egraphics_set_line_width(g, 1.);
-            egraphics_line_fast(g, x->f_center * 2, 0, x->f_center * 2, x->f_center * 2);
-            
-            egraphics_set_color_rgba(g, &white);
-            egraphics_set_line_width(g, 3.);
-            egraphics_circle(g, x->f_center * 3, x->f_center, x->f_radius);
-            egraphics_stroke(g);
-            egraphics_set_color_rgba(g, &black);
-            egraphics_set_line_width(g, 1.);
-            egraphics_stroke(g);
-        }
-        else if(x->f_view == hoa_sym_toponbottom)
-        {
-            egraphics_set_color_rgba(g, &white);
-            egraphics_set_line_width(g, 3.);
-            egraphics_circle(g, x->f_center, x->f_center, x->f_radius);
-            egraphics_stroke(g);
-            egraphics_set_color_rgba(g, &black);
-            egraphics_set_line_width(g, 1.);
-            egraphics_stroke(g);
-            
-            egraphics_set_color_rgba(g, &white);
-            egraphics_set_line_width(g, 3.);
-            egraphics_line_fast(g, 0, x->f_center * 2, x->f_center * 2, x->f_center * 2);
-            egraphics_set_color_rgba(g, &black);
-            egraphics_set_line_width(g, 1.);
-            egraphics_line_fast(g, 0, x->f_center * 2, x->f_center * 2, x->f_center * 2);
-            
-            egraphics_set_color_rgba(g, &white);
-            egraphics_set_line_width(g, 3.);
-            egraphics_circle(g, x->f_center, x->f_center * 3, x->f_radius);
-            egraphics_stroke(g);
-            egraphics_set_color_rgba(g, &black);
-            egraphics_set_line_width(g, 1.);
-            egraphics_stroke(g);
-        }
-        else
-        {
-            egraphics_set_color_rgba(g, &white);
-            egraphics_set_line_width(g, 3.);
-            egraphics_circle(g, x->f_center, x->f_center, x->f_radius);
-            egraphics_stroke(g);
-            egraphics_set_color_rgba(g, &black);
-            egraphics_set_line_width(g, 1.);
-            egraphics_stroke(g);
+                egraphics_stroke(g);
+            }
         }
         ebox_end_layer((t_ebox*)x, hoa_sym_background_layer);
     }
@@ -822,10 +364,10 @@ static void draw_leds(t_hoa_meter *x, t_object *view, t_rect *rect)
     const float height = 0.49 * rect->width / 18.;
     const float lwidth = height - pd_clip_min(360. / rect->width, 2.);
     t_matrix transform;
-	t_elayer *g = ebox_start_layer((t_ebox *)x,  hoa_sym_leds_layer, rect->width, rect->height);
-
-	if(g)
-	{
+    t_elayer *g = ebox_start_layer((t_ebox *)x,  hoa_sym_leds_layer, rect->width, rect->height);
+    
+    if(g)
+    {
         t_rgba black = rgba_addContrast(x->f_color_bg, -0.14);
         
         
@@ -841,7 +383,7 @@ static void draw_leds(t_hoa_meter *x, t_object *view, t_rect *rect)
                 egraphics_rotate(g, -angle);
             else
                 egraphics_rotate(g, angle);
-     
+            
             for(float j = 11.f, dB = -34.5f; j > -1; j--, dB += 3.)
             {
                 float radius    = (j + 5.) * height;
@@ -855,7 +397,7 @@ static void draw_leds(t_hoa_meter *x, t_object *view, t_rect *rect)
                         egraphics_set_color_rgba(g, &x->f_color_warm_signal);
                     else
                         egraphics_set_color_rgba(g, &x->f_color_hot_signal);
-            
+                    
                     egraphics_set_line_width(g, lwidth);
                     egraphics_arc(g, 0., 0., radius,  width, 3.f * width);
                     egraphics_stroke(g);
@@ -882,23 +424,23 @@ static void draw_leds(t_hoa_meter *x, t_object *view, t_rect *rect)
             else
                 egraphics_rotate(g, -angle);
         }
-		ebox_end_layer((t_ebox*)x,  hoa_sym_leds_layer);
-	}
-	ebox_paint_layer((t_ebox *)x, hoa_sym_leds_layer, 0., 0.);
+        ebox_end_layer((t_ebox*)x,  hoa_sym_leds_layer);
+    }
+    ebox_paint_layer((t_ebox *)x, hoa_sym_leds_layer, 0., 0.);
 }
 
 static void draw_vectors(t_hoa_meter *x, t_object *view, t_rect *rect)
 {
-	double x1, y1, size;
-	t_matrix transform;
-	t_elayer *g = ebox_start_layer((t_ebox *)x,  hoa_sym_vector_layer, rect->width, rect->height);
-	
-	if(g)
-	{
-		egraphics_matrix_init(&transform, 1, 0, 0, -1, rect->width / 2., rect->width / 2.);
-		egraphics_set_matrix(g, &transform);
-		size = 1. / 64. * rect->width;
+    double x1, y1, size;
+    t_matrix transform;
+    t_elayer *g = ebox_start_layer((t_ebox *)x,  hoa_sym_vector_layer, rect->width, rect->height);
     
+    if(g)
+    {
+        egraphics_matrix_init(&transform, 1, 0, 0, -1, rect->width / 2., rect->width / 2.);
+        egraphics_set_matrix(g, &transform);
+        size = 1. / 64. * rect->width;
+        
         if(x->f_vector_type == hoa_sym_both || x->f_vector_type == hoa_sym_energy)
         {
             egraphics_set_color_rgba(g, &x->f_color_energy_vector);
@@ -916,7 +458,7 @@ static void draw_vectors(t_hoa_meter *x, t_object *view, t_rect *rect)
             }
             egraphics_circle(g, x1, y1, size);
             egraphics_fill(g);
-		}
+        }
         if(x->f_vector_type == hoa_sym_both || x->f_vector_type == hoa_sym_velocity)
         {
             egraphics_set_color_rgba(g, &x->f_color_velocity_vector);
@@ -934,93 +476,6 @@ static void draw_vectors(t_hoa_meter *x, t_object *view, t_rect *rect)
             }
             egraphics_circle(g, x1, y1, size);
             egraphics_fill(g);
-		}
-        
-		ebox_end_layer((t_ebox*)x,  hoa_sym_vector_layer);
-	}
-	ebox_paint_layer((t_ebox *)x, hoa_sym_vector_layer, 0., 0.);
-}
-
-static void draw_3d_vectors(t_hoa_meter_3d *x, t_object *view, t_rect *rect)
-{
-    double x1, y1, size;
-    t_matrix transform;
-    t_elayer *g = ebox_start_layer((t_ebox *)x,  hoa_sym_vector_layer, rect->width, rect->height);
-    t_rgba color;
-    double distance;
-    if (g)
-    {
-        egraphics_matrix_init(&transform, 1, 0, 0, -1, x->f_center, x->f_center);
-        egraphics_set_matrix(g, &transform);
-        size = x->f_center / 32.;
-        
-        if(x->f_vector_type == hoa_sym_both || x->f_vector_type == hoa_sym_energy)
-        {
-            double rad = Math<float>::radius(x->f_vector_coords[3], x->f_vector_coords[4], x->f_vector_coords[5]);
-            distance = (fabs(rad) * 0.5 + 0.5);
-            color = rgba_addContrast(x->f_color_energy_vector, -(1. - distance));
-            egraphics_set_color_rgba(g, &color);
-            if(x->f_clockwise == hoa_sym_anticlock)
-            {
-                x1 = x->f_vector_coords[3] * x->f_radius;
-                y1 = x->f_vector_coords[4] * x->f_radius;
-            }
-            else
-            {
-                double ang = -Math<float>::azimuth(x->f_vector_coords[3], x->f_vector_coords[4], x->f_vector_coords[5]);
-                x1 = Math<float>::abscissa(rad * x->f_radius, ang);
-                y1 = Math<float>::ordinate(rad * x->f_radius, ang);
-            }
-            
-            if((x->f_vector_coords[5] >= 0 && (x->f_view == hoa_sym_top || x->f_view == hoa_sym_toponbottom || x->f_view == hoa_sym_topnextbottom)) ||  (x->f_vector_coords[5] <= 0 && x->f_view == hoa_sym_bottom))
-            {
-                egraphics_arc(g, x1, y1, size * distance, 0., HOA_2PI);
-                egraphics_fill(g);
-            }
-            else if(x->f_vector_coords[5] <= 0 && x->f_view == hoa_sym_toponbottom)
-            {
-                egraphics_arc(g, x1, y1 - x->f_center * 2, size * distance, 0., HOA_2PI);
-                egraphics_fill(g);
-            }
-            else if(x->f_vector_coords[5] <= 0 && x->f_view == hoa_sym_topnextbottom)
-            {
-                egraphics_arc(g, x1 + x->f_center * 2, y1, size * distance, 0., HOA_2PI);
-                egraphics_fill(g);
-            }
-        }
-        if(x->f_vector_type == hoa_sym_both || x->f_vector_type == hoa_sym_velocity)
-        {
-            double rad = Math<float>::radius(x->f_vector_coords[0], x->f_vector_coords[1], x->f_vector_coords[2]);
-            distance = (fabs(rad) * 0.5 + 0.5);
-            color = rgba_addContrast(x->f_color_velocity_vector, -(1. - distance));
-            egraphics_set_color_rgba(g, &color);
-            if(x->f_clockwise == hoa_sym_anticlock)
-            {
-                x1 = x->f_vector_coords[0] * x->f_radius;
-                y1 = x->f_vector_coords[1] * x->f_radius;
-            }
-            else
-            {
-                double ang = -Math<float>::azimuth(x->f_vector_coords[0], x->f_vector_coords[1], x->f_vector_coords[2]);
-                x1 = Math<float>::abscissa(rad * x->f_radius, ang);
-                y1 = Math<float>::ordinate(rad * x->f_radius, ang);
-            }
-            
-            if((x->f_vector_coords[2] >= 0 && (x->f_view == hoa_sym_top || x->f_view == hoa_sym_toponbottom || x->f_view == hoa_sym_topnextbottom)) ||  (x->f_vector_coords[2] <= 0 && x->f_view == hoa_sym_bottom))
-            {
-                egraphics_arc(g, x1, y1, size * distance, 0., HOA_2PI);
-                egraphics_fill(g);
-            }
-            else if(x->f_vector_coords[2] <= 0 && x->f_view == hoa_sym_toponbottom)
-            {
-                egraphics_arc(g, x1, y1 - x->f_center * 2, size * distance, 0., HOA_2PI);
-                egraphics_fill(g);
-            }
-            else if(x->f_vector_coords[2] <= 0 && x->f_view == hoa_sym_topnextbottom)
-            {
-                egraphics_arc(g, x1 + x->f_center * 2, y1, size * distance, 0., HOA_2PI);
-                egraphics_fill(g);
-            }
         }
         
         ebox_end_layer((t_ebox*)x,  hoa_sym_vector_layer);
@@ -1042,20 +497,13 @@ static void hoa_meter_paint(t_hoa_meter *x, t_object *view)
     draw_background(x, view, &rect);
 }
 
-static void hoa_meter_3d_paint(t_hoa_meter_3d *x, t_object *view)
+static void hoa_meter_free(t_hoa_meter *x)
 {
-    t_rect rect;
-    ebox_get_rect_for_view((t_ebox *)x, &rect);
-    
-    if(x->f_view == hoa_sym_topnextbottom)
-        x->f_center = rect.width * .25;
-    else
-        x->f_center = rect.width * .5;
-    x->f_radius = x->f_center * 0.95;
-    
-    //draw_3d_leds(x, view, &rect);
-    draw_3d_vectors(x, view, &rect);
-    draw_3d_background(x, view, &rect);
+    ebox_free((t_ebox *)x);
+    clock_free(x->f_clock);
+    delete x->f_meter;
+    delete x->f_vector;
+    delete [] x->f_signals;
 }
 
 static void *hoa_meter_new(t_symbol *s, int argc, t_atom *argv)
@@ -1070,7 +518,7 @@ static void *hoa_meter_new(t_symbol *s, int argc, t_atom *argv)
         x->f_meter  = new Meter<Hoa2d, t_sample>(4);
         x->f_vector = new Vector<Hoa2d, t_sample>(4);
         x->f_signals = new t_sample[HOA_MAX_PLANEWAVES * HOA_MAXBLKSIZE];
-        x->f_meter->computeDisplay();
+        x->f_meter->computeRendering();
         x->f_vector->computeRendering();
         
         x->f_clock = clock_new(x,(t_method)hoa_meter_tick);
@@ -1081,7 +529,7 @@ static void *hoa_meter_new(t_symbol *s, int argc, t_atom *argv)
         | EBOX_GROWLINK
         | EBOX_IGNORELOCKCLICK
         ;
-
+        
         ebox_new((t_ebox *)x, flags);
         ebox_attrprocess_viabinbuf(x, d);
         
@@ -1089,50 +537,6 @@ static void *hoa_meter_new(t_symbol *s, int argc, t_atom *argv)
         
         return x;
     }
-    
-    return NULL;
-}
-
-static void *hoa_meter_3d_new(t_symbol *s, int argc, t_atom *argv)
-{
-    long flags;
-    t_hoa_meter_3d *x =  (t_hoa_meter_3d *)eobj_new(hoa_meter_3d_class);
-    t_binbuf *d       = binbuf_via_atoms(argc, argv);
-
-    if(x && d)
-    {
-        x->f_ramp = 0;
-        x->f_meter  = new Meter<Hoa3d, t_sample>(4);
-        x->f_vector = new Vector<Hoa3d, t_sample>(4);
-        x->f_signals = new t_float[HOA_MAX_PLANEWAVES * HOA_MAXBLKSIZE];
-
-        x->f_clock = clock_new(x,(t_method)hoa_meter_3d_tick);
-        x->f_startclock = 0;
-        eobj_dspsetup((t_ebox *)x, x->f_meter->getNumberOfPlanewaves(), 0);
-        
-        flags = 0
-        | EBOX_GROWINDI
-        | EBOX_IGNORELOCKCLICK
-        ;
-        ebox_new((t_ebox *)x, flags);
-        
-        t_atom *av;
-        long    ac;
-        binbuf_get_attribute(d, gensym("@size"), &ac, &av);
-        if(ac && av)
-        {
-            x->f_box.b_rect.width = atom_getfloat(av);
-            x->f_box.b_rect.height = atom_getfloat(av+1);
-            x->f_box.b_rect_last = x->f_box.b_rect;
-            free(av);
-        }
-        
-        ebox_attrprocess_viabinbuf(x, d);
-        ebox_ready((t_ebox *)x);
-        
-        return x;
-    }
-    
     
     return NULL;
 }
@@ -1265,6 +669,695 @@ extern "C" void setup_hoa0x2e2d0x2emeter_tilde(void)
     
     eclass_register(CLASS_BOX, c);
     hoa_meter_class = c;
+}
+
+typedef struct  _hoa_meter_3d
+{
+    t_edspbox               f_box;
+    Meter<Hoa3d, t_sample>* f_meter;
+    Vector<Hoa3d, t_sample>*f_vector;
+    t_sample*               f_signals;
+    t_sample                f_vector_coords[6];
+    long                    f_ramp;
+    int                     f_startclock;
+    long                    f_interval;
+    
+    t_symbol*               f_vector_type;
+    t_symbol*               f_clockwise;
+    t_symbol*               f_view;
+    
+    t_rgba                  f_color_bg;
+    t_rgba                  f_color_bd;
+    t_rgba                  f_color_cold_signal;
+    t_rgba                  f_color_tepid_signal;
+    t_rgba                  f_color_warm_signal;
+    t_rgba                  f_color_hot_signal;
+    t_rgba                  f_color_over_signal;
+    t_rgba                  f_color_energy_vector;
+    t_rgba                  f_color_velocity_vector;
+    
+    double                  f_radius;
+    double                  f_center;
+    double                  f_radius_center;
+    
+    t_clock*                f_clock;
+    void*                   f_attrs;
+    
+} t_hoa_meter_3d;
+
+static t_eclass *hoa_meter_3d_class;
+
+static void hoa_meter_3d_getdrawparams(t_hoa_meter_3d *x, t_object *patcherview, t_edrawparams *params)
+{
+    params->d_boxfillcolor = x->f_color_bg;
+    params->d_bordercolor = x->f_color_bd;
+    params->d_borderthickness = 1;
+    params->d_cornersize = 8;
+}
+
+static void hoa_meter_3d_oksize(t_hoa_meter_3d *x, t_rect *newrect)
+{
+    newrect->width = pd_clip_min(newrect->width, 20.);
+    newrect->height = pd_clip_min(newrect->height, 20.);
+    double delta1 = newrect->width - x->f_box.b_rect_last.width;
+    double delta2 = newrect->height - x->f_box.b_rect_last.height;
+    
+    if(x->f_view == hoa_sym_topnextbottom)
+    {
+        if(fabs(delta1) < fabs(delta2))
+            newrect->width = newrect->height * 2;
+        else
+            newrect->height = newrect->width * 0.5;
+    }
+    else if(x->f_view == hoa_sym_toponbottom)
+    {
+        if(fabs(delta1) < fabs(delta2))
+            newrect->width = newrect->height * 0.5;
+        else
+            newrect->height = newrect->width * 2;
+    }
+    else
+    {
+        if(fabs(delta1) < fabs(delta2))
+            newrect->width = newrect->height;
+        else
+            newrect->height = newrect->width;
+    }
+    x->f_box.b_rect_last = *newrect;
+}
+
+static t_pd_err channels_3d_get(t_hoa_meter_3d *x, void *attr, long *argc, t_atom **argv)
+{
+    argc[0] = 1;
+    argv[0] = (t_atom *)malloc(sizeof(t_atom));
+    if(argv[0] && argc[0])
+    {
+        atom_setfloat(argv[0], x->f_meter->getNumberOfPlanewaves());
+    }
+    else
+    {
+        argc[0] = 0;
+        argv[0] = NULL;
+    }
+    return 0;
+}
+
+t_pd_err channels_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
+{
+    if(argc && argv)
+    {
+        if(atom_gettype(argv) == A_FLOAT)
+        {
+            long d = pd_clip_minmax(atom_getfloat(argv), 4, HOA_MAX_PLANEWAVES);
+            if(d != x->f_meter->getNumberOfPlanewaves())
+            {
+                int dspState = canvas_suspend_dsp();
+                delete x->f_meter;
+                x->f_meter = new Meter<Hoa3d, t_sample>(d);
+                delete x->f_vector;
+                x->f_vector = new Vector<Hoa3d, t_sample>(d);
+                
+                x->f_meter->computeRendering();
+                x->f_vector->computeRendering();
+                eobj_resize_inputs((t_ebox *)x, x->f_meter->getNumberOfPlanewaves());
+                
+                ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
+                ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
+                ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
+                ebox_redraw((t_ebox *)x);
+                canvas_resume_dsp(dspState);
+            }
+        }
+    }
+    return NULL;
+}
+
+static t_pd_err angles_3d_get(t_hoa_meter_3d *x, void *attr, long *argc, t_atom **argv)
+{
+    argc[0] = x->f_meter->getNumberOfPlanewaves() * 2;
+    argv[0] = (t_atom *)malloc(sizeof(t_atom) * x->f_meter->getNumberOfPlanewaves() * 2);
+    if(argv[0] && argc[0])
+    {
+        for(ulong i = 0; i < x->f_meter->getNumberOfPlanewaves(); i++)
+        {
+            atom_setfloat(argv[0]+i*2, round(x->f_meter->getPlanewaveAzimuth(i, false) / HOA_2PI * 3600.) / 10.);
+            atom_setfloat(argv[0]+i*2+1, round(x->f_meter->getPlanewaveElevation(i, false) / HOA_2PI * 3600.) / 10.);
+        }
+    }
+    else
+    {
+        argc[0] = 0;
+        argv[0] = NULL;
+    }
+    return 0;
+}
+
+static t_pd_err angles_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
+{
+    if(argc && argv)
+    {
+        for(ulong i = 0; i < x->f_meter->getNumberOfPlanewaves() * 2 && i < argc; i++)
+        {
+            if(atom_gettype(argv+i) == A_FLOAT)
+            {
+                if(i%2)
+                {
+                    x->f_meter->setPlanewaveElevation((i-1)/2, atom_getfloat(argv+i) / 360.f * HOA_2PI);
+                    x->f_vector->setPlanewaveElevation((i-1)/2, atom_getfloat(argv+i) / 360.f * HOA_2PI);
+                }
+                else
+                {
+                    x->f_meter->setPlanewaveAzimuth(i/2, atom_getfloat(argv+i) / 360.f * HOA_2PI);
+                    x->f_vector->setPlanewaveAzimuth(i/2, atom_getfloat(argv+i) / 360.f * HOA_2PI);
+                }
+            }
+        }
+        
+        x->f_meter->computeRendering();
+        x->f_vector->computeRendering();
+        
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
+        ebox_redraw((t_ebox *)x);
+    }
+    
+    return 0;
+}
+
+t_pd_err offset_3d_get(t_hoa_meter_3d *x, void *attr, long *argc, t_atom **argv)
+{
+    argc[0] = 3;
+    argv[0] = (t_atom *)malloc(3 * sizeof(t_atom));
+    if(argv[0] && argc[0])
+    {
+        atom_setfloat(argv[0], round(x->f_meter->getPlanewavesRotationX() / HOA_2PI * 3600.) / 10.);
+        atom_setfloat(argv[0]+1, round(x->f_meter->getPlanewavesRotationY() / HOA_2PI * 3600.) / 10.);
+        atom_setfloat(argv[0]+2, round(x->f_meter->getPlanewavesRotationZ() / HOA_2PI * 3600.) / 10.);
+    }
+    else
+    {
+        argc[0] = 0;
+        argv[0] = NULL;
+    }
+    return 0;
+}
+
+static t_pd_err offset_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
+{
+    if(argc && argv)
+    {
+        double ax, ay, az;
+        if(atom_gettype(argv) == A_FLOAT)
+            ax = atom_getfloat(argv) / 360. * HOA_2PI;
+        else
+            ax = x->f_meter->getPlanewavesRotationX();
+        
+        if(argc > 1 && atom_gettype(argv+1) == A_FLOAT)
+            ay = atom_getfloat(argv+1) / 360. * HOA_2PI;
+        else
+            ay = x->f_meter->getPlanewavesRotationY();
+        
+        if(argc > 2 &&  atom_gettype(argv+2) == A_FLOAT)
+            az = atom_getfloat(argv+2) / 360. * HOA_2PI;
+        else
+            az = x->f_meter->getPlanewavesRotationZ();
+        
+        x->f_meter->setPlanewavesRotation(ax, ay, az);
+        x->f_vector->setPlanewavesRotation(ax, ay, az);
+        
+        x->f_meter->computeRendering();
+        x->f_vector->computeRendering();
+        
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
+        ebox_redraw((t_ebox *)x);
+
+    }
+    
+    return 0;
+}
+
+static t_pd_err vectors_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
+{
+    if(argc && argv)
+    {
+        if(atom_gettype(argv) == A_SYM)
+        {
+            if(atom_getsym(argv) == hoa_sym_energy)
+                x->f_vector_type = hoa_sym_energy;
+            else if(atom_getsym(argv) == hoa_sym_velocity)
+                x->f_vector_type = hoa_sym_velocity;
+            else if(atom_getsym(argv) == hoa_sym_both)
+                x->f_vector_type = hoa_sym_both;
+            else
+                x->f_vector_type = hoa_sym_none;
+        }
+        else if(atom_gettype(argv) == A_FLOAT)
+        {
+            if(atom_getlong(argv) == 1)
+                x->f_vector_type = hoa_sym_energy;
+            else if(atom_getlong(argv) == 2)
+                x->f_vector_type = hoa_sym_velocity;
+            else if(atom_getlong(argv) == 3)
+                x->f_vector_type = hoa_sym_both;
+            else
+                x->f_vector_type = hoa_sym_none;
+        }
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
+        ebox_redraw((t_ebox *)x);
+    }
+    return 0;
+}
+
+static t_pd_err rotation_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
+{
+    if(argc && argv)
+    {
+        if(atom_gettype(argv) == A_SYM)
+        {
+            if(atom_getsym(argv) == hoa_sym_clockwise)
+                x->f_clockwise = hoa_sym_clockwise;
+            else
+                x->f_clockwise = hoa_sym_anticlock;
+        }
+        else if(atom_gettype(argv) == A_FLOAT)
+        {
+            if(atom_getlong(argv) == 1)
+                x->f_clockwise = hoa_sym_clockwise;
+            else
+                x->f_clockwise = hoa_sym_anticlock;
+        }
+        
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
+        ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
+        ebox_redraw((t_ebox *)x);
+    }
+    return 0;
+}
+
+static t_pd_err view_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
+{
+    t_symbol* view = x->f_view;
+    if(argc && argv)
+    {
+        
+        if(atom_gettype(argv) == A_SYM)
+        {
+            if(atom_getsym(argv) == hoa_sym_bottom)
+                view = hoa_sym_bottom;
+            else if(atom_getsym(argv) == hoa_sym_topnextbottom)
+                view = hoa_sym_topnextbottom;
+            else if(atom_getsym(argv) == hoa_sym_toponbottom)
+                view = hoa_sym_toponbottom;
+            else
+                view = hoa_sym_top;
+        }
+        else if(atom_gettype(argv) == A_FLOAT)
+        {
+            if(atom_getlong(argv) == 1)
+                view = hoa_sym_bottom;
+            else if(atom_getlong(argv) == 2)
+                view = hoa_sym_topnextbottom;
+            else if(atom_getlong(argv) == 3)
+                view = hoa_sym_toponbottom;
+            else
+                view = hoa_sym_top;
+        }
+        
+        if(view != x->f_view)
+        {
+            x->f_view = view;
+            x->f_box.b_rect_last = x->f_box.b_rect;
+            object_attr_setvalueof((t_object *)x, gensym("size"), 0, NULL);
+        }
+    }
+    return 0;
+}
+
+static void hoa_meter_3d_perform(t_hoa_meter_3d *x, t_object *dsp, float **ins, long numins, float **outs, long no, long sampleframes, long f,void *up)
+{
+    for(int i = 0; i < numins; i++)
+    {
+        cblas_scopy(sampleframes, ins[i], 1, x->f_signals+i, numins);
+    }
+    for(x->f_ramp = 0; x->f_ramp < sampleframes; x->f_ramp++)
+    {
+        x->f_meter->process(x->f_signals + numins * x->f_ramp);
+    }
+    if(x->f_startclock)
+    {
+        x->f_startclock = 0;
+        clock_delay(x->f_clock,0);
+    }
+    
+}
+
+static void hoa_meter_3d_dsp(t_hoa_meter_3d *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
+{
+    x->f_meter->setVectorSize(maxvectorsize);
+    object_method(dsp, gensym("dsp_add"), x, (method)hoa_meter_3d_perform, 0, NULL);
+    x->f_startclock = 1;
+}
+
+static void hoa_meter_3d_tick(t_hoa_meter_3d *x)
+{
+    if(x->f_vector_type == hoa_sym_both)
+        x->f_vector->process(x->f_signals, x->f_vector_coords);
+    else if(x->f_vector_type == hoa_sym_velocity)
+        x->f_vector->processVelocity(x->f_signals, x->f_vector_coords);
+    else if(x->f_vector_type == hoa_sym_energy)
+        x->f_vector->processEnergy(x->f_signals, x->f_vector_coords + 3);
+    
+    ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
+    ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
+    ebox_redraw((t_ebox *)x);
+    
+    if (sys_getdspstate())
+        clock_delay(x->f_clock, x->f_interval);
+}
+
+static void draw_3d_background(t_hoa_meter_3d *x,  t_object *view, t_rect *rect)
+{
+    t_elayer *g = ebox_start_layer((t_ebox *)x, hoa_sym_background_layer, rect->width, rect->height);
+    t_rgba black, white;
+    black = rgba_addContrast(x->f_color_bg, -HOA_CONTRAST_DARKER);
+    white = rgba_addContrast(x->f_color_bg, HOA_CONTRAST_LIGHTER);
+    
+    if (g)
+    {
+        if(x->f_view == hoa_sym_topnextbottom)
+        {
+            egraphics_set_color_rgba(g, &white);
+            egraphics_set_line_width(g, 3.);
+            egraphics_circle(g, x->f_center, x->f_center, x->f_radius);
+            egraphics_stroke(g);
+            egraphics_set_color_rgba(g, &black);
+            egraphics_set_line_width(g, 1.);
+            egraphics_stroke(g);
+            
+            egraphics_set_color_rgba(g, &white);
+            egraphics_set_line_width(g, 3.);
+            egraphics_line_fast(g, x->f_center * 2, 0, x->f_center * 2, x->f_center * 2);
+            egraphics_set_color_rgba(g, &black);
+            egraphics_set_line_width(g, 1.);
+            egraphics_line_fast(g, x->f_center * 2, 0, x->f_center * 2, x->f_center * 2);
+            
+            egraphics_set_color_rgba(g, &white);
+            egraphics_set_line_width(g, 3.);
+            egraphics_circle(g, x->f_center * 3, x->f_center, x->f_radius);
+            egraphics_stroke(g);
+            egraphics_set_color_rgba(g, &black);
+            egraphics_set_line_width(g, 1.);
+            egraphics_stroke(g);
+        }
+        else if(x->f_view == hoa_sym_toponbottom)
+        {
+            egraphics_set_color_rgba(g, &white);
+            egraphics_set_line_width(g, 3.);
+            egraphics_circle(g, x->f_center, x->f_center, x->f_radius);
+            egraphics_stroke(g);
+            egraphics_set_color_rgba(g, &black);
+            egraphics_set_line_width(g, 1.);
+            egraphics_stroke(g);
+            
+            egraphics_set_color_rgba(g, &white);
+            egraphics_set_line_width(g, 3.);
+            egraphics_line_fast(g, 0, x->f_center * 2, x->f_center * 2, x->f_center * 2);
+            egraphics_set_color_rgba(g, &black);
+            egraphics_set_line_width(g, 1.);
+            egraphics_line_fast(g, 0, x->f_center * 2, x->f_center * 2, x->f_center * 2);
+            
+            egraphics_set_color_rgba(g, &white);
+            egraphics_set_line_width(g, 3.);
+            egraphics_circle(g, x->f_center, x->f_center * 3, x->f_radius);
+            egraphics_stroke(g);
+            egraphics_set_color_rgba(g, &black);
+            egraphics_set_line_width(g, 1.);
+            egraphics_stroke(g);
+        }
+        else
+        {
+            egraphics_set_color_rgba(g, &white);
+            egraphics_set_line_width(g, 3.);
+            egraphics_circle(g, x->f_center, x->f_center, x->f_radius);
+            egraphics_stroke(g);
+            egraphics_set_color_rgba(g, &black);
+            egraphics_set_line_width(g, 1.);
+            egraphics_stroke(g);
+        }
+        ebox_end_layer((t_ebox*)x, hoa_sym_background_layer);
+    }
+    ebox_paint_layer((t_ebox *)x, hoa_sym_background_layer, 0., 0.);
+}
+
+static void draw_3d_leds(t_hoa_meter_3d *x, t_object *view, t_rect *rect)
+{
+    t_matrix transform;
+    t_elayer *g = ebox_start_layer((t_ebox *)x,  hoa_sym_leds_layer, rect->width, rect->height);
+    if(g)
+    {
+        t_rgba black = rgba_addContrast(x->f_color_bg, -0.14);
+        const bool top = (x->f_view == hoa_sym_bottom) ? false : true;
+        egraphics_matrix_init(&transform, 1, 0, 0, -1, x->f_center, x->f_center);
+        egraphics_set_matrix(g, &transform);
+        
+        for(ulong i = 0; i < x->f_meter->getNumberOfPlanewaves(); i++)
+        {
+            Meter<Hoa3d, t_sample>::Path const& path = x->f_meter->getPlanewavePath(i, top);
+            if(path.size() > 2)
+            {
+                float angle1 = pd_angle(path[0].x, path[0].y);
+                float radius1= pd_radius(path[0].x, path[0].y);
+                egraphics_move_to(g, path[0].x * x->f_radius + x->f_center, path[0].y * x->f_radius + x->f_center);
+                for(int j = 1; j < path.size(); j++)
+                {
+                    const float angle2 = pd_angle(path[j].x, path[j].y);
+                    const float radius2= pd_radius(path[j].x, path[j].y);
+                    float extend = angle2 - angle1;
+                    if(extend > HOA_PI)
+                    {
+                        extend -= HOA_2PI;
+                    }
+                    else if(extend < -HOA_PI)
+                    {
+                        extend += HOA_2PI;
+                    }
+                    
+                    if(fabs(extend) > HOA_EPSILON && fabs(radius2 - radius1) < HOA_EPSILON && fabs(fabs(extend) - HOA_PI) > 1e-6)
+                    {
+                        egraphics_arc_to(g, 0., 0., extend);
+                    }
+                    else
+                    {
+                        egraphics_line_to(g, path[j].x * x->f_radius, path[j].y * x->f_radius);
+                    }
+                    angle1 = angle2;
+                    radius1 = radius2;
+                }
+                
+                const float angle2 = pd_angle(path[0].x, path[0].y);
+                const float radius2 = pd_radius(path[0].x, path[0].y);
+                float extend = angle2 - angle1;
+                if(extend > HOA_PI)
+                {
+                    extend -= HOA_2PI;
+                }
+                else if(extend < -HOA_PI)
+                {
+                    extend += HOA_2PI;
+                }
+                
+                if(fabs(extend) > HOA_EPSILON && fabs(radius2 - radius1) < HOA_EPSILON && fabs(fabs(extend) - HOA_PI) > 1e-6)
+                {
+                    egraphics_arc_to(g, 0., 0., extend);
+                }
+                else
+                {
+                    egraphics_line_to(g, path[0].x * x->f_radius, path[0].y * x->f_radius);
+                }
+            
+                egraphics_set_color_rgba(g, &x->f_color_cold_signal);
+                egraphics_fill_preserve(g);
+                egraphics_set_color_rgba(g, &black);
+                egraphics_stroke(g);
+            }
+        }
+        
+        for(ulong i = 0; i < x->f_meter->getNumberOfPlanewaves(); i++)
+        {
+            if((top && x->f_meter->getPlanewaveHeight(i) >= 0.) || (!top && x->f_meter->getPlanewaveHeight(i) <= 0.))
+            {
+                egraphics_circle(g, x->f_meter->getPlanewaveAbscissa(i) * x->f_radius, x->f_meter->getPlanewaveOrdinate(i) * x->f_radius, 3.);
+                egraphics_set_color_rgba(g, &x->f_color_hot_signal);
+                egraphics_fill(g);
+            }
+        }
+        
+        ebox_end_layer((t_ebox*)x,  hoa_sym_leds_layer);
+    }
+    ebox_paint_layer((t_ebox *)x, hoa_sym_leds_layer, 0., 0.);
+}
+
+static void draw_3d_vectors(t_hoa_meter_3d *x, t_object *view, t_rect *rect)
+{
+    double x1, y1, size;
+    t_matrix transform;
+    t_elayer *g = ebox_start_layer((t_ebox *)x,  hoa_sym_vector_layer, rect->width, rect->height);
+    t_rgba color;
+    double distance;
+    if (g)
+    {
+        egraphics_matrix_init(&transform, 1, 0, 0, -1, x->f_center, x->f_center);
+        egraphics_set_matrix(g, &transform);
+        size = x->f_center / 32.;
+        
+        if(x->f_vector_type == hoa_sym_both || x->f_vector_type == hoa_sym_energy)
+        {
+            double rad = Math<float>::radius(x->f_vector_coords[3], x->f_vector_coords[4], x->f_vector_coords[5]);
+            distance = (fabs(rad) * 0.5 + 0.5);
+            color = rgba_addContrast(x->f_color_energy_vector, -(1. - distance));
+            egraphics_set_color_rgba(g, &color);
+            if(x->f_clockwise == hoa_sym_anticlock)
+            {
+                x1 = x->f_vector_coords[3] * x->f_radius;
+                y1 = x->f_vector_coords[4] * x->f_radius;
+            }
+            else
+            {
+                double ang = -Math<float>::azimuth(x->f_vector_coords[3], x->f_vector_coords[4], x->f_vector_coords[5]);
+                x1 = Math<float>::abscissa(rad * x->f_radius, ang);
+                y1 = Math<float>::ordinate(rad * x->f_radius, ang);
+            }
+            
+            if((x->f_vector_coords[5] >= 0 && (x->f_view == hoa_sym_top || x->f_view == hoa_sym_toponbottom || x->f_view == hoa_sym_topnextbottom)) ||  (x->f_vector_coords[5] <= 0 && x->f_view == hoa_sym_bottom))
+            {
+                egraphics_arc(g, x1, y1, size * distance, 0., HOA_2PI);
+                egraphics_fill(g);
+            }
+            else if(x->f_vector_coords[5] <= 0 && x->f_view == hoa_sym_toponbottom)
+            {
+                egraphics_arc(g, x1, y1 - x->f_center * 2, size * distance, 0., HOA_2PI);
+                egraphics_fill(g);
+            }
+            else if(x->f_vector_coords[5] <= 0 && x->f_view == hoa_sym_topnextbottom)
+            {
+                egraphics_arc(g, x1 + x->f_center * 2, y1, size * distance, 0., HOA_2PI);
+                egraphics_fill(g);
+            }
+        }
+        if(x->f_vector_type == hoa_sym_both || x->f_vector_type == hoa_sym_velocity)
+        {
+            double rad = Math<float>::radius(x->f_vector_coords[0], x->f_vector_coords[1], x->f_vector_coords[2]);
+            distance = (fabs(rad) * 0.5 + 0.5);
+            color = rgba_addContrast(x->f_color_velocity_vector, -(1. - distance));
+            egraphics_set_color_rgba(g, &color);
+            if(x->f_clockwise == hoa_sym_anticlock)
+            {
+                x1 = x->f_vector_coords[0] * x->f_radius;
+                y1 = x->f_vector_coords[1] * x->f_radius;
+            }
+            else
+            {
+                double ang = -Math<float>::azimuth(x->f_vector_coords[0], x->f_vector_coords[1], x->f_vector_coords[2]);
+                x1 = Math<float>::abscissa(rad * x->f_radius, ang);
+                y1 = Math<float>::ordinate(rad * x->f_radius, ang);
+            }
+            
+            if((x->f_vector_coords[2] >= 0 && (x->f_view == hoa_sym_top || x->f_view == hoa_sym_toponbottom || x->f_view == hoa_sym_topnextbottom)) ||  (x->f_vector_coords[2] <= 0 && x->f_view == hoa_sym_bottom))
+            {
+                egraphics_arc(g, x1, y1, size * distance, 0., HOA_2PI);
+                egraphics_fill(g);
+            }
+            else if(x->f_vector_coords[2] <= 0 && x->f_view == hoa_sym_toponbottom)
+            {
+                egraphics_arc(g, x1, y1 - x->f_center * 2, size * distance, 0., HOA_2PI);
+                egraphics_fill(g);
+            }
+            else if(x->f_vector_coords[2] <= 0 && x->f_view == hoa_sym_topnextbottom)
+            {
+                egraphics_arc(g, x1 + x->f_center * 2, y1, size * distance, 0., HOA_2PI);
+                egraphics_fill(g);
+            }
+        }
+        
+        ebox_end_layer((t_ebox*)x,  hoa_sym_vector_layer);
+    }
+    ebox_paint_layer((t_ebox *)x, hoa_sym_vector_layer, 0., 0.);
+}
+
+static void hoa_meter_3d_paint(t_hoa_meter_3d *x, t_object *view)
+{
+    t_rect rect;
+    ebox_get_rect_for_view((t_ebox *)x, &rect);
+    
+    if(x->f_view == hoa_sym_topnextbottom)
+        x->f_center = rect.width * .25;
+    else
+        x->f_center = rect.width * .5;
+    x->f_radius = x->f_center * 0.95;
+    
+    draw_3d_leds(x, view, &rect);
+    draw_3d_vectors(x, view, &rect);
+    draw_3d_background(x, view, &rect);
+}
+
+static void hoa_meter_3d_free(t_hoa_meter_3d *x)
+{
+    ebox_free((t_ebox *)x);
+    clock_free(x->f_clock);
+    delete x->f_meter;
+    delete x->f_vector;
+    delete [] x->f_signals;
+}
+
+static void *hoa_meter_3d_new(t_symbol *s, int argc, t_atom *argv)
+{
+    long flags;
+    t_hoa_meter_3d *x =  (t_hoa_meter_3d *)eobj_new(hoa_meter_3d_class);
+    t_binbuf *d       = binbuf_via_atoms(argc, argv);
+
+    if(x && d)
+    {
+        x->f_ramp = 0;
+        x->f_meter  = new Meter<Hoa3d, t_sample>(4);
+        x->f_vector = new Vector<Hoa3d, t_sample>(4);
+        x->f_signals = new t_float[HOA_MAX_PLANEWAVES * HOA_MAXBLKSIZE];
+        
+        x->f_meter->computeRendering();
+        x->f_vector->computeRendering();
+        x->f_clock = clock_new(x,(t_method)hoa_meter_3d_tick);
+        x->f_startclock = 0;
+        eobj_dspsetup((t_ebox *)x, x->f_meter->getNumberOfPlanewaves(), 0);
+        
+        flags = 0
+        | EBOX_GROWINDI
+        | EBOX_IGNORELOCKCLICK
+        ;
+        ebox_new((t_ebox *)x, flags);
+        
+        t_atom *av;
+        long    ac;
+     
+        binbuf_get_attribute(d, gensym("@size"), &ac, &av);
+        if(ac && av)
+        {
+            x->f_box.b_rect.width = atom_getfloat(av);
+            x->f_box.b_rect.height = atom_getfloat(av+1);
+            x->f_box.b_rect_last = x->f_box.b_rect;
+            free(av);
+        }
+        
+        ebox_attrprocess_viabinbuf(x, d);
+        ebox_ready((t_ebox *)x);
+        
+        return x;
+    }
+    
+    
+    return NULL;
 }
 
 extern "C" void setup_hoa0x2e3d0x2emeter_tilde(void)
