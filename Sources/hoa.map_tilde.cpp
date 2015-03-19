@@ -11,7 +11,7 @@ using namespace hoa;
 typedef struct _hoa_map_tilde
 {
     t_edspobj                       f_obj;
-    EncoderMulti<Hoa2d, t_sample>*  f_map;
+    Encoder<Hoa2d, t_sample>::Multi*f_map;
     PolarLines<Hoa2d, t_sample>*    f_lines;
     t_sample*                       f_sig_ins;
     t_sample*                       f_sig_outs;
@@ -25,7 +25,7 @@ static t_eclass *hoa_map_tilde_class;
 typedef struct _hoa_map_3d_tilde
 {
     t_edspobj                       f_obj;
-    EncoderMulti<Hoa3d, t_sample>*  f_map;
+    Encoder<Hoa3d, t_sample>::Multi*f_map;
     PolarLines<Hoa3d, t_sample>*    f_lines;
     t_sample*                       f_sig_ins;
     t_sample*                       f_sig_outs;
@@ -61,7 +61,7 @@ static void *hoa_map_tilde_new(t_symbol *s, long argc, t_atom *argv)
             x->f_mode = 0;
         
         x->f_ramp       = 100;
-		x->f_map        = new EncoderMulti<Hoa2d, t_sample>(order, numberOfSources);
+		x->f_map        = new Encoder<Hoa2d, t_sample>::Multi(order, numberOfSources);
 		x->f_lines      = new PolarLines<Hoa2d, t_sample>(x->f_map->getNumberOfSources());
         x->f_lines->setRamp(0.1 * sys_getsr());
         
@@ -362,7 +362,7 @@ static void *hoa_map_3d_tilde_new(t_symbol *s, long argc, t_atom *argv)
             x->f_mode = 0;
         
         x->f_ramp       = 100;
-        x->f_map        = new EncoderMulti<Hoa3d, t_sample>(order, numberOfSources);
+        x->f_map        = new Encoder<Hoa3d, t_sample>::Multi(order, numberOfSources);
         x->f_lines      = new PolarLines<Hoa3d, t_sample>(x->f_map->getNumberOfSources());
         x->f_lines->setRamp(0.1 * sys_getsr());
         

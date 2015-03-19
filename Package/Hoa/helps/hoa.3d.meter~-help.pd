@@ -1,4 +1,4 @@
-#N canvas 112 49 1113 763 10;
+#N canvas 285 36 1113 763 10;
 #X obj 490 77 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 7 30 c.patcherinfos;
@@ -98,6 +98,8 @@ positions.;
 the angles before the last computation has been made.;
 #X obj 786 337 c.loadmess;
 #X obj 27 141 sig~ 5;
+#X obj 42 112 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
 #X connect 0 0 5 0;
 #X connect 1 0 3 0;
 #X connect 2 0 1 0;
@@ -181,4 +183,5 @@ the angles before the last computation has been made.;
 #X connect 44 0 46 0;
 #X connect 55 0 43 0;
 #X connect 56 0 28 0;
+#X connect 57 0 56 0;
 #X coords 0 763 1 762 100 60 0;

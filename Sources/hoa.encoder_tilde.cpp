@@ -10,18 +10,18 @@ using namespace hoa;
 
 typedef struct _hoa_encoder
 {
-    t_edspobj                 f_obj;
-    t_sample*                 f_signals;
-    Encoder<Hoa2d, t_sample>* f_encoder;
+    t_edspobj                           f_obj;
+    t_sample*                           f_signals;
+    Encoder<Hoa2d, t_sample>::Basic*    f_encoder;
 } t_hoa_encoder;
 
 static t_eclass *hoa_encoder_class;
 
 typedef struct _hoa_encoder_3d
 {
-    t_edspobj                 f_obj;
-    t_sample*                 f_signals;
-    Encoder<Hoa3d, t_sample>* f_encoder;
+    t_edspobj                           f_obj;
+    t_sample*                           f_signals;
+    Encoder<Hoa3d, t_sample>::Basic*    f_encoder;
 } t_hoa_encoder_3d;
 
 static t_eclass *hoa_encoder_3d_class;
@@ -35,7 +35,7 @@ static void *hoa_encoder_new(t_symbol *s, long argc, t_atom *argv)
         if(atom_gettype(argv) == A_LONG)
             order = pd_clip_min(atom_getlong(argv), 1);
         
-		x->f_encoder = new Encoder<Hoa2d, t_sample>(order);
+        x->f_encoder = new Encoder<Hoa2d, t_sample>::Basic(order);
         eobj_dspsetup(x, 2, x->f_encoder->getNumberOfHarmonics());
         
         x->f_signals =  new t_sample[x->f_encoder->getNumberOfHarmonics() * 8192];
@@ -115,7 +115,7 @@ static void *hoa_encoder_3d_new(t_symbol *s, long argc, t_atom *argv)
         if(atom_gettype(argv) == A_LONG)
             order = pd_clip_min(atom_getlong(argv), 1);
         
-        x->f_encoder = new Encoder<Hoa3d, t_sample>(order);
+        x->f_encoder = new Encoder<Hoa3d, t_sample>::Basic(order);
         eobj_dspsetup(x, 3, x->f_encoder->getNumberOfHarmonics());
         
         x->f_signals =  new t_sample[x->f_encoder->getNumberOfHarmonics() * 8192];
