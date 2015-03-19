@@ -1461,7 +1461,7 @@ extern "C" void setup_hoa0x2e3d0x2emeter_tilde(void)
     CLASS_ATTR_DEFAULT              (c, "channels", 0, "8");
     CLASS_ATTR_STYLE                (c, "channels", 1, "number");
     
-    CLASS_ATTR_FLOAT_VARSIZE        (c, "angles", 0, t_hoa_meter_3d, f_attrs, f_attrs, HOA_MAX_PLANEWAVES);
+    CLASS_ATTR_FLOAT_VARSIZE        (c, "angles", 0, t_hoa_meter_3d, f_attrs, f_attrs, HOA_MAX_PLANEWAVES*2);
     CLASS_ATTR_ACCESSORS            (c, "angles", angles_3d_get, angles_3d_set);
     CLASS_ATTR_ORDER                (c, "angles", 0, "2");
     CLASS_ATTR_LABEL                (c, "angles", 0, "Angles of Channels");
