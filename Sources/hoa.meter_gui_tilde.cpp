@@ -1432,6 +1432,34 @@ static void *hoa_meter_3d_new(t_symbol *s, int argc, t_atom *argv)
     return NULL;
 }
 
+static void hoa_meter_3d_beatles(t_hoa_meter_3d *x)
+{
+    int dspState = canvas_suspend_dsp();
+    delete x->f_meter;
+    x->f_meter = new Meter<Hoa3d, t_sample>(101);
+    delete x->f_vector;
+    x->f_vector = new Vector<Hoa3d, t_sample>(101);
+    x->f_vector_type = hoa_sym_none;
+    for(ulong i = 0; i < x->f_meter->getNumberOfPlanewaves(); i++)
+    {
+        x->f_meter->setPlanewaveAzimuth(i, (double)i / (double)x->f_meter->getNumberOfPlanewaves() * HOA_2PI - HOA_PI2);
+        x->f_vector->setPlanewaveAzimuth(i, (double)i / (double)x->f_meter->getNumberOfPlanewaves() * HOA_2PI - HOA_PI2);
+        x->f_meter->setPlanewaveElevation(i, (double)i / (double)(x->f_meter->getNumberOfPlanewaves() - 1) * HOA_PI);
+        x->f_vector->setPlanewaveElevation(i, (double)i / (double)(x->f_meter->getNumberOfPlanewaves() - 1) * HOA_PI);
+    }
+
+    x->f_meter->computeRendering();
+    x->f_vector->computeRendering();
+    
+    ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
+    ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
+    ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
+    ebox_redraw((t_ebox *)x);
+    
+    eobj_resize_inputs((t_ebox *)x, x->f_meter->getNumberOfPlanewaves());
+    canvas_resume_dsp(dspState);
+}
+
 extern "C" void setup_hoa0x2e3d0x2emeter_tilde(void)
 {
     t_eclass *c;
@@ -1445,6 +1473,7 @@ extern "C" void setup_hoa0x2e3d0x2emeter_tilde(void)
     eclass_addmethod(c, (method) hoa_meter_3d_paint,           "paint",         A_CANT, 0);
     eclass_addmethod(c, (method) hoa_meter_3d_getdrawparams,   "getdrawparams", A_CANT, 0);
     eclass_addmethod(c, (method) hoa_meter_3d_oksize,          "oksize",        A_CANT, 0);
+    eclass_addmethod(c, (method) hoa_meter_3d_beatles,         "beatles",       A_NULL, 0);
     
     CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
     CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);

@@ -1,7 +1,7 @@
 AUTOMAKE_OPTIONS = foreign
 noinst_LTLIBRARIES = libHoaPd.la
 
-libHoaPd_la_CXXFLAGS = @PD_CPPFLAGS@ -s -O2 -fPIC -fpermissive 
+libHoaPd_la_CXXFLAGS = @PD_CPPFLAGS@ -s -O2 -fPIC -fpermissive -std=c++11 -pedantic
 libHoaPd_la_LDFLAGS = -module -avoid-version -shared -shrext .@EXTENSION@  @PD_LDFLAGS@ -fPIC
 libHoaPd_la_LIBADD = 
 
@@ -20,6 +20,5 @@ hoa.rotate_tilde.cpp \
 hoa.scope_gui_tilde.cpp \
 hoa.space_gui.cpp \
 hoa.tools.cpp \
-hoa.wider_tilde.cpp \
-hoa.3d.meter_gui_tilde.cpp
+hoa.wider_tilde.cpp
 
