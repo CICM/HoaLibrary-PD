@@ -89,10 +89,10 @@ typedef struct _hoa_thisprocess
 typedef struct _hoa_process
 {
     t_edspobj                             f_obj;
-    Harmonic<Hoa2d, t_float>::Processor*  f_ambi_2d;
-    Harmonic<Hoa3d, t_float>::Processor*  f_ambi_3d;
-    Planewave<Hoa2d,t_float>::Processor*  f_plane_2d;
-    Planewave<Hoa3d,t_float>::Processor*  f_plane_3d;
+    Processor< Harmonic<Hoa2d, t_float> >*  f_ambi_2d;
+    Processor< Harmonic<Hoa3d, t_float> >*  f_ambi_3d;
+    Planewave<Hoa2d, t_float>::Processor*  f_plane_2d;
+    Planewave<Hoa3d, t_float>::Processor*  f_plane_3d;
     long                f_target;
 
     t_canvas**          f_canvas;
@@ -917,7 +917,7 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
             }
             else
             {
-                x->f_ambi_3d = new Harmonic<Hoa3d, t_float>::Processor(argument);
+                x->f_ambi_3d = new Processor< Harmonic<Hoa3d, t_float> >(argument);
                 x->f_ncanvas = x->f_ambi_3d->getNumberOfHarmonics();
             }
         }
@@ -930,7 +930,7 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
             }
             else
             {
-                x->f_ambi_2d = new Harmonic<Hoa2d, t_float>::Processor(argument);
+                x->f_ambi_2d = new Processor< Harmonic<Hoa2d, t_float> >(argument);
                 x->f_ncanvas = x->f_ambi_2d->getNumberOfHarmonics();
             }
         }
