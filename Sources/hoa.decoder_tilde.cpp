@@ -17,6 +17,7 @@ typedef struct _hoa_decoder
     long                        f_number_of_channels;
     double                      f_angles_of_channels[HOA_MAX_PLANEWAVES];
     double                      f_offset;
+    t_symbol*                   f_mode;
 } t_hoa_decoder;
 
 static t_eclass *hoa_decoder_class;
@@ -30,6 +31,7 @@ typedef struct _hoa_decoder_3d
     long                        f_number_of_channels;
     double                      f_angles_of_channels[HOA_MAX_PLANEWAVES * 2];
     double                      f_offset[3];
+    t_symbol*                   f_mode;
 } t_hoa_decoder_3d;
 
 static t_eclass *hoa_decoder_3d_class;
@@ -54,21 +56,25 @@ static void *hoa_decoder_new(t_symbol *s, long argc, t_atom *argv)
         if(mode == gensym("irregular"))
         {
             x->f_decoder = new Decoder<Hoa2d, t_sample>::Irregular(order, number_of_channels);
+            x->f_mode = mode;
         }
         else if(mode == gensym("binaural"))
         {
             x->f_decoder = new Decoder<Hoa2d, t_sample>::Binaural(order);
+            x->f_mode = mode;
         }
         else
         {
             x->f_decoder = new Decoder<Hoa2d, t_sample>::Regular(order, number_of_channels);
+            x->f_mode = gensym("regular");
         }
         x->f_number_of_channels = x->f_decoder->getNumberOfPlanewaves();
     
         eobj_dspsetup(x, x->f_decoder->getNumberOfHarmonics(), x->f_decoder->getNumberOfPlanewaves());
-        x->f_ins = new t_float[x->f_decoder->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
-        x->f_outs= new t_float[HOA_MAX_PLANEWAVES * HOA_MAXBLKSIZE];
-    
+        x->f_ins = new t_sample[x->f_decoder->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
+        x->f_outs= new t_sample[x->f_decoder->getNumberOfPlanewaves() * HOA_MAXBLKSIZE];
+        memset(x->f_ins, 0, x->f_decoder->getNumberOfHarmonics() * HOA_MAXBLKSIZE * sizeof(t_sample));
+        memset(x->f_outs, 0, x->f_decoder->getNumberOfPlanewaves() * HOA_MAXBLKSIZE * sizeof(t_sample));
         ebox_attrprocess_viabinbuf(x, d);
         
         return x;
@@ -77,7 +83,7 @@ static void *hoa_decoder_new(t_symbol *s, long argc, t_atom *argv)
     return NULL;
 }
 
-static void hoa_decoder_perform64(t_hoa_decoder *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_decoder_perform64_regular(t_hoa_decoder *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     for(long i = 0; i < numins; i++)
     {
@@ -85,7 +91,7 @@ static void hoa_decoder_perform64(t_hoa_decoder *x, t_object *dsp64, t_sample **
     }
 	for(long i = 0; i < sampleframes; i++)
     {
-        x->f_decoder->process(x->f_ins + numins * i, x->f_outs + numouts * i);
+        (static_cast<Decoder<Hoa2d, t_sample>::Regular*>(x->f_decoder))->process(x->f_ins + numins * i, x->f_outs + numouts * i);
     }
     for(long i = 0; i < numouts; i++)
     {
@@ -93,10 +99,54 @@ static void hoa_decoder_perform64(t_hoa_decoder *x, t_object *dsp64, t_sample **
     }
 }
 
+static void hoa_decoder_perform64_irregular(t_hoa_decoder *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+{
+    for(long i = 0; i < numins; i++)
+    {
+        cblas_scopy(sampleframes, ins[i], 1, x->f_ins+i, numins);
+    }
+    for(long i = 0; i < sampleframes; i++)
+    {
+       (static_cast<Decoder<Hoa2d, t_sample>::Irregular*>(x->f_decoder))->process(x->f_ins + numins * i, x->f_outs + numouts * i);
+    }
+    for(long i = 0; i < numouts; i++)
+    {
+        cblas_scopy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+    }
+}
+
+static void hoa_decoder_perform64_binaural(t_hoa_decoder *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+{
+    const long max = numins < 11 ? numins : 11;
+    for(long i = 0; i < max; i++)
+    {
+        cblas_scopy(sampleframes, ins[i], 1, x->f_ins+i, max);
+    }
+    for(long i = 0; i < sampleframes; i++)
+    {
+        (static_cast<Decoder<Hoa2d, t_sample>::Binaural*>(x->f_decoder))->process(x->f_ins + max * i, x->f_outs + 2 * i);
+    }
+    for(long i = 0; i < 2; i++)
+    {
+        cblas_scopy(sampleframes, x->f_outs+i, 2, outs[i], 1);
+    }
+}
+
 static void hoa_decoder_dsp(t_hoa_decoder *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
     x->f_decoder->computeRendering(maxvectorsize);
-    object_method(dsp64, gensym("dsp_add64"), x, (method)hoa_decoder_perform64, 0, NULL);
+    if(x->f_mode == gensym("binaural"))
+    {
+        object_method(dsp64, gensym("dsp_add64"), x, (method)hoa_decoder_perform64_binaural, 0, NULL);
+    }
+    else if(x->f_mode == gensym("irregular"))
+    {
+        object_method(dsp64, gensym("dsp_add64"), x, (method)hoa_decoder_perform64_irregular, 0, NULL);
+    }
+    else
+    {
+        object_method(dsp64, gensym("dsp_add64"), x, (method)hoa_decoder_perform64_regular, 0, NULL);
+    }
 }
 
 static t_pd_err hoa_decoder_angles_set(t_hoa_decoder *x, void *attr, long argc, t_atom *argv)
@@ -120,7 +170,7 @@ static t_pd_err hoa_decoder_offset_set(t_hoa_decoder *x, void *attr, long argc, 
     if(argc && argv && atom_gettype(argv) == A_FLOAT)
     {
         int dspState = canvas_suspend_dsp();
-        x->f_decoder->setPlanewavesRotation(atom_getfloat(argv) / 360. * HOA_2PI);
+        x->f_decoder->setPlanewavesRotation(0., 0., atom_getfloat(argv) / 360. * HOA_2PI);
         canvas_resume_dsp(dspState);
     }
     return 0;

@@ -167,7 +167,7 @@ static t_pd_err offset_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_FLOAT)
     {
-        x->f_vector->setPlanewavesRotation(atom_getfloat(argv) / 360 * HOA_2PI);
+        x->f_vector->setPlanewavesRotation(0., 0., atom_getfloat(argv) / 360 * HOA_2PI);
         x->f_meter->setPlanewavesRotation(atom_getfloat(argv) / 360 * HOA_2PI);
         x->f_vector->computeRendering();
         x->f_meter->computeRendering();
