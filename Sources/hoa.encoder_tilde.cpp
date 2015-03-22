@@ -39,7 +39,6 @@ static void *hoa_encoder_new(t_symbol *s, long argc, t_atom *argv)
         eobj_dspsetup(x, 2, x->f_encoder->getNumberOfHarmonics());
         
         x->f_signals =  new t_sample[x->f_encoder->getNumberOfHarmonics() * 8192];
-        
         return x;
 	}
 	return NULL;

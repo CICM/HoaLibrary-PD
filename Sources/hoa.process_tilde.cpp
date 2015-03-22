@@ -89,10 +89,10 @@ typedef struct _hoa_thisprocess
 typedef struct _hoa_process
 {
     t_edspobj                             f_obj;
-    Processor< Harmonic<Hoa2d, t_float> >*  f_ambi_2d;
-    Processor< Harmonic<Hoa3d, t_float> >*  f_ambi_3d;
-    Planewave<Hoa2d, t_float>::Processor*  f_plane_2d;
-    Planewave<Hoa3d, t_float>::Processor*  f_plane_3d;
+    Processor<Hoa2d, t_float>::Harmonics*  f_ambi_2d;
+    Processor<Hoa3d, t_float>::Harmonics*  f_ambi_3d;
+    Processor<Hoa2d, t_float>::Planewaves*  f_plane_2d;
+    Processor<Hoa3d, t_float>::Planewaves*  f_plane_3d;
     long                f_target;
 
     t_canvas**          f_canvas;
@@ -912,12 +912,12 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
         {
             if(argc > 2 && atom_gettype(argv+2) == A_SYM && atom_getsym(argv+2) == gensym("planewaves"))
             {
-                x->f_plane_3d = new Planewave<Hoa3d, t_float>::Processor(argument);
+                x->f_plane_3d = new Processor<Hoa3d, t_float>::Planewaves(argument);
                 x->f_ncanvas = x->f_plane_3d->getNumberOfPlanewaves();
             }
             else
             {
-                x->f_ambi_3d = new Processor< Harmonic<Hoa3d, t_float> >(argument);
+                x->f_ambi_3d = new Processor<Hoa3d, t_float>::Harmonics(argument);
                 x->f_ncanvas = x->f_ambi_3d->getNumberOfHarmonics();
             }
         }
@@ -925,12 +925,12 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
         {
             if(argc > 2 && atom_gettype(argv+2) == A_SYM && atom_getsym(argv+2) == gensym("planewaves"))
             {
-                x->f_plane_2d = new Planewave<Hoa2d, t_float>::Processor(argument);
+                x->f_plane_2d = new Processor<Hoa2d, t_float>::Planewaves(argument);
                 x->f_ncanvas = x->f_plane_2d->getNumberOfPlanewaves();
             }
             else
             {
-                x->f_ambi_2d = new Processor< Harmonic<Hoa2d, t_float> >(argument);
+                x->f_ambi_2d = new Processor<Hoa2d, t_float>::Harmonics(argument);
                 x->f_ncanvas = x->f_ambi_2d->getNumberOfHarmonics();
             }
         }
