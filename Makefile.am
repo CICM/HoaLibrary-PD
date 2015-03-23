@@ -16,7 +16,6 @@ ALL_CFLAGS = -I"$(PD_INCLUDE)"
 hoadir=$(pkglibdir)
 
 dist_hoa_DATA = \
-	hoa-meta.pd \
 	LICENSE.txt \
 	README.txt
 	
@@ -28,9 +27,8 @@ OS=$(shell uname -s)
 DISTBINDIR=$(DISTDIR)-$(OS)
 
 SUBDIRS=Sources
-
-SUBDIRS+= ThirdParty/CircmWrapper
 SUBDIRS+= Package/Hoa
+SUBDIRS+= ThirdParty/CicmWrapper
 
 $(abs_builddir)/.libs/hoa.@EXTENSION@: hoa.la
 
