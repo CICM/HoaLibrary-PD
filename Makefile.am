@@ -3,13 +3,13 @@ ACLOCAL_AMFLAGS = -I m4
 
 pkglib_LTLIBRARIES = hoa.la
 
-hoa_la_CXXFLAGS = @PD_CPPFLAGS@ -s -O2 -fPIC -fpermissive 
+hoa_la_CXXFLAGS = @PD_CPPFLAGS@ -s -O3 -fPIC -fpermissive -std=c++11
 hoa_la_LDFLAGS = -module -avoid-version -shared -shrext .@EXTENSION@  @PD_LDFLAGS@ -fPIC
 hoa_la_LIBADD = Sources/libHoaPd.la
 hoa_la_LIBADD += ThirdParty/CircmWrapper/Sources/libCicmWrapper.la
 
-hoa_la_SOURCES = c.library.h \
- c.library.cpp
+hoa_la_SOURCES = hoa.library.h \
+hoa.library.cpp
 
 ALL_CFLAGS = -I"$(PD_INCLUDE)"
 
@@ -26,7 +26,7 @@ ORIGDIR=pd-$(PACKAGE_NAME)_$(PACKAGE_VERSION)
 OS=$(shell uname -s)
 DISTBINDIR=$(DISTDIR)-$(OS)
 
-SUBDIRS=Sources
+SUBDIRS = Sources
 SUBDIRS+= Package/Hoa
 SUBDIRS+= ThirdParty/CicmWrapper
 
