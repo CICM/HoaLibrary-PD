@@ -528,9 +528,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		5913846E15DAA36D0029AD16 /* hoa.library */ = {
+		5913846E15DAA36D0029AD16 /* Hoa */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5913847315DAA36D0029AD16 /* Build configuration list for PBXNativeTarget "hoa.library" */;
+			buildConfigurationList = 5913847315DAA36D0029AD16 /* Build configuration list for PBXNativeTarget "Hoa" */;
 			buildPhases = (
 				5913846B15DAA36D0029AD16 /* Sources */,
 				5913846C15DAA36D0029AD16 /* Frameworks */,
@@ -540,14 +540,14 @@
 			);
 			dependencies = (
 			);
-			name = hoa.library;
+			name = Hoa;
 			productName = pd1;
 			productReference = 5913846F15DAA36D0029AD16 /* hoa.pd_darwin */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
-		8FAC0BFC196985A400E09ACB /* hoa.library_extended */ = {
+		8FAC0BFC196985A400E09ACB /* Hoa_extended */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8FAC0C8F196985A400E09ACB /* Build configuration list for PBXNativeTarget "hoa.library_extended" */;
+			buildConfigurationList = 8FAC0C8F196985A400E09ACB /* Build configuration list for PBXNativeTarget "Hoa_extended" */;
 			buildPhases = (
 				8FAC0BFD196985A400E09ACB /* Sources */,
 				8FAC0C55196985A400E09ACB /* Frameworks */,
@@ -557,7 +557,7 @@
 			);
 			dependencies = (
 			);
-			name = hoa.library_extended;
+			name = Hoa_extended;
 			productName = pd1;
 			productReference = 8FAC0C91196985A400E09ACB /* hoa.pd_darwin */;
 			productType = "com.apple.product-type.library.dynamic";
@@ -570,7 +570,7 @@
 			attributes = {
 				LastUpgradeCheck = 0620;
 			};
-			buildConfigurationList = 5913846915DAA36D0029AD16 /* Build configuration list for PBXProject "hoa.library" */;
+			buildConfigurationList = 5913846915DAA36D0029AD16 /* Build configuration list for PBXProject "Hoa" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -582,8 +582,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5913846E15DAA36D0029AD16 /* hoa.library */,
-				8FAC0BFC196985A400E09ACB /* hoa.library_extended */,
+				5913846E15DAA36D0029AD16 /* Hoa */,
+				8FAC0BFC196985A400E09ACB /* Hoa_extended */,
 			);
 		};
 /* End PBXProject section */
@@ -793,7 +793,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5913846915DAA36D0029AD16 /* Build configuration list for PBXProject "hoa.library" */ = {
+		5913846915DAA36D0029AD16 /* Build configuration list for PBXProject "Hoa" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5913847215DAA36D0029AD16 /* Release */,
@@ -801,7 +801,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5913847315DAA36D0029AD16 /* Build configuration list for PBXNativeTarget "hoa.library" */ = {
+		5913847315DAA36D0029AD16 /* Build configuration list for PBXNativeTarget "Hoa" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5913847515DAA36D0029AD16 /* Release */,
@@ -809,7 +809,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8FAC0C8F196985A400E09ACB /* Build configuration list for PBXNativeTarget "hoa.library_extended" */ = {
+		8FAC0C8F196985A400E09ACB /* Build configuration list for PBXNativeTarget "Hoa_extended" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8FAC0C90196985A400E09ACB /* Release */,
