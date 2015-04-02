@@ -1,74 +1,75 @@
-#N canvas 408 103 684 539 10;
-#X msg 446 67 \; pd dsp 1;
-#X msg 446 105 \; pd dsp 0;
-#X obj 291 242 c.number @size 53 17 @fontname Helvetica @fontweight
+#N canvas 408 103 616 551 10;
+#X msg 446 69 \; pd dsp 1;
+#X msg 446 107 \; pd dsp 0;
+#X obj 291 244 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 1 @max (null) @minmax 1 (null) @decimal 0 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 291 268 order \$1;
-#X obj 381 242 c.number @size 53 17 @fontname Helvetica @fontweight
+#X msg 291 270 order \$1;
+#X obj 381 244 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 1 @max (null) @minmax 1 (null) @decimal 6 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 381 268 gain \$1;
-#X obj 381 219 c.loadmess 1;
-#X obj 471 242 c.number @size 53 17 @fontname Helvetica @fontweight
+#X msg 381 270 gain \$1;
+#X obj 381 221 c.loadmess 1;
+#X obj 471 244 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 20 @max 1000 @minmax 20 1000 @decimal 0 @bgcolor 0.75 0.75
 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 471 268 interval \$1;
-#X obj 290 366 c.colorpanel @size 97 14 @fontname Helvetica @fontweight
+#X msg 471 270 interval \$1;
+#X obj 290 368 c.colorpanel @size 97 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @matrix 8 1 @reverse 0 @saturation 1 @hue 0 @lightness 0.5 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
-#X obj 290 385 c.prepend phcolor;
-#X obj 430 366 c.colorpanel @size 97 14 @fontname Helvetica @fontweight
+#X obj 290 387 c.prepend phcolor;
+#X obj 430 368 c.colorpanel @size 97 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @matrix 8 1 @reverse 0 @saturation 1 @hue 0.65 @lightness 0.5
 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
-#X text 289 195 order :;
-#X text 289 185 Ambisonic;
-#X text 379 185 Gain :;
-#X text 469 195 interval :;
-#X text 289 335 color :;
-#X text 289 325 Positive;
-#X text 429 335 color :;
-#X text 429 325 Negative;
-#X text 469 185 Refresh;
-#X obj 471 219 c.loadmess 20;
-#X obj 430 385 c.prepend nhcolor;
-#X obj 99 481 hoa.help.pub;
-#X obj 491 499 hoa.connect;
-#X obj 491 479 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X text 289 197 order :;
+#X text 289 187 Ambisonic;
+#X text 379 187 Gain :;
+#X text 469 197 interval :;
+#X text 289 337 color :;
+#X text 289 327 Positive;
+#X text 429 337 color :;
+#X text 429 327 Negative;
+#X text 469 187 Refresh;
+#X obj 471 221 c.loadmess 20;
+#X obj 430 387 c.prepend nhcolor;
+#X obj 99 483 hoa.help.pub;
+#X obj 491 501 hoa.connect;
+#X obj 491 481 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 20 21 c.patcherinfos;
-#X obj 25 4 loadbang;
-#X obj 5 4 hoa.help.header;
-#X obj 414 4 hoa.help.also;
-#X obj 45 200 hoa.3d.encoder~ 3 ----------------;
-#X obj 291 219 c.loadmess 3;
-#X obj 381 297 s hoascope3d;
-#X obj 145 134 phasor~ -0.3;
-#X obj 145 159 hoa.pi~ 2;
-#X obj 145 105 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 20 23 c.patcherinfos;
+#X obj 25 6 loadbang;
+#X obj 5 6 hoa.help.header;
+#X obj 414 6 hoa.help.also;
+#X obj 45 202 hoa.3d.encoder~ 3 ----------------;
+#X obj 291 221 c.loadmess 3;
+#X obj 381 299 s hoascope3d;
+#X obj 145 136 phasor~ -0.3;
+#X obj 145 161 hoa.pi~ 2;
+#X obj 145 107 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 246 134 hoa.tri~ 0.1 -0.5 0.5;
-#X obj 246 159 hoa.pi~ 1;
-#X obj 246 105 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 246 136 hoa.tri~ 0.1 -0.5 0.5;
+#X obj 246 161 hoa.pi~ 1;
+#X obj 246 107 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 430 437 s hoascope3d;
-#X obj 45 149 sig~ 1;
-#X text 3 55 hoa.3d.scope~ displays the spherical harmonics of an ambisonic
+#X obj 430 439 s hoascope3d;
+#X obj 45 151 sig~ 1;
+#X text 3 57 hoa.3d.scope~ displays the spherical harmonics of an ambisonic
 sound field on a disc. The disc is the cross-section of the ambisonic
 sphere at 0° elevation.;
-#X obj 45 238 hoa.3d.scope~ @size 207 207 @fontname Helvetica @fontweight
+#X obj 45 240 hoa.3d.scope~ @size 207 207 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive hoascope3d @send (null)
-@order 3 @gain 1 @interval 20 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7
-0.7 0.7 1 @phcolor 1 0 2.38419e-07 1 @nhcolor 0 0.1 1 1;
+@order 3 @view 0 0 0 @gain 1 @interval 20 @bgcolor 0.76 0.76 0.76 1
+@bdcolor 0.7 0.7 0.7 1 @phcolor 1 0 2.38419e-07 1 @nhcolor 0 0.1 1
+1;
 #X connect 2 0 3 0;
 #X connect 3 0 32 0;
 #X connect 4 0 5 0;
@@ -108,4 +109,4 @@ normal @fontslant roman @fontsize 11 @receive hoascope3d @send (null)
 #X connect 37 0 30 2;
 #X connect 38 0 36 0;
 #X connect 40 0 30 0;
-#X coords 0 539 1 538 85 60 0;
+#X coords 0 551 1 550 85 60 0;

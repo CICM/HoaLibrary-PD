@@ -17,6 +17,7 @@ typedef struct  _hoa_scope
 	int                     f_startclock;
 	long                    f_interval;
 	long                    f_order;
+    double                  f_view;
     float                   f_gain;
 	
 	t_rgba                  f_color_bg;
@@ -39,6 +40,7 @@ typedef struct  _hoa_scope_3d
     int                     f_startclock;
     long                    f_interval;
     long                    f_order;
+    double                  f_view[3];
     float                   f_gain;
     
     t_rgba                  f_color_bg;
@@ -95,14 +97,10 @@ static t_pd_err hoa_scope_notify(t_hoa_scope *x, t_symbol *s, t_symbol *msg, voi
 {
 	if(msg == hoa_sym_attr_modified)
 	{
-		if(s == hoa_sym_bgcolor || s == gensym("order"))
-		{
-			ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
-		}
-		else if(s == gensym("phcolor") || s == gensym("nhcolor"))
-		{
-			ebox_invalidate_layer((t_ebox *)x, hoa_sym_harmonics_layer);
-		}
+        if(s == hoa_sym_bgcolor ||s == hoa_sym_phcolor || s == hoa_sym_nhcolor || s == hoa_sym_bgcolor || s == hoa_sym_order || s == hoa_sym_offset)
+        {
+            ebox_invalidate_layer((t_ebox *)x, hoa_sym_harmonics_layer);
+        }
 		ebox_redraw((t_ebox *)x);
 	}
 	return 0;
@@ -146,6 +144,20 @@ static t_pd_err hoa_scope_set_order(t_hoa_scope *x, t_object *attr, long ac, t_a
 	}
     
 	return 0;
+}
+
+static t_pd_err hoa_scope_set_view(t_hoa_scope *x, t_object *attr, long argc, t_atom *argv)
+{
+    if (argc && argv && atom_gettype(argv) == A_LONG)
+    {
+        int dspState = canvas_suspend_dsp();
+        x->f_view = atom_getfloat(argv);
+        x->f_scope->setViewRotation(0., 0., x->f_view / 360. * HOA_2PI);
+        x->f_scope->computeRendering();
+        canvas_resume_dsp(dspState);
+    }
+    
+    return 0;
 }
 
 static void draw_background(t_hoa_scope *x, t_object *view, t_rect *rect)
@@ -336,6 +348,14 @@ extern "C" void setup_hoa0x2e2d0x2escope_tilde(void)
     CLASS_ATTR_DEFAULT              (c, "order", 0, "1");
     CLASS_ATTR_SAVE                 (c, "order", 1);
     
+    CLASS_ATTR_DOUBLE               (c, "view", 0, t_hoa_scope, f_view);
+    CLASS_ATTR_CATEGORY             (c, "view", 0, "Ambisonic");
+    CLASS_ATTR_LABEL                (c, "view", 0, "View rotation");
+    CLASS_ATTR_ACCESSORS            (c, "view", NULL, hoa_scope_set_view);
+    CLASS_ATTR_DEFAULT              (c, "view", 0, "0.");
+    CLASS_ATTR_ORDER                (c, "view", 0, "3");
+    CLASS_ATTR_SAVE                 (c, "view", 0);
+    
     CLASS_ATTR_FLOAT                (c, "gain", 0, t_hoa_scope, f_gain);
     CLASS_ATTR_CATEGORY             (c, "gain", 0, "Behavior");
     CLASS_ATTR_ORDER                (c, "gain", 0, "1");
@@ -419,7 +439,7 @@ static t_pd_err hoa_scope_3d_notify(t_hoa_scope_3d *x, t_symbol *s, t_symbol *ms
 {
     if (msg == hoa_sym_attr_modified)
     {
-        if(s == gensym("phcolor") || s == gensym("nhcolor") || s == hoa_sym_bgcolor || s == gensym("order"))
+        if(s == hoa_sym_bgcolor ||s == hoa_sym_phcolor || s == hoa_sym_nhcolor || s == hoa_sym_bgcolor || s == hoa_sym_order || s == hoa_sym_offset)
         {
             ebox_invalidate_layer((t_ebox *)x, hoa_sym_harmonics_layer);
         }
@@ -463,6 +483,31 @@ static t_pd_err hoa_scope_3d_set_order(t_hoa_scope_3d *x, t_object *attr, long a
             canvas_update_dsp();
             canvas_resume_dsp(dspState);
         }
+    }
+    
+    return 0;
+}
+
+static t_pd_err hoa_scope_3d_set_view(t_hoa_scope_3d *x, t_object *attr, long argc, t_atom *argv)
+{
+    if (argc && argv && atom_gettype(argv) == A_LONG)
+    {
+        int dspState = canvas_suspend_dsp();
+        if(atom_gettype(argv) == A_FLOAT)
+            x->f_view[0] = atom_getfloat(argv);
+        else
+            x->f_view[0] = x->f_scope->getViewRotationX() * 360. / HOA_2PI;
+        if(argc > 1 && atom_gettype(argv+1) == A_FLOAT)
+            x->f_view[1] = atom_getfloat(argv+1);
+        else
+            x->f_view[1] = x->f_scope->getViewRotationY() * 360. / HOA_2PI;
+        if(argc > 2 &&  atom_gettype(argv+2) == A_FLOAT)
+            x->f_view[2] = atom_getfloat(argv+2);
+        else
+            x->f_view[2] = x->f_scope->getViewRotationZ() * 360. / HOA_2PI;
+        x->f_scope->setViewRotation(x->f_view[0] / 360. * HOA_2PI, x->f_view[1] / 360. * HOA_2PI, x->f_view[2] / 360. * HOA_2PI);
+        x->f_scope->computeRendering();
+        canvas_resume_dsp(dspState);
     }
     
     return 0;
@@ -720,6 +765,14 @@ extern "C" void setup_hoa0x2e3d0x2escope_tilde(void)
     CLASS_ATTR_FILTER_MIN           (c, "order", 1);
     CLASS_ATTR_DEFAULT              (c, "order", 0, "1");
     CLASS_ATTR_SAVE                 (c, "order", 1);
+    
+    CLASS_ATTR_DOUBLE_ARRAY         (c, "view", 0, t_hoa_scope_3d, f_view, 3);
+    CLASS_ATTR_CATEGORY             (c, "view", 0, "Ambisonic");
+    CLASS_ATTR_LABEL                (c, "view", 0, "View rotation");
+    CLASS_ATTR_ACCESSORS            (c, "view", NULL, hoa_scope_3d_set_view);
+    CLASS_ATTR_DEFAULT              (c, "view", 0, "0. 0. 0.");
+    CLASS_ATTR_ORDER                (c, "view", 0, "3");
+    CLASS_ATTR_SAVE                 (c, "view", 0);
     
     CLASS_ATTR_FLOAT                (c, "gain", 0, t_hoa_scope_3d, f_gain);
     CLASS_ATTR_CATEGORY             (c, "gain", 0, "Behavior");

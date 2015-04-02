@@ -1,0 +1,279 @@
+#N canvas 382 109 888 663 10;
+#X obj 10 11 c.canvasinfos;
+#X obj 21 12 c.loadmess;
+#X obj 196 599 hoa.help.pub;
+#X obj 1 1 hoa.tuto.header;
+#X text 9 160 Order of decomposition (N);
+#X text 9 290 Number of harmonics;
+#X obj 14 184 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive norder @send (null) @presetname
+(null) @min 1 @max (null) @minmax 1 (null) @decimal 0 @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 14 264 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 194 184 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive nharmo @send (null) @presetname
+(null) @min 3 @max (null) @minmax 3 (null) @decimal 0 @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 194 264 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 189 160 Number of harmonics;
+#X text 189 290 Order of decomposition (N);
+#X text 209 412 Order of decomposition (N);
+#X obj 214 436 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive norder @send (null) @presetname
+(null) @min 1 @max (null) @minmax 1 (null) @decimal 0 @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 374 23 s norder;
+#X obj 457 22 s nharmo;
+#X msg 214 516 0 -1 0 1 -2 -1 0 1 2 -3 -2 -1 0 1 2 3;
+#N canvas 0 22 463 390 hoaNumbering 0;
+#X obj 95 63 until;
+#X obj 95 34 t f b, f 7;
+#X obj 144 93 + 1;
+#X obj 95 93 f 1, f 7;
+#X obj 174 239 c.prepend set;
+#X obj 95 239 c.prepend 0;
+#X obj 134 63 f 1;
+#X obj 174 63 f 0;
+#X obj 95 9 inlet;
+#X obj 95 291 outlet;
+#X obj 95 193 until;
+#X obj 95 144 * 2;
+#X obj 95 168 + 1;
+#X obj 95 216 f, f 7;
+#X obj 95 121 t f f, f 7;
+#X obj 146 216 + 1;
+#X obj 134 162 * -1;
+#X connect 0 0 3 0;
+#X connect 1 0 0 0;
+#X connect 1 1 6 0;
+#X connect 1 1 7 0;
+#X connect 2 0 3 1;
+#X connect 3 0 2 0;
+#X connect 3 0 14 0;
+#X connect 4 0 5 0;
+#X connect 4 0 9 0;
+#X connect 5 0 4 0;
+#X connect 6 0 3 1;
+#X connect 7 0 4 0;
+#X connect 8 0 1 0;
+#X connect 10 0 13 0;
+#X connect 11 0 12 0;
+#X connect 12 0 10 0;
+#X connect 13 0 5 0;
+#X connect 13 0 15 0;
+#X connect 14 0 11 0;
+#X connect 14 1 16 0;
+#X connect 15 0 13 1;
+#X connect 16 0 13 1;
+#X restore 214 471 pd hoaNumbering;
+#X text 9 412 Order of decomposition (N);
+#X obj 14 436 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive norder @send (null) @presetname
+(null) @min 1 @max (null) @minmax 1 (null) @decimal 0 @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 14 516 0 1 1 1 2 2 2 2 2 3 3 3 3 3 3 3;
+#N canvas 0 22 462 402 hoaNumbering 0;
+#X obj 95 63 until;
+#X obj 95 34 t f b, f 7;
+#X obj 144 93 + 1;
+#X obj 95 93 f 1, f 7;
+#X obj 174 239 c.prepend set;
+#X obj 95 239 c.prepend 0;
+#X obj 134 63 f 1;
+#X obj 174 63 f 0;
+#X obj 95 9 inlet;
+#X obj 95 291 outlet;
+#X obj 95 193 until;
+#X obj 95 144 * 2;
+#X obj 95 168 + 1;
+#X obj 95 216 f, f 7;
+#X obj 95 121 t f f, f 7;
+#X connect 0 0 3 0;
+#X connect 1 0 0 0;
+#X connect 1 1 6 0;
+#X connect 1 1 7 0;
+#X connect 2 0 3 1;
+#X connect 3 0 2 0;
+#X connect 3 0 14 0;
+#X connect 4 0 5 0;
+#X connect 4 0 9 0;
+#X connect 5 0 4 0;
+#X connect 6 0 3 1;
+#X connect 7 0 4 0;
+#X connect 8 0 1 0;
+#X connect 10 0 13 0;
+#X connect 11 0 12 0;
+#X connect 12 0 10 0;
+#X connect 13 0 5 0;
+#X connect 14 0 11 0;
+#X connect 14 1 13 1;
+#X restore 14 471 pd hoaNumbering;
+#X text 487 160 Order of decomposition (N);
+#X obj 492 184 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive norder @send (null) @presetname
+(null) @min 1 @max (null) @minmax 1 (null) @decimal 0 @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 492 264 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16;
+#N canvas 480 120 450 300 hoaNumbering 0;
+#X obj 95 133 until;
+#X obj 95 34 t f b, f 7;
+#X obj 144 163 + 1;
+#X obj 95 163 f 1, f 7;
+#X obj 174 209 c.prepend set;
+#X obj 95 209 c.prepend 0;
+#X obj 134 133 f 1;
+#X obj 174 133 f 0;
+#X obj 95 9 inlet;
+#X obj 95 261 outlet;
+#X obj 95 65 + 1;
+#X obj 95 97 pow 2;
+#X connect 0 0 3 0;
+#X connect 1 0 10 0;
+#X connect 1 1 6 0;
+#X connect 1 1 7 0;
+#X connect 2 0 3 1;
+#X connect 3 0 2 0;
+#X connect 3 0 5 0;
+#X connect 4 0 5 0;
+#X connect 4 0 9 0;
+#X connect 5 0 4 0;
+#X connect 6 0 3 1;
+#X connect 7 0 4 0;
+#X connect 8 0 1 0;
+#X connect 10 0 11 0;
+#X connect 11 0 0 0;
+#X restore 492 219 pd hoaNumbering;
+#X text 486 290 ACN of the harmonics;
+#X text 489 412 Order of decomposition (N);
+#X msg 494 516 W Y Z X V T R S U Q O M K L N P;
+#N canvas 0 22 908 474 hoaNumbering 0;
+#X obj 95 133 until;
+#X obj 95 34 t f b, f 7;
+#X obj 144 158 + 1;
+#X obj 174 349 c.prepend set;
+#X obj 95 349 c.prepend 0;
+#X obj 95 9 inlet;
+#X obj 95 381 outlet;
+#X obj 174 133 symbol W;
+#X obj 95 243 symbol Y;
+#X obj 196 243 symbol X;
+#X obj 260 241 symbol V;
+#X obj 491 244 symbol U;
+#X obj 553 245 symbol Q;
+#X obj 631 273 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 674 308 symbol ?;
+#X obj 141 243 symbol Z;
+#X obj 313 243 symbol T;
+#X obj 373 243 symbol R;
+#X obj 434 243 symbol S;
+#X obj 141 283 symbol O;
+#X obj 196 283 symbol M;
+#X obj 253 283 symbol K;
+#X obj 313 283 symbol L;
+#X obj 373 283 symbol N;
+#X obj 434 283 symbol P;
+#X obj 95 65 + 1;
+#X obj 95 87 pow 2;
+#X obj 95 185 sel 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15, f 78;
+#X obj 134 133 f 1;
+#X obj 95 158 f 1, f 7;
+#X obj 95 110 - 1;
+#X connect 0 0 29 0;
+#X connect 1 0 25 0;
+#X connect 1 1 7 0;
+#X connect 1 1 28 0;
+#X connect 2 0 29 1;
+#X connect 3 0 4 0;
+#X connect 3 0 6 0;
+#X connect 4 0 3 0;
+#X connect 5 0 1 0;
+#X connect 7 0 3 0;
+#X connect 8 0 4 0;
+#X connect 9 0 4 0;
+#X connect 10 0 4 0;
+#X connect 11 0 4 0;
+#X connect 12 0 4 0;
+#X connect 13 0 14 0;
+#X connect 14 0 4 0;
+#X connect 15 0 4 0;
+#X connect 16 0 4 0;
+#X connect 17 0 4 0;
+#X connect 18 0 4 0;
+#X connect 19 0 4 0;
+#X connect 20 0 4 0;
+#X connect 21 0 4 0;
+#X connect 22 0 4 0;
+#X connect 23 0 4 0;
+#X connect 24 0 4 0;
+#X connect 25 0 26 0;
+#X connect 26 0 30 0;
+#X connect 27 0 8 0;
+#X connect 27 1 15 0;
+#X connect 27 2 9 0;
+#X connect 27 3 10 0;
+#X connect 27 4 16 0;
+#X connect 27 5 17 0;
+#X connect 27 6 18 0;
+#X connect 27 7 11 0;
+#X connect 27 8 12 0;
+#X connect 27 9 19 0;
+#X connect 27 10 20 0;
+#X connect 27 11 21 0;
+#X connect 27 12 22 0;
+#X connect 27 13 23 0;
+#X connect 27 14 24 0;
+#X connect 27 15 13 0;
+#X connect 28 0 29 1;
+#X connect 29 0 2 0;
+#X connect 29 0 27 0;
+#X connect 30 0 0 0;
+#X restore 494 471 pd hoaNumbering;
+#X obj 494 436 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive norder @send (null) @presetname
+(null) @min 1 @max (null) @minmax 1 (null) @decimal 0 @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 209 542 Orders of the harmonics (m);
+#X text 9 542 Degrees of the harmonics (l);
+#X text 488 542 Letter codes of the harmonics;
+#X text 10 103 The number of harmonics depends on the order of decomposition
+(N) :;
+#X text 479 101 The numbering of the harmonics channels is similar
+to the ACN even if the use of the degrees and the orders is preferred
+:;
+#X text 481 353 The letter codes of the harmonics are not in the alphabetic
+order :;
+#X text 3 47 A set of tools to understand the numbering of the harmonics
+channels in 3d.;
+#X obj 14 211 + 1;
+#X obj 374 2 c.loadmess 3;
+#X obj 14 237 pow 2;
+#X obj 194 211 sqrt;
+#X obj 194 237 - 1;
+#X text 13 353 An harmonic is defined by a degree (l) and an order
+(m) thus it can be noted h(l \, m) :;
+#X obj 457 1 c.loadmess 16;
+#X connect 0 0 3 0;
+#X connect 1 0 0 0;
+#X connect 6 0 38 0;
+#X connect 8 0 41 0;
+#X connect 13 0 17 0;
+#X connect 17 0 16 0;
+#X connect 19 0 21 0;
+#X connect 21 0 20 0;
+#X connect 23 0 25 0;
+#X connect 25 0 24 0;
+#X connect 29 0 28 0;
+#X connect 30 0 29 0;
+#X connect 38 0 40 0;
+#X connect 39 0 14 0;
+#X connect 40 0 7 0;
+#X connect 41 0 42 0;
+#X connect 42 0 9 0;
+#X connect 44 0 15 0;

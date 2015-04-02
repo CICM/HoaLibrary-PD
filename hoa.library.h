@@ -80,6 +80,12 @@ static t_symbol* hoa_sym_all                = gensym("all");
 static t_symbol* hoa_sym_canvas             = gensym("canvas");
 static t_symbol* hoa_sym_hoathisprocess     = gensym("hoa.thisprocess~");
 
+
+static t_symbol* hoa_sym_order              = gensym("order");
+static t_symbol* hoa_sym_offset             = gensym("offset");
+static t_symbol* hoa_sym_nhcolor            = gensym("nhcolor");
+static t_symbol* hoa_sym_phcolor            = gensym("phcolor");
+
 // notify
 static t_symbol* hoa_sym_null						= gensym("(null)");
 static t_symbol* hoa_sym_nothing 					= gensym("");

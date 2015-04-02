@@ -47,8 +47,8 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X obj 464 396 c.prepend nhcolor;
 #X obj 79 257 hoa.2d.scope~ @size 207 207 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive hoascope @send (null)
-@order 7 @gain 1 @interval 20 @display excentric @bgcolor 0.76 0.76
-0.76 1 @bdcolor 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+@order 7 @view 0 @gain 1 @interval 20 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X obj 79 211 hoa.2d.encoder~ 7 ----------------;
 #X text 37 66 hoa.2d.scope~ displays the circular harmonics of an ambisonic
 sound field on a disc.;
@@ -60,11 +60,6 @@ sound field on a disc.;
 #X obj 59 15 loadbang;
 #X obj 39 15 hoa.help.header;
 #X obj 448 15 hoa.help.also;
-#X obj 594 396 c.prepend display;
-#X obj 596 372 c.menu @size 100 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @hover 0 @items concentric excentric @states 0 0 @bgcolor 0.75
-0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X connect 0 0 2 1;
 #X connect 1 0 0 0;
 #X connect 2 0 32 1;
@@ -101,6 +96,4 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X connect 36 0 35 0;
 #X connect 37 0 39 0;
 #X connect 38 0 37 0;
-#X connect 41 0 15 0;
-#X connect 42 1 41 0;
 #X coords 0 585 1 584 85 60 0;

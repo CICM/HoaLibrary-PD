@@ -1,4 +1,5 @@
 hoa.tools.2d.pd Tools\ 2D Order degree and channels numbering for 2D.;
+hoa.tools.3d.pd Tools\ 3D Order degree and channels numbering for 3D.;
 Tutorial_1.pd-help Tutorial\ 1 Circular harmonics domain;
 Tutorial_1_Introduction.pd Tutorial\ 1 Introduction;
 Tutorial_1_Space.pd Tutorial\ 1 Space Representation;

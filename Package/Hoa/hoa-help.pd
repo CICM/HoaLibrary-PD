@@ -16,9 +16,9 @@ synthesis \, perspective distorsion or spatial filtering.;
 0.5 0.5 0.5 1 @secolor 0.35 0.35 0.35 1;
 #X obj 5 196 c.tab @size 398 264 @fontname Monaco @fontweight normal
 @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @orientation 1 @toggle 0 @items 'Tutorial 1' 'Tools 2D' @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @hocolor
-0.5 0.5 0.5 1 @secolor 0.35 0.35 0.35 1;
+(null) @orientation 1 @toggle 0 @items 'Tutorial 1' 'Tools 2D' 'Tools 3D'
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1
+@hocolor 0.5 0.5 0.5 1 @secolor 0.35 0.35 0.35 1;
 #N canvas 809 275 452 384 sel.hoa.txt 0;
 #X obj -556 -387 unpack s s;
 #X msg -394 -362 clear;
@@ -123,7 +123,8 @@ synthesis \, perspective distorsion or spatial filtering.;
 #X msg 216 262 hoa.tools.2d.pd;
 #X obj 146 19 inlet;
 #X obj 96 192 t f b;
-#X obj 97 222 sel 0 1;
+#X obj 97 222 sel 0 1 2;
+#X msg 215 292 hoa.tools.3d.pd;
 #X connect 0 0 1 0;
 #X connect 1 0 4 0;
 #X connect 2 1 5 0;
@@ -153,6 +154,8 @@ synthesis \, perspective distorsion or spatial filtering.;
 #X connect 23 1 8 0;
 #X connect 24 0 20 0;
 #X connect 24 1 21 0;
+#X connect 24 2 25 0;
+#X connect 25 0 7 0;
 #X restore 220 420 pd hoa.open.hel;
 #X obj 6 173 c.loadmess 0;
 #X obj 5 464 c.blackboard @size 398 39 @fontname Monaco @fontweight
