@@ -9,7 +9,7 @@
 extern void hoa_initclass(t_eclass* c)
 {
     char help[MAXPDSTRING];
-    sprintf(help, "helps/%s", c->c_class.c_name->s_name);
+    sprintf(help, "helps/%s-help", c->c_class.c_name->s_name);
     class_sethelpsymbol((t_class *)c, gensym(help));
 }
 
@@ -22,7 +22,7 @@ char pdversion[] = "Pd-Vanilla";
 
 extern "C" void hoa_setup(void)
 {
-    post("HOA Library by Julien Colafrancesco, Pierre Guillot & Eliott Paris");
+    post("HOA Library by Julien Colafrancesco, Pierre Guillot, Eliott Paris & Thomas Le Meur");
     post("© 2012 - 2015  CICM | Paris 8 University");
     post("Version %s (%s) for %s", hoaversion, __DATE__, pdversion);
     post("");

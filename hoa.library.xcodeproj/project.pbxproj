@@ -568,7 +568,7 @@
 		5913846615DAA36D0029AD16 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0620;
 			};
 			buildConfigurationList = 5913846915DAA36D0029AD16 /* Build configuration list for PBXProject "hoa.library" */;
 			compatibilityVersion = "Xcode 3.2";
