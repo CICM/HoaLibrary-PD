@@ -8,8 +8,7 @@ hoa_la_LDFLAGS = -module -avoid-version -shared -shrext .@EXTENSION@  @PD_LDFLAG
 hoa_la_LIBADD = Sources/libHoaPd.la
 hoa_la_LIBADD += ThirdParty/CircmWrapper/Sources/libCicmWrapper.la
 
-hoa_la_SOURCES = hoa.library.h \
-hoa.library.cpp
+hoa_la_SOURCES = hoa.library.cpp
 
 ALL_CFLAGS = -I"$(PD_INCLUDE)"
 
