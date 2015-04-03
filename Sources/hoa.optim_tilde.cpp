@@ -91,6 +91,7 @@ static void hoa_optim_symbol(t_hoa_optim *x, t_symbol* s)
         int state = canvas_suspend_dsp();
         ulong  order = x->f_optim->getDecompositionOrder();
         x->f_mode = s;
+        delete x->f_optim;
         if(x->f_mode == hoa_sym_basic)
         {
             x->f_optim = new Optim<Hoa2d, t_sample>::Basic(order);
@@ -221,6 +222,7 @@ static void hoa_optim_3d_symbol(t_hoa_optim_3d *x, t_symbol* s)
         int state = canvas_suspend_dsp();
         ulong  order = x->f_optim->getDecompositionOrder();
         x->f_mode = s;
+        delete x->f_optim;
         if(x->f_mode == hoa_sym_basic)
         {
             x->f_optim = new Optim<Hoa3d, t_sample>::Basic(order);
