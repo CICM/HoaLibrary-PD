@@ -14,10 +14,8 @@ typedef struct _hoa_decoder
     Decoder<Hoa2d, t_sample>*   f_decoder;
     t_sample*                   f_ins;
     t_sample*                   f_outs;
-    long                        f_number_of_channels;
-    double                      f_angles_of_channels[HOA_MAX_PLANEWAVES];
-    double                      f_offset;
     t_symbol*                   f_mode;
+    void*                       f_attrs;
 } t_hoa_decoder;
 
 static t_eclass *hoa_decoder_class;
@@ -28,10 +26,8 @@ typedef struct _hoa_decoder_3d
     Decoder<Hoa3d, t_sample>*   f_decoder;
     t_sample*                   f_ins;
     t_sample*                   f_outs;
-    long                        f_number_of_channels;
-    double                      f_angles_of_channels[HOA_MAX_PLANEWAVES * 2];
-    double                      f_offset[3];
     t_symbol*                   f_mode;
+    void*                       f_attrs;
 } t_hoa_decoder_3d;
 
 static t_eclass *hoa_decoder_3d_class;
@@ -68,8 +64,7 @@ static void *hoa_decoder_new(t_symbol *s, long argc, t_atom *argv)
             x->f_decoder = new Decoder<Hoa2d, t_sample>::Regular(order, number_of_channels);
             x->f_mode = gensym("regular");
         }
-        x->f_number_of_channels = x->f_decoder->getNumberOfPlanewaves();
-    
+
         eobj_dspsetup(x, x->f_decoder->getNumberOfHarmonics(), x->f_decoder->getNumberOfPlanewaves());
         x->f_ins = new t_sample[x->f_decoder->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
         x->f_outs= new t_sample[x->f_decoder->getNumberOfPlanewaves() * HOA_MAXBLKSIZE];
@@ -165,6 +160,25 @@ static t_pd_err hoa_decoder_angles_set(t_hoa_decoder *x, void *attr, long argc, 
     return 0;
 }
 
+static t_pd_err hoa_decoder_angles_get(t_hoa_decoder *x, void *attr, long* argc, t_atom **argv)
+{
+    *argc = x->f_decoder->getNumberOfPlanewaves();
+    *argv = (t_atom *)malloc(*argc * sizeof(t_atom));
+    if(*argc && *argv)
+    {
+        for(int i = 0; i < *argc; i++)
+        {
+             atom_setfloat(*argv+i, x->f_decoder->getPlanewaveAzimuth(i) * 360. / HOA_2PI);
+        }
+    }
+    else
+    {
+        *argc = 0;
+        *argv = NULL;
+    }
+    return 0;
+}
+
 static t_pd_err hoa_decoder_offset_set(t_hoa_decoder *x, void *attr, long argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_FLOAT)
@@ -172,6 +186,22 @@ static t_pd_err hoa_decoder_offset_set(t_hoa_decoder *x, void *attr, long argc, 
         int dspState = canvas_suspend_dsp();
         x->f_decoder->setPlanewavesRotation(0., 0., atom_getfloat(argv) / 360. * HOA_2PI);
         canvas_resume_dsp(dspState);
+    }
+    return 0;
+}
+
+static t_pd_err hoa_decoder_offset_get(t_hoa_decoder *x, void *attr, long* argc, t_atom **argv)
+{
+    *argc = 1;
+    *argv = (t_atom *)malloc(*argc * sizeof(t_atom));
+    if(*argc && *argv)
+    {
+        atom_setfloat(*argv, x->f_decoder->getPlanewavesRotationZ() * 360. / HOA_2PI);
+    }
+    else
+    {
+        *argc = 0;
+        *argv = NULL;
     }
     return 0;
 }
@@ -195,15 +225,16 @@ extern "C" void setup_hoa0x2e2d0x2edecoder_tilde(void)
     hoa_initclass(c);
     eclass_addmethod(c, (method)hoa_decoder_dsp,           "dsp",          A_CANT,  0);
     
-    CLASS_ATTR_DOUBLE_VARSIZE	(c, "angles",0, t_hoa_decoder, f_angles_of_channels, f_number_of_channels, HOA_MAX_PLANEWAVES);
-    CLASS_ATTR_ACCESSORS		(c, "angles", NULL, hoa_decoder_angles_set);
+    CLASS_ATTR_DOUBLE_VARSIZE	(c, "angles",0, t_hoa_decoder, f_attrs, f_attrs, HOA_MAX_PLANEWAVES);
+    CLASS_ATTR_ACCESSORS		(c, "angles", hoa_decoder_angles_get, hoa_decoder_angles_set);
+    CLASS_ATTR_CATEGORY			(c, "offset", 0, "Planewaves");
     CLASS_ATTR_LABEL			(c, "angles", 0, "Angles of Loudspeakers");
+    CLASS_ATTR_SAVE             (c, "angles", 0);
     
-    CLASS_ATTR_DOUBLE           (c, "offset", 0, t_hoa_decoder, f_offset);
+    CLASS_ATTR_DOUBLE           (c, "offset", 0, t_hoa_decoder, f_attrs);
+    CLASS_ATTR_ACCESSORS		(c, "offset", hoa_decoder_offset_get, hoa_decoder_offset_set);
     CLASS_ATTR_CATEGORY			(c, "offset", 0, "Planewaves");
     CLASS_ATTR_LABEL            (c, "offset", 0, "Offset of Channels");
-    CLASS_ATTR_ACCESSORS		(c, "offset", NULL, hoa_decoder_offset_set);
-    CLASS_ATTR_DEFAULT          (c, "offset", 0, "0");
     CLASS_ATTR_SAVE             (c, "offset", 0);
     
     eclass_register(CLASS_OBJ, c);
@@ -229,7 +260,7 @@ static void *hoa_decoder_3d_new(t_symbol *s, long argc, t_atom *argv)
         
         if(mode == gensym("irregular"))
         {
-            //x->f_decoder = new Decoder<Hoa2d, t_sample>::Irregular(order, number_of_channels);
+            x->f_decoder = new Decoder<Hoa3d, t_sample>::Regular(order, number_of_channels);
         }
         else if(mode == gensym("binaural"))
         {
@@ -240,12 +271,11 @@ static void *hoa_decoder_3d_new(t_symbol *s, long argc, t_atom *argv)
             x->f_decoder = new Decoder<Hoa3d, t_sample>::Regular(order, number_of_channels);
         }
         
-        x->f_number_of_channels = x->f_decoder->getNumberOfPlanewaves() * 2;
-        
         eobj_dspsetup(x, x->f_decoder->getNumberOfHarmonics(), x->f_decoder->getNumberOfPlanewaves());
-        x->f_ins = new t_float[x->f_decoder->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
-        x->f_outs= new t_float[HOA_MAX_PLANEWAVES * HOA_MAXBLKSIZE];
-        
+        x->f_ins = new t_sample[x->f_decoder->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
+        x->f_outs= new t_sample[x->f_decoder->getNumberOfPlanewaves() * HOA_MAXBLKSIZE];
+        memset(x->f_ins, 0, x->f_decoder->getNumberOfHarmonics() * HOA_MAXBLKSIZE * sizeof(t_sample));
+        memset(x->f_outs, 0, x->f_decoder->getNumberOfPlanewaves() * HOA_MAXBLKSIZE * sizeof(t_sample));
         ebox_attrprocess_viabinbuf(x, d);
         
         return x;
@@ -304,6 +334,26 @@ static t_pd_err hoa_decoder_3d_angles_set(t_hoa_decoder_3d *x, void *attr, long 
     return 0;
 }
 
+static t_pd_err hoa_decoder_3d_angles_get(t_hoa_decoder_3d *x, void *attr, long *argc, t_atom **argv)
+{
+    *argc = x->f_decoder->getNumberOfPlanewaves() * 2;
+    *argv = (t_atom *)malloc(*argc * sizeof(t_atom));
+    if(*argc && *argv)
+    {
+        for(long i = 0; i < x->f_decoder->getNumberOfPlanewaves(); i++)
+        {
+            atom_setfloat(*argv+i*2, x->f_decoder->getPlanewaveAzimuth(i) * 360. / HOA_2PI);
+            atom_setfloat(*argv+i*2+1, x->f_decoder->getPlanewaveElevation(i) * 360. / HOA_2PI);
+        }
+    }
+    else
+    {
+        *argc = 0;
+        *argv = NULL;
+    }
+    return 0;
+}
+
 static t_pd_err hoa_decoder_3d_offset_set(t_hoa_decoder_3d *x, void *attr, long argc, t_atom *argv)
 {
     if(argc && argv)
@@ -328,6 +378,24 @@ static t_pd_err hoa_decoder_3d_offset_set(t_hoa_decoder_3d *x, void *attr, long 
     return 0;
 }
 
+static t_pd_err hoa_decoder_3d_offset_get(t_hoa_decoder_3d *x, void *attr, long *argc, t_atom **argv)
+{
+    *argc = 3;
+    *argv = (t_atom *)malloc(*argc * sizeof(t_atom));
+    if(*argc && *argv)
+    {
+        atom_setfloat(*argv, x->f_decoder->getPlanewavesRotationX() / 360. * HOA_2PI);
+        atom_setfloat(*argv+1, x->f_decoder->getPlanewavesRotationY() / 360. * HOA_2PI);
+        atom_setfloat(*argv+2, x->f_decoder->getPlanewavesRotationZ() / 360. * HOA_2PI);
+    }
+    else
+    {
+        *argc = 0;
+        *argv = NULL;
+    }
+    return 0;
+}
+
 static void hoa_decoder_3d_free(t_hoa_decoder_3d *x)
 {
     eobj_dspfree(x);
@@ -346,17 +414,16 @@ extern "C" void setup_hoa0x2e3d0x2edecoder_tilde(void)
     hoa_initclass(c);
     eclass_addmethod(c, (method)hoa_decoder_3d_dsp,           "dsp",          A_CANT,  0);
     
-    CLASS_ATTR_DOUBLE_VARSIZE	(c, "angles",0, t_hoa_decoder_3d, f_angles_of_channels, f_number_of_channels, HOA_MAX_PLANEWAVES*2);
-    CLASS_ATTR_ACCESSORS		(c, "angles", NULL, hoa_decoder_3d_angles_set);
-    CLASS_ATTR_ORDER			(c, "angles", 0, "2");
+    CLASS_ATTR_DOUBLE_VARSIZE	(c, "angles",0, t_hoa_decoder_3d, f_attrs, f_attrs, HOA_MAX_PLANEWAVES*2);
+    CLASS_ATTR_ACCESSORS		(c, "angles", hoa_decoder_3d_angles_get, hoa_decoder_3d_angles_set);
+    CLASS_ATTR_CATEGORY			(c, "offset", 0, "Planewaves");
     CLASS_ATTR_LABEL			(c, "angles", 0, "Angles of Loudspeakers");
+    CLASS_ATTR_SAVE             (c, "angles", 0);
     
-    CLASS_ATTR_DOUBLE_ARRAY     (c, "offset", 0, t_hoa_decoder_3d, f_offset, 3);
+    CLASS_ATTR_DOUBLE_ARRAY     (c, "offset", 0, t_hoa_decoder_3d, f_attrs, 3);
+    CLASS_ATTR_ACCESSORS		(c, "offset", hoa_decoder_3d_offset_get, hoa_decoder_3d_offset_set);
     CLASS_ATTR_CATEGORY			(c, "offset", 0, "Planewaves");
     CLASS_ATTR_LABEL            (c, "offset", 0, "Offset of Channels");
-    CLASS_ATTR_ACCESSORS		(c, "offset", NULL, hoa_decoder_3d_offset_set);
-    CLASS_ATTR_DEFAULT          (c, "offset", 0, "0 0");
-    CLASS_ATTR_ORDER            (c, "offset", 0, "3");
     CLASS_ATTR_SAVE             (c, "offset", 0);
     
     eclass_register(CLASS_OBJ, c);
