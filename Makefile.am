@@ -6,7 +6,7 @@ pkglib_LTLIBRARIES = hoa.la
 hoa_la_CXXFLAGS = @PD_CPPFLAGS@ -s -O3 -fPIC -fpermissive -std=c++11
 hoa_la_LDFLAGS = -module -avoid-version -shared -shrext .@EXTENSION@  @PD_LDFLAGS@ -fPIC
 hoa_la_LIBADD = Sources/libHoaPd.la
-hoa_la_LIBADD += ThirdParty/CircmWrapper/Sources/libCicmWrapper.la
+hoa_la_LIBADD += ThirdParty/CicmWrapper/Sources/libCicmWrapper.la
 
 hoa_la_SOURCES = hoa.library.cpp
 
