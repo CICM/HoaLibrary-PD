@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 ## replace the email below with authors' emails
-AC_INIT([hoa], 2.2-git, musique@univ-paris8.fr,[hoa],[https://github.com/CICM/HoaLibrary-PD])
+AC_INIT([Hoa], 2.2-git, musique@univ-paris8.fr,[Hoa],[https://github.com/CICM/HoaLibrary-PD])
 
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR(config)

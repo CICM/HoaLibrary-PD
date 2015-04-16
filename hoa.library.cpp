@@ -22,11 +22,13 @@ char pdversion[] = "Pd-Vanilla";
 
 extern "C" void hoa_setup(void)
 {
+    epd_init_symbols();
+
     post("HOA Library by Julien Colafrancesco, Pierre Guillot, Eliott Paris & Thomas Le Meur");
     post("© 2012 - 2015  CICM | Paris 8 University");
     post("Version %s (%s) for %s", hoaversion, __DATE__, pdversion);
     post("");
-    
+
     // HOA COMMON //
     setup_hoa0x2econnect();
     setup_hoa0x2edac_tilde();
@@ -52,7 +54,7 @@ extern "C" void hoa_setup(void)
     setup_hoa0x2e2d0x2escope_tilde();
     setup_hoa0x2e2d0x2espace();
     setup_hoa0x2e2d0x2ewider_tilde();
-    
+
     // HOA 3D //
     setup_hoa0x2e3d0x2edecoder_tilde();
     setup_hoa0x2e3d0x2eencoder_tilde();
@@ -60,7 +62,7 @@ extern "C" void hoa_setup(void)
     setup_hoa0x2e3d0x2ewider_tilde();
     setup_hoa0x2e3d0x2emap_tilde();
 	setup_hoa0x2e3d0x2emeter_tilde();
-    setup_hoa0x2e3d0x2escope_tilde();  
+    setup_hoa0x2e3d0x2escope_tilde();
 
     pd_library_add_folder("Hoa", "patchers");
     pd_library_add_folder("Hoa", "clippings");

@@ -597,8 +597,7 @@ void hoa_map_source(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
 		int causeOutput = 1;
         if (index > 0)
         {
-            x->f_manager->newSource(index);
-            Source* tmp = x->f_manager->getSource(index);
+            Source* tmp = x->f_manager->newSource(index);
 
             if(param == hoa_sym_polar || param == hoa_sym_pol)
             {
@@ -709,9 +708,8 @@ void hoa_map_group(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
 		int causeOutput = 1;
 		if (index > 0)
         {
-            x->f_manager->newGroup(index);
-            Source::Group* tmp = x->f_manager->getGroup(index);
 
+            Source::Group* tmp =x->f_manager->newGroup(index);
             if(param == hoa_sym_set)
             {
                 for(int i = 2; i < ac; i++)
@@ -719,8 +717,7 @@ void hoa_map_group(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
                     ulong ind = atom_getlong(av+i);
                     if (ind > 0)
                     {
-                        x->f_manager->newSource(ind);
-                        Source* src = x->f_manager->getSource(ind);
+                        Source* src = x->f_manager->newSource(ind);
                         tmp->addSource(src);
                     }
                 }
@@ -1872,8 +1869,7 @@ void hoa_map_mouseup(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifier
 
             if(((screen_source_coord.x > x1 && screen_source_coord.x < x2) || (screen_source_coord.x < x1 && screen_source_coord.x > x2)) && ((screen_source_coord.y > y1 && screen_source_coord.y < y2) || (screen_source_coord.y < y1 && screen_source_coord.y > y2)))
             {
-                x->f_manager->newGroup(indexOfNewGroup);
-                Source::Group* tmp = x->f_manager->getGroup(indexOfNewGroup);
+                Source::Group* tmp = x->f_manager->newGroup(indexOfNewGroup);
                 tmp->addSource(it->second);
                 it->second->setMute(it->second->getMute());
                 causeOutput = causeRedraw = causeNotify = 1;
@@ -2018,8 +2014,7 @@ void hoa_map_sourcesPreset(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
                && atom_gettype(av+i+4) == A_FLOAT)
             {
                 index = atom_getlong(av+i+1);
-                x->f_manager->newSource(index);
-                Source* tmp = x->f_manager->getSource(index);
+                Source* tmp = x->f_manager->newSource(index);
                 tmp->setCoordinatesCartesian(atom_getfloat(av+i+2), atom_getfloat(av+i+3), atom_getfloat(av+i+4));
 
                 if(atom_gettype(av+i+5) == A_FLOAT && atom_getfloat(av+i+5) == 0)
@@ -2046,8 +2041,7 @@ void hoa_map_sourcesPreset(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
             {
                 index = atom_getlong(av+i+1);
                 nsources = atom_getlong(av+i+2);
-                x->f_manager->newGroup(index);
-                Source::Group* tmp = x->f_manager->getGroup(index);
+                Source::Group* tmp = x->f_manager->newGroup(index);
                 for(int j = 0; j < nsources; j++)
                 {
                     if(ac > i+3+j && atom_gettype(av+i+3+j) == A_FLOAT)
@@ -2106,8 +2100,7 @@ void hoa_map_interpolate(t_hoa_map *x, short ac, t_atom *av, short ac2, t_atom* 
             {
                 index = atom_getlong(av+i+1);
                 exist2 = 0;
-                x->f_manager->newSource(index);
-                Source* tmp = x->f_manager->getSource(index);
+                Source* tmp = x->f_manager->newSource(index);
                 for(int j = 0; j < ac2; j++)
                 {
                     if(ac2 > j+10)
@@ -2155,8 +2148,7 @@ void hoa_map_interpolate(t_hoa_map *x, short ac, t_atom *av, short ac2, t_atom* 
             {
                 index = atom_getlong(av+i+1);
                 nsources = atom_getlong(av+i+2);
-                x->f_manager->newGroup(index);
-                Source::Group* tmp = x->f_manager->getGroup(index);
+                Source::Group* tmp = x->f_manager->newGroup(index);
                 for(int j = 0; j < nsources; j++)
                 {
                     if(ac > i+3+j && atom_gettype(av+i+3+j) == A_FLOAT)
