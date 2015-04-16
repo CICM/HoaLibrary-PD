@@ -1,122 +1,122 @@
-#N canvas 405 42 965 625 10;
-#X obj 31 -314 phasor~ 0.2;
-#X obj 31 -249 *~ 2;
-#X obj 52 -272 hoa.pi 2;
-#X obj 215 -242 *~ 2;
-#X obj 283 -242 *~ 2;
-#X msg -502 -280 1 car \$1 \$2;
-#X obj 215 -264 osc~ 0.13;
-#X obj 283 -264 osc~ 0.25;
-#X obj 148 -213 phasor~ 220;
-#X text -375 -359 radius;
-#X text -441 -360 ordinate;
-#X text -506 -360 abscissa;
-#X text -331 -227 source 0;
-#X text -210 -229 source 1;
-#X text -92 -228 source;
-#X text -16 -231 radius;
-#X text 301 -226 ordinate;
-#X text 226 -226 abscissa;
-#X text 146 -230 source;
-#X obj -331 -89 hoa.2d.meter~ @size 129 129 @fontname Helvetica @fontweight
+#N canvas 401 82 965 625 10;
+#X obj 613 180 phasor~ 0.2;
+#X obj 613 245 *~ 2;
+#X obj 634 222 hoa.pi 2;
+#X obj 797 252 *~ 2;
+#X obj 865 252 *~ 2;
+#X msg 80 214 1 car \$1 \$2;
+#X obj 797 230 osc~ 0.13;
+#X obj 865 230 osc~ 0.25;
+#X obj 730 281 phasor~ 220;
+#X text 207 135 radius;
+#X text 141 134 ordinate;
+#X text 76 134 abscissa;
+#X text 251 267 source 0;
+#X text 372 265 source 1;
+#X text 490 266 source;
+#X text 566 263 radius;
+#X text 883 268 ordinate;
+#X text 808 268 abscissa;
+#X text 728 264 source;
+#X obj 251 405 hoa.2d.meter~ @size 129 129 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send êÿ @channels
 8 @angles 0 45 90 135 180 225 270 315 @offset 0 @rotation anti-clockwise
 @vectors energy @interval 50 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7
 0.7 0.7 1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor
 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor
 0 0 1 0.8 @velocitycolor 1 0 0 0.8;
-#X msg -99 -428 \; pd dsp 1;
-#X msg -37 -428 \; pd dsp 0;
-#X obj -92 -89 hoa.2d.meter~ @size 129 129 @fontname Helvetica @fontweight
+#X msg 483 66 \; pd dsp 1;
+#X msg 545 66 \; pd dsp 0;
+#X obj 490 405 hoa.2d.meter~ @size 129 129 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send êÿ @channels
 8 @angles 0 45 90 135 180 225 270 315 @offset 0 @rotation anti-clockwise
 @vectors energy @interval 50 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7
 0.7 0.7 1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor
 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor
 0 0 1 0.8 @velocitycolor 1 0 0 0.8;
-#X obj 148 -89 hoa.2d.meter~ @size 141 141 @fontname Helvetica @fontweight
+#X obj 730 405 hoa.2d.meter~ @size 141 141 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send êÿ @channels
 8 @angles 0 45 90 135 180 225 270 315 @offset 0 @rotation anti-clockwise
 @vectors energy @interval 50 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7
 0.7 0.7 1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor
 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor
 0 0 1 0.8 @velocitycolor 1 0 0 0.8;
-#X obj -31 -279 +~ 1;
-#X obj -31 -256 *~ 0.5;
-#X obj -31 -303 osc~ 0.3;
-#X obj -502 -336 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 551 215 +~ 1;
+#X obj 551 238 *~ 0.5;
+#X obj 551 191 osc~ 0.3;
+#X obj 80 158 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj -502 -301 c.pak -----;
-#X obj -439 -336 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 80 193 c.pak -----;
+#X obj 143 158 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj -372 -336 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 210 158 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj -309 -336 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 273 158 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X text -561 -150 hoa.map~'s syntax;
-#X text -561 -140 for multisource mode :;
-#X text -561 -130 index;
-#X text -561 -120 coordinate type (polar or cartesian);
-#X text -561 -110 coordinate one (radius or abscissa);
-#X obj -21 -206 c.number~ @size 48 17 @fontname Helvetica @fontweight
+#X text 21 344 hoa.map~'s syntax;
+#X text 21 354 for multisource mode :;
+#X text 21 364 index;
+#X text 21 374 coordinate type (polar or cartesian);
+#X text 21 384 coordinate one (radius or abscissa);
+#X obj 561 288 c.number~ @size 48 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 42 -206 c.number~ @size 48 17 @fontname Helvetica @fontweight
+#X obj 624 288 c.number~ @size 48 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 225 -206 c.number~ @size 48 17 @fontname Helvetica @fontweight
+#X obj 807 288 c.number~ @size 48 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 294 -206 c.number~ @size 48 17 @fontname Helvetica @fontweight
+#X obj 876 288 c.number~ @size 48 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj -331 -114 hoa.2d.decoder~ 3 0 8;
-#X obj -331 -148 hoa.2d.optim~ 3 -----;
-#X obj -331 -174 hoa.2d.map~ 3 2 -----;
-#X obj -92 -149 hoa.2d.optim~ 3 -----;
-#X obj -92 -115 hoa.2d.decoder~ 3 0 8;
-#X obj -92 44 hoa.dac~ 1:8 --------;
-#X obj 148 -115 hoa.2d.decoder~ 3 0 8 -;
-#X text -579 -448 hoa.2d.map~ is an ambisonics encoder that uses fractionnal
+#X obj 251 380 hoa.2d.decoder~ 3 0 8;
+#X obj 251 346 hoa.2d.optim~ 3 -----;
+#X obj 251 320 hoa.2d.map~ 3 2 -----;
+#X obj 490 345 hoa.2d.optim~ 3 -----;
+#X obj 490 379 hoa.2d.decoder~ 3 0 8;
+#X obj 490 538 hoa.dac~ 1:8 --------;
+#X obj 730 379 hoa.2d.decoder~ 3 0 8 -;
+#X text 3 46 hoa.2d.map~ is an ambisonics encoder that uses fractionnal
 orders and amplitude variation to simulate sources distances. First
 argument is the order and second argument is the number of sources.
 ;
-#X obj 148 -149 hoa.2d.optim~ 3 -------;
-#X obj -372 -301 c.pak 0 0;
-#X obj -92 -210 hoa.soundrone;
-#X obj -331 -210 sig~ 1;
-#X obj -208 -210 sig~ 1;
-#X obj 295 -465 hoa.connect;
-#X obj 295 -485 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X obj 148 -174 hoa.2d.map~ 3 1 car ---;
-#X obj -571 -473 c.patcherinfos;
-#X obj -566 -490 loadbang;
-#X obj -581 -490 hoa.help.header;
-#X obj -316 71 hoa.help.pub;
-#X obj -164 -490 hoa.help.also;
-#X msg -372 -280 2 pol \$1 \$2;
-#X obj 52 -292 c.loadmess;
-#X text -105 -384 With one source \, you can drive it with signals.
-Set the mode polar (or pol or 0) to use polar coordinates (radius and
-azimuth) and cartesian (or car or 1) to use cartesian corrdinates (abscissa
+#X obj 730 345 hoa.2d.optim~ 3 -------;
+#X obj 210 193 c.pak 0 0;
+#X obj 490 284 hoa.soundrone;
+#X obj 251 284 sig~ 1;
+#X obj 374 284 sig~ 1;
+#X obj 877 29 hoa.connect;
+#X obj 877 9 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 730 320 hoa.2d.map~ 3 1 car ---;
+#X obj 11 21 c.patcherinfos;
+#X obj 16 4 loadbang;
+#X obj 1 4 hoa.help.header;
+#X obj 266 565 hoa.help.pub;
+#X obj 418 4 hoa.help.also;
+#X msg 210 214 2 pol \$1 \$2;
+#X obj 634 202 c.loadmess;
+#X text 477 110 With one source \, you can drive it with signals. Set
+the mode polar (or pol or 0) to use polar coordinates (radius and azimuth)
+and cartesian (or car or 1) to use cartesian corrdinates (abscissa
 and ordinate).;
-#X text 51 -232 azimuth;
-#X text -312 -359 azimuth;
-#X text -561 -100 coordinate two (azimuth or ordinate).;
-#X obj -92 -174 hoa.2d.map~ 3 1 pol -;
+#X text 633 262 azimuth;
+#X text 270 135 azimuth;
+#X text 21 394 coordinate two (azimuth or ordinate).;
+#X obj 490 320 hoa.2d.map~ 3 1 pol -;
 #X connect 0 0 1 0;
 #X connect 1 0 38 0;
 #X connect 1 0 68 2;

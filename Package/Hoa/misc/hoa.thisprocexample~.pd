@@ -1,15 +1,15 @@
-#N canvas 123 164 456 343 10;
-#X obj 25 138 c.prepend set;
-#X obj 138 138 c.prepend set;
-#X msg 25 165 1 0;
-#X obj 286 15 hoa.in extra 1;
-#X obj 14 249 c.blackboard @size 295 57 @fontname Helvetica @fontweight
+#N canvas 123 167 456 343 10;
+#X obj 36 137 c.prepend set;
+#X obj 149 137 c.prepend set;
+#X msg 36 164 1 0;
+#X obj 297 14 hoa.in extra 1;
+#X obj 25 248 c.blackboard @size 295 57 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @chalkmode
 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
-#X text 155 116 Hoa mode output;
-#X text 30 116 Hoa args output;
-#X obj 15 10 c.loadmess;
-#X msg 138 165 2d harmonics;
+#X text 166 115 Hoa mode output;
+#X text 41 115 Hoa args output;
+#X obj 26 9 c.loadmess;
+#X msg 149 164 2d harmonics;
 #N canvas 594 70 810 697 hoa_display_mess 0;
 #X obj 357 21 inlet;
 #N canvas 778 159 450 300 hoa.mode.sel 0;
@@ -99,14 +99,14 @@ index;
 #X connect 19 0 4 0;
 #X connect 20 0 4 0;
 #X connect 21 0 4 0;
-#X restore 15 194 pd hoa_display_mess;
-#X obj 15 225 c.prepend text;
-#X obj 15 91 hoa.thisprocess~ ---------------------------------------
+#X restore 26 193 pd hoa_display_mess;
+#X obj 26 224 c.prepend text;
+#X obj 26 90 hoa.thisprocess~ ---------------------------------------
 ;
-#X obj 14 42 t b b;
-#X msg -1 71 clear;
-#X text 94 11 Double click to;
-#X text 87 21 show the message !;
+#X obj 25 41 t b b;
+#X msg 10 70 clear;
+#X text 105 10 Double click to;
+#X text 98 20 show the message !;
 #X connect 0 0 2 0;
 #X connect 1 0 8 0;
 #X connect 7 0 12 0;

@@ -1,5 +1,5 @@
-#N canvas 752 78 383 210 10;
-#X obj 4 46 c.tab @size 358 102 @fontname Helvetica @fontweight normal
+#N canvas 749 83 406 238 10;
+#X obj 23 61 c.tab @size 358 102 @fontname Helvetica @fontweight normal
 @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @orientation 1 @toggle 0 @items Introduction Space Harmonics
 Resolution Encoding Decoding @bgcolor 0.802322 0.802322 0.802322 1
@@ -20,11 +20,11 @@ Resolution Encoding Decoding @bgcolor 0.802322 0.802322 0.802322 1
 #X connect 4 0 2 1;
 #X connect 5 0 2 0;
 #X connect 6 0 3 0;
-#X restore 120 71 pd open.tuto;
-#X obj 11 12 c.canvasinfos;
-#X obj 10 8 c.loadmess;
-#X obj 2 149 hoa.help.pub;
-#X obj 2 2 hoa.tuto.header;
+#X restore 139 86 pd open.tuto;
+#X obj 30 27 c.canvasinfos;
+#X obj 29 23 c.loadmess;
+#X obj 21 164 hoa.help.pub;
+#X obj 21 17 hoa.tuto.header;
 #X connect 0 1 1 0;
 #X connect 2 0 5 0;
 #X connect 3 0 2 0;

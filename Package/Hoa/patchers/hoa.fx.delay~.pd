@@ -1,22 +1,22 @@
-#N canvas 229 240 946 548 10;
-#X obj 372 -26 hoa.in~;
-#X obj 237 370 hoa.out~;
-#X obj -109 -101 c.loadmess;
-#X obj 194 -47 hoa.in extra 1;
-#X obj 353 155 f;
-#X obj 171 220 *~ 513;
-#X obj 618 251 table \$0-hoa_hann1 512;
-#X obj 171 248 tabread4~ \$0-hoa_hann1;
-#X obj 156 299 *~;
-#X obj 352 299 *~;
-#X obj 156 155 f;
-#X obj 367 248 tabread4~ \$0-hoa_hann1;
-#X obj 367 199 wrap~;
-#X obj 367 178 +~ 0.5;
-#X obj 367 220 *~ 513;
-#X obj 353 279 delread~ \$0-hoa.delay 1;
-#X obj 156 279 delread~ \$0-hoa.delay 1;
-#X obj 198 133 phasor~ 0.5;
+#N canvas 226 217 946 548 10;
+#X obj 486 87 hoa.in~;
+#X obj 351 483 hoa.out~;
+#X obj 5 12 c.loadmess;
+#X obj 308 66 hoa.in extra 1;
+#X obj 467 268 f;
+#X obj 285 333 *~ 513;
+#X obj 732 364 table \$0-hoa_hann1 512;
+#X obj 285 361 tabread4~ \$0-hoa_hann1;
+#X obj 270 412 *~;
+#X obj 466 412 *~;
+#X obj 270 268 f;
+#X obj 481 361 tabread4~ \$0-hoa_hann1;
+#X obj 481 312 wrap~;
+#X obj 481 291 +~ 0.5;
+#X obj 481 333 *~ 513;
+#X obj 467 392 delread~ \$0-hoa.delay 1;
+#X obj 270 392 delread~ \$0-hoa.delay 1;
+#X obj 312 246 phasor~ 0.5;
 #N canvas 970 176 450 300 sel~ 0;
 #X obj 73 20 c.loadmess 1;
 #X obj 92 141 samphold~;
@@ -43,52 +43,52 @@
 #X connect 6 0 1 1;
 #X connect 7 0 1 1;
 #X connect 11 0 2 0;
-#X restore 299 302 pd sel~;
-#X obj 268 87 unpack;
-#X obj 619 50 / 256;
-#X obj 619 95 * 1;
-#X obj 619 149 * 0.5;
-#X obj 619 121 sin;
-#X obj 619 173 + 0.5;
-#X obj 620 -90 c.loadmess;
-#X obj 619 22 t f f;
-#X obj 619 201 pack;
-#X obj 655 68 hoa.pi 1;
-#X obj 619 71 - 0.5;
-#X obj 620 -66 t b b;
-#X obj 619 -22 until;
-#X obj 619 -1 f;
-#X obj 646 0 + 1;
-#X msg 619 -43 512;
-#X obj 619 225 tabwrite \$0-hoa_hann1;
-#X text 232 -106 This hoa.processing diffuses a sound field with delay
+#X restore 413 415 pd sel~;
+#X obj 382 200 unpack;
+#X obj 733 163 / 256;
+#X obj 733 208 * 1;
+#X obj 733 262 * 0.5;
+#X obj 733 234 sin;
+#X obj 733 286 + 0.5;
+#X obj 734 23 c.loadmess;
+#X obj 733 135 t f f;
+#X obj 733 314 pack;
+#X obj 769 181 hoa.pi 1;
+#X obj 733 184 - 0.5;
+#X obj 734 47 t b b;
+#X obj 733 91 until;
+#X obj 733 112 f;
+#X obj 760 113 + 1;
+#X msg 733 70 512;
+#X obj 733 338 tabwrite \$0-hoa_hann1;
+#X text 346 7 This hoa.processing diffuses a sound field with delay
 lines.;
-#X obj -42 -51 hoa.mode.sel;
-#X obj -109 -25 hoa.args.map;
-#X obj -40 -1 + 1;
-#X obj -40 34 / 1;
-#X text -37 84 factor;
-#X text -41 74 instance;
-#X obj -40 54 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0.1 256;
-#X obj -109 54 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 10 256;
-#X text -110 74 number of;
-#X text -113 84 instances;
-#X obj 372 17 delwrite~ \$0-hoa.delay 5000;
-#X obj -109 -74 hoa.thisprocess~ @delay 1000;
-#X obj 56 36 route delay;
-#X obj 240 54 list split;
-#X obj 194 -17 route float list;
-#X obj 190 66 * 1;
-#X obj 191 36 t b f;
-#X text 413 318 list : The item is selected depending on the instance
+#X obj 72 62 hoa.mode.sel;
+#X obj 5 88 hoa.args.map;
+#X obj 74 112 + 1;
+#X obj 74 147 / 1;
+#X text 77 197 factor;
+#X text 73 187 instance;
+#X obj 74 167 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 5 167 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X text 4 187 number of;
+#X text 1 197 instances;
+#X obj 486 130 delwrite~ \$0-hoa.delay 5000;
+#X obj 5 39 hoa.thisprocess~ @delay 1000;
+#X obj 170 149 route delay;
+#X obj 354 167 list split;
+#X obj 308 96 route float list;
+#X obj 304 179 * 1;
+#X obj 305 149 t b f;
+#X text 527 431 list : The item is selected depending on the instance
 and directly set the delay time of the instance (mostly used in the
 plane waves domain).;
-#X text 413 378 float : The delay time are mapped depending on the
+#X text 527 491 float : The delay time are mapped depending on the
 intance and increase while the index and the band of the harmonics
 increase.;
-#N canvas 0 22 471 383 delay_noflange 0;
+#N canvas 0 50 471 383 delay_noflange 0;
 #X obj 307 81 f;
 #X obj 125 146 *~ 513;
 #X obj 125 174 tabread4~ \$0-hoa_hann1;
@@ -154,7 +154,7 @@ increase.;
 #X connect 15 0 0 1;
 #X connect 16 0 5 0;
 #X connect 16 0 0 0;
-#X restore 414 104 pd delay_noflange;
+#X restore 528 217 pd delay_noflange;
 #X connect 0 0 47 0;
 #X connect 2 0 48 0;
 #X connect 3 0 51 0;

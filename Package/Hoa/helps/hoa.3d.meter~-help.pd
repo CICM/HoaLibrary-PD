@@ -1,48 +1,48 @@
-#N canvas 285 36 1113 763 10;
-#X obj 490 77 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#N canvas 250 87 1112 686 10;
+#X obj 487 68 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 7 30 c.patcherinfos;
-#X obj 7 13 loadbang;
-#X obj 7 13 hoa.help.header;
-#X obj 423 13 hoa.help.also;
-#X obj 490 101 hoa.connect;
-#X msg 491 207 \; pd dsp 1;
-#X msg 491 242 \; pd dsp 0;
-#X obj 205 156 hoa.pi~ 2;
-#X obj 384 155 hoa.pi~ 1;
-#X obj 207 110 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 4 21 c.patcherinfos;
+#X obj 4 4 loadbang;
+#X obj 4 4 hoa.help.header;
+#X obj 420 4 hoa.help.also;
+#X obj 487 92 hoa.connect;
+#X msg 488 198 \; pd dsp 1;
+#X msg 488 233 \; pd dsp 0;
+#X obj 202 147 hoa.pi~ 2;
+#X obj 381 146 hoa.pi~ 1;
+#X obj 204 101 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 385 110 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 382 101 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 384 131 hoa.tri~ 0.05 -0.5 0.5;
-#X obj 205 131 phasor~ 0.5;
-#X obj 694 205 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 381 122 hoa.tri~ 0.05 -0.5 0.5;
+#X obj 202 122 phasor~ 0.5;
+#X obj 691 196 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 1 @max 64 @minmax 1 64 @decimal 0 @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 694 238 channels \$1;
-#X text 791 184 channels;
-#X text 791 174 Rotation of;
-#X msg 794 238 rotation \$1;
-#X obj 794 204 c.menu @size 100 17 @fontname Helvetica @fontweight
+#X msg 691 229 channels \$1;
+#X text 788 175 channels;
+#X text 788 165 Rotation of;
+#X msg 791 229 rotation \$1;
+#X obj 791 195 c.menu @size 100 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @hover 0 @items Anti-Clockwise Clockwise @states 0 0 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X text 698 184 channels;
-#X text 698 174 Number of;
-#X obj 576 205 c.menu @size 100 17 @fontname Helvetica @fontweight
+#X text 695 175 channels;
+#X text 695 165 Number of;
+#X obj 573 196 c.menu @size 100 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @hover 0 @items none energy velocity both @states 0 0 0 0 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 576 239 vectors \$1;
-#X text 593 175 Vectors to;
-#X text 593 185 display;
-#X obj 734 286 s hoameter3d;
-#X obj 27 297 hoa.3d.meter~ @size 363 181.5 @fontname Helvetica @fontweight
+#X msg 573 230 vectors \$1;
+#X text 590 166 Vectors to;
+#X text 590 176 display;
+#X obj 731 277 s hoameter3d;
+#X obj 24 288 hoa.3d.meter~ @size 363 181.5 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive hoameter3d @send (null)
 @channels 20 @angles 180 69.1 159.1 0 90 20.9 135 35.3 135 -35.3 180
 -69.1 20.9 0 90 -20.9 45 35.3 45 -35.3 0 69.1 200.9 0 270 20.9 225
@@ -52,53 +52,53 @@ normal @fontslant roman @fontsize 11 @receive hoameter3d @send (null)
 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor
 1 0 0 0.8;
-#X obj 27 180 hoa.3d.encoder~ 3 ------------------------------------------
+#X obj 24 171 hoa.3d.encoder~ 3 ------------------------------------------
 ;
-#X obj 27 223 hoa.3d.optim~ 3 inPhase ------------------------------------
+#X obj 24 214 hoa.3d.optim~ 3 inPhase ------------------------------------
 ;
-#X obj 27 258 hoa.3d.decoder~ 3 ambisonic 20 -----------------------------
+#X obj 24 249 hoa.3d.decoder~ 3 ambisonic 20 -----------------------------
 ;
-#X obj 694 148 c.loadmess 20;
-#X obj 405 228 r hoadec3d;
-#X obj 918 204 c.menu @size 100 17 @fontname Helvetica @fontweight
+#X obj 691 139 c.loadmess 20;
+#X obj 402 219 r hoadec3d;
+#X obj 915 195 c.menu @size 100 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @hover 0 @items top bottom top-bottom top/bottom @states 0 0
 0 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0
 0 1;
-#X msg 918 238 view \$1;
-#X obj 918 148 c.loadmess set 2;
-#X text 12 57 hoa.2d.meter~ displays the peak levels for a spherical
+#X msg 915 229 view \$1;
+#X obj 915 139 c.loadmess set 2;
+#X text 9 48 hoa.2d.meter~ displays the peak levels for a spherical
 array of loudspeakers. It computes and displays the energy and velocity
 vectors.;
-#X obj 576 148 c.loadmess set 1;
-#X text 502 333 Offset of;
-#X text 502 343 channels;
-#X msg 504 457 offset \$1 \$2 \$3;
-#X msg 504 404 0 0 0;
-#X msg 524 426 60 0 180;
-#X msg 707 365 angles 180 69.0948 159.095 -0 90 20.9052 135 35.2644
+#X obj 573 139 c.loadmess set 1;
+#X text 499 324 Offset of;
+#X text 499 334 channels;
+#X msg 501 448 offset \$1 \$2 \$3;
+#X msg 501 395 0 0 0;
+#X msg 521 417 60 0 180;
+#X msg 704 356 angles 180 69.0948 159.095 -0 90 20.9052 135 35.2644
 135 -35.2644 180 -69.0948 20.9052 -0 90 -20.9052 45 35.2644 45 -35.2644
 0 69.0948 200.905 -0 270 20.9052 225 35.2644 225 -35.2644 0 -69.0948
 339.095 -0 270 -20.9052 315 35.2644 315 -35.2644;
-#X msg 733 446 angles 0 0 72 6 144 12 216 18 288 24 0 30 72 36 144
+#X msg 730 437 angles 0 0 72 6 144 12 216 18 288 24 0 30 72 36 144
 42 216 48 288 54 0 60 72 66 144 72 216 78 288 84 0 90 60 -33 180 -33
 -60 -33;
-#X obj 707 535 s hoadec3d;
-#X obj 610 535 s hoameter3d;
-#X text 502 353 (Rotation around;
-#X text 502 363 xyz axes);
-#X text 713 343 channels;
-#X text 713 333 Angles of;
-#X text 923 173 View;
-#X obj 570 14 hoa.help.pub;
-#X text 506 566 The offset performs an xyz rotation of the channels
+#X obj 704 526 s hoadec3d;
+#X obj 607 526 s hoameter3d;
+#X text 499 344 (Rotation around;
+#X text 499 354 xyz axes);
+#X text 710 334 channels;
+#X text 710 324 Angles of;
+#X text 920 164 View;
+#X obj 567 5 hoa.help.pub;
+#X text 503 557 The offset performs an xyz rotation of the channels
 positions.;
-#X text 507 602 The channels surfaces necessitates heavy calculations
+#X text 504 593 The channels surfaces necessitates heavy calculations
 \, thus you shouldn't change the number of channels \, the offset or
 the angles before the last computation has been made.;
-#X obj 786 337 c.loadmess;
-#X obj 27 141 sig~ 5;
-#X obj 42 112 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+#X obj 783 328 c.loadmess;
+#X obj 24 132 sig~ 5;
+#X obj 39 103 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
 -262144 -1 -1 0 256;
 #X connect 0 0 5 0;
 #X connect 1 0 3 0;
@@ -184,4 +184,4 @@ the angles before the last computation has been made.;
 #X connect 55 0 43 0;
 #X connect 56 0 28 0;
 #X connect 57 0 56 0;
-#X coords 0 763 1 762 100 60 0;
+#X coords 0 686 1 685 100 60 0;

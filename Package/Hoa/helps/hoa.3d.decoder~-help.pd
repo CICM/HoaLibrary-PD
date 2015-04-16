@@ -1,76 +1,75 @@
-#N canvas 123 46 1274 731 10;
-#X msg 265 -465 \; pd dsp 1;
-#X msg 265 -430 \; pd dsp 0;
-#X obj -264 -761 c.gain~ @size 131 10 @fontname Helvetica @fontweight
+#N canvas 92 82 1274 686 10;
+#X msg 1029 452 \; pd dsp 1;
+#X msg 1029 487 \; pd dsp 0;
+#X obj 500 156 c.gain~ @size 131 10 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @kncolor 0.5 0.5 0.5 1;
-#X obj -13 -788 hoa.connect;
-#X obj -13 -808 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 751 129 hoa.connect;
+#X obj 751 109 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj -763 -897 c.patcherinfos;
-#X obj -763 -914 loadbang;
-#X obj -763 -914 hoa.help.header;
-#X obj -347 -914 hoa.help.also;
-#X obj 134 -466 c.meter~ @size 13 85 @fontname Helvetica @fontweight
+#X obj 1 20 c.patcherinfos;
+#X obj 1 3 loadbang;
+#X obj 1 3 hoa.help.header;
+#X obj 417 3 hoa.help.also;
+#X obj 898 451 c.meter~ @size 13 85 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor 0 0.6
 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
 1 0.6 0 0.8 @overcolor 1 0 0 0.8;
-#X obj -134 -719 hoa.pi~ 2;
-#X obj -3 -719 hoa.pi~ 0.5;
-#X obj -3 -744 hoa.tri~ 0.05;
-#X obj -264 -804 hoa.soundrone;
-#X obj -264 -692 hoa.3d.encoder~ 3 --------------------------;
-#X obj 156 -525 hoa.3d.decoder~ 3 binaural -----------------;
-#X text -758 -870 hoa.3d.encoder~ decodes an ambisonic sound field
-for several loudspeakers configurations or for headphones.;
-#X obj 156 -370 hoa.dac~ 1:2 -------------------------------;
-#X obj 417 -476 c.meter~ @size 13 85 @fontname Helvetica @fontweight
+#X obj 630 198 hoa.pi~ 2;
+#X obj 761 198 hoa.pi~ 0.5;
+#X obj 761 173 hoa.tri~ 0.05;
+#X obj 500 113 hoa.soundrone;
+#X obj 500 225 hoa.3d.encoder~ 3 --------------------------;
+#X obj 920 392 hoa.3d.decoder~ 3 binaural -----------------;
+#X text 6 47 hoa.3d.encoder~ decodes an ambisonic sound field for several
+loudspeakers configurations or for headphones.;
+#X obj 920 547 hoa.dac~ 1:2 -------------------------------;
+#X obj 1181 441 c.meter~ @size 13 85 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor 0 0.6
 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
 1 0.6 0 0.8 @overcolor 1 0 0 0.8;
-#X obj -133 -741 phasor~ 0.3;
-#X text -755 -812 1st argument is the order.;
-#X text -756 -797 2nd argument is the decoding mode : ambisonic or
-0 \, binaural or 1 (for headphones).;
-#X text -285 -865 Important : Unlike the GUI \, the argument are not
-saved with the object. You have to write it in the box or to send a
-message.;
-#X text 176 -499 Binaural mode is used for headphones.;
-#X obj -643 -551 hoa.3d.optim~ 3 maxRe ---------------------;
-#X obj -643 -518 hoa.3d.decoder~ 3 ambisonic 20 ------------;
-#X obj -643 -473 hoa.3d.meter~ @size 261 130.5 @fontname Helvetica
-@fontweight normal @fontslant roman @fontsize 11 @receive (null) @send
-(null) @channels 20 @angles 180 69.0948 159.095 -0 90 20.9052 135 35.2644
-135 -35.2644 180 -69.0948 20.9052 -0 90 -20.9052 45 35.2644 45 -35.2644
-0 69.0948 200.905 -0 270 20.9052 225 35.2644 225 -35.2644 0 -69.0948
-339.095 -0 270 -20.9052 315 35.2644 315 -35.2644 @offset 0 0 0 @rotation
+#X obj 631 176 phasor~ 0.3;
+#X text 9 105 1st argument is the order.;
+#X text 8 120 2nd argument is the decoding mode : ambisonic or 0 \,
+binaural or 1 (for headphones).;
+#X text 479 52 Important : Unlike the GUI \, the argument are not saved
+with the object. You have to write it in the box or to send a message.
+;
+#X text 940 418 Binaural mode is used for headphones.;
+#X obj 121 366 hoa.3d.optim~ 3 maxRe ---------------------;
+#X obj 121 399 hoa.3d.decoder~ 3 ambisonic 20 ------------;
+#X obj 121 444 hoa.3d.meter~ @size 261 130.5 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @channels
+20 @angles 180 69.1 159.1 0 90 20.9 135 35.3 135 -35.3 180 -69.1 20.9
+0 90 -20.9 45 35.3 45 -35.3 0 69.1 200.9 0 270 20.9 225 35.3 225 -35.3
+0 -69.1 339.1 0 270 -20.9 315 35.3 315 -35.3 @offset 0 0 0 @rotation
 anti-clockwise @view top-bottom @vectors none @interval 50 @bgcolor
 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7 1 @coldcolor 0 0.6 0 0.8 @tepidcolor
 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor
 1 0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor 1 0 0 0.8;
-#X text -759 -710 Ambisonic decoding is used for a set loudspeakers
-spread over a sphere.;
-#X text -760 -657 (Rotation around;
-#X text -760 -647 xyz axes);
-#X msg -750 -566 offset \$1 \$2 \$3;
-#X msg -750 -619 0 0 0;
-#X msg -730 -597 60 0 180;
-#X obj -506 -261 hoa.help.pub;
-#X text -755 -766 3rd argument is the number of channels.;
-#X text -757 -672 Offset of the loudspeakers in degrees;
-#X msg -269 -542 angles 180 69.0948 159.095 -0 90 20.9052 135 35.2644
+#X text 5 207 Ambisonic decoding is used for a set loudspeakers spread
+over a sphere.;
+#X text 4 260 (Rotation around;
+#X text 4 270 xyz axes);
+#X msg 14 351 offset \$1 \$2 \$3;
+#X msg 14 298 0 0 0;
+#X msg 34 320 60 0 180;
+#X obj 258 656 hoa.help.pub;
+#X text 9 151 3rd argument is the number of channels.;
+#X text 7 245 Offset of the loudspeakers in degrees;
+#X msg 495 375 angles 180 69.0948 159.095 -0 90 20.9052 135 35.2644
 135 -35.2644 180 -69.0948 20.9052 -0 90 -20.9052 45 35.2644 45 -35.2644
 0 69.0948 200.905 -0 270 20.9052 225 35.2644 225 -35.2644 0 -69.0948
 339.095 -0 270 -20.9052 315 35.2644 315 -35.2644;
-#X msg -243 -461 angles 0 0 72 6 144 12 216 18 288 24 0 30 72 36 144
+#X msg 521 456 angles 0 0 72 6 144 12 216 18 288 24 0 30 72 36 144
 42 216 48 288 54 0 60 72 66 144 72 216 78 288 84 0 90 60 -33 180 -33
 -60 -33;
-#X text -263 -564 channels;
-#X text -263 -574 Angles of;
-#X text -317 -406 Important : To avoid artefacts \, you should prefer
+#X text 501 353 channels;
+#X text 501 343 Angles of;
+#X text 447 511 Important : To avoid artefacts \, you should prefer
 to discretize perfectly the sphere with the 5 platonic solids (tetrahedron
 (4 channels) \, octahedron (6 channels) \, cube (8 channels) \, icosahedron
 (12) \, dodecahedron (20 channels)). Of course \, a perfect sphere
@@ -78,17 +77,17 @@ of loudspeakers is rare and you would certainly have an irregular discretization
 For the moment we don't offset this case automatically \, thus you
 have to try several decomposition orders with "inPhase" optimization
 to find the best rendering.;
-#X text 139 -337 The sphere discretization used in binaural decoding
+#X text 903 580 The sphere discretization used in binaural decoding
 is perfect to the decomposition orders 1 \, 2 & 3 An higher decomposition
 order creates artefacts.;
-#X obj -269 -593 c.loadmess;
-#X obj 114 -743 hoa.pi;
-#X obj 117 -804 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 495 324 c.loadmess;
+#X obj 878 174 hoa.pi;
+#X obj 881 113 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 184 -743 hoa.pi;
-#X obj 187 -804 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 948 174 hoa.pi;
+#X obj 951 113 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
@@ -184,4 +183,4 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X connect 42 0 36 0;
 #X connect 44 0 43 0;
 #X connect 46 0 45 0;
-#X coords 0 731 1 730 100 60 0;
+#X coords 0 686 1 685 100 60 0;

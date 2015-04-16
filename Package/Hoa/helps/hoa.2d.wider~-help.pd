@@ -1,13 +1,13 @@
-#N canvas 180 29 610 808 10;
-#X obj 122 221 hoa.2d.scope~ @size 201 201 @fontname Helvetica @fontweight
+#N canvas 174 87 610 686 10;
+#X obj 126 256 hoa.2d.scope~ @size 201 201 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-7 @gain 5 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
-0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X msg 15 330 \; pd dsp 1;
-#X msg 15 374 \; pd dsp 0;
-#X obj 403 150 line~;
-#X msg 403 130 \$1 20;
-#X obj 122 462 hoa.2d.meter~ @size 202 202 @fontname Helvetica @fontweight
+7 @view 0 @gain 5 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X msg 19 365 \; pd dsp 1;
+#X msg 19 409 \; pd dsp 0;
+#X obj 407 185 line~;
+#X msg 407 165 \$1 20;
+#X obj 126 497 hoa.2d.meter~ @size 202 202 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send à$ @channels
 16 @angles 0 22.5 45 67.5 90 112.5 135 157.5 180 202.5 225 247.5 270
 292.5 315 337.5 @offset 0 @rotation anti-clockwise @vectors energy
@@ -15,30 +15,30 @@ normal @fontslant roman @fontsize 11 @receive (null) @send à$ @channels
 0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor
 1 0 0 0.8;
-#X text 464 113 between 0 and 1;
-#X text 464 101 Widen value;
-#X obj 403 107 c.number @size 53 17 @fontname Helvetica @fontweight
+#X text 468 148 between 0 and 1;
+#X text 468 136 Widen value;
+#X obj 407 142 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor 0.7 0.7 0.7 1
 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 305 117 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 309 152 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.7 0.7 0.7 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 305 139 hoa.pi 0;
-#X obj 305 94 c.loadmess 0;
-#X obj 122 678 hoa.dac~ 1:16 -------------------;
-#X obj 403 84 c.loadmess 0.175;
-#X obj 122 433 hoa.2d.decoder~ 7 ambisonic 16 --;
-#X obj 122 165 hoa.2d.encoder~ 7 -------------;
-#X obj 122 191 hoa.2d.wider~ 7 -----------------;
-#X obj 122 118 hoa.soundrone;
-#X obj 9 -16 c.patcherinfos;
-#X obj 14 -33 loadbang;
-#X obj -1 -33 hoa.help.header;
-#X obj 70 708 hoa.help.pub;
-#X obj 406 -33 hoa.help.also;
-#X text 4 11 hoa.2d.wider~ can be used to wide the diffusion of a localised
+#X obj 309 174 hoa.pi 0;
+#X obj 309 129 c.loadmess 0;
+#X obj 126 713 hoa.dac~ 1:16 -------------------;
+#X obj 407 119 c.loadmess 0.175;
+#X obj 126 468 hoa.2d.decoder~ 7 ambisonic 16 --;
+#X obj 126 200 hoa.2d.encoder~ 7 -------------;
+#X obj 126 226 hoa.2d.wider~ 7 -----------------;
+#X obj 126 153 hoa.soundrone;
+#X obj 13 19 c.patcherinfos;
+#X obj 18 2 loadbang;
+#X obj 3 2 hoa.help.header;
+#X obj 74 743 hoa.help.pub;
+#X obj 410 2 hoa.help.also;
+#X text 8 46 hoa.2d.wider~ can be used to wide the diffusion of a localised
 sound. The degrees depending signals are weighted and appear in a logarithmic
 way to have linear changes.;
 #X connect 3 0 16 15;
@@ -128,4 +128,4 @@ way to have linear changes.;
 #X connect 17 0 15 0;
 #X connect 18 0 20 0;
 #X connect 19 0 18 0;
-#X coords 0 808 1 807 100 60 0;
+#X coords 0 686 1 685 100 60 0;

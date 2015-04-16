@@ -1,20 +1,19 @@
-#N canvas 103 51 1101 716 10;
-#X msg -405 -301 channels \$1;
-#X msg -405 74 0.915842 0.068057 0.0166669 0 0.915388 0.69329 0.0166669
-0 0.915388 0.077125 0.0189967 0.413622 0.946098 0.0754712 0.0166669
-0.00612781;
-#X text -397 -346 Number of channels;
-#X text -271 -335 Coefficients;
-#X obj -279 -360 loadbang;
-#X msg -279 -312 0.876279 1 1 1 0.0306693 0.0306693 0.0137424 0 0 0.017797
+#N canvas 100 82 1101 686 10;
+#X msg 69 164 channels \$1;
+#X msg 69 539 0.876279 1 1 1 0.0306693 0.0306693 0.0137424 0 0 0.017797
+0.0343521 0.0879706 0.0634424 0 0 0;
+#X text 77 119 Number of channels;
+#X text 203 130 Coefficients;
+#X obj 195 105 loadbang;
+#X msg 195 153 0.876279 1 1 1 0.0306693 0.0306693 0.0137424 0 0 0.017797
 0.0343521 0.0879706 0.0634424;
-#X obj -405 46 c.prepend set;
-#X obj -405 -324 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 69 511 c.prepend set;
+#X obj 69 141 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 1 @max 250 @minmax 1 250 @decimal 6 @bgcolor 0.76 0.76
 0.76 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj -405 -368 c.loadmess set 16;
-#X obj -56 19 c.preset @size 121 41 @fontname Helvetica @fontweight
+#X obj 69 97 c.loadmess set 16;
+#X obj 418 484 c.preset @size 121 41 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @emcolor
 0.85 0.85 0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15 0.15 1 @preset
@@ -30,77 +29,77 @@ hoa.2d.space list 0.931365 0.0690971 0 0 0.930903 0.705041 0 0 0.930903
 0.0784322 0.00236926 0.420463 0.962103 0.0690971 0 0.00623167 @index
 5 @spacepreset hoa.2d.space list 1 0.714482 0.645385 0.645385 1 1 0.645385
 0.692838 1 0.723817 0.647754 1 1 0.714482 0.645385 0.651617 ];
-#X msg -56 -21 inter \$1;
-#X obj -56 -49 c.number @size 53 17 @fontname Helvetica @fontweight
+#X msg 418 444 inter \$1;
+#X obj 418 416 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 1 @max (null) @minmax 1 (null) @decimal 6 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj -56 -75 line;
-#X msg -56 -106 1 \, 6 6000;
-#X text -86 -261 1 - Click and drag to;
-#X text -86 -251 set the coefficients.;
-#X text -86 -231 2 - Hold shift and click;
-#X text -86 -221 and drag to increase or;
-#X text -86 -201 coefficients together.;
-#X text -86 -211 decrease all the;
-#X text -86 -171 click and drag to compute;
-#X text -86 -161 a rotation of the coefficients;
-#X text -58 -133 Preset :;
-#X obj -443 -324 c.bang @size 17 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
+#X obj 418 390 line;
+#X msg 418 359 1 \, 6 6000;
+#X text 388 204 1 - Click and drag to;
+#X text 388 214 set the coefficients.;
+#X text 388 234 2 - Hold shift and click;
+#X text 388 244 and drag to increase or;
+#X text 388 264 coefficients together.;
+#X text 388 254 decrease all the;
+#X text 388 294 click and drag to compute;
+#X text 388 304 a rotation of the coefficients;
+#X text 416 332 Preset :;
+#X obj 31 141 c.bang @size 17 17 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
-#X obj -405 -243 hoa.2d.space @size 269 269 @fontname Helvetica @fontweight
+#X obj 69 222 hoa.2d.space @size 269 269 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive hoaspacer @send hoaspaces
 @presetname spacepreset @channels 16 @minmax 0 1 @bgcolor 0.76 0.76
 0.76 1 @bdcolor 0.7 0.7 0.7 1 @spcolor 0.272711 0.434756 0.545421 0.25
 @ptcolor 0 0 0 1;
-#X text -86 -181 3 - Hold alt and;
-#X obj 116 -435 hoa.connect;
-#X obj 116 -454 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X obj 158 -104 hoa.2d.projector~ 7 16 ---------;
-#X obj 158 -396 hoa.soundcoat;
-#X obj 158 -307 hoa.2d.scope~ @size 195 195 @fontname Helvetica @fontweight
+#X text 388 284 3 - Hold alt and;
+#X obj 590 30 hoa.connect;
+#X obj 590 11 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 632 361 hoa.2d.projector~ 7 16 ---------;
+#X obj 632 69 hoa.soundcoat;
+#X obj 632 158 hoa.2d.scope~ @size 195 195 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-7 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
-0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj 158 -20 hoa.2d.recomposer~ 7 16 --------;
-#X obj 349 -83 r hoaspaces;
-#X obj 158 -365 c.gain~ @size 150 10 @fontname Helvetica @fontweight
+7 @view 0 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 632 445 hoa.2d.recomposer~ 7 16 --------;
+#X obj 823 382 r hoaspaces;
+#X obj 632 100 c.gain~ @size 150 10 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @kncolor 0.5 0.5 0.5 1;
-#X text 364 -61 Spatial;
-#X text 364 -51 filetring;
-#X msg 415 -347 size \$1;
-#X obj 347 -373 r hoagrain;
-#X obj 415 -316 s hoagrain;
-#X obj 415 -374 c.number @size 53 17 @fontname Helvetica @fontweight
+#X text 838 404 Spatial;
+#X text 838 414 filetring;
+#X msg 889 118 size \$1;
+#X obj 821 92 r hoagrain;
+#X obj 889 149 s hoagrain;
+#X obj 889 91 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 0 @max (null) @minmax 0 (null) @decimal 6 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 421 56 \; pd dsp 1;
-#X msg 421 91 \; pd dsp 0;
-#X obj 505 -374 c.number @size 53 17 @fontname Helvetica @fontweight
+#X msg 895 521 \; pd dsp 1;
+#X msg 895 556 \; pd dsp 0;
+#X obj 979 91 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 0 @max 5000 @minmax 0 5000 @decimal 6 @bgcolor 0.75 0.75
 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 505 -347 delay \$1;
-#X obj 415 -196 s hoagrain;
-#X obj 415 -254 c.number @size 53 17 @fontname Helvetica @fontweight
+#X msg 979 118 delay \$1;
+#X obj 889 269 s hoagrain;
+#X obj 889 211 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 505 -254 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 979 211 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 415 -227 feedback \$1;
-#X msg 505 -227 rarefaction \$1;
-#X obj 415 -402 c.loadmess 20;
-#X obj 505 -402 c.loadmess 5000;
-#X obj 505 -282 c.loadmess 0.4;
-#X obj 415 -282 c.loadmess 0.8;
+#X msg 889 238 feedback \$1;
+#X msg 979 238 rarefaction \$1;
+#X obj 889 63 c.loadmess 20;
+#X obj 979 63 c.loadmess 5000;
+#X obj 979 183 c.loadmess 0.4;
+#X obj 889 183 c.loadmess 0.8;
 #N canvas 237 132 503 391 hoa_grain_env 0;
 #X obj 270 148 / 256;
 #X obj 270 193 * 1;
@@ -136,24 +135,24 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X connect 13 0 6 0;
 #X connect 14 0 13 1;
 #X connect 15 0 12 0;
-#X restore 201 -427 pd hoa_grain_env;
-#X obj 200 -447 table \$0-hoa_grain_array 512;
-#X obj 158 234 hoa.dac~ 1:16 ------------------;
-#X obj 158 207 hoa.decoder~ 7 ambisonic 16 ----;
-#X obj 158 -347 hoa.2d.process~ 7 hoa.syn.grain~ harmonics \$0-hoa_grain_array
+#X restore 675 38 pd hoa_grain_env;
+#X obj 674 18 table \$0-hoa_grain_array 512;
+#X obj 632 699 hoa.dac~ 1:16 ------------------;
+#X obj 632 672 hoa.decoder~ 7 ambisonic 16 ----;
+#X obj 632 118 hoa.2d.process~ 7 hoa.syn.grain~ harmonics \$0-hoa_grain_array
 , f 32;
-#X text -468 -416 hoa.2d.space is a graphical user interface that facilitates
+#X text 6 49 hoa.2d.space is a graphical user interface that facilitates
 the control of processing in the plane wave domain., f 80;
-#X obj 158 -62 hoa.2d.process~ 16 hoa.fx.gain~ planewaves, f 32;
-#X obj 158 3 hoa.2d.scope~ @size 195 195 @fontname Helvetica @fontweight
+#X obj 632 403 hoa.2d.process~ 16 hoa.fx.gain~ planewaves, f 32;
+#X obj 632 468 hoa.2d.scope~ @size 195 195 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-7 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
-0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj -461 -443 c.patcherinfos;
-#X obj -456 -460 loadbang;
-#X obj -471 -460 hoa.help.header;
-#X obj -370 161 hoa.help.pub;
-#X obj -44 -460 hoa.help.also;
+7 @view 0 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 13 22 c.patcherinfos;
+#X obj 18 5 loadbang;
+#X obj 3 5 hoa.help.header;
+#X obj 104 626 hoa.help.pub;
+#X obj 430 5 hoa.help.also;
 #X connect 0 0 24 0;
 #X connect 4 0 5 0;
 #X connect 5 0 24 0;

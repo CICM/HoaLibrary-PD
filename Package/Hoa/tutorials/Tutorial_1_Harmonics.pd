@@ -1,13 +1,13 @@
-#N canvas 0 39 889 698 10;
-#X obj 22 4 c.canvasinfos;
-#X obj 21 0 c.loadmess;
-#X obj 4 -1 hoa.tuto.header;
-#X obj 417 -1 hoa.help.pub;
-#X obj 470 97 c.number @size 53 17 @fontname Helvetica @fontweight
+#N canvas 65 82 889 686 10;
+#X obj 22 9 c.canvasinfos;
+#X obj 21 5 c.loadmess;
+#X obj 4 4 hoa.tuto.header;
+#X obj 417 4 hoa.help.pub;
+#X obj 470 102 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 0 @max (null) @minmax 0 (null) @decimal 0 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#N canvas 0 22 450 300 DecToNharmos 0;
+#N canvas 0 50 450 300 DecToNharmos 0;
 #X obj 235 101 inlet;
 #X obj 244 194 outlet;
 #X obj 235 129 * 2;
@@ -15,21 +15,21 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X connect 0 0 2 0;
 #X connect 2 0 3 0;
 #X connect 3 0 1 0;
-#X restore 470 122 pd DecToNharmos;
-#X obj 470 147 c.number @size 53 17 @fontname Helvetica @fontweight
+#X restore 470 127 pd DecToNharmos;
+#X obj 470 152 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 0 @max (null) @minmax 0 (null) @decimal 0 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 470 75 c.loadmess 7;
-#X obj 640 97 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 470 80 c.loadmess 7;
+#X obj 640 102 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 0 @max (null) @minmax 0 (null) @decimal 0 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 640 147 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 640 152 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 0 @max (null) @minmax 0 (null) @decimal 0 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#N canvas 0 22 450 300 NharmosToDec 0;
+#N canvas 0 50 450 300 NharmosToDec 0;
 #X obj 235 101 inlet;
 #X obj 244 194 outlet;
 #X obj 235 129 - 1;
@@ -37,13 +37,13 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X connect 0 0 2 0;
 #X connect 2 0 3 0;
 #X connect 3 0 1 0;
-#X restore 640 122 pd NharmosToDec;
-#X obj 640 75 c.loadmess 15;
-#X obj 471 237 c.number @size 53 17 @fontname Helvetica @fontweight
+#X restore 640 127 pd NharmosToDec;
+#X obj 640 80 c.loadmess 15;
+#X obj 471 242 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 0 @max (null) @minmax 0 (null) @decimal 0 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#N canvas 0 22 485 337 DecToDeg 0;
+#N canvas 0 50 485 337 DecToDeg 0;
 #X obj 235 101 inlet;
 #X obj 314 303 outlet;
 #X obj 324 148 until;
@@ -69,16 +69,16 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X connect 8 0 7 1;
 #X connect 9 0 1 0;
 #X connect 10 0 7 0;
-#X restore 471 262 pd DecToDeg;
-#X msg 471 287 0 1 2 3 4 5 6 7;
-#X obj 471 215 c.loadmess 7;
-#X obj 644 237 c.number @size 53 17 @fontname Helvetica @fontweight
+#X restore 471 267 pd DecToDeg;
+#X msg 471 292 0 1 2 3 4 5 6 7;
+#X obj 471 220 c.loadmess 7;
+#X obj 644 242 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 0 @max (null) @minmax 0 (null) @decimal 0 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 644 287 0 -1 1 -2 2 -3 3 -4 4 -5 5 -6 6 -7 7;
-#X obj 644 215 c.loadmess 7;
-#N canvas 0 22 531 366 DecToOrder 0;
+#X msg 644 292 0 -1 1 -2 2 -3 3 -4 4 -5 5 -6 6 -7 7;
+#X obj 644 220 c.loadmess 7;
+#N canvas 0 50 531 366 DecToOrder 0;
 #X obj 235 101 inlet;
 #X obj 314 353 outlet;
 #X obj 324 148 until;
@@ -109,30 +109,30 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X connect 11 0 7 0;
 #X connect 11 1 12 0;
 #X connect 12 0 7 0;
-#X restore 644 262 pd DecToOrder;
-#X text 437 56 Order of decomposition;
-#X text 444 166 Number of harmonics;
-#X text 624 57 Number of harmonics;
-#X text 617 166 Order of decomposition;
-#X text 438 196 Order of decomposition;
-#X text 618 196 Order of decomposition;
-#X text 438 306 Degrees of the harmonics;
-#X text 618 306 Orders of the harmonics;
-#X obj 471 450 hoa.2d.scope~ @size 225 225 @fontname Helvetica @fontweight
+#X restore 644 267 pd DecToOrder;
+#X text 437 61 Order of decomposition;
+#X text 444 171 Number of harmonics;
+#X text 624 62 Number of harmonics;
+#X text 617 171 Order of decomposition;
+#X text 438 201 Order of decomposition;
+#X text 618 201 Order of decomposition;
+#X text 438 311 Degrees of the harmonics;
+#X text 618 311 Orders of the harmonics;
+#X obj 471 455 hoa.2d.scope~ @size 225 225 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-7 @gain 100 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
-0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj 471 348 sig~ 1;
-#X obj 471 416 hoa.2d.process~ 7 hoa.tuto.gain~ ----;
-#X obj 689 361 c.number @size 53 17 @fontname Helvetica @fontweight
+7 @view 0 @gain 100 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 471 353 sig~ 1;
+#X obj 471 421 hoa.2d.process~ 7 hoa.tuto.gain~ ----;
+#X obj 689 366 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 0 @max 14 @minmax 0 14 @decimal 6 @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 673 361 c.incdec @size 15 17 @fontname Helvetica @fontweight
+#X obj 673 366 c.incdec @size 15 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @step
 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @arcolor 0 0 0 1
 ;
-#N canvas 0 22 496 402 map.deg 0;
+#N canvas 0 50 496 402 map.deg 0;
 #X obj 249 320 outlet;
 #X obj 248 202 / 2;
 #X obj 251 228 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
@@ -159,13 +159,13 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @step
 #X connect 10 0 11 0;
 #X connect 11 0 3 0;
 #X connect 11 1 4 0;
-#X restore 676 361 pd map.deg;
-#X obj 690 361 c.number @size 53 17 @fontname Helvetica @fontweight
+#X restore 676 366 pd map.deg;
+#X obj 690 366 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min -7 @max 7 @minmax -7 7 @decimal 0 @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 689 337 c.loadmess 0;
-#N canvas 0 22 450 300 target.pro 0;
+#X obj 689 342 c.loadmess 0;
+#N canvas 0 50 450 300 target.pro 0;
 #X obj 259 47 inlet;
 #X obj 279 204 outlet;
 #X obj 261 85 t f b;
@@ -176,28 +176,28 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X connect 2 1 3 0;
 #X connect 3 0 1 0;
 #X connect 4 0 1 0;
-#X restore 690 391 pd target.pro;
-#X msg 738 460 \; pd dsp 1;
-#X msg 738 500 \; pd dsp 0;
-#X text 529 361 Order of the harmonics;
-#X text 3 148 These circular functions can be represented on a two-dimensional
+#X restore 690 396 pd target.pro;
+#X msg 738 465 \; pd dsp 1;
+#X msg 738 505 \; pd dsp 0;
+#X text 529 366 Order of the harmonics;
+#X text 3 153 These circular functions can be represented on a two-dimensional
 space. Depending on the angle α \, the functions are positive (red)
 or negative (blue)., f 59;
-#X text 3 208 The decomposition of a sound field in the circular harmonics
+#X text 3 213 The decomposition of a sound field in the circular harmonics
 domain is performed according to an order of decomposition N. A given
 decomposition order N includes all the degrees from 0 to N and thus
 all the orders from -N to N. Thus \, the sound field is encoded by
 2 N + 1 circular harmonics.;
-#X text 3 48 The circular harmonics are dependent on a degree l and
+#X text 3 53 The circular harmonics are dependent on a degree l and
 an order m and take as variable an angle α in radian. Each degree
 l includes a positive harmonic with the order m = l and a negative
 harmonic with the order m = -l except the degree 0 that has only one
 harmonic with the order 0 considered positive.;
-#X text 3 324 0 0 \, 1 -1 \, 1 1 \, 2 -2 \, 2 2 \, 3 -3 \, 3 3 \, ...
+#X text 3 329 0 0 \, 1 -1 \, 1 1 \, 2 -2 \, 2 2 \, 3 -3 \, 3 3 \, ...
 \, 7 -7 \, 7 7;
-#X text 3 298 For an order of decomposition 7 \, there are 15 harmonics
+#X text 3 303 For an order of decomposition 7 \, there are 15 harmonics
 sorted by their degrees and their orders : (degree order);
-#X text 3 354 The harmonic 0 is omnidirectional and the number of lobes
+#X text 3 359 The harmonic 0 is omnidirectional and the number of lobes
 of the harmonics and their directivities increase with the degrees.
 ;
 #X connect 0 0 2 0;

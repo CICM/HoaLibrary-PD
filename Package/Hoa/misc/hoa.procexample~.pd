@@ -1,12 +1,12 @@
-#N canvas 352 172 746 467 10;
-#X obj 186 325 hoa.in~;
-#X obj 186 391 hoa.out~;
-#X obj -12 5 c.loadmess;
-#X obj 236 112 hoa.in extra 1;
-#X obj 201 302 line~;
-#X obj 201 238 pack 1 20;
-#X obj 186 355 *~;
-#N canvas 0 22 450 300 hoa.mode.sel 0;
+#N canvas 349 177 746 467 10;
+#X obj 204 327 hoa.in~;
+#X obj 204 393 hoa.out~;
+#X obj 6 7 c.loadmess;
+#X obj 254 114 hoa.in extra 1;
+#X obj 219 304 line~;
+#X obj 219 240 pack 1 20;
+#X obj 204 357 *~;
+#N canvas 0 50 450 300 hoa.mode.sel 0;
 #X obj 85 62 unpack s s;
 #X obj 139 90 sel harmonics planewaves;
 #X obj 209 142 f 0;
@@ -32,20 +32,20 @@
 #X connect 6 0 7 0;
 #X connect 7 0 9 0;
 #X connect 8 0 0 0;
-#X restore 75 65 pd hoa.mode.sel;
-#X text 232 88 Extra 1 retreive the right inlet messages.;
-#X text 226 43 Default values;
-#X obj 236 156 route float list db ramp;
-#X text 239 325 Receive the signal;
-#X text 239 393 Output the signal;
-#X obj -12 32 hoa.thisprocess~ @ramp 20 @default 1;
-#X text 341 291 - ramp set the ramp time in ms.;
-#X text 341 261 - db have the same behavior as float or list except
+#X restore 93 67 pd hoa.mode.sel;
+#X text 250 90 Extra 1 retreive the right inlet messages.;
+#X text 244 45 Default values;
+#X obj 254 158 route float list db ramp;
+#X text 257 327 Receive the signal;
+#X text 257 395 Output the signal;
+#X obj 6 34 hoa.thisprocess~ @ramp 20 @default 1;
+#X text 359 293 - ramp set the ramp time in ms.;
+#X text 359 263 - db have the same behavior as float or list except
 that the variable are convert to rms.;
-#X text 341 197 - float set all the instances ampltiudes (except if
+#X text 359 199 - float set all the instances ampltiudes (except if
 the target is used).;
-#X obj 201 65 route default ramp;
-#X text 293 130 Input messages selector;
+#X obj 219 67 route default ramp;
+#X text 311 132 Input messages selector;
 #N canvas 578 150 705 502 hoa.arg.map 0;
 #X obj 333 90 inlet;
 #X obj 80 231 spigot 0;
@@ -132,14 +132,14 @@ the target is used).;
 #X connect 30 0 9 0;
 #X connect 31 0 32 0;
 #X connect 32 0 30 1;
-#X restore -12 101 pd hoa.arg.map;
-#X text -6 157 In the subcanvas \, the mode;
-#X text -6 177 are used to split the list;
-#X text -6 187 at the right index.;
-#X text -6 167 anf the arguments;
-#X text 341 229 - list is plit and only the right variable set the
+#X restore 6 103 pd hoa.arg.map;
+#X text 12 159 In the subcanvas \, the mode;
+#X text 12 179 are used to split the list;
+#X text 12 189 at the right index.;
+#X text 12 169 anf the arguments;
+#X text 359 231 - list is plit and only the right variable set the
 amplitude of this instance (look at the subcanvas).;
-#N canvas 0 22 626 405 hoa.route.mess- 0;
+#N canvas 0 50 626 405 hoa.route.mess- 0;
 #X obj 231 80 list split;
 #X obj 259 104 unpack;
 #X obj 332 134 dbtorms;
@@ -168,7 +168,7 @@ amplitude of this instance (look at the subcanvas).;
 #X connect 14 1 3 0;
 #X connect 15 0 0 1;
 #X connect 15 0 3 1;
-#X restore 201 178 pd hoa.route.mess-;
+#X restore 219 180 pd hoa.route.mess-;
 #X connect 0 0 6 0;
 #X connect 2 0 13 0;
 #X connect 3 0 10 0;

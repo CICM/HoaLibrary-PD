@@ -1,37 +1,37 @@
-#N canvas 382 109 888 663 10;
-#X obj 10 11 c.canvasinfos;
-#X obj 21 12 c.loadmess;
-#X obj 196 599 hoa.help.pub;
-#X obj 1 1 hoa.tuto.header;
-#X text 9 160 Order of decomposition (N);
-#X text 9 290 Number of harmonics;
-#X obj 14 184 c.number @size 53 17 @fontname Helvetica @fontweight
+#N canvas 379 86 888 663 10;
+#X obj 12 14 c.canvasinfos;
+#X obj 23 15 c.loadmess;
+#X obj 198 602 hoa.help.pub;
+#X obj 3 4 hoa.tuto.header;
+#X text 11 163 Order of decomposition (N);
+#X text 11 293 Number of harmonics;
+#X obj 16 187 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive norder @send (null) @presetname
 (null) @min 1 @max (null) @minmax 1 (null) @decimal 0 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 14 264 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 16 267 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 0 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 194 184 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 196 187 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive nharmo @send (null) @presetname
 (null) @min 3 @max (null) @minmax 3 (null) @decimal 0 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 194 264 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 196 267 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 0 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X text 189 160 Number of harmonics;
-#X text 189 290 Order of decomposition (N);
-#X text 209 412 Order of decomposition (N);
-#X obj 214 436 c.number @size 53 17 @fontname Helvetica @fontweight
+#X text 191 163 Number of harmonics;
+#X text 191 293 Order of decomposition (N);
+#X text 211 415 Order of decomposition (N);
+#X obj 216 439 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive norder @send (null) @presetname
 (null) @min 1 @max (null) @minmax 1 (null) @decimal 0 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 374 23 s norder;
-#X obj 457 22 s nharmo;
-#X msg 214 516 0 -1 0 1 -2 -1 0 1 2 -3 -2 -1 0 1 2 3;
-#N canvas 0 22 463 390 hoaNumbering 0;
+#X obj 376 26 s norder;
+#X obj 459 25 s nharmo;
+#X msg 216 519 0 -1 0 1 -2 -1 0 1 2 -3 -2 -1 0 1 2 3;
+#N canvas 0 50 463 390 hoaNumbering 0;
 #X obj 95 63 until;
 #X obj 95 34 t f b, f 7;
 #X obj 144 93 + 1;
@@ -71,14 +71,14 @@ normal @fontslant roman @fontsize 11 @receive norder @send (null) @presetname
 #X connect 14 1 16 0;
 #X connect 15 0 13 1;
 #X connect 16 0 13 1;
-#X restore 214 471 pd hoaNumbering;
-#X text 9 412 Order of decomposition (N);
-#X obj 14 436 c.number @size 53 17 @fontname Helvetica @fontweight
+#X restore 216 474 pd hoaNumbering;
+#X text 11 415 Order of decomposition (N);
+#X obj 16 439 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive norder @send (null) @presetname
 (null) @min 1 @max (null) @minmax 1 (null) @decimal 0 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 14 516 0 1 1 1 2 2 2 2 2 3 3 3 3 3 3 3;
-#N canvas 0 22 462 402 hoaNumbering 0;
+#X msg 16 519 0 1 1 1 2 2 2 2 2 3 3 3 3 3 3 3;
+#N canvas 0 50 462 402 hoaNumbering 0;
 #X obj 95 63 until;
 #X obj 95 34 t f b, f 7;
 #X obj 144 93 + 1;
@@ -113,13 +113,13 @@ normal @fontslant roman @fontsize 11 @receive norder @send (null) @presetname
 #X connect 13 0 5 0;
 #X connect 14 0 11 0;
 #X connect 14 1 13 1;
-#X restore 14 471 pd hoaNumbering;
-#X text 487 160 Order of decomposition (N);
-#X obj 492 184 c.number @size 53 17 @fontname Helvetica @fontweight
+#X restore 16 474 pd hoaNumbering;
+#X text 489 163 Order of decomposition (N);
+#X obj 494 187 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive norder @send (null) @presetname
 (null) @min 1 @max (null) @minmax 1 (null) @decimal 0 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 492 264 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16;
+#X msg 494 267 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16;
 #N canvas 480 120 450 300 hoaNumbering 0;
 #X obj 95 133 until;
 #X obj 95 34 t f b, f 7;
@@ -148,11 +148,11 @@ normal @fontslant roman @fontsize 11 @receive norder @send (null) @presetname
 #X connect 8 0 1 0;
 #X connect 10 0 11 0;
 #X connect 11 0 0 0;
-#X restore 492 219 pd hoaNumbering;
-#X text 486 290 ACN of the harmonics;
-#X text 489 412 Order of decomposition (N);
-#X msg 494 516 W Y Z X V T R S U Q O M K L N P;
-#N canvas 0 22 908 474 hoaNumbering 0;
+#X restore 494 222 pd hoaNumbering;
+#X text 488 293 ACN of the harmonics;
+#X text 491 415 Order of decomposition (N);
+#X msg 496 519 W Y Z X V T R S U Q O M K L N P;
+#N canvas 0 50 908 474 hoaNumbering 0;
 #X obj 95 133 until;
 #X obj 95 34 t f b, f 7;
 #X obj 144 158 + 1;
@@ -234,31 +234,31 @@ normal @fontslant roman @fontsize 11 @receive norder @send (null) @presetname
 #X connect 29 0 2 0;
 #X connect 29 0 27 0;
 #X connect 30 0 0 0;
-#X restore 494 471 pd hoaNumbering;
-#X obj 494 436 c.number @size 53 17 @fontname Helvetica @fontweight
+#X restore 496 474 pd hoaNumbering;
+#X obj 496 439 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive norder @send (null) @presetname
 (null) @min 1 @max (null) @minmax 1 (null) @decimal 0 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X text 209 542 Orders of the harmonics (m);
-#X text 9 542 Degrees of the harmonics (l);
-#X text 488 542 Letter codes of the harmonics;
-#X text 10 103 The number of harmonics depends on the order of decomposition
+#X text 211 545 Orders of the harmonics (m);
+#X text 11 545 Degrees of the harmonics (l);
+#X text 490 545 Letter codes of the harmonics;
+#X text 12 106 The number of harmonics depends on the order of decomposition
 (N) :;
-#X text 479 101 The numbering of the harmonics channels is similar
+#X text 481 104 The numbering of the harmonics channels is similar
 to the ACN even if the use of the degrees and the orders is preferred
 :;
-#X text 481 353 The letter codes of the harmonics are not in the alphabetic
+#X text 483 356 The letter codes of the harmonics are not in the alphabetic
 order :;
-#X text 3 47 A set of tools to understand the numbering of the harmonics
+#X text 5 50 A set of tools to understand the numbering of the harmonics
 channels in 3d.;
-#X obj 14 211 + 1;
-#X obj 374 2 c.loadmess 3;
-#X obj 14 237 pow 2;
-#X obj 194 211 sqrt;
-#X obj 194 237 - 1;
-#X text 13 353 An harmonic is defined by a degree (l) and an order
+#X obj 16 214 + 1;
+#X obj 376 5 c.loadmess 3;
+#X obj 16 240 pow 2;
+#X obj 196 214 sqrt;
+#X obj 196 240 - 1;
+#X text 15 356 An harmonic is defined by a degree (l) and an order
 (m) thus it can be noted h(l \, m) :;
-#X obj 457 1 c.loadmess 16;
+#X obj 459 4 c.loadmess 16;
 #X connect 0 0 3 0;
 #X connect 1 0 0 0;
 #X connect 6 0 38 0;

@@ -1,64 +1,63 @@
-#N canvas 159 77 1127 515 10;
-#X obj -111 -541 hoa.connect;
-#X obj -111 -562 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X text -690 -417 2nd argument is the name of the patcher to instantiate.
+#N canvas 414 82 869 535 10;
+#X obj 594 28 hoa.connect;
+#X obj 594 7 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X text 15 152 2nd argument is the name of the patcher to instantiate.
 ;
-#X text -690 -467 1st argument is the order if you use hoa.process~
-in the circular harmonics domain or the number of channels if you use
+#X text 15 102 1st argument is the order if you use hoa.process~ in
+the circular harmonics domain or the number of channels if you use
 it in the plane waves domain.;
-#X text -690 -297 Extra arguments and attributes are sent to object
-hoa.this.process~ if there is one inside the patcher. You should look
-at the help.;
-#X text -690 -247 The number of inlets and outlets depends on the inlet
+#X text 15 272 Extra arguments and attributes are sent to object hoa.this.process~
+if there is one inside the patcher. You should look at the help.;
+#X text 15 322 The number of inlets and outlets depends on the inlet
 and outlet configuration of the patcher. You should look at the help.
 ;
-#X text -690 -197 Important: If you edit the patcher \, you have recreate
+#X text 15 372 Important: If you edit the patcher \, you have recreate
 hoa.process~ to reflect the changes.;
-#X text -693 -522 hoa.process~ helps the creation of processing in
-the circular or spherical harmonics and plane waves domains by instantiating
+#X text 12 47 hoa.process~ helps the creation of processing in the
+circular or spherical harmonics and plane waves domains by instantiating
 several instances of a patcher.;
-#X text -690 -397 3rd argument is the domain \, harmonics (default)
-or planewaves. Note that if you use hoa.process~ in the harmonics domain
+#X text 15 172 3rd argument is the domain \, harmonics (default) or
+planewaves. Note that if you use hoa.process~ in the harmonics domain
 \, it instantiates 2 * order + 1 times (the number of harmonics in
 2D) or (order + 1) * (order + 1) (the number of harmonics in 3D) the
 partcher and if you use it in the plane waves domain \, it instanctiates
 the patcher as many times as the number of channels.;
-#X obj -687 -549 c.patcherinfos;
-#X obj -682 -566 loadbang;
-#X obj -697 -566 hoa.help.header;
-#X obj -688 -144 hoa.help.pub;
-#X obj -284 -566 hoa.help.also;
-#X text -266 -100 The hoa.process~ use of this patch is an example
-made to show how it works. You would prefer to look at the real uses
-of hoa.process~.;
-#X obj -266 -178 hoa.3d.process~ 3 hoa.processexample harmonics;
-#X obj -266 -288 hoa.2d.process~ 3 hoa.processexample harmonics;
-#X text -270 -519 Open;
-#X text -270 -499 Use open message to open a specific instance :;
-#X msg -269 -475 open 1;
-#X msg -208 -475 open all;
-#X text -272 -416 Double-click open the 1st planewave intance \, or
-the harmonic 0 instance.;
-#X obj -269 -446 hoa.2d.process~ 4 hoa.processexample planewaves;
-#X text -270 -379 Target;
-#X text -270 -359 Use target message to route the message to a specific
+#X obj 18 20 c.patcherinfos;
+#X obj 23 3 loadbang;
+#X obj 8 3 hoa.help.header;
+#X obj 17 425 hoa.help.pub;
+#X obj 421 3 hoa.help.also;
+#X text 439 469 The hoa.process~ use of this patch is an example made
+to show how it works. You would prefer to look at the real uses of
+hoa.process~.;
+#X obj 439 391 hoa.3d.process~ 3 hoa.processexample harmonics;
+#X obj 439 281 hoa.2d.process~ 3 hoa.processexample harmonics;
+#X text 435 50 Open;
+#X text 435 70 Use open message to open a specific instance :;
+#X msg 436 94 open 1;
+#X msg 497 94 open all;
+#X text 433 153 Double-click open the 1st planewave intance \, or the
+harmonic 0 instance.;
+#X obj 436 123 hoa.2d.process~ 4 hoa.processexample planewaves;
+#X text 435 190 Target;
+#X text 435 210 Use target message to route the message to a specific
 instance :;
-#X obj 42 -324 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 747 245 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg -266 -324 target 1;
-#X msg -195 -324 target -2;
-#X msg -124 -324 target all;
-#X msg -44 -324 target none;
-#X obj -266 -259 print;
-#X msg -114 -224 target all;
-#X msg -34 -224 target none;
-#X obj -266 -149 print;
-#X msg -266 -224 target 2 1;
-#X msg -195 -224 target 3 -2;
-#X obj 52 -224 c.number @size 53 17 @fontname Helvetica @fontweight
+#X msg 439 245 target 1;
+#X msg 510 245 target -2;
+#X msg 581 245 target all;
+#X msg 661 245 target none;
+#X obj 439 310 print;
+#X msg 591 345 target all;
+#X msg 671 345 target none;
+#X obj 439 420 print;
+#X msg 439 345 target 2 1;
+#X msg 510 345 target 3 -2;
+#X obj 757 345 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;

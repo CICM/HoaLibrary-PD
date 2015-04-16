@@ -1,44 +1,44 @@
-#N canvas 118 40 971 642 10;
-#X obj 22 4 c.canvasinfos;
-#X obj 21 0 c.loadmess;
-#X obj 4 -1 hoa.tuto.header;
-#X obj 417 -1 hoa.help.pub;
-#X msg 437 426 \; pd dsp 1;
-#X msg 437 466 \; pd dsp 0;
-#X obj 434 229 sig~ 1;
-#X text 3 48 With Ambisonics \, decoding is the operation that synthesizes
+#N canvas 115 82 971 642 10;
+#X obj 20 11 c.canvasinfos;
+#X obj 19 7 c.loadmess;
+#X obj 2 6 hoa.tuto.header;
+#X obj 415 6 hoa.help.pub;
+#X msg 435 433 \; pd dsp 1;
+#X msg 435 473 \; pd dsp 0;
+#X obj 432 236 sig~ 1;
+#X text 1 55 With Ambisonics \, decoding is the operation that synthesizes
 the signals of the loudspeakers. As in any spatialisation technique
 \, this operation has advantages and limitations., f 65;
-#X text 3 98 Ambisonics allows to synthesize several sound fields and
-to decodes them with only a one operation offering. This advantage
+#X text 1 105 Ambisonics allows to synthesize several sound fields
+and to decodes them with only a one operation offering. This advantage
 allows to reduce the CPU usage., f 65;
-#X text 3 148 The separation of these two operations allows to perform
+#X text 1 155 The separation of these two operations allows to perform
 many operations between them \, in the circular harmonics domain \,
 and also to record the sound field in this domain. Thus \, it is possible
 to adapt the sound field \, after the synthesis \, to the speakers
 arrengement., f 65;
-#X text 3 228 Ambisonics offers a homogeneous rendering of the sound
+#X text 1 235 Ambisonics offers a homogeneous rendering of the sound
 field. Unlike other techniques where the angular resolution varies
 depending on the sources directions \, Ambisonics provides a constant
 angular resolution across the circle., f 65;
-#X text 3 468 With Ambisonics \, the auditor should be ideally placed
+#X text 1 475 With Ambisonics \, the auditor should be ideally placed
 at the center of the loudspeakers array otherwise the sound field resitution
 will be distorted. However \, the use of the maxRe or inPhase optimizations
 (see hoa.optim~ object) can make up this artefact (to the detriment
 of the spatial resolution) and offers the possibility of an audience
 spread all over the circle., f 65;
-#X obj 434 307 hoa.2d.encoder~ 7 -------------------;
-#X obj 602 251 phasor~ 0.1;
-#X obj 714 229 sig~ 1;
-#X obj 714 307 hoa.2d.encoder~ 7 -------------------;
-#X obj 882 277 hoa.pi~ 2;
-#X obj 602 277 hoa.pi~ 2;
-#X obj 882 251 phasor~ -0.1;
-#X obj 475 110 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 432 314 hoa.2d.encoder~ 7 -------------------;
+#X obj 600 258 phasor~ 0.1;
+#X obj 712 236 sig~ 1;
+#X obj 712 314 hoa.2d.encoder~ 7 -------------------;
+#X obj 880 284 hoa.pi~ 2;
+#X obj 600 284 hoa.pi~ 2;
+#X obj 880 258 phasor~ -0.1;
+#X obj 473 117 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 0 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#N canvas 0 22 450 300 DecToLs 0;
+#N canvas 0 50 450 300 DecToLs 0;
 #X obj 192 97 * 2;
 #X obj 192 133 + 1;
 #X obj 194 177 outlet;
@@ -46,24 +46,24 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X connect 0 0 1 0;
 #X connect 1 0 2 0;
 #X connect 3 0 0 0;
-#X restore 475 131 pd DecToLs;
-#X obj 475 160 c.number @size 53 17 @fontname Helvetica @fontweight
+#X restore 473 138 pd DecToLs;
+#X obj 473 167 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 0 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X text 438 66 Order of decomposition;
-#X text 428 186 Minimum number of loudspeakers;
-#X obj 715 110 c.number @size 53 17 @fontname Helvetica @fontweight
+#X text 436 73 Order of decomposition;
+#X text 426 193 Minimum number of loudspeakers;
+#X obj 713 117 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 0 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 715 160 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 713 167 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 0 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X text 671 67 Number of loudspeakers;
-#X text 628 186 Maximum (optimal) order of decomposition;
-#N canvas 0 22 450 300 LsToDec 0;
+#X text 669 74 Number of loudspeakers;
+#X text 626 193 Maximum (optimal) order of decomposition;
+#N canvas 0 50 450 300 LsToDec 0;
 #X obj 194 177 outlet;
 #X obj 191 62 inlet;
 #X obj 192 97 - 1;
@@ -71,11 +71,11 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
 #X connect 3 0 0 0;
-#X restore 715 131 pd LsToDec;
-#X obj 475 85 c.loadmess 7;
-#X obj 715 85 c.loadmess 16;
-#X obj 574 359 hoa.2d.decoder~ 7 ambisonics 16 -----;
-#X obj 574 381 hoa.2d.meter~ @size 225 225 @fontname Helvetica @fontweight
+#X restore 713 138 pd LsToDec;
+#X obj 473 92 c.loadmess 7;
+#X obj 713 92 c.loadmess 16;
+#X obj 572 366 hoa.2d.decoder~ 7 ambisonics 16 -----;
+#X obj 572 388 hoa.2d.meter~ @size 225 225 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @channels
 16 @angles 0 22.5 45 67.5 90 112.5 135 157.5 180 202.5 225 247.5 270
 292.5 315 337.5 @offset 0 @rotation anti-clockwise @vectors both @interval
@@ -83,7 +83,7 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @channels
 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor
 1 0 0 0.8;
-#X text 3 298 Nevertheless \, the restitution system is restricted
+#X text 1 305 Nevertheless \, the restitution system is restricted
 by the order of decomposition. The number of loudspeakers must be higher
 than or equal to the number of harmonics. Thus \, the minimum number
 of loudspeakers is 3 for an order of decomposition of 1 Futhermore

@@ -1,39 +1,40 @@
-#N canvas 223 52 754 671 10;
-#X obj -237 -520 hoa.pi 2;
-#X msg -96 -528 \; pd dsp 1;
-#X msg -96 -490 \; pd dsp 0;
-#X obj -252 -501 *~;
-#X obj -447 -351 hoa.2d.scope~ @size 201 201 @fontname Helvetica @fontweight
+#N canvas 220 82 754 671 10;
+#X obj 230 142 hoa.pi 2;
+#X msg 371 134 \; pd dsp 1;
+#X msg 371 172 \; pd dsp 0;
+#X obj 215 161 *~;
+#X obj 20 311 hoa.2d.scope~ @size 201 201 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-4 @gain 10 @interval 20 @bgcolor 0.758847 0.758847 0.758847 1 @bdcolor
-0.699562 0.699562 0.699562 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X text -131 -369 Here \, we apply differents delay lines on each signal.
+4 @view 0 @gain 10 @interval 20 @bgcolor 0.758847 0.758847 0.758847
+1 @bdcolor 0.699562 0.699562 0.699562 1 @phcolor 1 0 0 1 @nhcolor 0
+0 1 1;
+#X text 336 293 Here \, we apply differents delay lines on each signal.
 ;
-#X obj -252 -560 phasor~ 0.8;
-#X obj -447 -529 hoa.soundgrain;
-#X obj 118 -637 hoa.connect;
-#X obj 118 -658 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X obj -109 -351 hoa.2d.space @size 201 201 @fontname Helvetica @fontweight
+#X obj 215 102 phasor~ 0.8;
+#X obj 20 133 hoa.soundgrain;
+#X obj 585 25 hoa.connect;
+#X obj 585 4 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 358 311 hoa.2d.space @size 201 201 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send hoadelproj
 @presetname hoadelpreset @channels 10 @minmax 1 3000 @bgcolor 0.76
 0.76 0.76 1 @bdcolor 0.7 0.7 0.7 1 @spcolor 0.27 0.43 0.54 0.25 @ptcolor
 0 0 0 1;
-#X obj -447 -480 hoa.2d.encoder~ 4 ---------------;
-#X obj -447 -454 hoa.2d.projector~ 4 10 ----------;
-#X obj -237 -539 c.loadmess;
-#X obj -192 -443 r hoadelproj;
-#X obj -447 -501 c.gain~ @size 127 12 @fontname Helvetica @fontweight
+#X obj 20 182 hoa.2d.encoder~ 4 ---------------;
+#X obj 20 208 hoa.2d.projector~ 4 10 ----------;
+#X obj 230 123 c.loadmess;
+#X obj 275 219 r hoadelproj;
+#X obj 20 161 c.gain~ @size 127 12 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @kncolor 0.5 0.5 0.5 1;
-#X msg 3 -505 inter \$1;
-#X obj 3 -529 c.number @size 53 17 @fontname Helvetica @fontweight
+#X msg 470 157 inter \$1;
+#X obj 470 133 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 1 @max (null) @minmax 1 (null) @decimal 6 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 3 -551 line;
-#X obj 3 -478 c.preset @size 121 41 @fontname Helvetica @fontweight
+#X obj 470 111 line;
+#X obj 470 184 c.preset @size 121 41 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @emcolor
 0.85 0.85 0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15 0.15 1 @preset
@@ -53,28 +54,27 @@ list 1387.1 3000 1613.9 1387.1 1613.9 1 1 1 1387.1 1613.9 @index 8
 81.6861 2914.74 3000 3000 88.6911 1 2912.31 3000 @index 11 @hoadelpreset
 hoa.2d.space list 3000 2998.94 88.6885 82.7172 2914.77 3000 2998.94
 88.6592 2.05962 2912.34 ];
-#X text 1 -599 Interpolations;
-#X obj -109 -138 c.prepend set;
-#X msg -109 -116 2.00666 22.304 24.1816 16.2866 1 33.988 33.988 33.988
+#X text 468 63 Interpolations;
+#X obj 358 524 c.prepend set;
+#X msg 358 546 2.00666 22.304 24.1816 16.2866 1 33.988 33.988 33.988
 33.988 26.6775;
-#X text -464 -617 hoa.2d.projector~ discretizes the ambisonic sound
-field into the plane waves domain. Use hoa.recomposer~ to come back
-to harmonics domain.;
-#X text -131 -419 Sound field transformations have differents behavior
+#X text 3 45 hoa.2d.projector~ discretizes the ambisonic sound field
+into the plane waves domain. Use hoa.recomposer~ to come back to harmonics
+domain.;
+#X text 336 243 Sound field transformations have differents behavior
 in the plane waves domain compared to the circular harmonics domain.
 ;
-#X obj -447 -412 hoa.2d.process~ 10 hoa.fx.delay~ planewaves, f 33
-;
-#X obj -447 -374 hoa.2d.recomposer~ 4 10 ---------;
-#X obj -447 -128 hoa.2d.decoder~ 4 ambisonic 10 --;
-#X obj -447 -95 hoa.dac~ 1:10 -------------------;
-#X obj -455 -642 c.patcherinfos;
-#X obj -450 -659 loadbang;
-#X obj -465 -659 hoa.help.header;
-#X obj -324 -44 hoa.help.pub;
-#X obj -24 -658 hoa.help.also;
-#X msg 93 -575 12 \, 1 12000;
-#X msg 3 -575 1 \, 12 12000;
+#X obj 20 250 hoa.2d.process~ 10 hoa.fx.delay~ planewaves, f 33;
+#X obj 20 288 hoa.2d.recomposer~ 4 10 ---------;
+#X obj 20 534 hoa.2d.decoder~ 4 ambisonic 10 --;
+#X obj 20 567 hoa.dac~ 1:10 -------------------;
+#X obj 12 20 c.patcherinfos;
+#X obj 17 3 loadbang;
+#X obj 2 3 hoa.help.header;
+#X obj 143 618 hoa.help.pub;
+#X obj 443 4 hoa.help.also;
+#X msg 560 87 12 \, 1 12000;
+#X msg 470 87 1 \, 12 12000;
 #X connect 0 0 3 1;
 #X connect 3 0 11 1;
 #X connect 6 0 3 0;

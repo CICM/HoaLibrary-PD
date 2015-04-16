@@ -1,62 +1,61 @@
-#N canvas 62 97 901 734 10;
-#X obj 489 -21 sig~ 1;
-#X msg 4 104 \; pd dsp 1;
-#X msg 3 141 \; pd dsp 0;
-#X text 251 315 2 - Decoding for a set of loudspeakers;
-#X obj 14 -136 c.canvasinfos;
-#X obj 13 -140 c.loadmess;
-#X obj -4 -141 hoa.tuto.header;
-#X obj 409 -141 hoa.help.pub;
-#X text 237 154 Representation of the circular harmonics;
-#X text 208 46 1 - Encoding in the spherical harmonics domain;
-#X obj 489 73 hoa.3d.scope~ @size 231 231 @fontname Helvetica @fontweight
+#N canvas 65 82 901 686 10;
+#X obj 497 125 sig~ 1;
+#X msg 12 250 \; pd dsp 1;
+#X msg 11 287 \; pd dsp 0;
+#X text 259 461 2 - Decoding for a set of loudspeakers;
+#X obj 22 10 c.canvasinfos;
+#X obj 21 6 c.loadmess;
+#X obj 4 5 hoa.tuto.header;
+#X obj 417 5 hoa.help.pub;
+#X text 245 300 Representation of the circular harmonics;
+#X text 216 192 1 - Encoding in the spherical harmonics domain;
+#X obj 497 219 hoa.3d.scope~ @size 231 231 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-3 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
-0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X text 161 450 Representation of the contribution of 20 loudspeakers
+3 @view 0 0 0 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X text 169 596 Representation of the contribution of 20 loudspeakers
 ;
-#X obj 490 342 hoa.3d.meter~ @size 231 231 @fontname Helvetica @fontweight
+#X obj 498 488 hoa.3d.meter~ @size 231 231 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @channels
-20 @angles 180 69.0948 159.095 -0 90 20.9052 135 35.2644 135 -35.2644
-180 -69.0948 20.9052 -0 90 -20.9052 45 35.2644 45 -35.2644 0 69.0948
-200.905 -0 270 20.9052 225 35.2644 225 -35.2644 0 -69.0948 339.095
--0 270 -20.9052 315 35.2644 315 -35.2644 @offset 0 0 0 @rotation anti-clockwise
-@view top @vectors none @interval 50 @bgcolor 0.76 0.76 0.76 1 @bdcolor
-0.7 0.7 0.7 1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor
-0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor
-0 0 1 0.8 @velocitycolor 1 0 0 0.8;
-#X obj 489 45 hoa.3d.encoder~ 3 --------------------;
-#X obj 490 315 hoa.3d.decoder~ 3 ambisonics 20 ------;
-#X text -3 -19 In this example \, a source is encoded in a three dimensional
+20 @angles 180 69.1 159.1 0 90 20.9 135 35.3 135 -35.3 180 -69.1 20.9
+0 90 -20.9 45 35.3 45 -35.3 0 69.1 200.9 0 270 20.9 225 35.3 225 -35.3
+0 -69.1 339.1 0 270 -20.9 315 35.3 315 -35.3 @offset 0 0 0 @rotation
+anti-clockwise @view top @vectors none @interval 50 @bgcolor 0.76 0.76
+0.76 1 @bdcolor 0.7 0.7 0.7 1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6
+0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor
+1 0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor 1 0 0 0.8;
+#X obj 497 191 hoa.3d.encoder~ 3 --------------------;
+#X obj 498 461 hoa.3d.decoder~ 3 ambisonics 20 ------;
+#X text 5 127 In this example \, a source is encoded in a three dimensional
 space. The synthesized sound field owns the sound and its spatial information
 in the form of spherical harmonics. Thereafter \, the sound field is
 decoded for a set of loudspeakers., f 66;
-#X obj 617 17 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 625 163 c.number~ @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 601 -31 hoa.pi~ 2;
-#X text 627 -11 azimuth;
-#X text 734 -13 elevation;
-#X obj 714 -82 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 609 115 hoa.pi~ 2;
+#X text 635 135 azimuth;
+#X text 742 133 elevation;
+#X obj 722 64 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 601 -82 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 609 64 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 728 17 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X obj 736 163 c.number~ @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 601 -56 phasor~ -0.5;
-#X text 625 0 (-π & π);
-#X text 726 -1 (-π/2 & π/2);
-#X obj 714 -31 hoa.pi~ 0.5;
-#X obj 714 -56 hoa.tri~ 0.05;
-#X text 480 -47 Source;
-#X text -5 -92 Ambisonics can be extented to the third dimension using
+#X obj 609 90 phasor~ -0.5;
+#X text 633 146 (-π & π);
+#X text 734 145 (-π/2 & π/2);
+#X obj 722 115 hoa.pi~ 0.5;
+#X obj 722 90 hoa.tri~ 0.05;
+#X text 488 99 Source;
+#X text 3 54 Ambisonics can be extented to the third dimension using
 spherical harmonics instead of circular harmonics., f 66;
 #X connect 0 0 13 0;
 #X connect 4 0 6 0;

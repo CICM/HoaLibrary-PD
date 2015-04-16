@@ -1,28 +1,28 @@
-#N canvas 155 89 765 613 10;
-#X obj 76 365 hoa.in~;
-#X obj 76 431 hoa.out~;
-#X obj -12 5 c.loadmess;
-#X obj 236 112 hoa.in extra 1;
-#X obj 91 342 line~;
-#X obj 141 298 pack 1 20;
-#X obj 76 395 *~;
-#X text 232 88 Extra 1 retreive the right inlet messages.;
-#X text 226 43 Default values;
-#X text 129 365 Receive the signal;
-#X text 129 433 Output the signal;
-#X obj -12 32 hoa.thisprocess~ @ramp 20 @default 1;
-#X obj 201 65 route default ramp;
-#X text 293 130 Input messages selector;
-#X obj 59 65 hoa.mode.sel;
-#X obj -12 101 hoa.args.map;
-#X text 254 2 This hoa.processing control the gains of a sound field.
+#N canvas 152 94 765 613 10;
+#X obj 97 377 hoa.in~;
+#X obj 97 443 hoa.out~;
+#X obj 9 17 c.loadmess;
+#X obj 257 124 hoa.in extra 1;
+#X obj 112 354 line~;
+#X obj 162 310 pack 1 20;
+#X obj 97 407 *~;
+#X text 253 100 Extra 1 retreive the right inlet messages.;
+#X text 247 55 Default values;
+#X text 150 377 Receive the signal;
+#X text 150 445 Output the signal;
+#X obj 9 44 hoa.thisprocess~ @ramp 20 @default 1;
+#X obj 222 77 route default ramp;
+#X text 314 142 Input messages selector;
+#X obj 80 77 hoa.mode.sel;
+#X obj 9 113 hoa.args.map;
+#X text 275 14 This hoa.processing control the gains of a sound field.
 ;
-#X obj 271 231 list split;
-#X obj 299 255 unpack;
-#X obj 369 206 list split;
-#X obj 397 227 unpack;
-#X obj 306 182 route float list;
-#N canvas 0 22 450 300 dbtoamp 0;
+#X obj 292 243 list split;
+#X obj 320 267 unpack;
+#X obj 390 218 list split;
+#X obj 418 239 unpack;
+#X obj 327 194 route float list;
+#N canvas 0 50 450 300 dbtoamp 0;
 #X obj 121 87 * 0.05;
 #X obj 121 106 t b f;
 #X obj 121 148 pow;
@@ -35,8 +35,8 @@
 #X connect 2 0 5 0;
 #X connect 3 0 2 0;
 #X connect 4 0 0 0;
-#X restore 306 206 pd dbtoamp;
-#N canvas 0 22 450 300 dbtoamp 0;
+#X restore 327 218 pd dbtoamp;
+#N canvas 0 50 450 300 dbtoamp 0;
 #X obj 121 87 * 0.05;
 #X obj 121 106 t b f;
 #X obj 121 148 pow;
@@ -49,18 +49,18 @@
 #X connect 2 0 5 0;
 #X connect 3 0 2 0;
 #X connect 4 0 0 0;
-#X restore 397 248 pd dbtoamp;
-#X text 321 419 list : The item corresponding to the instance is selected
+#X restore 418 260 pd dbtoamp;
+#X text 342 431 list : The item corresponding to the instance is selected
 and set the amplitude of this instance.;
-#X text 321 337 float : set the amplitudes of all the instances (except
+#X text 342 349 float : set the amplitudes of all the instances (except
 if the target is used).;
-#X text 321 367 db/float : set the amplitudes of all the instances
+#X text 342 379 db/float : set the amplitudes of all the instances
 with a logarithmic scale (except if the target is used).;
-#X text 322 451 db/list : The item corresponding to the instance is
+#X text 343 463 db/list : The item corresponding to the instance is
 selected and set the amplitude of this instance with a logarithmic
 scale.;
-#X text 324 506 ramp : set the ramp time in ms.;
-#X obj 236 156 route float list dB ramp;
+#X text 345 518 ramp : set the ramp time in ms.;
+#X obj 257 168 route float list dB ramp;
 #X connect 0 0 6 0;
 #X connect 2 0 11 0;
 #X connect 3 0 29 0;

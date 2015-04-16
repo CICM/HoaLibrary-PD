@@ -1,48 +1,48 @@
-#N canvas 159 125 946 548 10;
-#X obj 372 -26 hoa.in~;
-#X obj 56 402 hoa.out~;
-#X obj -109 -101 c.loadmess;
-#X obj 208 35 hoa.in extra 1;
-#X obj 618 251 table \$0-hoa_hann1 512;
-#X obj 287 224 unpack;
-#X obj 619 50 / 256;
-#X obj 619 95 * 1;
-#X obj 619 149 * 0.5;
-#X obj 619 121 sin;
-#X obj 619 173 + 0.5;
-#X obj 620 -90 c.loadmess;
-#X obj 619 22 t f f;
-#X obj 619 201 pack;
-#X obj 655 68 hoa.pi 1;
-#X obj 619 71 - 0.5;
-#X obj 620 -66 t b b;
-#X obj 619 -22 until;
-#X obj 619 -1 f;
-#X obj 646 0 + 1;
-#X msg 619 -43 512;
-#X obj 619 225 tabwrite \$0-hoa_hann1;
-#X text 232 -106 This hoa.processing diffuses a sound field with delay
+#N canvas 156 130 946 548 10;
+#X obj 488 84 hoa.in~;
+#X obj 172 512 hoa.out~;
+#X obj 7 9 c.loadmess;
+#X obj 324 145 hoa.in extra 1;
+#X obj 734 361 table \$0-hoa_hann1 512;
+#X obj 403 334 unpack;
+#X obj 735 160 / 256;
+#X obj 735 205 * 1;
+#X obj 735 259 * 0.5;
+#X obj 735 231 sin;
+#X obj 735 283 + 0.5;
+#X obj 736 20 c.loadmess;
+#X obj 735 132 t f f;
+#X obj 735 311 pack;
+#X obj 771 178 hoa.pi 1;
+#X obj 735 181 - 0.5;
+#X obj 736 44 t b b;
+#X obj 735 88 until;
+#X obj 735 109 f;
+#X obj 762 110 + 1;
+#X msg 735 67 512;
+#X obj 735 335 tabwrite \$0-hoa_hann1;
+#X text 348 4 This hoa.processing diffuses a sound field with delay
 lines.;
-#X obj -42 -51 hoa.mode.sel;
-#X obj -109 -25 hoa.args.map;
-#X obj -40 -1 + 1;
-#X obj -40 34 / 1;
-#X text -37 84 factor;
-#X text -41 74 instance;
-#X obj -40 54 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0.0666667 256;
-#X obj -109 54 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 15 256;
-#X text -110 74 number of;
-#X text -113 84 instances;
-#X obj 372 17 delwrite~ \$0-hoa.delay 5000;
-#X obj 259 191 list split;
-#X obj 208 233 * 1;
-#X obj 208 190 t b f;
-#X text 413 318 list : The item is selected depending on the instance
+#X obj 74 59 hoa.mode.sel;
+#X obj 7 85 hoa.args.map;
+#X obj 76 109 + 1;
+#X obj 76 144 / 1;
+#X text 79 194 factor;
+#X text 75 184 instance;
+#X obj 76 164 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 7 164 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X text 6 184 number of;
+#X text 3 194 instances;
+#X obj 488 127 delwrite~ \$0-hoa.delay 5000;
+#X obj 375 301 list split;
+#X obj 324 343 * 1;
+#X obj 324 300 t b f;
+#X text 529 428 list : The item is selected depending on the instance
 and directly set the delay time of the instance (mostly used in the
 plane waves domain).;
-#X text 413 378 float : The delay time are mapped depending on the
+#X text 529 488 float : The delay time are mapped depending on the
 intance and increase while the index and the band of the harmonics
 increase.;
 #N canvas 671 289 471 383 delay_noflange 0;
@@ -71,7 +71,7 @@ increase.;
 #X obj 92 261 outlet;
 #X obj 153 261 outlet;
 #X obj 155 232 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0.000254173 256;
+-262144 -1 -1 0 256;
 #X obj 73 109 metro 5;
 #X connect 0 0 11 0;
 #X connect 1 0 2 0;
@@ -111,22 +111,22 @@ increase.;
 #X connect 15 0 0 1;
 #X connect 16 0 5 0;
 #X connect 16 0 0 0;
-#X restore 56 379 pd delay_noflange;
-#X obj 208 65 route float list diffusion;
-#X obj -109 -74 hoa.thisprocess~ @delay 1000 @diffusion 0;
-#X obj 56 36 route delay diffusion;
-#X obj 208 331 spigot 1;
-#X obj 155 333 sel 0;
-#X obj 155 354 f 0;
-#X obj 117 153 f 1;
-#X obj 117 125 t b f;
-#X obj 117 180 -, f 5;
-#X obj 117 104 clip 0 1;
-#X obj 117 259 <, f 5;
-#X obj 144 233 f 1;
-#X obj 117 206 t f b;
-#X obj 208 305 f;
-#X obj 117 282 t f b f;
+#X restore 172 489 pd delay_noflange;
+#X obj 324 175 route float list diffusion;
+#X obj 7 36 hoa.thisprocess~ @delay 1000 @diffusion 0;
+#X obj 172 146 route delay diffusion;
+#X obj 324 441 spigot 1;
+#X obj 271 443 sel 0;
+#X obj 271 464 f 0;
+#X obj 233 263 f 1;
+#X obj 233 235 t b f;
+#X obj 233 290 -, f 5;
+#X obj 233 214 clip 0 1;
+#X obj 233 369 <, f 5;
+#X obj 260 343 f 1;
+#X obj 233 316 t f b;
+#X obj 324 415 f;
+#X obj 233 392 t f b f;
 #X connect 0 0 33 0;
 #X connect 2 0 41 0;
 #X connect 3 0 40 0;

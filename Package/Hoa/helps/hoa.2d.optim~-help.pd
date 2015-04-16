@@ -1,54 +1,53 @@
-#N canvas 300 65 640 702 10;
-#X obj 393 109 hoa.pi 2;
-#X obj 393 89 loadbang;
-#X obj 378 130 *~;
-#X obj 378 65 phasor~ -0.3;
-#X obj 240 415 hoa.2d.meter~ @size 147 147 @fontname Helvetica @fontweight
+#N canvas 294 87 640 686 10;
+#X obj 394 110 hoa.pi 2;
+#X obj 394 90 loadbang;
+#X obj 379 131 *~;
+#X obj 379 66 phasor~ -0.3;
+#X obj 241 416 hoa.2d.meter~ @size 147 147 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send Àb% @channels
 8 @angles 0 45 90 135 180 225 270 315 @offset 0 @rotation anti-clockwise
 @vectors energy @interval 50 @bgcolor 0.7 0.7 0.7 1 @bdcolor 0.5 0.5
 0.5 1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor
 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor
 0 0 1 0.8 @velocitycolor 1 0 0 0.8;
-#X obj 241 579 hoa.dac~ 1:8 -----------;
-#X text 4 269 cover all the circle.;
-#X text 5 201 basic has no effect.;
-#X text 5 240 the circle.;
-#X text 5 230 confined to the center of the;
-#X obj 104 153 c.menu @size 100 17 @fontname Helvetica @fontweight
+#X obj 242 580 hoa.dac~ 1:8 -----------;
+#X text 5 270 cover all the circle.;
+#X text 6 202 basic has no effect.;
+#X text 6 241 the circle.;
+#X text 6 231 confined to the center of the;
+#X obj 105 154 c.menu @size 100 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @hover 0 @items basic maxRe inPhase @states 0 0 0 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 240 381 hoa.2d.decoder~ 3 0 8 --;
-#X text 5 220 maxRe is used when audience;
-#X text 4 259 inPhase is used when audience;
-#X obj 480 90 hoa.connect;
-#X obj 480 70 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 241 382 hoa.2d.decoder~ 3 0 8 --;
+#X text 6 221 maxRe is used when audience;
+#X text 5 260 inPhase is used when audience;
+#X obj 481 91 hoa.connect;
+#X obj 481 71 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X text 3 53 hoa.2d.optim~ weights the circular harmonics signals depending
+#X text 4 54 hoa.2d.optim~ weights the circular harmonics signals depending
 on the optimization.;
-#X text 8 307 Important : the optimization;
-#X text 8 317 can be changed in real time;
-#X text 8 327 but this is not a good practice.;
-#X text 8 337 You should only use this;
-#X text 8 348 option for your tests.;
-#X obj 12 26 c.patcherinfos;
-#X obj 17 9 loadbang;
-#X obj 2 9 hoa.help.header;
-#X obj 109 611 hoa.help.pub;
-#X obj 413 9 hoa.help.also;
-#X obj 58 618 c.dsp~ @size 30 30 @fontname Helvetica @fontweight normal
-@fontslant roman @fontsize 11 @receive (null) @send (null) @local 0
-@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0
-0.8;
-#X obj 104 121 c.loadmess set 1;
-#X obj 237 122 hoa.soundrone;
-#X obj 237 158 hoa.2d.encoder~ 3, f 24;
-#X obj 237 217 hoa.2d.scope~ @size 147 147 @fontname Helvetica @fontweight
+#X text 9 308 Important : the optimization;
+#X text 9 318 can be changed in real time;
+#X text 9 328 but this is not a good practice.;
+#X text 9 338 You should only use this;
+#X text 9 349 option for your tests.;
+#X obj 13 27 c.patcherinfos;
+#X obj 18 10 loadbang;
+#X obj 3 10 hoa.help.header;
+#X obj 110 612 hoa.help.pub;
+#X obj 414 10 hoa.help.also;
+#X obj 59 619 c.dsp~ @size 30 30 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0 0.8;
+#X obj 105 122 c.loadmess set 1;
+#X obj 238 123 hoa.soundrone;
+#X obj 238 159 hoa.2d.encoder~ 3, f 24;
+#X obj 238 218 hoa.2d.scope~ @size 147 147 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-3 @gain 100 @interval 100 @display excentric @bgcolor 0.76 0.76 0.76
-1 @bdcolor 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj 237 192 hoa.2d.optim~ 3 maxRe, f 24;
+3 @view 0 @gain 100 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 238 193 hoa.2d.optim~ 3 maxRe, f 24;
 #X connect 0 0 2 1;
 #X connect 1 0 0 0;
 #X connect 2 0 30 1;
@@ -92,4 +91,4 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
 #X connect 32 4 31 4;
 #X connect 32 5 31 5;
 #X connect 32 6 31 6;
-#X coords 0 702 1 701 100 60 0;
+#X coords 0 686 1 685 100 60 0;

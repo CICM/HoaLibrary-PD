@@ -1,36 +1,36 @@
-#N canvas 112 54 987 685 10;
-#X msg -319 -89 \; pd dsp 1;
-#X msg -319 -54 \; pd dsp 0;
-#X obj -99 -407 hoa.soundgrain;
-#X obj -99 -378 c.gain~ @size 131 10 @fontname Helvetica @fontweight
+#N canvas 109 82 987 685 10;
+#X msg 65 404 \; pd dsp 1;
+#X msg 65 439 \; pd dsp 0;
+#X obj 285 86 hoa.soundgrain;
+#X obj 285 115 c.gain~ @size 131 10 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @kncolor 0.5 0.5 0.5 1;
-#X obj 192 -460 hoa.connect;
-#X obj 192 -480 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X obj -380 -471 c.patcherinfos;
-#X obj -380 -488 loadbang;
-#X obj -380 -488 hoa.help.header;
-#X obj -250 140 hoa.help.pub;
-#X obj 36 -488 hoa.help.also;
-#X obj -309 -276 hoa.2d.scope~ @size 183 183 @fontname Helvetica @fontweight
+#X obj 576 33 hoa.connect;
+#X obj 576 13 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 4 22 c.patcherinfos;
+#X obj 4 5 loadbang;
+#X obj 4 5 hoa.help.header;
+#X obj 134 633 hoa.help.pub;
+#X obj 420 5 hoa.help.also;
+#X obj 75 217 hoa.2d.scope~ @size 183 183 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-7 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
-0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj -99 81 hoa.2d.decoder~ 7 ambisonics 16;
-#X obj -99 113 hoa.dac~ 1:16 -----------------;
-#X obj -99 -259 hoa.2d.projector~ 7 16, f 29;
-#X obj 137 -70 hoa.2d.scope~ @size 189 189 @fontname Helvetica @fontweight
+7 @view 0 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 285 574 hoa.2d.decoder~ 7 ambisonics 16;
+#X obj 285 606 hoa.dac~ 1:16 -----------------;
+#X obj 285 234 hoa.2d.projector~ 7 16, f 29;
+#X obj 521 423 hoa.2d.scope~ @size 189 189 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-7 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
-0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj -99 -125 hoa.2d.recomposer~ 7 16 fixe, f 31;
-#X obj 84 -402 hoa.2d.space @size 189 189 @fontname Helvetica @fontweight
+7 @view 0 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 285 368 hoa.2d.recomposer~ 7 16 fixe, f 31;
+#X obj 468 91 hoa.2d.space @size 189 189 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @channels 16 @minmax 0 1 @bgcolor 0.76 0.76 0.76 1 @bdcolor
 0.7 0.7 0.7 1 @spcolor 0.27 0.43 0.54 0.25 @ptcolor 0 0 0 1;
-#X obj -99 -194 hoa.2d.process~ 16 hoa.fx.gain~ planewaves, f 31;
+#X obj 285 299 hoa.2d.process~ 16 hoa.fx.gain~ planewaves, f 31;
 #N canvas 237 132 503 391 hoa_grain_env 0;
 #X obj 270 148 / 256;
 #X obj 270 193 * 1;
@@ -66,20 +66,19 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X connect 13 0 6 0;
 #X connect 14 0 13 1;
 #X connect 15 0 12 0;
-#X restore 290 -450 pd hoa_grain_env;
-#X obj 289 -470 table \$0-hoa_grain_array 512;
-#X obj -99 -357 hoa.2d.process~ 7 hoa.syn.grain~ harmonics \$0-hoa_grain_array
+#X restore 674 43 pd hoa_grain_env;
+#X obj 673 23 table \$0-hoa_grain_array 512;
+#X obj 285 136 hoa.2d.process~ 7 hoa.syn.grain~ harmonics \$0-hoa_grain_array
 , f 29;
-#X text 110 -206 Control the gain of each channel with a list or the
+#X text 494 287 Control the gain of each channel with a list or the
 hoa.2d.space GUI., f 49;
-#X text 110 -169 Prepend the list with dB \, to control with decibel
+#X text 494 324 Prepend the list with dB \, to control with decibel
 ;
-#X text 306 -388 You can also use it in the harmonics domain.;
-#X text 306 -378 In the harmonics domain \, you should use float;
-#X text 306 -368 or dB+float to control the gain of all;
-#X text 306 -358 the harmonics (just a multigain).;
-#X text -375 -444 hoa.fx.gain~ controls the gains of the sound field.
-;
+#X text 690 105 You can also use it in the harmonics domain.;
+#X text 690 115 In the harmonics domain \, you should use float;
+#X text 690 125 or dB+float to control the gain of all;
+#X text 690 135 the harmonics (just a multigain).;
+#X text 9 49 hoa.fx.gain~ controls the gains of the sound field.;
 #X connect 2 0 3 0;
 #X connect 3 0 21 0;
 #X connect 5 0 4 0;

@@ -1,4 +1,4 @@
-#N canvas 574 130 839 493 10;
+#N canvas 432 135 839 493 10;
 #N canvas 86 221 900 507 granular 0;
 #X obj 463 201 random 1000;
 #X obj 463 221 / 1000;
@@ -16,7 +16,7 @@
 #X obj 299 101 noise~;
 #X obj 326 58 nbx 5 14 0 1 0 0 empty empty empty 0 -8 0 10 -262144
 -1 -1 0.3 256;
-#N canvas 0 22 450 300 >~ 0;
+#N canvas 0 50 450 300 >~ 0;
 #X obj 67 114 max~ 0;
 #X obj 67 175 -~ 0;
 #X obj 130 188 /~;
@@ -63,7 +63,7 @@
 #X obj 427 133 t b f;
 #X obj 83 432 outlet~;
 #X obj 432 24 nbx 5 14 0 1e+06 0 0 empty empty empty 0 -8 0 10 -262144
--1 -1 26 256;
+-1 -1 73 256;
 #X obj 71 3 inlet;
 #X obj 21 20 inlet~;
 #X obj 151 3 inlet;
@@ -120,16 +120,16 @@
 #X connect 44 0 35 0;
 #X connect 45 0 17 1;
 #X connect 46 0 36 0;
-#X restore 55 178 pd granular;
-#X msg 751 135 0;
-#X obj 645 184 osc~;
-#X obj 645 136 samplerate~;
-#X obj 645 207 *~ -0.5;
-#X obj 645 230 +~ 0.5;
-#X obj 637 68 c.loadmess;
-#X obj 645 160 / 512;
-#X obj 637 255 tabwrite~ \$0-hoa_hann2;
-#X obj 641 318 table \$0-hoa_hann2 512;
+#X restore 42 308 pd granular;
+#X msg 738 265 0;
+#X obj 632 314 osc~;
+#X obj 632 266 samplerate~;
+#X obj 632 337 *~ -0.5;
+#X obj 632 360 +~ 0.5;
+#X obj 624 198 c.loadmess;
+#X obj 632 290 / 512;
+#X obj 624 385 tabwrite~ \$0-hoa_hann2;
+#X obj 628 448 table \$0-hoa_hann2 512;
 #N canvas 86 221 900 507 granular 0;
 #X obj 463 201 random 1000;
 #X obj 463 221 / 1000;
@@ -147,7 +147,7 @@
 #X obj 299 101 noise~;
 #X obj 326 58 nbx 5 14 0 1 0 0 empty empty empty 0 -8 0 10 -262144
 -1 -1 0.3 256;
-#N canvas 0 22 450 300 >~ 0;
+#N canvas 0 50 450 300 >~ 0;
 #X obj 67 114 max~ 0;
 #X obj 67 175 -~ 0;
 #X obj 130 188 /~;
@@ -191,7 +191,7 @@
 #X obj 427 133 t b f;
 #X obj 83 432 outlet~;
 #X obj 432 24 nbx 5 14 0 1e+06 0 0 empty empty empty 0 -8 0 10 -262144
--1 -1 127 256;
+-1 -1 105 256;
 #X obj 71 3 inlet;
 #X obj 21 20 inlet~;
 #X obj 151 3 inlet;
@@ -255,7 +255,7 @@
 #X connect 46 0 48 1;
 #X connect 47 0 46 0;
 #X connect 48 0 9 0;
-#X restore 135 178 pd granular;
+#X restore 122 308 pd granular;
 #N canvas 86 221 900 507 granular 0;
 #X obj 463 201 random 1000;
 #X obj 463 221 / 1000;
@@ -273,7 +273,7 @@
 #X obj 299 101 noise~;
 #X obj 326 58 nbx 5 14 0 1 0 0 empty empty empty 0 -8 0 10 -262144
 -1 -1 0.3 256;
-#N canvas 0 22 450 300 >~ 0;
+#N canvas 0 50 450 300 >~ 0;
 #X obj 67 114 max~ 0;
 #X obj 67 175 -~ 0;
 #X obj 130 188 /~;
@@ -317,7 +317,7 @@
 #X obj 427 133 t b f;
 #X obj 83 432 outlet~;
 #X obj 432 24 nbx 5 14 0 1e+06 0 0 empty empty empty 0 -8 0 10 -262144
--1 -1 48 256;
+-1 -1 32 256;
 #X obj 71 3 inlet;
 #X obj 21 20 inlet~;
 #X obj 151 3 inlet;
@@ -381,7 +381,7 @@
 #X connect 46 0 9 0;
 #X connect 47 0 46 1;
 #X connect 48 0 47 0;
-#X restore 215 178 pd granular;
+#X restore 202 308 pd granular;
 #N canvas 86 221 900 507 granular 0;
 #X obj 463 201 random 1000;
 #X obj 463 221 / 1000;
@@ -399,7 +399,7 @@
 #X obj 299 101 noise~;
 #X obj 326 58 nbx 5 14 0 1 0 0 empty empty empty 0 -8 0 10 -262144
 -1 -1 0.3 256;
-#N canvas 0 22 450 300 >~ 0;
+#N canvas 0 50 450 300 >~ 0;
 #X obj 67 114 max~ 0;
 #X obj 67 175 -~ 0;
 #X obj 130 188 /~;
@@ -507,20 +507,20 @@
 #X connect 46 0 48 1;
 #X connect 47 0 46 0;
 #X connect 48 0 9 0;
-#X restore 294 178 pd granular;
-#X obj 312 -60 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+#X restore 281 308 pd granular;
+#X obj 299 70 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
 -262144 -1 -1 400 256;
-#X obj 429 65 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+#X obj 416 195 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
 -262144 -1 -1 0.95 256;
-#X obj 499 65 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+#X obj 486 195 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
 -262144 -1 -1 0.3 256;
-#X obj 314 34 * 2;
-#X obj 172 345 outlet~;
-#X obj 413 -31 c.loadmess 0.95;
-#X obj 453 -1 c.loadmess 0.3;
-#X obj 414 34 * 10;
-#X obj 364 34 * 7;
-#N canvas 0 22 450 300 soundlost 0;
+#X obj 301 164 * 2;
+#X obj 159 475 outlet~;
+#X obj 400 99 c.loadmess 0.95;
+#X obj 440 129 c.loadmess 0.3;
+#X obj 401 164 * 10;
+#X obj 351 164 * 7;
+#N canvas 0 50 450 300 soundlost 0;
 #X msg 675 149 0;
 #X obj 569 198 osc~;
 #X obj 569 150 samplerate~;
@@ -531,7 +531,7 @@
 #X obj 89 178 noise~;
 #X obj 355 475 / 1000;
 #X obj 355 505 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0.625 256;
+-262144 -1 -1 0.521 256;
 #X obj 473 487 t b f;
 #X obj 473 539 list prepend;
 #X obj 473 517 list prepend;
@@ -566,7 +566,7 @@
 #X msg 728 95 \; \$0-hoa_filter const 0;
 #X obj 536 35 table \$0-hoa_prob 256;
 #X obj 473 334 tabread \$0-hoa_prob;
-#N canvas 0 22 427 426 spectralfilter 0;
+#N canvas 0 50 427 426 spectralfilter 0;
 #X obj 91 140 *~;
 #X obj 91 174 rfft~;
 #X obj 91 209 *~;
@@ -664,29 +664,29 @@
 #X connect 48 0 49 0;
 #X connect 49 1 14 0;
 #X connect 50 0 6 0;
-#X restore 121 88 pd soundlost;
-#X obj 30 44 line;
-#X obj 29 -54 random 80;
-#X msg 30 14 \$1 50;
-#X obj 29 -24 + 15;
-#X obj 26 -86 metro 2000;
-#X obj 126 -128 c.loadmess 1;
-#X obj 104 44 line;
-#X msg 104 14 \$1 50;
-#X obj 103 -24 + 15;
-#X obj 100 -86 metro 2000;
-#X obj 184 44 line;
-#X msg 184 14 \$1 50;
-#X obj 183 -24 + 15;
-#X obj 180 -86 metro 2000;
-#X obj 254 44 line;
-#X msg 254 14 \$1 50;
-#X obj 253 -24 + 15;
-#X obj 250 -86 metro 2000;
-#X obj 383 -61 c.loadmess 400;
-#X obj 103 -54 random 120;
-#X obj 183 -54 random 160;
-#X obj 253 -54 random 40;
+#X restore 108 218 pd soundlost;
+#X obj 17 174 line;
+#X obj 16 76 random 80;
+#X msg 17 144 \$1 50;
+#X obj 16 106 + 15;
+#X obj 13 44 metro 2000;
+#X obj 113 2 c.loadmess 1;
+#X obj 91 174 line;
+#X msg 91 144 \$1 50;
+#X obj 90 106 + 15;
+#X obj 87 44 metro 2000;
+#X obj 171 174 line;
+#X msg 171 144 \$1 50;
+#X obj 170 106 + 15;
+#X obj 167 44 metro 2000;
+#X obj 241 174 line;
+#X msg 241 144 \$1 50;
+#X obj 240 106 + 15;
+#X obj 237 44 metro 2000;
+#X obj 370 69 c.loadmess 400;
+#X obj 90 76 random 120;
+#X obj 170 76 random 160;
+#X obj 240 76 random 40;
 #X connect 0 0 17 0;
 #X connect 1 0 2 1;
 #X connect 2 0 4 0;

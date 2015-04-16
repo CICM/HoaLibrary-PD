@@ -1,50 +1,50 @@
-#N canvas 123 102 675 681 10;
-#X msg -92 -138 \; pd dsp 1;
-#X msg -92 -103 \; pd dsp 0;
-#X obj -309 -401 hoa.soundgrain;
-#X obj -309 -372 c.gain~ @size 131 10 @fontname Helvetica @fontweight
+#N canvas 120 107 675 681 10;
+#X msg 290 358 \; pd dsp 1;
+#X msg 290 393 \; pd dsp 0;
+#X obj 73 95 hoa.soundgrain;
+#X obj 73 124 c.gain~ @size 131 10 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @kncolor 0.5 0.5 0.5 1;
-#X obj 192 -464 hoa.connect;
-#X obj 192 -484 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X obj -380 -475 c.patcherinfos;
-#X obj -380 -492 loadbang;
-#X obj -380 -492 hoa.help.header;
-#X obj -350 86 hoa.help.pub;
-#X obj 36 -492 hoa.help.also;
-#X obj -309 27 hoa.2d.decoder~ 7 ambisonics 16;
-#X obj -309 59 hoa.dac~ 1:16 -----------------;
-#X obj -309 -248 hoa.2d.scope~ @size 189 189 @fontname Helvetica @fontweight
+#X obj 574 32 hoa.connect;
+#X obj 574 12 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 2 21 c.patcherinfos;
+#X obj 2 4 loadbang;
+#X obj 2 4 hoa.help.header;
+#X obj 32 582 hoa.help.pub;
+#X obj 418 4 hoa.help.also;
+#X obj 73 523 hoa.2d.decoder~ 7 ambisonics 16;
+#X obj 73 555 hoa.dac~ 1:16 -----------------;
+#X obj 73 248 hoa.2d.scope~ @size 189 189 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-7 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
-0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X text -19 -308 You can also use it in the plane waves domain.;
-#X msg 71 -178 size \$1;
-#X obj 71 -205 c.number @size 53 17 @fontname Helvetica @fontweight
+7 @view 0 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X text 363 188 You can also use it in the plane waves domain.;
+#X msg 453 318 size \$1;
+#X obj 453 291 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 0 @max (null) @minmax 0 (null) @decimal 6 @bgcolor 0.75
 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 161 -205 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 543 291 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 0 @max 5000 @minmax 0 5000 @decimal 6 @bgcolor 0.75 0.75
 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 161 -178 delay \$1;
-#X obj 71 -85 c.number @size 53 17 @fontname Helvetica @fontweight
+#X msg 543 318 delay \$1;
+#X obj 453 411 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 161 -85 c.number @size 53 17 @fontname Helvetica @fontweight
+#X obj 543 411 c.number @size 53 14 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 71 -58 feedback \$1;
-#X msg 161 -58 rarefaction \$1;
-#X obj 71 -233 c.loadmess 20;
-#X obj 161 -233 c.loadmess 5000;
-#X obj 161 -113 c.loadmess 0.4;
-#X obj 71 -113 c.loadmess 0.8;
+#X msg 453 438 feedback \$1;
+#X msg 543 438 rarefaction \$1;
+#X obj 453 263 c.loadmess 20;
+#X obj 543 263 c.loadmess 5000;
+#X obj 543 383 c.loadmess 0.4;
+#X obj 453 383 c.loadmess 0.8;
 #N canvas 237 132 503 391 hoa_grain_env 0;
 #X obj 270 148 / 256;
 #X obj 270 193 * 1;
@@ -80,21 +80,21 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X connect 13 0 6 0;
 #X connect 14 0 13 1;
 #X connect 15 0 12 0;
-#X restore 65 -399 pd hoa_grain_env;
-#X obj 64 -419 table \$0-hoa_grain_array 512;
-#X obj -126 -365 r \$0-hoagrain;
-#X obj 71 -147 s \$0-hoagrain;
-#X obj 71 -27 s \$0-hoagrain;
-#X text -113 -233 arg : the envelope table;
-#X obj -309 -331 hoa.2d.process~ 7 hoa.syn.grain~ harmonics \$0-hoa_grain_array
+#X restore 447 97 pd hoa_grain_env;
+#X obj 446 77 table \$0-hoa_grain_array 512;
+#X obj 256 131 r \$0-hoagrain;
+#X obj 453 349 s \$0-hoagrain;
+#X obj 453 469 s \$0-hoagrain;
+#X text 269 263 arg : the envelope table;
+#X obj 73 165 hoa.2d.process~ 7 hoa.syn.grain~ harmonics \$0-hoa_grain_array
 @size 100 @delay 1000 @feedback 0.5 @rarefaction 0, f 31;
-#X text -115 -212 attr : size (ms) \, delay;
-#X text -81 -200 feedback \, rarefaction;
-#X text -19 -328 The grain size and delay time are mapped depending
+#X text 267 284 attr : size (ms) \, delay;
+#X text 301 296 feedback \, rarefaction;
+#X text 363 168 The grain size and delay time are mapped depending
 ;
-#X text -19 -318 on the orders and the degrees of the harmonics.;
-#X text -375 -448 hoa.syn.grain~ uses quasi-synchronous granular to
-synthesize a diffuse a sound field.;
+#X text 363 178 on the orders and the degrees of the harmonics.;
+#X text 7 48 hoa.syn.grain~ uses quasi-synchronous granular to synthesize
+a diffuse a sound field.;
 #X connect 2 0 3 0;
 #X connect 3 0 33 0;
 #X connect 5 0 4 0;
