@@ -575,8 +575,8 @@ void hoa_process_get_thisprocess(t_hoa_process *x, t_canvas* canvas, int index, 
                 atom_setsym(tp->f_hoa_mode, gensym("2d"));
                 atom_setsym(tp->f_hoa_mode+1, gensym("harmonics"));
                 atom_setfloat(tp->f_hoa_args, x->f_ambi_2d->getDecompositionOrder());
-                atom_setfloat(tp->f_hoa_args+1, x->f_ambi_2d->getHarmonicDegree(index));
-                atom_setfloat(tp->f_hoa_args+2, x->f_ambi_2d->getHarmonicOrder(index));
+                //atom_setfloat(tp->f_hoa_args+1, x->f_ambi_2d->getHarmonicDegree(index));
+                atom_setfloat(tp->f_hoa_args+1, x->f_ambi_2d->getHarmonicOrder(index));
             }
             else if(x->f_ambi_3d)
             {
@@ -592,7 +592,7 @@ void hoa_process_get_thisprocess(t_hoa_process *x, t_canvas* canvas, int index, 
                 atom_setsym(tp->f_hoa_mode+1, gensym("planewaves"));
                 atom_setfloat(tp->f_hoa_args, x->f_plane_2d->getNumberOfPlanewaves());
                 atom_setfloat(tp->f_hoa_args+1, x->f_plane_2d->getPlanewaveIndex(index));
-                atom_setfloat(tp->f_hoa_args+2, x->f_plane_2d->getPlanewaveIndex(index));
+                //atom_setfloat(tp->f_hoa_args+2, x->f_plane_2d->getPlanewaveIndex(index));
             }
             else if(x->f_plane_3d)
             {
@@ -602,20 +602,20 @@ void hoa_process_get_thisprocess(t_hoa_process *x, t_canvas* canvas, int index, 
                 atom_setfloat(tp->f_hoa_args+1, x->f_plane_3d->getPlanewaveIndex(index));
                 atom_setfloat(tp->f_hoa_args+2, x->f_plane_3d->getPlanewaveIndex(index));
             }
-            
+
             if(tp->f_argc < atoms_get_attributes_offset(argc, argv))
             {
                 free(tp->f_args);
                 tp->f_argc = atoms_get_attributes_offset(argc, argv);
                 tp->f_args = (t_atom *)calloc(tp->f_argc, sizeof(t_atom));
             }
-            
+
             offset = atoms_get_attributes_offset(argc, argv);
             for(i = 0; i < offset; i++)
             {
                 tp->f_args[i] = argv[i];
             }
-            
+
             for(i = 0; i < tp->f_n_attrs; i++)
             {
                 if(atoms_has_attribute(argc-offset, argv+offset, tp->f_attr_name[i]))
@@ -766,7 +766,7 @@ void hoa_process_load_canvas(t_hoa_process *x, t_symbol *s, long argc, t_atom* a
     char dirbuf[MAXPDSTRING], *nameptr;
     int ncnv;
     int state = canvas_suspend_dsp();
-    
+
     // Memory allocation for all the canvas, the inlets and the outlets
     x->f_canvas         = new t_canvas*[x->f_ncanvas];
     x->f_dsp_context    = new t_dspcontext*[x->f_ncanvas];
@@ -843,7 +843,7 @@ void hoa_process_load_canvas(t_hoa_process *x, t_symbol *s, long argc, t_atom* a
                 atom_setfloat(av+1, x->f_plane_3d->getPlanewaveIndex(i));
                 canvas_setargs(2, av);
             }
-    
+
             // Load the canvas
             t_pd *boundx = s__X.s_thing;
             s__X.s_thing = 0;
@@ -884,7 +884,7 @@ void hoa_process_load_canvas(t_hoa_process *x, t_symbol *s, long argc, t_atom* a
     {
         pd_error(x, "hoa.process~ : error while loading canvas.");
     }
-    
+
     canvas_setcurrent(eobj_getcanvas(x));
     canvas_resume_dsp(state);
 }
@@ -899,7 +899,7 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
     t_outlet *outlet;
     int	argument = 1;
     t_hoa_process *x = (t_hoa_process *)eobj_new(hoa_process_class);
-    
+
     if(x)
     {
         argument = pd_clip_min(atom_getlong(argv), 1);
@@ -934,25 +934,25 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
                 x->f_ncanvas = x->f_ambi_2d->getNumberOfHarmonics();
             }
         }
-        
+
         hoa_process_load_canvas(x, atom_getsym(argv+1), argc - 3, argv + 3);
-        
+
         if(x->f_ncanvas == 0)
         {
             eobj_dspsetup(x, 1, 0);
             return x;
         }
-        
+
         x->f_have_inlets_instance = 0;
         x->f_max_inlets_extra = 0;
         x->f_have_outlets_instance = 0;
         x->f_max_outlets_extra = 0;
-        
+
         x->f_have_inlets_instance_sig = 0;
         x->f_max_inlets_extra_sig = 0;
         x->f_have_outlets_instance_sig = 0;
         x->f_max_outlets_extra_sig = 0;
-        
+
         for(int i = 0; i < x->f_ncanvas; i++)
         {
             // Control //
@@ -963,7 +963,7 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
                 if(x->f_inlets_extra[i][j]->f_extra > x->f_max_inlets_extra)
                     x->f_max_inlets_extra = x->f_inlets_extra[i][j]->f_extra;
             }
-            
+
             if(x->f_noutlets_instance[i] > 0)
                 x->f_have_outlets_instance = 1;
             for(int j = 0; j < x->f_noutlets_extra[i]; j++)
@@ -971,7 +971,7 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
                 if(x->f_outlets_extra[i][j]->f_extra > x->f_max_outlets_extra)
                     x->f_max_outlets_extra = x->f_outlets_extra[i][j]->f_extra;
             }
-            
+
             // Signal //
             if(x->f_ninlets_instance_sig[i] > 0)
                 x->f_have_inlets_instance_sig = 1;
@@ -980,7 +980,7 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
                 if(x->f_inlets_extra_sig[i][j]->f_extra > x->f_max_inlets_extra_sig)
                     x->f_max_inlets_extra_sig = x->f_inlets_extra_sig[i][j]->f_extra;
             }
-            
+
             if(x->f_noutlets_instance_sig[i] > 0)
                 x->f_have_outlets_instance_sig = 1;
             for(int j = 0; j < x->f_noutlets_extra_sig[i]; j++)
@@ -989,9 +989,9 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
                     x->f_max_outlets_extra_sig = x->f_outlets_extra_sig[i][j]->f_extra;
             }
         }
-        
+
         eobj_dspsetup(x, x->f_have_inlets_instance_sig * x->f_ncanvas + x->f_max_inlets_extra_sig, x->f_have_outlets_instance_sig * x->f_ncanvas + x->f_max_outlets_extra_sig);
-        
+
         // Inlet signal intance //
         if(x->f_have_inlets_instance && !x->f_have_inlets_instance_sig)
         {
@@ -1000,13 +1000,13 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
                 eobj_proxynew(x);
             }
         }
-        
+
         // Inlet control extra //
         for(int i = x->f_max_inlets_extra_sig; i < x->f_max_inlets_extra; i++)
         {
             eobj_proxynew(x);
         }
-        
+
         if(x->f_have_outlets_instance)
         {
             for(int i = 0; i < x->f_ncanvas; i++)
@@ -1016,7 +1016,7 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
                     x->f_outlets_instance[i][j]->f_outlet = outlet;
             }
         }
-        
+
         for(int i = 0; i < x->f_max_outlets_extra; i++)
         {
             outlet = outlet_new((t_object *)x, &s_anything);
@@ -1031,31 +1031,31 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
                 }
             }
         }
-        
+
         x->f_outlets_signals = new t_sample*[x->f_have_outlets_instance_sig * x->f_ncanvas + x->f_max_outlets_extra_sig];
         for(int i = 0 ; i < x->f_have_outlets_instance_sig * x->f_ncanvas + x->f_max_outlets_extra_sig; i++)
         {
             x->f_outlets_signals[i] = new t_sample[8192];
         }
-        
+
         x->f_target = -1;
     }
-    
+
     return x;
 }
 
 void hoa_process_free(t_hoa_process *x)
 {
     int state = canvas_suspend_dsp();
-    
+
     signal_cleanup();
     for(int i = 0 ; i < x->f_have_outlets_instance_sig * x->f_ncanvas + x->f_max_outlets_extra_sig; i++)
     {
         delete [] x->f_outlets_signals[i];
     }
-    
+
     delete [] x->f_outlets_signals;
-    
+
     for(int i = 0; i < x->f_ncanvas; i++)
     {
         if(x->f_canvas[i])
@@ -1063,44 +1063,44 @@ void hoa_process_free(t_hoa_process *x)
             x->f_canvas[i]->gl_owner = eobj_getcanvas(x);
             canvas_free(x->f_canvas[i]);
             dsp_context_free(x->f_dsp_context[i]);
-            
+
             delete [] x->f_inlets_instance[i];
             delete [] x->f_inlets_extra[i];
-            
+
             delete [] x->f_outlets_instance[i];
             delete [] x->f_outlets_extra[i];
-            
+
             delete [] x->f_inlets_instance_sig[i];
             delete [] x->f_inlets_extra_sig[i];
-            
+
             delete [] x->f_outlets_instance_sig[i];
             delete [] x->f_outlets_extra_sig[i];
         }
     }
     delete [] x->f_canvas;
-    
+
     delete [] x->f_dsp_context;
-    
+
     delete [] x->f_ninlets_instance;
     delete [] x->f_ninlets_extra;
     delete [] x->f_inlets_instance;
     delete [] x->f_inlets_extra;
-    
+
     delete [] x->f_noutlets_instance;
     delete [] x->f_noutlets_extra;
     delete [] x->f_outlets_instance;
     delete [] x->f_outlets_extra;
-    
+
     delete [] x->f_ninlets_instance_sig;
     delete [] x->f_ninlets_extra_sig;
     delete [] x->f_inlets_instance_sig;
     delete [] x->f_inlets_extra_sig;
-    
+
     delete [] x->f_noutlets_instance_sig;
     delete [] x->f_noutlets_extra_sig;
     delete [] x->f_outlets_instance_sig;
     delete [] x->f_outlets_extra_sig;
-    
+
     if(x->f_ambi_2d)
         delete x->f_ambi_2d;
     if(x->f_ambi_3d)
@@ -1109,7 +1109,7 @@ void hoa_process_free(t_hoa_process *x)
         delete x->f_plane_2d;
     if(x->f_plane_3d)
         delete x->f_plane_3d;
-    
+
     eobj_dspfree(x);
     canvas_resume_dsp(state);
 }
@@ -1120,20 +1120,20 @@ extern "C" void setup_hoa0x2eprocess_tilde(void)
     c = eclass_new("hoa.process~", (method)hoa_process_new, (method)hoa_process_free, (short)sizeof(t_hoa_process), CLASS_NOINLET, A_GIMME, 0);
     class_addcreator((t_newmethod)hoa_process_new, gensym("hoa.2d.process~"), A_GIMME, 0);
     class_addcreator((t_newmethod)hoa_process_new, gensym("hoa.3d.process~"), A_GIMME, 0);
-    
+
     eclass_dspinit(c);
     hoa_initclass(c);
     eclass_addmethod(c, (method)hoa_process_dsp,        "dsp",      A_CANT, 0);
     eclass_addmethod(c, (method)hoa_process_click,      "click",    A_NULL, 0);
     eclass_addmethod(c, (method)hoa_process_open,       "open",     A_GIMME, 0);
     eclass_addmethod(c, (method)hoa_process_target,     "target",   A_GIMME, 0);
-    
+
     eclass_addmethod(c, (method)hoa_process_bang,       "bang",     A_CANT,  0);
     eclass_addmethod(c, (method)hoa_process_float,      "float",    A_FLOAT, 0);
     eclass_addmethod(c, (method)hoa_process_symbol,     "symbol",   A_SYMBOL,0);
     eclass_addmethod(c, (method)hoa_process_list,       "list",     A_GIMME, 0);
     eclass_addmethod(c, (method)hoa_process_anything,   "anything", A_GIMME, 0);
-    
+
     eclass_register(CLASS_OBJ, c);
     hoa_process_class = c;
 }

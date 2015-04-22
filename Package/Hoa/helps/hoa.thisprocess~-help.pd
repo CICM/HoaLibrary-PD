@@ -1,4 +1,4 @@
-#N canvas 321 87 896 585 10;
+#N canvas 318 92 896 585 10;
 #X text 28 468 hoalibrary | Julien Colafrancesco \, Pierre Guillot
 & Eliott Paris © 2012-2013 CICM / Universite Paris 8;
 #X msg 432 51 \; pd dsp 1;
