@@ -1,39 +1,42 @@
-### Hoa Library (A high order ambisonics library) for <a title="Pure Data" href="http://puredata.info/" target="_blank">Pure Data </a>
+## [HOA](http://www.mshparisnord.fr/hoalibrary/ "Hoa Library") for Pure Data
 
-##### Version :
+### Compatibilty :
 
-Beta 1.0 for Pure Data 0.43.4 (32 bit) and higher on Mac Os and Windows plateforms (<a title="Download" href="http://www.mshparisnord.fr/hoalibrary/en/downloads/" target="_blank">Download</a>).
+The lastest release has been tested [Pure Data Vanilla](http://msp.ucsd.edu/software.html "PD-Vanilla") (0.46.6 - 32/64 bits) & [Pure Data Extended](https://puredata.info/ "PD-Extended") (0.43.4) on Linux, Mac Os, Windows .
 
-![Image Pd](https://raw.github.com/CICM/HoaLibrary/master/Ressources/PhotoPd.png "Pd Patch")
+### Installation :  
 
-##### Authors (Hoa for Pure Data) :
+With Pure Data Vanilla, copy the <em>Hoa</em> folder in your package folder and add <em>hoa</em> in the PD's statup window if you use the default package folder\*, otherwise add <em>Hoa/hoa</em>.  
+With Pure Data Extended, copy the <em>Hoa</em> folder in your package folder and add <em>-lib externals/"system"/pd-extended/hoa</em> in the statup falgs if you use the default package folder\*, otherwise add <em>-lib Hoa/externals/"system"/pd-extended/hoa</em> with <em>"system"</em> replaced by <em>Linux</em>, <em>MacOs</em> or <em>Windows</em>.  
 
-Pierre Guillot, Eliott Paris
+\* The default package folder are generally <em>/usr/local/lib/pd-externals</em> on Linux, <em>/Library/Pd</em>  on Mac Os and <em>C:\Program Files\Common Files\Pd</em>  on Windows.  
 
-##### Dependencies : 
+__Important__ : The Hoa library needs the [Cream library](https://github.com/CICM/CreamLibrary "Cream") to work properly.
 
-<a title="Cblas" href="http://www.netlib.org/clapack/cblas/" target="_blank">Cblas</a>, <a title="CicmWrapper" href="https://github.com/CICM/CicmWrapper" target="_blank">CicmWrapper</a>
+### Documentation :
 
-##### Licence : 
+Helps and tutorials are availables in the <em>Hoa</em> folder of the <em>help browser</em>.
+ 
+### Compilation : 
+
+	./autogen.sh (if needed)
+	./configure
+	make
+	make install (optional)
+
+XCode, CodeBlock and Visual Studio projects are also available.
+
+### Dependencies : 
+
+[Hoa Library](https://github.com/CICM/HoaLibrary-Light "Hoa Library") (with [cBlas](http://www.netlib.org/clapack/cblas/ "cBlas")) & the [Cicm Wrapper](https://github.com/CICM/CicmWrapper "Cicm Wrapper").
+
+### Authors :
+
+Pierre Guillot  
+Eliott Paris  
+Thomas Le Meur  
+Julien Colafrancesco
+
+### Licence : 
 
 The hoa.library in under the <a title="GNU" href="http://www.gnu.org/copyleft/gpl.html" target="_blank">GNU Public License</a>. If you'd like to avoid the restrictions of the GPL and use Hoa Library for a closed-source product, you contact the <a title="CICM" href="http://cicm.mshparisnord.org/" target="_blank">CICM</a>.
-
-##### Objects :
-- hoa.decoder~ : An ambisonic decoder (ambisonic, binaural, irregular configurations).
-- hoa.encoder~ : An ambisonic encoder.
-- hoa.map~ : An ambisonic sources spatializer.
-- hoa.delay~ : An ambisonic sound field delay.
-- hoa.freeverb~ : An implementation of the freeverb algorithm for ambisonics.
-- hoa.grain~ : An ambisonic granular synthesizer.
-- hoa.map : A GUI to spatialize sources on a map.
-- hoa.meter~ : A circular meter with sound field descriptor.
-- hoa.optim~ : An ambisonic sound field optimization.
-- hoa.pi : A good pi number.
-- hoa.projector~ : A plane wave decomposer.
-- hoa.recomposer~ : A plane wave recomposer to harmonics domain.
-- hoa.ringmod~ : An ambisonic sound field ring modulation.
-- hoa.rotate~ : An ambisonic sound field rotation external.
-- hoa.scope~ : An ambisonic harmonic scope.
-- hoa.space : A GUI to design ambisonic space.
-- hoa.space~ : A spatial filter.
-- hoa.wider~ : A fractional ambisonic orders simulator.
