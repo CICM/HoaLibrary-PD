@@ -807,6 +807,7 @@ void hoa_process_load_canvas(t_hoa_process *x, t_symbol *s, long argc, t_atom* a
     // Location of the file
     fd = canvas_open(canvas_getcurrent(), s->s_name, ".pd", dirbuf, &nameptr, MAXPDSTRING, 0);
 
+    t_pd *boundx = s__X.s_thing;
     if(fd >= 0)
     {
         // Allocation of each canvas
@@ -845,16 +846,13 @@ void hoa_process_load_canvas(t_hoa_process *x, t_symbol *s, long argc, t_atom* a
             }
 
             // Load the canvas
-            t_pd *boundx = s__X.s_thing;
             s__X.s_thing = 0;
             binbuf_evalfile(gensym(nameptr), gensym(dirbuf));
-            while (( (t_pd *)x->f_canvas[i] != s__X.s_thing) && s__X.s_thing)
+            while (((t_pd *)x->f_canvas[i] != s__X.s_thing) && s__X.s_thing)
             {
                 x->f_canvas[i] = (t_canvas *)s__X.s_thing;
                 vmess((t_pd *)x->f_canvas[i], gensym("pop"), "i", 1);
             }
-
-            s__X.s_thing = boundx;
 
             // If the canvas is loaded
             if(x->f_canvas[i])
@@ -873,9 +871,9 @@ void hoa_process_load_canvas(t_hoa_process *x, t_symbol *s, long argc, t_atom* a
             }
             else
             {
-                canvas_setcurrent(eobj_getcanvas(x));
                 pd_error(x, "hoa.process~ : error while loading canvas.");
 				canvas_resume_dsp(state);
+                s__X.s_thing = boundx;
                 return;
             }
         }
@@ -885,7 +883,7 @@ void hoa_process_load_canvas(t_hoa_process *x, t_symbol *s, long argc, t_atom* a
         pd_error(x, "hoa.process~ : error while loading canvas.");
     }
 
-    canvas_setcurrent(eobj_getcanvas(x));
+    s__X.s_thing = boundx;
     canvas_resume_dsp(state);
 }
 
@@ -1111,6 +1109,7 @@ void hoa_process_free(t_hoa_process *x)
         delete x->f_plane_3d;
 
     eobj_dspfree(x);
+    canvas_fixlinesfor(eobj_getcanvas(x), (t_text *)x);
     canvas_resume_dsp(state);
 }
 

@@ -297,7 +297,7 @@ static void hoa_connect_bang(t_hoa_connect *x)
                 index = pd_clip_max(index+1, 255);
             }
         }
-        else if(eobj_getclassname(y)  == gensym("canvas"))
+        else if(eobj_getclassname(y) == gensym("canvas"))
         {
             cnv = (t_glist *)y;
             if(cnv->gl_obj.te_binbuf && binbuf_getnatom(cnv->gl_obj.te_binbuf) && binbuf_getvec(cnv->gl_obj.te_binbuf))
