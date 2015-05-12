@@ -468,7 +468,7 @@ static t_pd_err hoa_scope_3d_set_order(t_hoa_scope_3d *x, t_object *attr, long a
     long order;
     if (ac && av && atom_gettype(av) == A_LONG)
     {
-        order = atom_getlong(av);
+        order = pd_clip_minmax(atom_getlong(av), 1, 10);
         if(order != x->f_scope->getDecompositionOrder() && order > 0)
         {
             int dspState = canvas_suspend_dsp();

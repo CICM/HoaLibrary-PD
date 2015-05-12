@@ -12,7 +12,7 @@ extern "C"
 #include "ThirdParty/CicmWrapper/Sources/cicm_wrapper.h"
 }
 
-#define HOA_MAX_PLANEWAVES      EPD_MAX_SIGS
+#define HOA_MAX_PLANEWAVES      128
 #define HOA_MAXBLKSIZE          8192
 #define HOA_UI_BORDERTHICKNESS  1
 #define HOA_UI_CORNERSIZE       8

@@ -252,7 +252,7 @@ static void *hoa_decoder_3d_new(t_symbol *s, long argc, t_atom *argv)
     if(x && d)
     {
         if(argc && argv && atom_gettype(argv) == A_LONG)
-            order = pd_clip_min(atom_getlong(argv), 1);
+            order = pd_clip_minmax(atom_getlong(argv), 1, 10);
         if(argc > 1 && argv+1 && atom_gettype(argv+1) == A_SYM)
             mode = atom_getsym(argv+1);
         if(argc > 2 && argv+2 && atom_gettype(argv+2) == A_LONG)

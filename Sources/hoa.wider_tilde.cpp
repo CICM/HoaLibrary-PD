@@ -54,7 +54,7 @@ static void *hoa_wider_3d_new(t_symbol *s, long argc, t_atom *argv)
     if(x)
     {
         if(atom_gettype(argv) == A_LONG)
-            order = pd_clip_min(atom_getlong(argv), 1);
+            order = pd_clip_minmax(atom_getlong(argv), 1, 10);
         
         x->f_wider = new Wider<Hoa3d, t_sample>(order);
         eobj_dspsetup(x, x->f_wider->getNumberOfHarmonics() + 1, x->f_wider->getNumberOfHarmonics());

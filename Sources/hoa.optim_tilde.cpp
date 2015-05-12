@@ -258,7 +258,7 @@ static void *hoa_optim_3d_new(t_symbol *s, long argc, t_atom *argv)
         x->f_mode   = hoa_sym_inPhase;
         if(atom_gettype(argv) == A_LONG)
         {
-            order = pd_clip_min(atom_getlong(argv), 1);
+            order = pd_clip_minmax(atom_getlong(argv), 1, 10);
         }
         if(argc > 1 && atom_gettype(argv+1) == A_SYM && atom_getsymbol(argv+1) == hoa_sym_maxRe)
         {

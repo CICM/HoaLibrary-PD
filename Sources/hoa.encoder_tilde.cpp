@@ -112,7 +112,7 @@ static void *hoa_encoder_3d_new(t_symbol *s, long argc, t_atom *argv)
     if(x)
     {
         if(atom_gettype(argv) == A_LONG)
-            order = pd_clip_min(atom_getlong(argv), 1);
+            order = pd_clip_minmax(atom_getlong(argv), 1, 10);
         
         x->f_encoder = new Encoder<Hoa3d, t_sample>::Basic(order);
         eobj_dspsetup(x, 3, x->f_encoder->getNumberOfHarmonics());
