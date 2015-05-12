@@ -110,26 +110,33 @@ static void hoa_optim_symbol(t_hoa_optim *x, t_symbol* s)
 
 static void *hoa_optim_new(t_symbol *s, long argc, t_atom *argv)
 {
-    int	order = 1;
+    int	order       = 1;
     t_hoa_optim *x  = (t_hoa_optim *)eobj_new(hoa_optim_class);
-    t_binbuf *d     = binbuf_via_atoms(argc,argv);
-    
-    if(x && d)
+    if(x)
     {
-        if(atom_gettype(argv) == A_LONG)
-            order = pd_clip_min(atom_getlong(argv), 1);
-        
         x->f_mode   = hoa_sym_inPhase;
-        x->f_optim  = new Optim<Hoa2d, t_sample>::InPhase(order);
-        if(argc > 1 && atom_gettype(argv+1) == A_SYM)
+        if(atom_gettype(argv) == A_LONG)
         {
-            hoa_optim_symbol(x, atom_getsymbol(argv+1));
+            order = pd_clip_minmax(atom_getlong(argv), 1, 63);
+        }
+        if(argc > 1 && atom_gettype(argv+1) == A_SYM && atom_getsymbol(argv+1) == hoa_sym_maxRe)
+        {
+            x->f_mode = hoa_sym_maxRe;
+            x->f_optim = new Optim<Hoa2d, t_sample>::MaxRe(order);
+        }
+        else if(argc > 1 && atom_gettype(argv+1) == A_SYM && atom_getsymbol(argv+1) == hoa_sym_basic)
+        {
+            x->f_mode = hoa_sym_basic;
+            x->f_optim = new Optim<Hoa2d, t_sample>::Basic(order);
+        }
+        else
+        {
+            x->f_optim  = new Optim<Hoa2d, t_sample>::InPhase(order);
         }
         
         eobj_dspsetup(x, x->f_optim->getNumberOfHarmonics(), x->f_optim->getNumberOfHarmonics());
         x->f_ins = new t_sample[x->f_optim->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
         x->f_outs = new t_sample[x->f_optim->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
-        ebox_attrprocess_viabinbuf(x, d);
         
         return x;
     }
@@ -181,7 +188,7 @@ static void hoa_optim_3d_perform_maxRe(t_hoa_optim_3d *x, t_object *dsp64, t_sam
     }
     for(long i = 0; i < sampleframes; i++)
     {
-        (static_cast<Optim<Hoa3d, t_sample>::MaxRe *>(x->f_optim))->process(x->f_ins + numins * i, x->f_outs + numouts * i);
+        //(static_cast<Optim<Hoa3d, t_sample>::MaxRe *>(x->f_optim))->process(x->f_ins + numins * i, x->f_outs + numouts * i);
     }
     for(long i = 0; i < numouts; i++)
     {
@@ -197,7 +204,7 @@ static void hoa_optim_3d_perform_inPhase(t_hoa_optim_3d *x, t_object *dsp64, t_s
     }
     for(long i = 0; i < sampleframes; i++)
     {
-        (static_cast<Optim<Hoa3d, t_sample>::InPhase *>(x->f_optim))->process(x->f_ins + numins * i, x->f_outs + numouts * i);
+        //(static_cast<Optim<Hoa3d, t_sample>::InPhase *>(x->f_optim))->process(x->f_ins + numins * i, x->f_outs + numouts * i);
     }
     for(long i = 0; i < numouts; i++)
     {
@@ -241,27 +248,36 @@ static void hoa_optim_3d_symbol(t_hoa_optim_3d *x, t_symbol* s)
 
 static void *hoa_optim_3d_new(t_symbol *s, long argc, t_atom *argv)
 {
-    int	order = 1;
-    t_hoa_optim_3d *x  = (t_hoa_optim_3d *)eobj_new(hoa_optim_3d_class);
-    t_binbuf *d     = binbuf_via_atoms(argc,argv);
+    int	order           = 1;
+    t_symbol* optim     = hoa_sym_inPhase;
+    t_hoa_optim_3d *x   = (t_hoa_optim_3d *)eobj_new(hoa_optim_3d_class);
+    t_binbuf *d         = binbuf_via_atoms(argc,argv);
     
     if(x && d)
     {
+        x->f_mode   = hoa_sym_inPhase;
         if(atom_gettype(argv) == A_LONG)
-            order = pd_clip_min(atom_getlong(argv), 1);
-        
-        x->f_mode   = hoa_sym_inPhase;
-        x->f_optim  = new Optim<Hoa3d, t_sample>::InPhase(order);
-        x->f_mode   = hoa_sym_inPhase;
-        if(argc > 1 && atom_gettype(argv+1) == A_SYM)
         {
-            hoa_optim_3d_symbol(x, atom_getsymbol(argv+1));
+            order = pd_clip_min(atom_getlong(argv), 1);
+        }
+        if(argc > 1 && atom_gettype(argv+1) == A_SYM && atom_getsymbol(argv+1) == hoa_sym_maxRe)
+        {
+            x->f_mode = hoa_sym_maxRe;
+            x->f_optim = new Optim<Hoa3d, t_sample>::MaxRe(order);
+        }
+        else if(argc > 1 && atom_gettype(argv+1) == A_SYM && atom_getsymbol(argv+1) == hoa_sym_basic)
+        {
+            x->f_mode = hoa_sym_basic;
+            x->f_optim = new Optim<Hoa3d, t_sample>::Basic(order);
+        }
+        else
+        {
+            x->f_optim  = new Optim<Hoa3d, t_sample>::InPhase(order);
         }
         
         eobj_dspsetup(x, x->f_optim->getNumberOfHarmonics(), x->f_optim->getNumberOfHarmonics());
         x->f_ins = new t_sample[x->f_optim->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
         x->f_outs = new t_sample[x->f_optim->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
-        ebox_attrprocess_viabinbuf(x, d);
         
         return x;
     }

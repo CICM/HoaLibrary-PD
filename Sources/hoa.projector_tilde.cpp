@@ -27,7 +27,7 @@ static void *hoa_projector_new(t_symbol *s, long argc, t_atom *argv)
 	if (x)
 	{
 		if(atom_gettype(argv) == A_LONG)
-			order = pd_clip_min(atom_getlong(argv), 1);
+			order = pd_clip_minmax(atom_getlong(argv), 1, 63);
         if(atom_gettype(argv+1) == A_LONG)
 			numberOfPlanewaves = pd_clip_min(atom_getlong(argv+1), order * 2 + 1);
 		

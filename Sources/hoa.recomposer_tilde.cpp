@@ -40,7 +40,7 @@ static void *hoa_recomposer_new(t_symbol *s, long argc, t_atom *argv)
         x->f_mode = hoa_sym_fixe;
         x->f_ramp = 100;
 		if(argc && argv && atom_gettype(argv) == A_LONG)
-			order = pd_clip_min(atom_getlong(argv), 1);
+			order = pd_clip_minmax(atom_getlong(argv), 1, 63);
         if(argc > 1 && atom_gettype(argv+1) == A_LONG)
 			numberOfPlanewaves = pd_clip_min(atom_getlong(argv+1), order * 2 + 1);
         if(argc > 2 && atom_gettype(argv+2) == A_SYM)

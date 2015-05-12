@@ -27,7 +27,7 @@ static void *hoa_rotate_new(t_symbol *s, long argc, t_atom *argv)
 	if (x)
 	{
 		if(atom_gettype(argv) == A_LONG)
-			order = pd_clip_min(atom_getlong(argv), 1);
+			order = pd_clip_minmax(atom_getlong(argv), 1, 63);
 		
 		x->f_rotate = new Rotate<Hoa2d, t_sample>(order);
 		
