@@ -249,7 +249,6 @@ static void hoa_optim_3d_symbol(t_hoa_optim_3d *x, t_symbol* s)
 static void *hoa_optim_3d_new(t_symbol *s, long argc, t_atom *argv)
 {
     int	order           = 1;
-    t_symbol* optim     = hoa_sym_inPhase;
     t_hoa_optim_3d *x   = (t_hoa_optim_3d *)eobj_new(hoa_optim_3d_class);
     t_binbuf *d         = binbuf_via_atoms(argc,argv);
     
