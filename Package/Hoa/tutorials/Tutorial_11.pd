@@ -1,0 +1,82 @@
+#N canvas 524 61 904 593 10;
+#X obj 513 41 sig~ 1;
+#X obj 513 358 hoa.2d.scope~ @size 219 219 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
+3 @view 0 @gain 5 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+0.5 0.5 0.5 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 20 16 c.canvasinfos;
+#X obj 19 12 c.loadmess;
+#X obj 2 4 hoa.tuto.header;
+#X obj 44 515 hoa.help.pub;
+#X text 1 84 For further informations about the use of the rotate object
+\, please refer to the help :, f 81;
+#X obj 44 102 hoa.2d.rotate~ 2;
+#X text 1 124 In this tutorial \, we present the underlying operations
+of the rotation., f 81;
+#X obj 197 395 c.dsp~ @size 30 30 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0 0.8;
+#X text 235 403 Dsp on/off;
+#X text 31 190 If m < 0;
+#X text 31 230 else if m > 0;
+#X text 31 270 else if m = 0;
+#X text 45 290 - h'(m) = h(m);
+#X text 45 210 - h'(m) = sin(l*θ) * h(-m) + cos(l*θ) * h(m);
+#X text 45 250 - h'(m) = cos(l*θ) * h(m) - sin(l*θ) * h(-m);
+#X text 1 154 Each new harmonic of order m is the result of a combination
+of the harmonics of the same degree l multiplied by factors that depends
+on the angle of rotation θ :, f 81;
+#X text 1 324 Note : In 2d \, each degree l has 2 harmonics with the
+order m = [-l \, l]. For example \, the degree 1 has the harmonic -1
+and the harmonic 1, f 81;
+#X obj 726 208 phasor~ 0.1;
+#X text 1 54 One of the well-known process in the circular harmonics
+domain is the rotation that allows to turn the sound field on the z
+axis (2d only)., f 81;
+#X obj 513 67 hoa.2d.encoder~ 3, f 31;
+#X obj 513 91 hoa.2d.scope~ @size 189 189 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
+3 @view 0 @gain 5 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+0.5 0.5 0.5 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X text 745 317 look inside;
+#X obj 726 247 *~;
+#X obj 513 316 hoa.2d.process~ 3 hoa.fx.2d.rotate~, f 36;
+#X obj 802 226 hoa.pi 2;
+#X obj 802 195 c.loadmess;
+#X obj 744 290 c.number~ @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X text 746 269 Angle of rotation;
+#X text 711 148 Clean sound field;
+#X text 741 448 Rotated sound field;
+#X connect 0 0 21 0;
+#X connect 2 0 4 0;
+#X connect 3 0 2 0;
+#X connect 19 0 24 0;
+#X connect 21 0 22 0;
+#X connect 21 0 25 0;
+#X connect 21 1 22 1;
+#X connect 21 1 25 1;
+#X connect 21 2 22 2;
+#X connect 21 2 25 2;
+#X connect 21 3 22 3;
+#X connect 21 3 25 3;
+#X connect 21 4 22 4;
+#X connect 21 4 25 4;
+#X connect 21 5 22 5;
+#X connect 21 5 25 5;
+#X connect 21 6 22 6;
+#X connect 21 6 25 6;
+#X connect 24 0 25 7;
+#X connect 24 0 28 0;
+#X connect 25 0 1 0;
+#X connect 25 1 1 1;
+#X connect 25 2 1 2;
+#X connect 25 3 1 3;
+#X connect 25 4 1 4;
+#X connect 25 5 1 5;
+#X connect 25 6 1 6;
+#X connect 26 0 24 1;
+#X connect 27 0 26 0;
+#X coords 0 593 1 592 100 60 0;

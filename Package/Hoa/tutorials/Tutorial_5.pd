@@ -8,7 +8,7 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
 7 @view 0 @gain 100 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X obj 144 284 sig~ 1;
-#X obj 363 307 c.number @size 53 14 @fontname Helvetica @fontweight
+#X obj 363 307 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 0 @max 7 @minmax 0 7 @decimal 0 @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
@@ -73,8 +73,6 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @step
 #X connect 10 0 9 1;
 #X connect 11 0 9 1;
 #X restore 363 337 pd target.pro;
-#X msg 59 402 \; pd dsp 1;
-#X msg 59 442 \; pd dsp 0;
 #X obj 144 362 hoa.2d.process~ 7 hoa.fx.gain~ ------;
 #X text 202 307 Order of decomposition;
 #X obj 363 285 c.loadmess 7;
@@ -86,7 +84,7 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
 #X obj 144 336 hoa.2d.encoder~ 7 -----------------;
 #X obj 554 336 hoa.2d.encoder~ 7 -----------------;
 #X obj 554 362 hoa.2d.wider~ 7 ---------------------;
-#X obj 773 308 c.number @size 53 14 @fontname Helvetica @fontweight
+#X obj 773 308 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
@@ -95,87 +93,91 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X obj 773 281 c.loadmess 1;
 #X text 3 53 The order of decomposition affects the quality of the
 sound field restitution. While the order of decomposition increases
-\, the number of circular harmonics increases and the "spatial resolution"
-of the sound field increases. "Quality" or "relevance" of ambisonic
-processings varies according to the spatial resolution. During the
-encoding of a point source in the circular harmonics domain \, the
-precision with which the listener perceives a point source depends
-on the spatial resolution of the sound field. With a high order of
-decomposition \, the listener can clearly define the direction of a
-point source. It is usual to talk about "angular resolution" to describe
-the precision with which the listener perceives a point source. The
-"spatial resolution" is a broader concept to qualify more varied and
-complex sound field where sound field is not necessarily composed of
-point sources (eg. diffuse sound field)., f 66;
+\, the number of harmonics increases and the "spatial resolution" of
+the sound field increases. "Quality" or "relevance" of ambisonic processings
+varies according to the spatial resolution. During the encoding of
+a point source in the circular harmonics domain \, the precision with
+which the listener perceives a point source depends on the spatial
+resolution of the sound field. With a high order of decomposition \,
+the listener can clearly define the direction of a point source. It
+is usual to talk about "angular resolution" to describe the precision
+with which the listener perceives a point source. The "spatial resolution"
+is a broader concept to qualify more varied and complex sound field
+where sound field is not necessarily composed of point sources (eg.
+diffuse sound field)., f 66;
+#X obj 578 132 c.dsp~ @size 30 30 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0 0.8;
+#X text 615 138 Dsp On/Off;
 #X connect 0 0 2 0;
 #X connect 1 0 0 0;
-#X connect 5 0 17 0;
+#X connect 5 0 15 0;
 #X connect 6 0 7 0;
 #X connect 6 0 8 0;
 #X connect 6 0 9 0;
 #X connect 7 0 6 0;
-#X connect 9 0 12 15;
-#X connect 12 0 4 0;
-#X connect 12 1 4 1;
-#X connect 12 2 4 2;
-#X connect 12 3 4 3;
-#X connect 12 4 4 4;
-#X connect 12 5 4 5;
-#X connect 12 6 4 6;
-#X connect 12 7 4 7;
-#X connect 12 8 4 8;
-#X connect 12 9 4 9;
-#X connect 12 10 4 10;
-#X connect 12 11 4 11;
-#X connect 12 12 4 12;
-#X connect 12 13 4 13;
-#X connect 12 14 4 14;
-#X connect 14 0 6 0;
-#X connect 16 0 18 0;
-#X connect 17 0 12 0;
-#X connect 17 1 12 1;
-#X connect 17 2 12 2;
-#X connect 17 3 12 3;
-#X connect 17 4 12 4;
-#X connect 17 5 12 5;
-#X connect 17 6 12 6;
-#X connect 17 7 12 7;
-#X connect 17 8 12 8;
-#X connect 17 9 12 9;
-#X connect 17 10 12 10;
-#X connect 17 11 12 11;
-#X connect 17 12 12 12;
-#X connect 17 13 12 13;
-#X connect 17 14 12 14;
-#X connect 18 0 19 0;
-#X connect 18 1 19 1;
-#X connect 18 2 19 2;
-#X connect 18 3 19 3;
-#X connect 18 4 19 4;
-#X connect 18 5 19 5;
-#X connect 18 6 19 6;
-#X connect 18 7 19 7;
-#X connect 18 8 19 8;
-#X connect 18 9 19 9;
-#X connect 18 10 19 10;
-#X connect 18 11 19 11;
-#X connect 18 12 19 12;
-#X connect 18 13 19 13;
-#X connect 18 14 19 14;
-#X connect 19 0 15 0;
-#X connect 19 1 15 1;
-#X connect 19 2 15 2;
-#X connect 19 3 15 3;
-#X connect 19 4 15 4;
-#X connect 19 5 15 5;
-#X connect 19 6 15 6;
-#X connect 19 7 15 7;
-#X connect 19 8 15 8;
-#X connect 19 9 15 9;
-#X connect 19 10 15 10;
-#X connect 19 11 15 11;
-#X connect 19 12 15 12;
-#X connect 19 13 15 13;
-#X connect 19 14 15 14;
-#X connect 20 0 19 15;
-#X connect 23 0 20 0;
+#X connect 9 0 10 15;
+#X connect 10 0 4 0;
+#X connect 10 1 4 1;
+#X connect 10 2 4 2;
+#X connect 10 3 4 3;
+#X connect 10 4 4 4;
+#X connect 10 5 4 5;
+#X connect 10 6 4 6;
+#X connect 10 7 4 7;
+#X connect 10 8 4 8;
+#X connect 10 9 4 9;
+#X connect 10 10 4 10;
+#X connect 10 11 4 11;
+#X connect 10 12 4 12;
+#X connect 10 13 4 13;
+#X connect 10 14 4 14;
+#X connect 12 0 6 0;
+#X connect 14 0 16 0;
+#X connect 15 0 10 0;
+#X connect 15 1 10 1;
+#X connect 15 2 10 2;
+#X connect 15 3 10 3;
+#X connect 15 4 10 4;
+#X connect 15 5 10 5;
+#X connect 15 6 10 6;
+#X connect 15 7 10 7;
+#X connect 15 8 10 8;
+#X connect 15 9 10 9;
+#X connect 15 10 10 10;
+#X connect 15 11 10 11;
+#X connect 15 12 10 12;
+#X connect 15 13 10 13;
+#X connect 15 14 10 14;
+#X connect 16 0 17 0;
+#X connect 16 1 17 1;
+#X connect 16 2 17 2;
+#X connect 16 3 17 3;
+#X connect 16 4 17 4;
+#X connect 16 5 17 5;
+#X connect 16 6 17 6;
+#X connect 16 7 17 7;
+#X connect 16 8 17 8;
+#X connect 16 9 17 9;
+#X connect 16 10 17 10;
+#X connect 16 11 17 11;
+#X connect 16 12 17 12;
+#X connect 16 13 17 13;
+#X connect 16 14 17 14;
+#X connect 17 0 13 0;
+#X connect 17 1 13 1;
+#X connect 17 2 13 2;
+#X connect 17 3 13 3;
+#X connect 17 4 13 4;
+#X connect 17 5 13 5;
+#X connect 17 6 13 6;
+#X connect 17 7 13 7;
+#X connect 17 8 13 8;
+#X connect 17 9 13 9;
+#X connect 17 10 13 10;
+#X connect 17 11 13 11;
+#X connect 17 12 13 12;
+#X connect 17 13 13 13;
+#X connect 17 14 13 14;
+#X connect 18 0 17 15;
+#X connect 21 0 18 0;

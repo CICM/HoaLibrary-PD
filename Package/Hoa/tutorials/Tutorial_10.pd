@@ -1,0 +1,310 @@
+#N canvas 223 116 771 639 10;
+#X obj 614 43 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 21 8 c.canvasinfos;
+#X obj 20 4 c.loadmess;
+#X obj 3 3 hoa.tuto.header;
+#X obj 11 577 hoa.help.pub;
+#X obj 396 41 sig~ 1;
+#N canvas 877 209 450 315 maxRe 0;
+#X obj 63 12 inlet;
+#X obj 63 254 outlet;
+#X obj 63 119 /;
+#X obj 63 211 *;
+#X obj 78 140 inlet;
+#X obj 78 162 abs;
+#X obj 78 76 * 2;
+#X obj 78 97 + 2;
+#X obj 78 183 t b f;
+#X obj 63 33 t b f;
+#X obj 63 55 hoa.pi 1;
+#X connect 0 0 9 0;
+#X connect 2 0 3 0;
+#X connect 3 0 1 0;
+#X connect 4 0 5 0;
+#X connect 5 0 8 0;
+#X connect 6 0 7 0;
+#X connect 7 0 2 1;
+#X connect 8 0 3 0;
+#X connect 8 1 3 1;
+#X connect 9 0 10 0;
+#X connect 9 1 6 0;
+#X connect 10 0 2 0;
+#X restore 145 315 pd maxRe, f 12;
+#N canvas 878 180 458 440 inPhase 0;
+#X obj 23 37 inlet;
+#X obj 87 338 outlet;
+#N canvas 412 438 450 300 ! 0;
+#X obj 47 8 inlet;
+#X obj 59 203 outlet;
+#X obj 47 75 until;
+#X obj 47 96 f;
+#X obj 47 117 + 1;
+#X obj 47 137 t f f;
+#X obj 98 122 mod 10;
+#X obj 47 51 t f f;
+#X obj 150 107 sel 0;
+#X obj 111 158 f;
+#X obj 59 182 f;
+#X obj 74 159 * 1;
+#X msg 150 129 1;
+#X obj 47 29 max 1;
+#X connect 0 0 13 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 5 1 11 0;
+#X connect 6 0 3 1;
+#X connect 6 0 8 0;
+#X connect 7 0 2 0;
+#X connect 7 1 6 1;
+#X connect 8 0 2 1;
+#X connect 8 0 12 0;
+#X connect 8 0 10 0;
+#X connect 9 0 11 1;
+#X connect 10 0 1 0;
+#X connect 11 0 9 0;
+#X connect 11 0 10 1;
+#X connect 12 0 9 0;
+#X connect 13 0 7 0;
+#X restore 23 82 pd !;
+#X obj 62 245 +;
+#X obj 42 176 -;
+#X obj 27 244 /;
+#X obj 23 59 t f f f;
+#X obj 23 104 t f f;
+#X obj 27 128 *;
+#X obj 47 288 /;
+#X obj 127 308 spigot 0;
+#X obj 47 310 spigot 0;
+#X obj 172 285 == 0;
+#X obj 92 287 != 0;
+#X msg 127 287 1;
+#X obj 138 261 t b f;
+#X obj 75 37 inlet;
+#X obj 75 59 t b f f f f;
+#X obj 72 220 t b f;
+#X obj 53 149 t b f;
+#N canvas 412 438 450 300 ! 0;
+#X obj 47 8 inlet;
+#X obj 59 203 outlet;
+#X obj 47 75 until;
+#X obj 47 96 f;
+#X obj 47 117 + 1;
+#X obj 47 137 t f f;
+#X obj 98 122 mod 10;
+#X obj 47 51 t f f;
+#X obj 150 107 sel 0;
+#X obj 111 158 f;
+#X obj 59 182 f;
+#X obj 74 159 * 1;
+#X msg 150 129 1;
+#X obj 47 29 max 1;
+#X connect 0 0 13 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 5 1 11 0;
+#X connect 6 0 3 1;
+#X connect 6 0 8 0;
+#X connect 7 0 2 0;
+#X connect 7 1 6 1;
+#X connect 8 0 2 1;
+#X connect 8 0 12 0;
+#X connect 8 0 10 0;
+#X connect 9 0 11 1;
+#X connect 10 0 1 0;
+#X connect 11 0 9 0;
+#X connect 11 0 10 1;
+#X connect 12 0 9 0;
+#X connect 13 0 7 0;
+#X restore 42 198 pd !;
+#N canvas 412 438 450 300 ! 0;
+#X obj 47 8 inlet;
+#X obj 59 203 outlet;
+#X obj 47 75 until;
+#X obj 47 96 f;
+#X obj 47 117 + 1;
+#X obj 47 137 t f f;
+#X obj 98 122 mod 10;
+#X obj 47 51 t f f;
+#X obj 150 107 sel 0;
+#X obj 111 158 f;
+#X obj 59 182 f;
+#X obj 74 159 * 1;
+#X msg 150 129 1;
+#X obj 47 29 max 1;
+#X connect 0 0 13 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 5 1 11 0;
+#X connect 6 0 3 1;
+#X connect 6 0 8 0;
+#X connect 7 0 2 0;
+#X connect 7 1 6 1;
+#X connect 8 0 2 1;
+#X connect 8 0 12 0;
+#X connect 8 0 10 0;
+#X connect 9 0 11 1;
+#X connect 10 0 1 0;
+#X connect 11 0 9 0;
+#X connect 11 0 10 1;
+#X connect 12 0 9 0;
+#X connect 13 0 7 0;
+#X restore 62 266 pd !;
+#X connect 0 0 6 0;
+#X connect 2 0 7 0;
+#X connect 3 0 21 0;
+#X connect 4 0 20 0;
+#X connect 5 0 9 0;
+#X connect 6 0 2 0;
+#X connect 6 1 4 0;
+#X connect 6 2 3 0;
+#X connect 7 0 8 0;
+#X connect 7 1 8 1;
+#X connect 8 0 5 0;
+#X connect 9 0 11 0;
+#X connect 10 0 1 0;
+#X connect 11 0 1 0;
+#X connect 12 0 10 1;
+#X connect 13 0 11 1;
+#X connect 14 0 10 0;
+#X connect 15 0 14 0;
+#X connect 15 1 12 0;
+#X connect 16 0 17 0;
+#X connect 17 0 8 0;
+#X connect 17 1 19 0;
+#X connect 17 2 18 0;
+#X connect 17 3 13 0;
+#X connect 17 4 15 0;
+#X connect 18 0 3 0;
+#X connect 18 1 3 1;
+#X connect 19 0 4 0;
+#X connect 19 1 4 1;
+#X connect 20 0 5 1;
+#X connect 21 0 9 1;
+#X restore 145 497 pd inPhase, f 12;
+#X text 16 285 decomposition order;
+#X text 276 286 harmonic degree;
+#X obj 396 356 hoa.3d.scope~ @size 224 224 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
+2 @view 0 0 0 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 395 99 hoa.3d.scope~ @size 224 224 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
+2 @view 0 0 0 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X text 319 539 Dsp on/off;
+#X obj 286 532 c.dsp~ @size 30 30 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0 0.8;
+#X text 205 347 gain;
+#X obj 395 80 hoa.3d.encoder~ 2 -, f 37;
+#X obj 504 43 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 405 17 Optimizations are similar in 2D and 3D.;
+#X text 2 50 Ambisonics assume that there is one listener at the center
+of a perfect circle or sphere. Such situation are very rare \, in fact
+the loudspeakers arrangement is never optimal and the audience is generally
+spreads all over the sound space. To compensate the artefacts due to
+these restrictions \, several optimizations are offered :;
+#X text 8 141 - The basic optimization does nothing. It isn't the optimal
+choice for the spatialization of punctual sources but it should be
+preferred for diffuse sound fields.;
+#X text 5 383 - The inPhase optimization filters the signal for an
+audience which covers all the sound space. The gain g for each harmonic
+depends on the order of decompostion N and the degree l.;
+#X text 8 192 - The maxRe optimization filters the signal for an audience
+confined to the center of the sound space. The gain g for each harmonic
+depends on the order of decompostion N and the degree l (which is the
+absolute value of the index).;
+#X obj 145 286 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 1 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 214 286 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 1 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 216 284 max \$1;
+#X obj 145 348 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 16 465 decomposition order;
+#X text 276 466 harmonic degree;
+#X obj 145 466 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 1 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 214 466 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 1 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 216 464 max \$1;
+#X text 205 527 gain;
+#X obj 145 528 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 8 261 g[l] = cos(π / (N * 2 + 2) * l);
+#X text 5 440 g[l] = N!^2 / (N-l)! * (N+l)!;
+#X obj 629 264 c.menu @size 100 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @hover 0 @items basic maxRe inPhase @states 0 0 0 @bgcolor 0.75
+0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 629 232 c.loadmess set 1;
+#X obj 395 324 hoa.3d.process~ 2 hoa.fx.optim~ harmonics inPhase,
+f 38;
+#X connect 0 0 15 2;
+#X connect 1 0 3 0;
+#X connect 2 0 1 0;
+#X connect 5 0 15 0;
+#X connect 6 0 25 0;
+#X connect 7 0 32 0;
+#X connect 15 0 11 0;
+#X connect 15 0 37 0;
+#X connect 15 1 11 1;
+#X connect 15 1 37 1;
+#X connect 15 2 11 2;
+#X connect 15 2 37 2;
+#X connect 15 3 11 3;
+#X connect 15 3 37 3;
+#X connect 15 4 11 4;
+#X connect 15 4 37 4;
+#X connect 15 5 11 5;
+#X connect 15 5 37 5;
+#X connect 15 6 11 6;
+#X connect 15 6 37 6;
+#X connect 15 7 11 7;
+#X connect 15 7 37 7;
+#X connect 15 8 11 8;
+#X connect 15 8 37 8;
+#X connect 16 0 15 1;
+#X connect 22 0 6 0;
+#X connect 22 0 24 0;
+#X connect 23 0 6 1;
+#X connect 24 0 23 0;
+#X connect 28 0 30 0;
+#X connect 28 0 7 0;
+#X connect 29 0 7 1;
+#X connect 30 0 29 0;
+#X connect 35 1 37 9;
+#X connect 36 0 35 0;
+#X connect 37 0 10 0;
+#X connect 37 1 10 1;
+#X connect 37 2 10 2;
+#X connect 37 3 10 3;
+#X connect 37 4 10 4;
+#X connect 37 5 10 5;
+#X connect 37 6 10 6;
+#X connect 37 7 10 7;
+#X connect 37 8 10 8;

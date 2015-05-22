@@ -1,0 +1,90 @@
+#N canvas 15 102 971 619 10;
+#X obj 21 11 c.canvasinfos;
+#X obj 20 7 c.loadmess;
+#X obj 3 6 hoa.tuto.header;
+#X obj 416 6 hoa.help.pub;
+#X obj 141 388 hoa.2d.scope~ @size 225 225 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
+1 @view 0 @gain 100 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 250 276 sig~ 1;
+#X obj 553 388 hoa.2d.scope~ @size 225 225 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
+7 @view 0 @gain 100 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 553 276 sig~ 1;
+#X obj 772 300 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 381 285 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 200 277 Source;
+#X obj 141 349 *~ 1;
+#X obj 360 351 *~ 1;
+#X obj 250 351 *~ 0;
+#X obj 271 326 sin;
+#X obj 381 326 cos;
+#X text 379 263 Azimuth in radian;
+#X text 147 370 Harmonic 0;
+#X text 257 370 Harmonic -1;
+#X text 367 370 Harmonic 1;
+#X text 515 171 if m < 0;
+#X text 515 201 else;
+#X obj 553 354 hoa.2d.process~ 7 hoa.syn.encoder~ --;
+#X text 660 301 Azimuth in radian;
+#X text 785 355 Look inside;
+#X obj 532 73 c.dsp~ @size 30 30 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0 0.8;
+#X text 515 131 For high order of decomposition \, the harmonics Y
+are defined by :;
+#X text 2 55 With Ambisonics \, the encoding operation gives the spatials
+informations to a sound. Thus \, the sound can be listened as coming
+from a point of the space. Encoding a source in the circular harmonics
+domain amounts to synthesize the circular harmonics Y depending on
+an azimuth θ and an order of decomposition N., f 65;
+#X text 573 79 Dsp On/Off;
+#X text 3 151 For an order of decomposition 1 \, the sound field is
+composed by 3 circular harmonics. The harmonics depends on the azimuth
+θ and the signal S:;
+#X text 515 236 With l the degree \, m the (azimuthal) order \, θ
+the azimuth and S the signal to encode.;
+#X text 525 186 Y[l \, m](θ) = sin(l*θ) * S;
+#X text 525 216 Y[l \, m](θ) = cos(l*θ) * S;
+#X text 3 201 The harmonic 0 0 is always equal to S;
+#X text 3 216 The harmonic 1 -1 is equal to S times the sinus of the
+angle θ., f 35;
+#X text 3 244 The harmonic 1 1 is equal to S times the cosinus of the
+angle θ., f 35;
+#X connect 0 0 2 0;
+#X connect 1 0 0 0;
+#X connect 5 0 11 0;
+#X connect 5 0 13 0;
+#X connect 5 0 12 0;
+#X connect 7 0 22 0;
+#X connect 8 0 22 1;
+#X connect 9 0 14 0;
+#X connect 9 0 15 0;
+#X connect 11 0 4 0;
+#X connect 12 0 4 2;
+#X connect 13 0 4 1;
+#X connect 14 0 13 1;
+#X connect 15 0 12 1;
+#X connect 22 0 6 0;
+#X connect 22 1 6 1;
+#X connect 22 2 6 2;
+#X connect 22 3 6 3;
+#X connect 22 4 6 4;
+#X connect 22 5 6 5;
+#X connect 22 6 6 6;
+#X connect 22 7 6 7;
+#X connect 22 8 6 8;
+#X connect 22 9 6 9;
+#X connect 22 10 6 10;
+#X connect 22 11 6 11;
+#X connect 22 12 6 12;
+#X connect 22 13 6 13;
+#X connect 22 14 6 14;

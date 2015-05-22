@@ -1,0 +1,286 @@
+#N canvas 69 27 1084 736 10;
+#X obj 22 9 c.canvasinfos;
+#X obj 21 5 c.loadmess;
+#X obj 4 4 hoa.tuto.header;
+#X obj 20 649 hoa.help.pub;
+#X obj 471 117 hoa.2d.scope~ @size 225 225 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
+7 @view 0 @gain 100 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 471 33 sig~ 1;
+#X obj 471 93 hoa.2d.process~ 7 hoa.tuto.gain~ ----;
+#X obj 690 46 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min 0 @max 14 @minmax 0 14 @decimal 6 @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 673 46 c.incdec @size 15 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @step
+1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @arcolor 0 0 0 1
+;
+#N canvas 0 50 496 402 map.deg 0;
+#X obj 249 320 outlet;
+#X obj 248 202 / 2;
+#X obj 251 228 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0.5 256;
+#X obj 246 172 + 1;
+#X obj 319 180 % 2;
+#X obj 256 295 int;
+#X obj 255 269 *;
+#X obj 361 205 sel 1;
+#X msg 390 248 -1;
+#X msg 343 242 1;
+#X obj 236 87 inlet;
+#X obj 236 117 t f f;
+#X connect 1 0 2 0;
+#X connect 2 0 6 0;
+#X connect 3 0 1 0;
+#X connect 4 0 7 0;
+#X connect 5 0 0 0;
+#X connect 6 0 5 0;
+#X connect 7 0 8 0;
+#X connect 7 1 9 0;
+#X connect 8 0 6 1;
+#X connect 9 0 6 1;
+#X connect 10 0 11 0;
+#X connect 11 0 3 0;
+#X connect 11 1 4 0;
+#X restore 677 46 pd map.deg;
+#X obj 691 46 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min -7 @max 7 @minmax -7 7 @decimal 0 @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 690 22 c.loadmess 0;
+#N canvas 0 50 450 300 target.pro 0;
+#X obj 259 47 inlet;
+#X obj 279 204 outlet;
+#X obj 261 85 t f b;
+#X msg 320 110 target all \, 0;
+#X obj 261 151 pack f f;
+#X msg 261 177 target \$1 \$2 \, 1;
+#X obj 260 106 t f f;
+#X obj 260 126 abs;
+#X connect 0 0 2 0;
+#X connect 2 0 6 0;
+#X connect 2 1 3 0;
+#X connect 3 0 1 0;
+#X connect 4 0 5 0;
+#X connect 5 0 1 0;
+#X connect 6 0 7 0;
+#X connect 6 1 4 1;
+#X connect 7 0 4 0;
+#X restore 690 68 pd target.pro;
+#X text 529 46 Order of the harmonics;
+#X text 3 53 In Ambisonics \, the harmonics are the functions used
+to decompose the space and thus to represent the sounds and their spatial
+informations., f 60;
+#X text 3 123 This functions are circular in 2d and spherical in 3d.
+That means their takes angles as variables and the result of the functions
+differs according to the value of the angles. This angles are the azimuth
+θ for the circular harmonics or the azimuth θ and the elevation φ
+for the spherical harmonics.;
+#X text 3 478 Examples :, f 59;
+#X text 3 532 [0 \, 0] \, [1 \, -1] \, [1 \, 1] \, [2 \, -2] \, [2
+\, 2] \, ...[7 \, -7] \, [7 \, 7];
+#X text 3 592 [0 \, 0] \, [1 \, -1] \, [1 \, 0] \, [1 \, 1] \, [2 \,
+-2] \, [2 \, -1] \, [2 \, 0] \, [2 \, 1] \, [2 \, 2] \, ...[3 \, -1]
+\, [3 \, 0] \, [3 \, 1] \, [3 \, 2] \, [3 \, 3], f 60;
+#X obj 775 253 c.dsp~ @size 30 30 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0 0.8;
+#X text 469 6 Representation of the circular harmonics;
+#X obj 471 383 sig~ 1;
+#X obj 671 424 c.incdec @size 15 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @step
+1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @arcolor 0 0 0 1
+;
+#X obj 689 424 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min -0 @max 0 @minmax -0 0 @decimal 0 @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#N canvas 0 50 450 300 target.pro 0;
+#X obj 259 47 inlet;
+#X obj 279 204 outlet;
+#X obj 261 85 t f b;
+#X msg 335 120 target all \, 0;
+#X obj 261 151 pack f f;
+#X msg 261 177 target \$1 \$2 \, 1;
+#X obj 309 47 inlet;
+#X obj 312 85 t b f b;
+#X connect 0 0 2 0;
+#X connect 2 0 4 0;
+#X connect 2 1 3 0;
+#X connect 3 0 1 0;
+#X connect 4 0 5 0;
+#X connect 5 0 1 0;
+#X connect 6 0 7 0;
+#X connect 7 0 4 0;
+#X connect 7 1 4 1;
+#X connect 7 2 3 0;
+#X restore 690 448 pd target.pro;
+#X text 759 425 Order of the harmonics;
+#X text 469 356 Representation of the spherical harmonics;
+#X obj 471 463 hoa.3d.process~ 7 hoa.tuto.gain~ ----;
+#X obj 471 487 hoa.3d.scope~ @size 225 225 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive tuto3scope @send (null)
+@order 7 @view 0 9 0 @gain 20 @interval 100 @bgcolor 0.76 0.76 0.76
+1 @bdcolor 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 689 400 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min 0 @max 7 @minmax 0 7 @decimal 6 @bgcolor 0.75 0.75 0.75
+1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 671 400 c.incdec @size 15 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @step
+1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @arcolor 0 0 0 1
+;
+#X obj 689 376 c.loadmess 0;
+#X msg 686 423 max \$1;
+#X msg 681 424 min \$1;
+#X obj 688 423 * -1;
+#X text 759 405 Degree of the harmonics;
+#X obj 734 625 c.prepend view;
+#X obj 734 651 s tuto3scope;
+#X obj 734 576 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 804 576 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 874 576 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 734 551 Rotation around the axes x \, y and z :;
+#X obj 734 602 c.pak f f f, f 24;
+#X text 813 260 Dsp On/Off;
+#X text 3 243 The harmonics depends on a degree l and an (azimuthal)
+order m. For the circular harmonics \, each degree l includes 2 harmonics
+witch the orders are m = -l and m = l (the degree 0 has 1 harmonic
+with the order 0). For the spherical harmonics \, each degree l has
+2l+1 harmonics witch the orders go from -l to l. In fact \, the circular
+harmonics are particular cases of the spherical harmonics.;
+#X text 3 383 The decomposition of a sound field in the harmonics domain
+is performed according to an order of decomposition N. A given decomposition
+order N includes all the degrees from 0 to N. Thus \, in 2d \, the
+sound field is composed by 2N+1 circular harmonics and in 3d \, the
+sound field is compsed by (N+1)^2 spherical harmonics.;
+#X text 3 492 In 2d \, for an order of decomposition N = 7 \, there
+are 15 harmonics sorted by their degrees and their orders : [degree
+\, order];
+#X text 3 552 In 3d \, for an order of decomposition N = 3 \, there
+are 12 harmonics sorted by their degrees and their orders : [degree
+\, order];
+#X obj 871 127 hoa.tools.2d;
+#X text 797 103 Order degree and channels numbering for 2D.;
+#X text 797 163 Order degree and channels numbering for 3D.;
+#X obj 871 187 hoa.tools.3d;
+#X connect 0 0 2 0;
+#X connect 1 0 0 0;
+#X connect 5 0 6 0;
+#X connect 6 0 4 0;
+#X connect 6 1 4 1;
+#X connect 6 2 4 2;
+#X connect 6 3 4 3;
+#X connect 6 4 4 4;
+#X connect 6 5 4 5;
+#X connect 6 6 4 6;
+#X connect 6 7 4 7;
+#X connect 6 8 4 8;
+#X connect 6 9 4 9;
+#X connect 6 10 4 10;
+#X connect 6 11 4 11;
+#X connect 6 12 4 12;
+#X connect 6 13 4 13;
+#X connect 6 14 4 14;
+#X connect 7 0 8 0;
+#X connect 7 0 9 0;
+#X connect 8 0 7 0;
+#X connect 9 0 10 0;
+#X connect 10 0 12 0;
+#X connect 11 0 7 0;
+#X connect 12 0 6 1;
+#X connect 21 0 27 0;
+#X connect 22 0 23 0;
+#X connect 23 0 22 0;
+#X connect 23 0 24 1;
+#X connect 24 0 27 1;
+#X connect 27 0 28 0;
+#X connect 27 1 28 1;
+#X connect 27 2 28 2;
+#X connect 27 3 28 3;
+#X connect 27 4 28 4;
+#X connect 27 5 28 5;
+#X connect 27 6 28 6;
+#X connect 27 7 28 7;
+#X connect 27 8 28 8;
+#X connect 27 9 28 9;
+#X connect 27 10 28 10;
+#X connect 27 11 28 11;
+#X connect 27 12 28 12;
+#X connect 27 13 28 13;
+#X connect 27 14 28 14;
+#X connect 27 15 28 15;
+#X connect 27 16 28 16;
+#X connect 27 17 28 17;
+#X connect 27 18 28 18;
+#X connect 27 19 28 19;
+#X connect 27 20 28 20;
+#X connect 27 21 28 21;
+#X connect 27 22 28 22;
+#X connect 27 23 28 23;
+#X connect 27 24 28 24;
+#X connect 27 25 28 25;
+#X connect 27 26 28 26;
+#X connect 27 27 28 27;
+#X connect 27 28 28 28;
+#X connect 27 29 28 29;
+#X connect 27 30 28 30;
+#X connect 27 31 28 31;
+#X connect 27 32 28 32;
+#X connect 27 33 28 33;
+#X connect 27 34 28 34;
+#X connect 27 35 28 35;
+#X connect 27 36 28 36;
+#X connect 27 37 28 37;
+#X connect 27 38 28 38;
+#X connect 27 39 28 39;
+#X connect 27 40 28 40;
+#X connect 27 41 28 41;
+#X connect 27 42 28 42;
+#X connect 27 43 28 43;
+#X connect 27 44 28 44;
+#X connect 27 45 28 45;
+#X connect 27 46 28 46;
+#X connect 27 47 28 47;
+#X connect 27 48 28 48;
+#X connect 27 49 28 49;
+#X connect 27 50 28 50;
+#X connect 27 51 28 51;
+#X connect 27 52 28 52;
+#X connect 27 53 28 53;
+#X connect 27 54 28 54;
+#X connect 27 55 28 55;
+#X connect 27 56 28 56;
+#X connect 27 57 28 57;
+#X connect 27 58 28 58;
+#X connect 27 59 28 59;
+#X connect 27 60 28 60;
+#X connect 27 61 28 61;
+#X connect 27 62 28 62;
+#X connect 27 63 28 63;
+#X connect 29 0 30 0;
+#X connect 29 0 24 0;
+#X connect 29 0 32 0;
+#X connect 29 0 34 0;
+#X connect 30 0 29 0;
+#X connect 31 0 29 0;
+#X connect 31 0 23 0;
+#X connect 32 0 23 0;
+#X connect 33 0 23 0;
+#X connect 34 0 33 0;
+#X connect 36 0 37 0;
+#X connect 38 0 42 0;
+#X connect 39 0 42 1;
+#X connect 40 0 42 2;
+#X connect 42 0 36 0;
