@@ -1,4 +1,4 @@
-#N canvas 225 205 1037 616 10;
+#N canvas 181 71 1038 633 10;
 #X obj 416 273 sig~ 1;
 #X obj 571 99 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname

@@ -1,12 +1,4 @@
 #N canvas 318 92 896 585 10;
-#X text 28 468 hoalibrary | Julien Colafrancesco \, Pierre Guillot
-& Eliott Paris © 2012-2013 CICM / Universite Paris 8;
-#X msg 432 51 \; pd dsp 1;
-#X msg 496 51 \; pd dsp 0;
-#X text 9 47 hoa.thisprocess~ retreive the configuration used by hoa.process~
-and the arguments and the attributes of the patcher.;
-#X text 12 120 The 1st outlet outputs the hoa patcher instance arguments.
-;
 #X text 12 140 The 2nd outlet outputs the hoa.process~ mode.;
 #X obj 18 222 hoa.2d.process~ 1 hoa.thisprocexample~ harmonics;
 #X msg 18 182 open all;
@@ -16,24 +8,21 @@ and the arguments and the attributes of the patcher.;
 #X text 83 196 Mode : 2d - harmonics;
 #X msg 18 332 open all;
 #X msg 18 402 open all;
-#X text 83 184 Args : decomposition order - harmonic index;
 #X text 83 254 Args : nuber of channels channels - channel index;
-#X text 83 334 Args : decomposition order - harmonic band - harmonic
-index;
 #X text 83 346 Mode : 3d - harmonics;
 #X text 83 416 Mode : 3d - planewaves;
 #X text 83 404 Args : nuber of channels channels - channel index;
-#X text 453 120 The 3rd outlet outputs the pather arguments.;
-#X text 453 140 The 4th outlet outputs the patcher attributes.;
-#X msg 458 182 open 1;
-#X obj 458 222 hoa.2d.process~ 1 hoa.thisprocexample2~ planewaves This
+#X text 463 120 The 3rd outlet outputs the pather arguments.;
+#X text 463 140 The 4th outlet outputs the patcher attributes.;
+#X msg 468 182 open 1;
+#X obj 468 222 hoa.2d.process~ 1 hoa.thisprocexample2~ planewaves This
 is a rock example @artist Jimi Hendrix @album Electric Ladyland @song
 Voodoo Chile;
-#X msg 458 322 open 1;
-#X obj 458 362 hoa.2d.process~ 1 hoa.thisprocexample2~ planewaves;
-#X text 513 184 After the mode \, add arguments and after arguments
+#X msg 468 322 open 1;
+#X obj 468 362 hoa.2d.process~ 1 hoa.thisprocexample2~ planewaves;
+#X text 523 184 After the mode \, add arguments and after arguments
 \, add the attributes that are defined by a key "@attr".;
-#X text 513 324 Without arguments or attributes typed in hoa.process~
+#X text 523 324 Without arguments or attributes typed in hoa.process~
 \, this.process~ use the default ones if there are defined.;
 #X text 453 460 The hoa.thisprocess~ uses of this patch are examples
 made to show how it works. You would prefer to look at the real uses
@@ -45,11 +34,19 @@ of hoa.process~.;
 #X obj 5 4 hoa.help.header;
 #X obj 244 516 hoa.help.pub;
 #X obj 433 4 hoa.help.also;
-#X connect 7 0 6 0;
-#X connect 8 0 9 0;
-#X connect 12 0 30 0;
-#X connect 13 0 29 0;
-#X connect 22 0 23 0;
-#X connect 24 0 25 0;
-#X connect 31 0 33 0;
-#X connect 32 0 31 0;
+#X text 83 184 Args : decomposition order - harmonic degree - harmonics
+order, f 62;
+#X text 83 334 Args : decomposition order - harmonic degree - harmonic
+order, f 61;
+#X text 9 47 hoa.thisprocess~ retreives the configuration used by hoa.process~
+\, the arguments and the attributes of the patcher.;
+#X text 12 120 The 1st outlet outputs the hoa.process~ instance arguments.
+;
+#X connect 2 0 1 0;
+#X connect 3 0 4 0;
+#X connect 7 0 23 0;
+#X connect 8 0 22 0;
+#X connect 15 0 16 0;
+#X connect 17 0 18 0;
+#X connect 24 0 26 0;
+#X connect 25 0 24 0;

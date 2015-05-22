@@ -1,7 +1,7 @@
 #N canvas 123 167 456 343 10;
 #X obj 36 137 c.prepend set;
 #X obj 149 137 c.prepend set;
-#X msg 36 164 1 0;
+#X msg 36 164 1 0 0;
 #X obj 297 14 hoa.in extra 1;
 #X obj 25 248 c.blackboard @size 295 57 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @chalkmode
@@ -10,9 +10,9 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @chalkmode
 #X text 41 115 Hoa args output;
 #X obj 26 9 c.loadmess;
 #X msg 149 164 2d harmonics;
-#N canvas 594 70 810 697 hoa_display_mess 0;
+#N canvas 172 61 975 685 hoa_display_mess 1;
 #X obj 357 21 inlet;
-#N canvas 778 159 450 300 hoa.mode.sel 0;
+#N canvas 778 159 450 300 hoa.mode.sel 1;
 #X obj 85 62 unpack s s;
 #X obj 139 90 sel harmonics planewaves;
 #X obj 39 90 sel 2d 3d, f 14;
@@ -43,13 +43,13 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @chalkmode
 #X obj -17 20 inlet;
 #X obj 293 484 outlet;
 #X obj 103 122 spigot 0;
-#X msg 442 177 10 10 This patcher is used in the circular harmonics
+#X msg 493 227 10 10 This patcher is used in the circular harmonics
 domain.;
-#X msg 443 227 10 10 This patcher is used in the spherical harmonics
-domain.;
-#X msg 491 297 10 10 This patcher is used in the 2D plane waves domain.
+#X msg 493 247 10 10 This patcher is used in the spherical harmonics
+domain., f 61;
+#X msg 493 267 10 10 This patcher is used in the 2D plane waves domain.
 ;
-#X msg 493 368 10 10 This patcher in the 3D plane waves domain.;
+#X msg 493 288 10 10 This patcher in the 3D plane waves domain.;
 #X obj 148 98 f 1;
 #X msg 103 188 10 30 of the harmonic \$2 and the decomposition order
 \$1.;
