@@ -386,8 +386,10 @@ static void hoa_thisprocess_click(t_hoa_thisprocess *x)
 static void hoa_thisprocess_free(t_hoa_thisprocess *x)
 {
     int i;
-    if(x->f_argc)
+    if(x->f_argc && x->f_args)
+    {
         free(x->f_args);
+    }
     if(x->f_n_attrs)
     {
         for(i = 0; i < x->f_n_attrs; i++)
