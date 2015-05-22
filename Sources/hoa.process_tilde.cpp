@@ -450,7 +450,10 @@ public:
         dsp_context_removecanvas(m_context);
         if(hasNormalSignalInputs())
         {
-            if(!in) return true;
+            if(!in)
+            {
+                return true;
+            }
             for(size_t i = 0; i < m_ins_sig.size(); i++)
             {
                 m_ins_sig[i]->f_signal = in;
@@ -458,13 +461,18 @@ public:
         }
         for(size_t i = 0; i < m_ins_extra_sig.size(); i++)
         {
-            size_t index = m_ins_extra_sig[i]->f_extra-1;
-            if(index >= ixtra.size()) return true;
+            if(m_ins_extra_sig[i]->f_extra > ixtra.size() || !ixtra[m_ins_extra_sig[i]->f_extra-1])
+            {
+                return true;
+            }
             m_ins_extra_sig[i]->f_signal = ixtra[m_ins_extra_sig[i]->f_extra-1];
         }
         if(hasNormalSignalOutputs())
         {
-            if(!out) return true;
+            if(!out)
+            {
+               return true;
+            }
             for(size_t i = 0; i < m_outs_sig.size(); i++)
             {
                 m_outs_sig[i]->f_signal = out;
@@ -472,8 +480,8 @@ public:
         }
         for(size_t i = 0; i < m_outs_extra_sig.size(); i++)
         {
-            size_t index = m_outs_extra_sig[i]->f_extra-1;
-            if(index >= oxtra.size()) return true;
+            size_t index = m_outs_extra_sig[i]->f_extra;
+            if(index > oxtra.size()) return true;
             m_outs_extra_sig[i]->f_signal = oxtra[m_outs_extra_sig[i]->f_extra-1];
         }
         
@@ -499,17 +507,17 @@ typedef struct _hoa_process
 
 static t_eclass *hoa_process_class;
 
-void hoa_process_perform(t_hoa_process *x, t_object *dsp, float **inps, long ni, float **outs, long nouts, long sampleframe, long f,void *up)
+static void hoa_process_perform(t_hoa_process *x, t_object *dsp, float **inps, long ni, float **outs, long nouts, long sampleframe, long f,void *up)
 {
     for(int i = 0; i < nouts; i++)
     {
-        memcpy(outs[i], x->f_outlets_signals[i], sampleframe * sizeof(float));
-        memset(x->f_outlets_signals[i], 0, sampleframe * sizeof(float));
+        memcpy(outs[i], x->f_outlets_signals[i], sampleframe * sizeof(t_sample));
+        memset(x->f_outlets_signals[i], 0, sampleframe * sizeof(t_sample));
     }
 }
 
 
-void hoa_process_dsp(t_hoa_process *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
+static void hoa_process_dsp(t_hoa_process *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
 {
 #ifndef _LINUX
     signal_cleanup();
@@ -523,6 +531,10 @@ void hoa_process_dsp(t_hoa_process *x, t_object *dsp, short *count, double sampl
     ulong max_sig_ins_extra     = 0ul;
     ulong max_sig_outs_extra    = 0ul;
     
+    for(ulong i = 0; i < x->f_outlets_signals.size(); i++)
+    {
+        memset(x->f_outlets_signals[i], 0, HOA_MAXBLKSIZE * sizeof(t_sample));
+    }
     for(ulong i = 0; i < x->f_instances.size(); i++)
     {
         have_sig_ins = max(have_sig_ins, x->f_instances[i]->hasNormalSignalInputs());
@@ -543,6 +555,10 @@ void hoa_process_dsp(t_hoa_process *x, t_object *dsp, short *count, double sampl
     }
     else
     {
+        for(ulong i = 0; i < x->f_instances.size(); i++)
+        {
+            ins.push_back(NULL);
+        }
         for(ulong i = 0; i < max_sig_ins_extra; i++)
         {
             ixtra.push_back(eobj_getsignalinput(x, i));
@@ -561,24 +577,29 @@ void hoa_process_dsp(t_hoa_process *x, t_object *dsp, short *count, double sampl
     }
     else
     {
+        for(ulong i = 0; i < x->f_instances.size(); i++)
+        {
+            outs.push_back(NULL);
+        }
         for(ulong i = 0; i < max_sig_outs_extra; i++)
         {
             oxtra.push_back(x->f_outlets_signals[i]);
         }
     }
     
-    for(size_t i = 0; i < x->f_instances.size(); i++)
+    for(ulong i = 0; i < x->f_instances.size(); i++)
     {
         if(x->f_instances[i]->prepareDsp(ins[i], ixtra, outs[i], oxtra))
         {
             pd_error(x, "hoa.process~ : Error while compiling the dsp chain.");
             return;
         }
+        
     }
     object_method(dsp, gensym("dsp_add"), x, (method)hoa_process_perform, 0, NULL);
 }
 
-void hoa_process_click(t_hoa_process *x)
+static void hoa_process_click(t_hoa_process *x)
 {
     if(!x->f_instances.empty())
         x->f_instances[0]->show();
@@ -653,7 +674,7 @@ static void hoa_process_target(t_hoa_process *x, t_symbol* s, int argc, t_atom* 
     }
 }
 
-void hoa_process_bang(t_hoa_process *x)
+static void hoa_process_bang(t_hoa_process *x)
 {
     long index = eobj_getproxy(x);
     if(x->f_have_ins && index < x->f_instances.size())
@@ -677,7 +698,7 @@ void hoa_process_bang(t_hoa_process *x)
     }
 }
 
-void hoa_process_float(t_hoa_process *x, float f)
+static void hoa_process_float(t_hoa_process *x, float f)
 {
     long index = eobj_getproxy(x);
     if(x->f_have_ins && index < x->f_instances.size())
@@ -701,7 +722,7 @@ void hoa_process_float(t_hoa_process *x, float f)
     }
 }
 
-void hoa_process_symbol(t_hoa_process *x, t_symbol* s)
+static void hoa_process_symbol(t_hoa_process *x, t_symbol* s)
 {
     long index = eobj_getproxy(x);
     if(x->f_have_ins && index < x->f_instances.size())
@@ -725,7 +746,7 @@ void hoa_process_symbol(t_hoa_process *x, t_symbol* s)
     }
 }
 
-void hoa_process_list(t_hoa_process *x, t_symbol* s, int argc, t_atom* argv)
+static void hoa_process_list(t_hoa_process *x, t_symbol* s, int argc, t_atom* argv)
 {
     long index = eobj_getproxy(x);
     if(x->f_have_ins && index < x->f_instances.size())
@@ -749,7 +770,7 @@ void hoa_process_list(t_hoa_process *x, t_symbol* s, int argc, t_atom* argv)
     }
 }
 
-void hoa_process_anything(t_hoa_process *x, t_symbol* s, int argc, t_atom* argv)
+static void hoa_process_anything(t_hoa_process *x, t_symbol* s, int argc, t_atom* argv)
 {
     long index = eobj_getproxy(x);
     if(x->f_have_ins && index < x->f_instances.size())
