@@ -480,8 +480,10 @@ public:
         }
         for(size_t i = 0; i < m_outs_extra_sig.size(); i++)
         {
-            size_t index = m_outs_extra_sig[i]->f_extra;
-            if(index > oxtra.size()) return true;
+            if(m_outs_extra_sig[i]->f_extra > oxtra.size() || !oxtra[m_outs_extra_sig[i]->f_extra-1])
+            {
+                return true;
+            }
             m_outs_extra_sig[i]->f_signal = oxtra[m_outs_extra_sig[i]->f_extra-1];
         }
         
@@ -893,13 +895,14 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
                 x->f_domain    = hoa_sym_planewaves;
                 x->f_dimension = hoa_sym_2d;
                 ulong argument  = pd_clip_minmax(atom_getlong(argv), 1, HOA_MAX_PLANEWAVES);
+                x->f_instances.resize(argument);
                 
                 for(ulong i = 0; i < x->f_instances.size(); i++)
                 {
                     x->f_instances[i] = new (std::nothrow) ProcessInstance(eobj_getcanvas(x),
                                                             name,
                                                             dir,
-                                                            hoa_sym_harmonics,
+                                                            hoa_sym_planewaves,
                                                             hoa_sym_2d,
                                                             argument,
                                                             i+1,
@@ -918,14 +921,15 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
                 x->f_domain    = hoa_sym_planewaves;
                 x->f_dimension = hoa_sym_3d;
                 ulong argument = pd_clip_minmax(atom_getlong(argv), 1, HOA_MAX_PLANEWAVES);
+                x->f_instances.resize(argument);
                 
                 for(ulong i = 0; i < x->f_instances.size(); i++)
                 {
                     x->f_instances[i] = new (std::nothrow) ProcessInstance(eobj_getcanvas(x),
                                                             name,
                                                             dir,
-                                                            hoa_sym_harmonics,
-                                                            hoa_sym_2d,
+                                                            hoa_sym_planewaves,
+                                                            hoa_sym_3d,
                                                             argument,
                                                             i+1,
                                                             i+1,
