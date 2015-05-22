@@ -131,7 +131,7 @@ private:
             }
             else if(eobj_getclassname(y) == hoa_sym_hoa_in)
             {
-                t_hoa_in *inlet = (t_hoa_in *)y;
+                t_hoa_in* inlet = (t_hoa_in *)y;
                 if(inlet->f_extra)
                     m_ins_extra.push_back(inlet);
                 else
@@ -155,7 +155,7 @@ private:
             }
             else if(eobj_getclassname(y) == hoa_sym_hoa_out_tilde)
             {
-                t_hoa_out_tilde * outlet_sig = (t_hoa_out_tilde *)y;
+                t_hoa_out_tilde* outlet_sig = (t_hoa_out_tilde *)y;
                 if(outlet_sig->f_extra)
                     m_outs_extra_sig.push_back(outlet_sig);
                 else
@@ -521,9 +521,7 @@ static void hoa_process_perform(t_hoa_process *x, t_object *dsp, float **inps, l
 
 static void hoa_process_dsp(t_hoa_process *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
 {
-#ifndef _LINUX
     signal_cleanup();
-#endif
     vector<t_sample*> ins;
     vector<t_sample*> ixtra;
     vector<t_sample*> outs;
@@ -827,7 +825,7 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
     if(x)
     {
         char dirbuf[MAXPDSTRING], *nameptr;
-        int state = canvas_suspend_dsp();
+        
         x->f_target = _hoa_process::target_all;
         if(canvas_open(canvas_getcurrent(), atom_getsym(argv+1)->s_name, ".pd", dirbuf, &nameptr, MAXPDSTRING, 0) >= 0)
         {
@@ -1006,11 +1004,10 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
             t_outlet* outlet = outlet_new((t_object *)x, &s_anything);
             for(ulong j = 0; j < x->f_instances.size(); j++)
             {
-                x->f_instances[i]->setExtraOutlet(outlet, i+1);
+                x->f_instances[j]->setExtraOutlet(outlet, i+1);
             }
         }
         x->f_have_ins = have_ctl_ins || have_sig_ins;
-        canvas_resume_dsp(state);
     }
 
     return x;
