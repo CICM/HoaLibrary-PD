@@ -493,7 +493,6 @@ typedef struct _hoa_process
     vector<t_sample*>       f_outlets_signals;
     bool                    f_have_ins;
     
-    static const long target_none = -2;
     static const long target_all  = -1;
     
 } t_hoa_process;
@@ -625,11 +624,7 @@ static void hoa_process_target(t_hoa_process *x, t_symbol* s, int argc, t_atom* 
 {
     if(argc && argv)
     {
-        if(atom_gettype(argv) == A_SYM && atom_getsym(argv) == hoa_sym_none)
-        {
-            x->f_target = _hoa_process::target_none;
-        }
-        else if(atom_gettype(argv) == A_SYM && atom_getsym(argv) == hoa_sym_all)
+        if(atom_gettype(argv) == A_SYM && atom_getsym(argv) == hoa_sym_all)
         {
             x->f_target = _hoa_process::target_all;
         }
@@ -665,9 +660,9 @@ void hoa_process_bang(t_hoa_process *x)
     {
         x->f_instances[index]->sendBang();
     }
-    else if(x->f_target == _hoa_process::target_none)
+    else
     {
-        long extra = x->f_have_ins ? index - x->f_instances.size() - 1 : index + 1;
+        long extra = x->f_have_ins ? index - x->f_instances.size() + 1 : index + 1;
         if(x->f_target == _hoa_process::target_all)
         {
             for(ulong i = 0; i < x->f_instances.size(); i++)
@@ -689,9 +684,9 @@ void hoa_process_float(t_hoa_process *x, float f)
     {
         x->f_instances[index]->sendFloat(f);
     }
-    else if(x->f_target == _hoa_process::target_none)
+    else
     {
-        long extra = x->f_have_ins ? index - x->f_instances.size() - 1 : index + 1;
+        long extra = x->f_have_ins ? index - x->f_instances.size() + 1 : index + 1;
         if(x->f_target == _hoa_process::target_all)
         {
             for(ulong i = 0; i < x->f_instances.size(); i++)
@@ -713,9 +708,9 @@ void hoa_process_symbol(t_hoa_process *x, t_symbol* s)
     {
         x->f_instances[index]->sendSymbol(s);
     }
-    else if(x->f_target == _hoa_process::target_none)
+    else
     {
-        long extra = x->f_have_ins ? index - x->f_instances.size() - 1 : index + 1;
+        long extra = x->f_have_ins ? index - x->f_instances.size() + 1 : index + 1;
         if(x->f_target == _hoa_process::target_all)
         {
             for(ulong i = 0; i < x->f_instances.size(); i++)
@@ -737,9 +732,9 @@ void hoa_process_list(t_hoa_process *x, t_symbol* s, int argc, t_atom* argv)
     {
         x->f_instances[index]->sendList(s, argc, argv);
     }
-    else if(x->f_target == _hoa_process::target_none)
+    else
     {
-        long extra = x->f_have_ins ? index - x->f_instances.size() - 1 : index + 1;
+        long extra = x->f_have_ins ? index - x->f_instances.size() + 1 : index + 1;
         if(x->f_target == _hoa_process::target_all)
         {
             for(ulong i = 0; i < x->f_instances.size(); i++)
@@ -761,9 +756,9 @@ void hoa_process_anything(t_hoa_process *x, t_symbol* s, int argc, t_atom* argv)
     {
         x->f_instances[index]->sendAnything(s, argc, argv);
     }
-    else if(x->f_target == _hoa_process::target_none)
+    else
     {
-        long extra = x->f_have_ins ? index - x->f_instances.size() - 1 : index + 1;
+        long extra = x->f_have_ins ? index - x->f_instances.size() + 1 : index + 1;
         if(x->f_target == _hoa_process::target_all)
         {
             for(ulong i = 0; i < x->f_instances.size(); i++)
@@ -810,7 +805,7 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
     {
         char dirbuf[MAXPDSTRING], *nameptr;
         int state = canvas_suspend_dsp();
-        x->f_target = _hoa_process::target_none;
+        x->f_target = _hoa_process::target_all;
         if(canvas_open(canvas_getcurrent(), atom_getsym(argv+1)->s_name, ".pd", dirbuf, &nameptr, MAXPDSTRING, 0) >= 0)
         {
             t_symbol* name = gensym(nameptr);
