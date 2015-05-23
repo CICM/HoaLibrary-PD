@@ -117,13 +117,28 @@ class ProcessInstance
     
 private:
     
-    void getObjects(t_canvas* canvas)
+    void getThisProcess(t_canvas* canvas)
     {
         for(t_gobj *y = canvas->gl_list; y; y = y->g_next)
         {
             if(eobj_getclassname(y) == hoa_sym_canvas)
             {
-                getObjects((t_canvas *)y);
+                getThisProcess((t_canvas *)y);
+            }
+            else if(eobj_getclassname(y) == hoa_sym_hoa_thisprocess)
+            {
+                m_thisprocesses.push_back((t_hoa_thisprocess*)y);
+            }
+        }
+    }
+    
+    void getIos(t_canvas* canvas)
+    {
+        for(t_gobj *y = canvas->gl_list; y; y = y->g_next)
+        {
+            if(eobj_getclassname(y) == hoa_sym_canvas)
+            {
+                getIos((t_canvas *)y);
             }
             else if(eobj_getclassname(y) == hoa_sym_hoa_thisprocess)
             {
@@ -225,7 +240,7 @@ public:
         
         if(m_canvas)
         {
-            getObjects(m_canvas);
+            getThisProcess(m_canvas);
             for(size_t i = 0; i < m_thisprocesses.size(); i++)
             {
                 atom_setsym(m_thisprocesses[i]->f_hoa_mode, dimension);
@@ -239,6 +254,7 @@ public:
             canvas_removefromlist(m_canvas);
             canvas_loadbang(m_canvas);
             canvas_vis(m_canvas, 0);
+            getIos(m_canvas);
         }
         s__X.s_thing = canvas;
     }
@@ -796,7 +812,6 @@ static void hoa_process_anything(t_hoa_process *x, t_symbol* s, int argc, t_atom
 
 static void hoa_process_free(t_hoa_process *x)
 {
-    int state = canvas_suspend_dsp();
     signal_cleanup();
     for(int i = 0 ; i < x->f_outlets_signals.size(); i++)
     {
@@ -809,8 +824,6 @@ static void hoa_process_free(t_hoa_process *x)
     }
     x->f_instances.clear();
     eobj_dspfree(x);
-    canvas_fixlinesfor(eobj_getcanvas(x), (t_text *)x);
-    canvas_resume_dsp(state);
 }
 
 static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
