@@ -19,7 +19,7 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X obj 78 97 + 2;
 #X obj 78 183 t b f;
 #X obj 63 33 t b f;
-#X obj 63 55 hoa.pi 1;
+#X obj 63 55 hoa.pi 1, f 12;
 #X connect 0 0 9 0;
 #X connect 2 0 3 0;
 #X connect 3 0 1 0;
@@ -32,7 +32,7 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X connect 9 0 10 0;
 #X connect 9 1 6 0;
 #X connect 10 0 2 0;
-#X restore 145 315 pd maxRe, f 12;
+#X restore 145 315 pd maxRe;
 #N canvas 878 180 458 440 inPhase 0;
 #X obj 23 37 inlet;
 #X obj 87 338 outlet;
@@ -157,7 +157,7 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X connect 11 0 10 1;
 #X connect 12 0 9 0;
 #X connect 13 0 7 0;
-#X restore 62 266 pd !;
+#X restore 62 266 pd !, f 12;
 #X connect 0 0 6 0;
 #X connect 2 0 7 0;
 #X connect 3 0 21 0;
@@ -189,12 +189,12 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X connect 19 1 4 1;
 #X connect 20 0 5 1;
 #X connect 21 0 9 1;
-#X restore 145 497 pd inPhase, f 12;
+#X restore 145 497 pd inPhase;
 #X text 16 285 decomposition order;
 #X text 276 286 harmonic degree;
 #X obj 396 356 hoa.3d.scope~ @size 224 224 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-2 @view 0 0 0 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+2 @view 0 0 0 @gain 2 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X obj 395 99 hoa.3d.scope~ @size 224 224 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order

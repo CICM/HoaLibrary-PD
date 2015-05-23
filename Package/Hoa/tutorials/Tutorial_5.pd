@@ -20,7 +20,7 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @step
 #X obj 249 320 outlet;
 #X obj 248 202 / 2;
 #X obj 251 228 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 4 256;
+-262144 -1 -1 0.5 256;
 #X obj 246 172 + 1;
 #X obj 319 180 % 2;
 #X obj 256 295 int;
@@ -73,7 +73,7 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @step
 #X connect 10 0 9 1;
 #X connect 11 0 9 1;
 #X restore 363 337 pd target.pro;
-#X obj 144 362 hoa.2d.process~ 7 hoa.fx.gain~ ------;
+#X obj 144 362 hoa.2d.process~ 7 hoa.fx.gain~ harmonics, f 37;
 #X text 202 307 Order of decomposition;
 #X obj 363 285 c.loadmess 7;
 #X obj 554 396 hoa.2d.scope~ @size 225 225 @fontname Helvetica @fontweight

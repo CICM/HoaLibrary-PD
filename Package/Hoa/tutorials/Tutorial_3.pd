@@ -3,12 +3,12 @@
 #X obj 21 5 c.loadmess;
 #X obj 4 4 hoa.tuto.header;
 #X obj 20 649 hoa.help.pub;
-#X obj 471 117 hoa.2d.scope~ @size 225 225 @fontname Helvetica @fontweight
+#X obj 471 127 hoa.2d.scope~ @size 225 225 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
 7 @view 0 @gain 100 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X obj 471 33 sig~ 1;
-#X obj 471 93 hoa.2d.process~ 7 hoa.tuto.gain~ ----;
+#X obj 471 93 hoa.2d.process~ 7 hoa.tuto.gain~ harmonics, f 37;
 #X obj 690 46 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min 0 @max 14 @minmax 0 14 @decimal 6 @bgcolor 0.75 0.75 0.75
@@ -95,7 +95,7 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @step
 ;
 #X obj 689 424 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min -0 @max 0 @minmax -0 0 @decimal 0 @bgcolor 0.75 0.75 0.75
+(null) @min -2 @max 2 @minmax -2 2 @decimal 0 @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #N canvas 0 50 450 300 target.pro 0;
 #X obj 259 47 inlet;
@@ -119,10 +119,10 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X restore 690 448 pd target.pro;
 #X text 759 425 Order of the harmonics;
 #X text 469 356 Representation of the spherical harmonics;
-#X obj 471 463 hoa.3d.process~ 7 hoa.tuto.gain~ ----;
-#X obj 471 487 hoa.3d.scope~ @size 225 225 @fontname Helvetica @fontweight
+#X obj 471 473 hoa.3d.process~ 7 hoa.tuto.gain~ harmonics, f 37;
+#X obj 471 507 hoa.3d.scope~ @size 225 225 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive tuto3scope @send (null)
-@order 7 @view 0 9 0 @gain 20 @interval 100 @bgcolor 0.76 0.76 0.76
+@order 7 @view 0 0 0 @gain 20 @interval 100 @bgcolor 0.76 0.76 0.76
 1 @bdcolor 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X obj 689 400 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
