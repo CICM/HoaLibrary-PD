@@ -605,12 +605,11 @@ static void hoa_process_dsp(t_hoa_process *x, t_object *dsp, short *count, doubl
     
     for(ulong i = 0; i < x->f_instances.size(); i++)
     {
-        if(x->f_instances[i]->prepareDsp(ins[i], ixtra, outs[i], oxtra))
+        if(!x->f_instances[i] || x->f_instances[i]->prepareDsp(ins[i], ixtra, outs[i], oxtra))
         {
             pd_error(x, "hoa.process~ : Error while compiling the dsp chain.");
             return;
         }
-        
     }
     object_method(dsp, gensym("dsp_add"), x, (method)hoa_process_perform, 0, NULL);
 }
@@ -828,9 +827,9 @@ static void hoa_process_free(t_hoa_process *x)
 
 static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
 {
-    if(argc < 3 || atom_gettype(argv) != A_LONG || atom_gettype(argv+1) != A_SYM || atom_gettype(argv+2) != A_SYM)
+    if(argc < 2 || atom_gettype(argv) != A_LONG || atom_gettype(argv+1) != A_SYM)
     {
-        error("%s needs at least 3 arguments : 1 integer for the order of decomposition or number of planewaves, 1 symbol for the patch and 1 symbol for the domain.", s->s_name);
+        error("%s needs at least 2 arguments : 1 integer for the order of decomposition or number of planewaves, 1 symbol for the patch.", s->s_name);
         return NULL;
     }
 
@@ -849,7 +848,7 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
             long    natr = pd_clip_min(argc - narg - 3, 0);
             t_atom* atrs = argv + 3 + narg;
             
-            if((s == hoa_sym_hoa_2d_process || s == hoa_sym_hoa_process) && atom_getsym(argv+2) == hoa_sym_harmonics)
+            if((s == hoa_sym_hoa_2d_process || s == hoa_sym_hoa_process) && atom_getsym(argv+2) != hoa_sym_planewaves)
             {
                 x->f_domain     = hoa_sym_harmonics;
                 x->f_dimension  = hoa_sym_2d;
@@ -875,7 +874,7 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
                     }
                 }
             }
-            else if(s == hoa_sym_hoa_3d_process && atom_getsym(argv+2) == hoa_sym_harmonics)
+            else if(s == hoa_sym_hoa_3d_process && atom_getsym(argv+2) != hoa_sym_planewaves)
             {
                 x->f_domain    = hoa_sym_harmonics;
                 x->f_dimension = hoa_sym_3d;
