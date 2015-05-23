@@ -1,0 +1,73 @@
+#N canvas 80 195 644 454 10;
+#X obj 128 353 c.blackboard @size 295 57 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @chalkmode
+1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X obj 26 9 c.loadmess;
+#X obj 26 60 hoa.thisprocess~, f 86;
+#N canvas 778 159 450 300 hoa.mode.sel 0;
+#X obj 85 62 unpack s s;
+#X obj 139 90 sel harmonics planewaves;
+#X obj 39 90 sel 2d 3d, f 14;
+#X obj 79 142 f 1;
+#X obj 39 142 f 0;
+#X obj 103 178 +;
+#X obj 87 21 inlet;
+#X obj 103 248 outlet;
+#X text 217 192 Planewaves 2d or 3d : mode 0;
+#X text 217 212 Harmonics 2d : mode 1;
+#X text 217 232 Harmonics 3d : mode 2;
+#X obj 209 142 f 2;
+#X obj 139 142 f 0;
+#X connect 0 0 2 0;
+#X connect 0 1 1 0;
+#X connect 1 0 12 0;
+#X connect 1 1 11 0;
+#X connect 2 0 4 0;
+#X connect 2 1 3 0;
+#X connect 3 0 5 0;
+#X connect 4 0 5 0;
+#X connect 5 0 7 0;
+#X connect 6 0 0 0;
+#X connect 11 0 5 1;
+#X connect 12 0 5 1;
+#X restore 197 82 pd hoa.mode.sel;
+#X obj 197 105 sel 0 1 2 3;
+#X msg 197 128 clear \, text 10 10 This patcher is used in the circular
+harmonics domain., f 73;
+#X msg 196 148 clear \, text 10 10 This patcher is used in the spherical
+harmonics domain., f 73;
+#X msg 197 168 clear \, text 10 10 This patcher is used in the 2d planewaves
+domain., f 69;
+#X msg 197 189 clear \, text 10 10 This patcher in the 3d planewaves
+domain.;
+#X obj 26 145 spigot 0;
+#X obj 71 121 < 2;
+#X obj 105 145 spigot 0;
+#X obj 150 121 > 1;
+#X msg 104 272 text 10 20 The number of planewaves is \$1 and the index
+of the \, text 10 30 planewave is \$2;
+#X msg 26 222 text 10 20 The order of decomposition is \$1 the degree
+of the \, text 10 30 harmonics is \$2 and the order of the harmonics
+is \$3., f 64;
+#X connect 1 0 2 0;
+#X connect 2 0 9 0;
+#X connect 2 0 11 0;
+#X connect 2 1 3 0;
+#X connect 3 0 4 0;
+#X connect 3 0 10 0;
+#X connect 3 0 12 0;
+#X connect 4 0 5 0;
+#X connect 4 1 6 0;
+#X connect 4 2 7 0;
+#X connect 4 3 8 0;
+#X connect 5 0 0 0;
+#X connect 6 0 0 0;
+#X connect 7 0 0 0;
+#X connect 8 0 0 0;
+#X connect 9 0 14 0;
+#X connect 10 0 9 1;
+#X connect 11 0 13 0;
+#X connect 12 0 11 1;
+#X connect 13 0 0 0;
+#X connect 14 0 0 0;
+#X coords 0 -1 1 1 300 62 2 125 350;

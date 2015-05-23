@@ -5,6 +5,7 @@ SUFFIXES = .pd
 hoa.librarymiscdir=$(pkglibdir)/misc
 
 dist_hoa.librarymisc_DATA = \
+hoa.process.display \
 hoa.processexample.pd \
 hoa.procexample~.pd \
 hoa.soundcoat.pd \
