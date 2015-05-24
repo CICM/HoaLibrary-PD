@@ -10,22 +10,22 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
 4 @view 0 @gain 5 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
 0.5 0.5 0.5 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X obj 139 523 hoa.dac~ 1:10 -----------;
-#X obj 437 295 c.number~ @size 53 14 @fontname Helvetica @fontweight
+#X obj 437 295 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
 #X obj 178 146 hoa.pi;
 #X obj 178 93 c.loadmess 0;
-#X obj 178 122 c.number @size 53 14 @fontname Helvetica @fontweight
+#X obj 178 122 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 374 122 c.number @size 53 14 @fontname Helvetica @fontweight
+#X obj 374 122 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X obj 374 93 c.loadmess 1;
-#X obj 437 162 c.number @size 53 14 @fontname Helvetica @fontweight
+#X obj 437 162 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
@@ -50,7 +50,6 @@ ambisonic sound field. The last inlet set the angle of the rotation.
 #X obj 28 7 loadbang;
 #X obj 13 5 hoa.help.header;
 #X obj 421 5 hoa.help.also;
-#X msg 352 324 13;
 #X connect 0 0 2 1;
 #X connect 1 0 0 0;
 #X connect 2 0 8 0;
@@ -114,5 +113,4 @@ ambisonic sound field. The last inlet set the angle of the rotation.
 #X connect 28 0 22 1;
 #X connect 30 0 32 0;
 #X connect 31 0 30 0;
-#X connect 34 0 23 9;
 #X coords 0 615 1 614 100 60 0;
