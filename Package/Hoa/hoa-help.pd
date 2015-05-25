@@ -18,9 +18,9 @@ synthesis \, perspective distorsion or spatial filtering.;
 @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @orientation 1 @toggle 0 @items 'Tutorial 1' 'Tutorial 2' 'Tutorial 3'
 'Tutorial 4' 'Tutorial 5' 'Tutorial 6' 'Tutorial 7' 'Tutorial 8' 'Tutorial 9'
-'Tutorial 10' 'Tutorial 11' 'Tutorial 12' 'Tools 2D' 'Tools 3D' @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @hocolor
-0.5 0.5 0.5 1 @secolor 0.35 0.35 0.35 1;
+'Tutorial 10' 'Tools 2D' 'Tools 3D' @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5 1 @secolor 0.35
+0.35 0.35 1;
 #N canvas 809 275 452 384 sel.hoa.txt 0;
 #X obj -556 -387 unpack s s;
 #X msg -394 -362 clear;
@@ -100,7 +100,7 @@ synthesis \, perspective distorsion or spatial filtering.;
 #X connect 21 2 10 0;
 #X connect 21 3 20 0;
 #X restore 136 331 pd sel.hoa.text2;
-#N canvas 146 110 694 586 hoa.open.hel 0;
+#N canvas 514 160 694 586 hoa.open.hel 0;
 #X obj 371 248 makefilename %s-help.pd;
 #X obj 371 281 pack s s;
 #X obj 398 208 c.patcherinfos;
@@ -121,12 +121,13 @@ synthesis \, perspective distorsion or spatial filtering.;
 #X obj 42 72 f 0;
 #X obj 94 72 f 1;
 #X obj 67 50 bang;
-#X msg 236 272 hoa.tools.2d.pd;
+#X msg 74 286 hoa.tools.2d.pd;
 #X obj 146 19 inlet;
 #X obj 96 192 t f b;
 #X msg 235 302 hoa.tools.3d.pd;
-#X obj 53 293 makefilename Tutorial_%d.pd;
-#X obj 110 257 + 1;
+#X obj 53 323 makefilename Tutorial_%d.pd;
+#X obj 53 233 + 1;
+#X obj 114 253 sel 11 12;
 #X connect 0 0 1 0;
 #X connect 1 0 4 0;
 #X connect 2 1 5 0;
@@ -149,11 +150,16 @@ synthesis \, perspective distorsion or spatial filtering.;
 #X connect 18 0 14 1;
 #X connect 19 0 16 0;
 #X connect 19 0 18 0;
+#X connect 20 0 7 0;
 #X connect 21 0 13 0;
 #X connect 22 0 25 0;
 #X connect 22 1 8 0;
+#X connect 23 0 7 0;
 #X connect 24 0 7 0;
-#X connect 25 0 24 0;
+#X connect 25 0 26 0;
+#X connect 26 0 20 0;
+#X connect 26 1 23 0;
+#X connect 26 2 24 0;
 #X restore 220 420 pd hoa.open.hel;
 #X obj 6 173 c.loadmess 0;
 #X obj 5 464 c.blackboard @size 398 39 @fontname Monaco @fontweight
