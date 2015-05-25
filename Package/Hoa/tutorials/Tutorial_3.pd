@@ -73,11 +73,6 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X text 3 53 In Ambisonics \, the harmonics are the functions used
 to decompose the space and thus to represent the sounds and their spatial
 informations., f 60;
-#X text 3 123 This functions are circular in 2d and spherical in 3d.
-That means their takes angles as variables and the result of the functions
-differs according to the value of the angles. This angles are the azimuth
-θ for the circular harmonics or the azimuth θ and the elevation φ
-for the spherical harmonics.;
 #X text 3 478 Examples :, f 59;
 #X text 3 532 [0 \, 0] \, [1 \, -1] \, [1 \, 1] \, [2 \, -2] \, [2
 \, 2] \, ...[7 \, -7] \, [7 \, 7];
@@ -95,7 +90,7 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @step
 ;
 #X obj 689 424 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min -2 @max 2 @minmax -2 2 @decimal 0 @bgcolor 0.75 0.75 0.75
+(null) @min -0 @max 0 @minmax -0 0 @decimal 0 @bgcolor 0.75 0.75 0.75
 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #N canvas 0 50 450 300 target.pro 0;
 #X obj 259 47 inlet;
@@ -160,11 +155,6 @@ witch the orders are m = -l and m = l (the degree 0 has 1 harmonic
 with the order 0). For the spherical harmonics \, each degree l has
 2l+1 harmonics witch the orders go from -l to l. In fact \, the circular
 harmonics are particular cases of the spherical harmonics.;
-#X text 3 383 The decomposition of a sound field in the harmonics domain
-is performed according to an order of decomposition N. A given decomposition
-order N includes all the degrees from 0 to N. Thus \, in 2d \, the
-sound field is composed by 2N+1 circular harmonics and in 3d \, the
-sound field is compsed by (N+1)^2 spherical harmonics.;
 #X text 3 492 In 2d \, for an order of decomposition N = 7 \, there
 are 15 harmonics sorted by their degrees and their orders : [degree
 \, order];
@@ -175,6 +165,16 @@ are 12 harmonics sorted by their degrees and their orders : [degree
 #X text 797 103 Order degree and channels numbering for 2D.;
 #X text 797 163 Order degree and channels numbering for 3D.;
 #X obj 871 187 hoa.tools.3d;
+#X text 3 123 This functions are circular in 2d and spherical in 3d.
+That means their takes angles as variables and the result of the functions
+differs according to the value of the angles. These angles are the
+azimuth θ for the circular harmonics or the azimuth θ and the elevation
+φ for the spherical harmonics.;
+#X text 3 383 The decomposition of a sound field in the harmonics domain
+is performed according to an order of decomposition N. A given decomposition
+order N includes all the degrees from 0 to N. Thus \, in 2d \, the
+sound field is composed by 2N+1 circular harmonics and in 3d the sound
+field is composed by (N+1)^2 spherical harmonics.;
 #X connect 0 0 2 0;
 #X connect 1 0 0 0;
 #X connect 5 0 6 0;
@@ -200,87 +200,87 @@ are 12 harmonics sorted by their degrees and their orders : [degree
 #X connect 10 0 12 0;
 #X connect 11 0 7 0;
 #X connect 12 0 6 1;
-#X connect 21 0 27 0;
-#X connect 22 0 23 0;
-#X connect 23 0 22 0;
-#X connect 23 0 24 1;
-#X connect 24 0 27 1;
-#X connect 27 0 28 0;
-#X connect 27 1 28 1;
-#X connect 27 2 28 2;
-#X connect 27 3 28 3;
-#X connect 27 4 28 4;
-#X connect 27 5 28 5;
-#X connect 27 6 28 6;
-#X connect 27 7 28 7;
-#X connect 27 8 28 8;
-#X connect 27 9 28 9;
-#X connect 27 10 28 10;
-#X connect 27 11 28 11;
-#X connect 27 12 28 12;
-#X connect 27 13 28 13;
-#X connect 27 14 28 14;
-#X connect 27 15 28 15;
-#X connect 27 16 28 16;
-#X connect 27 17 28 17;
-#X connect 27 18 28 18;
-#X connect 27 19 28 19;
-#X connect 27 20 28 20;
-#X connect 27 21 28 21;
-#X connect 27 22 28 22;
-#X connect 27 23 28 23;
-#X connect 27 24 28 24;
-#X connect 27 25 28 25;
-#X connect 27 26 28 26;
-#X connect 27 27 28 27;
-#X connect 27 28 28 28;
-#X connect 27 29 28 29;
-#X connect 27 30 28 30;
-#X connect 27 31 28 31;
-#X connect 27 32 28 32;
-#X connect 27 33 28 33;
-#X connect 27 34 28 34;
-#X connect 27 35 28 35;
-#X connect 27 36 28 36;
-#X connect 27 37 28 37;
-#X connect 27 38 28 38;
-#X connect 27 39 28 39;
-#X connect 27 40 28 40;
-#X connect 27 41 28 41;
-#X connect 27 42 28 42;
-#X connect 27 43 28 43;
-#X connect 27 44 28 44;
-#X connect 27 45 28 45;
-#X connect 27 46 28 46;
-#X connect 27 47 28 47;
-#X connect 27 48 28 48;
-#X connect 27 49 28 49;
-#X connect 27 50 28 50;
-#X connect 27 51 28 51;
-#X connect 27 52 28 52;
-#X connect 27 53 28 53;
-#X connect 27 54 28 54;
-#X connect 27 55 28 55;
-#X connect 27 56 28 56;
-#X connect 27 57 28 57;
-#X connect 27 58 28 58;
-#X connect 27 59 28 59;
-#X connect 27 60 28 60;
-#X connect 27 61 28 61;
-#X connect 27 62 28 62;
-#X connect 27 63 28 63;
-#X connect 29 0 30 0;
-#X connect 29 0 24 0;
-#X connect 29 0 32 0;
-#X connect 29 0 34 0;
-#X connect 30 0 29 0;
-#X connect 31 0 29 0;
-#X connect 31 0 23 0;
-#X connect 32 0 23 0;
-#X connect 33 0 23 0;
-#X connect 34 0 33 0;
-#X connect 36 0 37 0;
-#X connect 38 0 42 0;
-#X connect 39 0 42 1;
-#X connect 40 0 42 2;
-#X connect 42 0 36 0;
+#X connect 20 0 26 0;
+#X connect 21 0 22 0;
+#X connect 22 0 21 0;
+#X connect 22 0 23 1;
+#X connect 23 0 26 1;
+#X connect 26 0 27 0;
+#X connect 26 1 27 1;
+#X connect 26 2 27 2;
+#X connect 26 3 27 3;
+#X connect 26 4 27 4;
+#X connect 26 5 27 5;
+#X connect 26 6 27 6;
+#X connect 26 7 27 7;
+#X connect 26 8 27 8;
+#X connect 26 9 27 9;
+#X connect 26 10 27 10;
+#X connect 26 11 27 11;
+#X connect 26 12 27 12;
+#X connect 26 13 27 13;
+#X connect 26 14 27 14;
+#X connect 26 15 27 15;
+#X connect 26 16 27 16;
+#X connect 26 17 27 17;
+#X connect 26 18 27 18;
+#X connect 26 19 27 19;
+#X connect 26 20 27 20;
+#X connect 26 21 27 21;
+#X connect 26 22 27 22;
+#X connect 26 23 27 23;
+#X connect 26 24 27 24;
+#X connect 26 25 27 25;
+#X connect 26 26 27 26;
+#X connect 26 27 27 27;
+#X connect 26 28 27 28;
+#X connect 26 29 27 29;
+#X connect 26 30 27 30;
+#X connect 26 31 27 31;
+#X connect 26 32 27 32;
+#X connect 26 33 27 33;
+#X connect 26 34 27 34;
+#X connect 26 35 27 35;
+#X connect 26 36 27 36;
+#X connect 26 37 27 37;
+#X connect 26 38 27 38;
+#X connect 26 39 27 39;
+#X connect 26 40 27 40;
+#X connect 26 41 27 41;
+#X connect 26 42 27 42;
+#X connect 26 43 27 43;
+#X connect 26 44 27 44;
+#X connect 26 45 27 45;
+#X connect 26 46 27 46;
+#X connect 26 47 27 47;
+#X connect 26 48 27 48;
+#X connect 26 49 27 49;
+#X connect 26 50 27 50;
+#X connect 26 51 27 51;
+#X connect 26 52 27 52;
+#X connect 26 53 27 53;
+#X connect 26 54 27 54;
+#X connect 26 55 27 55;
+#X connect 26 56 27 56;
+#X connect 26 57 27 57;
+#X connect 26 58 27 58;
+#X connect 26 59 27 59;
+#X connect 26 60 27 60;
+#X connect 26 61 27 61;
+#X connect 26 62 27 62;
+#X connect 26 63 27 63;
+#X connect 28 0 29 0;
+#X connect 28 0 23 0;
+#X connect 28 0 31 0;
+#X connect 28 0 33 0;
+#X connect 29 0 28 0;
+#X connect 30 0 28 0;
+#X connect 30 0 22 0;
+#X connect 31 0 22 0;
+#X connect 32 0 22 0;
+#X connect 33 0 32 0;
+#X connect 35 0 36 0;
+#X connect 37 0 41 0;
+#X connect 38 0 41 1;
+#X connect 39 0 41 2;
+#X connect 41 0 35 0;

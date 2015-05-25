@@ -1,14 +1,14 @@
-#N canvas 122 38 908 723 10;
-#X obj 494 249 hoa.2d.scope~ @size 189 189 @fontname Helvetica @fontweight
+#N canvas 85 23 885 785 10;
+#X obj 570 288 hoa.2d.scope~ @size 189 189 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
 7 @view 0 @gain 1 @interval 100 @bgcolor 0.7 0.7 0.7 1 @bdcolor 0.5
 0.5 0.5 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj 692 176 hoa.pi 2;
-#X obj 677 196 *~;
-#X obj 677 135 phasor~ 0.1;
-#X obj 494 152 sig~ 1;
-#X obj 692 155 loadbang;
-#X obj 495 503 hoa.2d.meter~ @size 189 189 @fontname Helvetica @fontweight
+#X obj 768 220 hoa.pi 2;
+#X obj 753 240 *~;
+#X obj 753 181 phasor~ 0.1;
+#X obj 570 226 sig~ 1;
+#X obj 768 201 loadbang;
+#X obj 571 510 hoa.2d.meter~ @size 189 189 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @channels
 16 @angles 0 22.5 45 67.5 90 112.5 135 157.5 180 202.5 225 247.5 270
 292.5 315 337.5 @offset 0 @rotation anti-clockwise @vectors energy
@@ -16,88 +16,134 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @channels
 0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor
 1 0 0 0.8;
-#X text 465 136 Source synthesis;
-#X text 215 219 1 - Encoding in the circular harmonics domain;
-#X obj 707 239 c.number~ @size 53 17 @fontname Helvetica @fontweight
+#X text 541 210 Source synthesis;
+#X obj 763 283 c.number~ @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X text 703 262 Encoding angle in radian;
 #X obj 19 7 c.canvasinfos;
 #X obj 18 3 c.loadmess;
-#X obj 1 2 hoa.tuto.header;
+#X obj 1 1 hoa.tuto.header;
 #X obj 414 2 hoa.help.pub;
-#X text 242 327 Representation of the circular harmonics;
-#X obj 495 448 hoa.2d.decoder~ 7 ambisonics 16;
-#X obj 494 218 hoa.2d.encoder~ 7 -------------;
-#X text 0 51 Ambisonics is a set of techniques for the recording \,
+#X obj 571 485 hoa.2d.decoder~ 7 ambisonics 16;
+#X obj 570 262 hoa.2d.encoder~ 7 -------------;
+#X text 1 48 Ambisonics is a set of techniques for the recording \,
 synthesis \, transformation and restitution of sound field based on
 a physical representation of the sound space in the spherical or circular
 harmonics domain or in the planewaves domain that allows a wide range
-of sound and space processings., f 66;
-#X text 266 448 2 - Decoding for a set of planewaves;
-#X text 176 573 Representation of the contribution of 16 planewaves
-;
-#X obj 43 306 c.dsp~ @size 30 30 @fontname Helvetica @fontweight normal
+of sound and space processings., f 65;
+#X obj 442 678 c.dsp~ @size 30 30 @fontname Helvetica @fontweight normal
 @fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0 0.8;
-#X text 80 312 Dsp On/Off;
-#X text 2 134 In this example \, a sound source is encoded in a two-dimensional
-space. The synthesized sound field owns the sound and its spatial informations
+#X text 479 684 Dsp On/Off;
+#X text 432 482 2 - Decoding for a set;
+#X text 455 492 of planewaves;
+#X text 435 366 Representation of the;
+#X text 435 376 circular harmonics;
+#X text 436 580 Representation of the;
+#X text 436 590 contributions of 16;
+#X text 436 600 planewaves;
+#X text 430 252 1 - Encoding in the;
+#X text 454 262 circular harmonics;
+#X text 454 272 domain;
+#X text 759 316 in radian;
+#X text 759 306 Encoding angle;
+#X text 2 145 Ambisonics allows to synthesize several sound fields
+and to decodes them with only a one operation offering. This advantage
+allows to reduce the CPU usage., f 65;
+#X text 2 195 The separation of these two operations allows to perform
+many operations between them \, in the circular harmonics domain \,
+and also to record the sound field in this domain. Thus \, it is possible
+to adapt the sound field to the speakers arrengement., f 65;
+#X text 1 128 Ambisonics offers several advantages :, f 65;
+#X text 2 255 Ambisonics offers a homogeneous rendering of the sound
+field. Unlike other techniques where the angular resolution varies
+depending on the sources directions \, Ambisonics provides a constant
+angular resolution across the circle., f 65;
+#X text 2 315 Ambisonics offers a wide range of "classical" sound field
+transformations like rotation or distorsion., f 65;
+#X text 2 353 The harmonics domain and the planewaves models give representations
+of the sound field that allows to explore new techniques of sound field
+synthesis and transformations with a high musical potential., f 65
+;
+#X text 2 438 Ambisonics also implies some restrictions :, f 66;
+#X text 2 455 With Ambisonics \, the auditor should be ideally placed
+at the center of the loudspeakers array otherwise the sound field resitution
+will be distorted. However \, the use of the maxRe or inPhase optimizations
+(see hoa.optim~ object) can make up this artefact (to the detriment
+of the spatial resolution) and offers the possibility of an audience
+spread all over the circle., f 65;
+#X text 2 555 The restitution system is restricted by the order of
+decomposition. The number of loudspeakers must be higher than or equal
+to the number of harmonics. Futhermore \, the loudspeakers must be
+placed on a circle or a sphere at equal distance from each other. However
+\, these restrictions can be bypassed to the detriment of the quality
+of the sound field restitution. Thus \, in practise \, it is \, in
+fact \, possible to project the sound field on many loudspeakers systems
+from stereo to an infinity of loudspeakers through all irregular configurations
+such as 5.1 \, 7.1 and headphones (see hoa.decoder~ object)., f 65
+;
+#X text 426 88 A sound source is encoded in a two-dimensional space.
+The synthesized sound field owns the sound and its spatial informations
 in the form of circular harmonics. Thereafter \, the sound field is
 decoded for a set of planewaves that matches with a loudspeakers system.
 , f 66;
+#X text 426 58 This first example presents the simplest process of
+the Ambisonics, f 68;
+#X text 1 697 This set of tutorials returns to this principles and
+presents the key concept to understand and explore the possibilities
+of Ambsionics., f 66;
 #X connect 1 0 2 1;
-#X connect 2 0 9 0;
-#X connect 2 0 17 1;
+#X connect 2 0 8 0;
+#X connect 2 0 14 1;
 #X connect 3 0 2 0;
-#X connect 4 0 17 0;
+#X connect 4 0 14 0;
 #X connect 5 0 1 0;
-#X connect 11 0 13 0;
-#X connect 12 0 11 0;
-#X connect 16 0 6 0;
-#X connect 16 1 6 1;
-#X connect 16 2 6 2;
-#X connect 16 3 6 3;
-#X connect 16 4 6 4;
-#X connect 16 5 6 5;
-#X connect 16 6 6 6;
-#X connect 16 7 6 7;
-#X connect 16 8 6 8;
-#X connect 16 9 6 9;
-#X connect 16 10 6 10;
-#X connect 16 11 6 11;
-#X connect 16 12 6 12;
-#X connect 16 13 6 13;
-#X connect 16 14 6 14;
-#X connect 16 15 6 15;
-#X connect 17 0 0 0;
-#X connect 17 0 16 0;
-#X connect 17 1 0 1;
-#X connect 17 1 16 1;
-#X connect 17 2 0 2;
-#X connect 17 2 16 2;
-#X connect 17 3 0 3;
-#X connect 17 3 16 3;
-#X connect 17 4 0 4;
-#X connect 17 4 16 4;
-#X connect 17 5 0 5;
-#X connect 17 5 16 5;
-#X connect 17 6 0 6;
-#X connect 17 6 16 6;
-#X connect 17 7 0 7;
-#X connect 17 7 16 7;
-#X connect 17 8 0 8;
-#X connect 17 8 16 8;
-#X connect 17 9 0 9;
-#X connect 17 9 16 9;
-#X connect 17 10 0 10;
-#X connect 17 10 16 10;
-#X connect 17 11 0 11;
-#X connect 17 11 16 11;
-#X connect 17 12 0 12;
-#X connect 17 12 16 12;
-#X connect 17 13 0 13;
-#X connect 17 13 16 13;
-#X connect 17 14 0 14;
-#X connect 17 14 16 14;
+#X connect 9 0 11 0;
+#X connect 10 0 9 0;
+#X connect 13 0 6 0;
+#X connect 13 1 6 1;
+#X connect 13 2 6 2;
+#X connect 13 3 6 3;
+#X connect 13 4 6 4;
+#X connect 13 5 6 5;
+#X connect 13 6 6 6;
+#X connect 13 7 6 7;
+#X connect 13 8 6 8;
+#X connect 13 9 6 9;
+#X connect 13 10 6 10;
+#X connect 13 11 6 11;
+#X connect 13 12 6 12;
+#X connect 13 13 6 13;
+#X connect 13 14 6 14;
+#X connect 13 15 6 15;
+#X connect 14 0 0 0;
+#X connect 14 0 13 0;
+#X connect 14 1 0 1;
+#X connect 14 1 13 1;
+#X connect 14 2 0 2;
+#X connect 14 2 13 2;
+#X connect 14 3 0 3;
+#X connect 14 3 13 3;
+#X connect 14 4 0 4;
+#X connect 14 4 13 4;
+#X connect 14 5 0 5;
+#X connect 14 5 13 5;
+#X connect 14 6 0 6;
+#X connect 14 6 13 6;
+#X connect 14 7 0 7;
+#X connect 14 7 13 7;
+#X connect 14 8 0 8;
+#X connect 14 8 13 8;
+#X connect 14 9 0 9;
+#X connect 14 9 13 9;
+#X connect 14 10 0 10;
+#X connect 14 10 13 10;
+#X connect 14 11 0 11;
+#X connect 14 11 13 11;
+#X connect 14 12 0 12;
+#X connect 14 12 13 12;
+#X connect 14 13 0 13;
+#X connect 14 13 13 13;
+#X connect 14 14 0 14;
+#X connect 14 14 13 14;
