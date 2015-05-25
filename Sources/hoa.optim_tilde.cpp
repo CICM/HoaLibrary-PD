@@ -188,7 +188,7 @@ static void hoa_optim_3d_perform_maxRe(t_hoa_optim_3d *x, t_object *dsp64, t_sam
     }
     for(long i = 0; i < sampleframes; i++)
     {
-        //(static_cast<Optim<Hoa3d, t_sample>::MaxRe *>(x->f_optim))->process(x->f_ins + numins * i, x->f_outs + numouts * i);
+        (static_cast<Optim<Hoa3d, t_sample>::MaxRe *>(x->f_optim))->process(x->f_ins + numins * i, x->f_outs + numouts * i);
     }
     for(long i = 0; i < numouts; i++)
     {
@@ -204,7 +204,7 @@ static void hoa_optim_3d_perform_inPhase(t_hoa_optim_3d *x, t_object *dsp64, t_s
     }
     for(long i = 0; i < sampleframes; i++)
     {
-        //(static_cast<Optim<Hoa3d, t_sample>::InPhase *>(x->f_optim))->process(x->f_ins + numins * i, x->f_outs + numouts * i);
+        (static_cast<Optim<Hoa3d, t_sample>::InPhase *>(x->f_optim))->process(x->f_ins + numins * i, x->f_outs + numouts * i);
     }
     for(long i = 0; i < numouts; i++)
     {
