@@ -181,10 +181,6 @@ preferred for diffuse sound fields.;
 #X text 5 383 - The inPhase optimization filters the signal for an
 audience which covers all the sound space. The gain g for each harmonic
 depends on the order of decompostion N and the degree l.;
-#X text 8 192 - The maxRe optimization filters the signal for an audience
-confined to the center of the sound space. The gain g for each harmonic
-depends on the order of decompostion N and the degree l (which is the
-absolute value of the index).;
 #X obj 145 286 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 1 @bgcolor
@@ -223,47 +219,50 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X obj 629 232 c.loadmess set 1;
 #X obj 395 324 hoa.3d.process~ 2 hoa.fx.optim~ harmonics inPhase,
 f 38;
+#X text 8 192 - The maxRe optimization filters the signal for an audience
+confined to the center of the sound space. The gain g for each harmonic
+depends on the order of decompostion N and the degree l.;
 #X connect 0 0 15 2;
 #X connect 1 0 3 0;
 #X connect 2 0 1 0;
 #X connect 5 0 15 0;
-#X connect 6 0 25 0;
-#X connect 7 0 32 0;
+#X connect 6 0 24 0;
+#X connect 7 0 31 0;
 #X connect 15 0 11 0;
-#X connect 15 0 37 0;
+#X connect 15 0 36 0;
 #X connect 15 1 11 1;
-#X connect 15 1 37 1;
+#X connect 15 1 36 1;
 #X connect 15 2 11 2;
-#X connect 15 2 37 2;
+#X connect 15 2 36 2;
 #X connect 15 3 11 3;
-#X connect 15 3 37 3;
+#X connect 15 3 36 3;
 #X connect 15 4 11 4;
-#X connect 15 4 37 4;
+#X connect 15 4 36 4;
 #X connect 15 5 11 5;
-#X connect 15 5 37 5;
+#X connect 15 5 36 5;
 #X connect 15 6 11 6;
-#X connect 15 6 37 6;
+#X connect 15 6 36 6;
 #X connect 15 7 11 7;
-#X connect 15 7 37 7;
+#X connect 15 7 36 7;
 #X connect 15 8 11 8;
-#X connect 15 8 37 8;
+#X connect 15 8 36 8;
 #X connect 16 0 15 1;
-#X connect 22 0 6 0;
-#X connect 22 0 24 0;
-#X connect 23 0 6 1;
-#X connect 24 0 23 0;
-#X connect 28 0 30 0;
-#X connect 28 0 7 0;
-#X connect 29 0 7 1;
-#X connect 30 0 29 0;
-#X connect 35 1 37 9;
-#X connect 36 0 35 0;
-#X connect 37 0 10 0;
-#X connect 37 1 10 1;
-#X connect 37 2 10 2;
-#X connect 37 3 10 3;
-#X connect 37 4 10 4;
-#X connect 37 5 10 5;
-#X connect 37 6 10 6;
-#X connect 37 7 10 7;
-#X connect 37 8 10 8;
+#X connect 21 0 6 0;
+#X connect 21 0 23 0;
+#X connect 22 0 6 1;
+#X connect 23 0 22 0;
+#X connect 27 0 29 0;
+#X connect 27 0 7 0;
+#X connect 28 0 7 1;
+#X connect 29 0 28 0;
+#X connect 34 1 36 9;
+#X connect 35 0 34 0;
+#X connect 36 0 10 0;
+#X connect 36 1 10 1;
+#X connect 36 2 10 2;
+#X connect 36 3 10 3;
+#X connect 36 4 10 4;
+#X connect 36 5 10 5;
+#X connect 36 6 10 6;
+#X connect 36 7 10 7;
+#X connect 36 8 10 8;
