@@ -35,4 +35,3 @@ hoa.fx.mirror~-help.pd hoa.fx.mirror~ A mirror for sound field.;
 hoa.syn.delay~-help.pd hoa.syn.delay~ A delay sound field synthesizer.;
 hoa.syn.grain~-help.pd hoa.syn.grain~ A granular sound field synthesizer.;
 hoa.syn.ringmod~-help.pd hoa.syn.ringmod~ A ring modulation sound field synthesizer.;
-hoa.syn.encoder~-help.pd hoa.syn.encoder~ A simple encoder made with PD.;
