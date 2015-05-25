@@ -1,253 +1,38 @@
-#N canvas 181 71 1038 633 10;
-#X obj 416 273 sig~ 1;
-#X obj 571 99 c.number @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 416 333 hoa.3d.scope~ @size 208 208 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-1 @view 0 0 0 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
-0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj 483 304 *~ 1;
-#X obj 550 304 *~ 1;
-#X obj 618 304 *~ 1;
-#X obj 416 304 *~ 1;
-#X obj 688 99 c.number @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 571 63 c.loadmess 0;
-#X obj 5 560 hoa.help.pub;
-#X obj 504 243 *;
-#X obj 639 243 *;
-#X text 745 98 Elevation in radian;
-#X text 463 97 Azimuth in radian;
-#X text 770 198 the first degree.;
-#X obj 140 464 c.dsp~ @size 30 30 @fontname Helvetica @fontweight normal
-@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0 0.8;
-#X text 175 472 Dsp on/off;
-#X obj 639 273 * 1;
-#X obj 571 273 * 1;
-#X obj 504 273 * 1;
-#X text 3 50 With Ambisonics \, the encoding operation gives the spatials
-informations to a sound. Thus \, the sound can be listened as coming
-from a point of the space. Encoding a source in the spherical harmonics
-domain amounts to synthesize the spherical harmonics Y depending on
-the azimuth θ and the elevation φ and an order of decomposition N
-:;
-#X text 4 284 if m >= 0;
-#X text 4 315 else;
-#X text 26 299 e^i|m|θ = cos(|m| * θ);
-#X text 26 330 e^i|m|θ = sin(|m| * θ);
-#X text 3 162 With k is the normalization \, P' is the associated Legendre
-polynomial \, e^i is the complex exponential \, S the signal \, l the
-degree \, m the order \, θ azimuth and φ elevation.;
-#X text 3 141 Y[l \, m] = k(l \, m) * P'[l \, |m|](cos(φ)) * e^i|m|θ
-* S, f 59;
-#X text 3 242 k(l \, m) = sqrt((l - |m|)! / (l + |m|)!) * sqrt(2),
-f 59;
-#X text 3 225 The normalization k is defined by, f 59;
-#X text 3 269 The complex exponential e^i is defined by, f 59;
-#N canvas 233 259 647 403 polarMapping 0;
-#X obj 45 47 inlet;
-#X obj 126 4 inlet;
-#X obj 319 299 outlet;
-#X obj 126 329 outlet;
-#X obj 126 256 +;
-#X obj 141 164 hoa.pi 0.5;
-#X obj 141 142 c.loadmess;
-#N canvas 621 252 532 447 wrapPi 0;
-#X obj 155 23 inlet;
-#X obj 348 375 outlet;
-#X obj 423 54 hoa.pi 1;
-#X obj 348 353 spigot 0;
-#X obj 64 117 spigot 0;
-#X obj 393 282 >=;
-#X obj 408 261 * -1;
-#X obj 408 312 <=;
-#X obj 423 34 loadbang;
-#X obj 393 332 ==;
-#X obj 109 96 >;
-#X obj 64 162 -;
-#X obj 186 167 spigot 0;
-#X obj 231 146 <;
-#X obj 246 125 * -1;
-#X obj 186 209 +;
-#X obj 348 236 t f f f;
-#X obj 186 122 t f f;
-#X obj 64 70 t f f;
-#X obj 79 141 * 2;
-#X obj 201 188 * 2;
-#X connect 0 0 16 0;
-#X connect 0 0 17 0;
-#X connect 0 0 18 0;
-#X connect 2 0 6 0;
-#X connect 2 0 7 1;
-#X connect 2 0 10 1;
-#X connect 2 0 14 0;
-#X connect 2 0 19 0;
-#X connect 2 0 20 0;
-#X connect 3 0 1 0;
-#X connect 4 0 11 0;
-#X connect 5 0 9 0;
-#X connect 6 0 5 1;
-#X connect 7 0 9 1;
-#X connect 8 0 2 0;
-#X connect 9 0 3 1;
-#X connect 10 0 4 1;
-#X connect 11 0 16 0;
-#X connect 11 0 18 0;
-#X connect 12 0 15 0;
-#X connect 13 0 12 1;
-#X connect 14 0 13 1;
-#X connect 15 0 16 0;
-#X connect 15 0 17 0;
-#X connect 16 0 3 0;
-#X connect 16 1 5 0;
-#X connect 16 2 7 0;
-#X connect 17 0 12 0;
-#X connect 17 1 13 0;
-#X connect 18 0 4 0;
-#X connect 18 1 10 0;
-#X connect 19 0 11 1;
-#X connect 20 0 15 1;
-#X restore 126 69 pd wrapPi;
-#X obj 562 207 t b f;
-#X obj 292 256 expr if($f1 >= -$f2 && $f1 <= $f2 \, $f3 \, $f3-$f2*2)
-;
-#X obj 126 306 f;
-#X obj 292 278 t b f;
-#X obj 159 45 *;
-#X obj 174 25 hoa.pi 2;
-#X obj 276 89 *;
-#X obj 174 4 c.loadmess;
-#X connect 0 0 14 0;
-#X connect 1 0 12 0;
-#X connect 4 0 10 1;
-#X connect 4 0 10 0;
-#X connect 5 0 4 1;
-#X connect 5 0 9 1;
-#X connect 6 0 5 0;
-#X connect 7 0 4 0;
-#X connect 7 0 9 0;
-#X connect 8 0 9 0;
-#X connect 8 1 9 2;
-#X connect 9 0 11 0;
-#X connect 10 0 3 0;
-#X connect 11 0 10 0;
-#X connect 11 1 2 0;
-#X connect 12 0 7 0;
-#X connect 13 0 12 1;
-#X connect 13 0 14 1;
-#X connect 14 0 8 0;
-#X connect 15 0 13 0;
-#X restore 571 134 pd polarMapping ----;
-#X text 5 362 The associated Legendre polynomials P' are complex to
-compute. For further informations \, please refer to the C++ code and
-its documentation. Note that the complex exponential e^i is similar
-to the 2d encoding operation.;
-#N canvas 65 127 450 300 P'[1 0;
-#X obj 248 175 outlet;
-#X obj 248 129 inlet;
-#X obj 248 151 cos;
-#X connect 1 0 2 0;
-#X connect 2 0 0 0;
-#X restore 571 163 pd P'[1 \, 0](cos(φ));
-#N canvas 65 112 450 300 P'[1 0;
-#X obj 193 40 inlet;
-#X obj 193 213 outlet;
-#X obj 193 191 * -1;
-#X msg 193 127 1;
-#X obj 193 148 -;
-#X obj 193 106 t b f;
-#X obj 193 84 *;
-#X obj 193 61 t f f;
-#X obj 193 170 sqrt;
-#X connect 0 0 7 0;
-#X connect 2 0 1 0;
-#X connect 3 0 4 0;
-#X connect 4 0 8 0;
-#X connect 5 0 3 0;
-#X connect 5 1 4 1;
-#X connect 6 0 5 0;
-#X connect 7 0 6 0;
-#X connect 7 1 6 1;
-#X connect 8 0 2 0;
-#X restore 504 189 pd P'[1 \, 1](cos(φ));
-#N canvas 65 92 450 300 P'[1 0;
-#X obj 186 46 inlet;
-#X obj 186 219 outlet;
-#X obj 186 197 * -1;
-#X msg 186 133 1;
-#X obj 186 154 -;
-#X obj 186 112 t b f;
-#X obj 186 90 *;
-#X obj 186 67 t f f;
-#X obj 186 176 sqrt;
-#X connect 0 0 7 0;
-#X connect 2 0 1 0;
-#X connect 3 0 4 0;
-#X connect 4 0 8 0;
-#X connect 5 0 3 0;
-#X connect 5 1 4 1;
-#X connect 6 0 5 0;
-#X connect 7 0 6 0;
-#X connect 7 1 6 1;
-#X connect 8 0 2 0;
-#X restore 639 189 pd P'[1 \, 1](cos(φ));
-#N canvas 65 122 450 300 e^iθ 0;
-#X obj 143 92 inlet;
-#X obj 143 138 outlet;
-#X obj 143 114 sin;
+#N canvas 57 82 999 643 10;
+#X obj 20 11 c.canvasinfos;
+#X obj 19 7 c.loadmess;
+#X obj 2 6 hoa.tuto.header;
+#X obj 415 6 hoa.help.pub;
+#X text 1 55 With Ambisonics \, decoding is the operation that synthesizes
+the signals of the loudspeakers. As in any spatialisation technique
+\, this operation has advantages and limitations., f 65;
+#X text 1 105 Ambisonics allows to synthesize several sound fields
+and to decodes them with only a one operation offering. This advantage
+allows to reduce the CPU usage., f 65;
+#X text 1 235 Ambisonics offers a homogeneous rendering of the sound
+field. Unlike other techniques where the angular resolution varies
+depending on the sources directions \, Ambisonics provides a constant
+angular resolution across the circle., f 65;
+#X text 1 475 With Ambisonics \, the auditor should be ideally placed
+at the center of the loudspeakers array otherwise the sound field resitution
+will be distorted. However \, the use of the maxRe or inPhase optimizations
+(see hoa.optim~ object) can make up this artefact (to the detriment
+of the spatial resolution) and offers the possibility of an audience
+spread all over the circle., f 65;
+#X text 1 155 The separation of these two operations allows to perform
+many operations between them \, in the circular harmonics domain \,
+and also to record the sound field in this domain. Thus \, it is possible
+to adapt the sound field to the speakers arrengement., f 65;
+#X text 1 305 Nevertheless \, the restitution system is restricted
+by the order of decomposition. The number of loudspeakers must be higher
+than or equal to the number of harmonics. Thus \, the minimum number
+of loudspeakers is 3 for an order of decomposition of 1 Futhermore
+\, the loudspeakers must be placed on a circle or a sphere at equal
+distance from each other. However \, these restrictions can be bypassed
+to the detriment of the quality of the sound field restitution. Thus
+\, in practise \, it is \, in fact \, possible to project the sound
+field on many loudspeakers systems from stereo to an infinity of loudspeakers
+through all irregular configurations such as 5.1 \, 7.1 and headphones
+(see hoa.decoder~ object)., f 65;
 #X connect 0 0 2 0;
-#X connect 2 0 1 0;
-#X restore 519 220 pd e^iθ;
-#N canvas 65 122 450 300 e^iθ 0;
-#X obj 206 102 inlet;
-#X obj 206 147 outlet;
-#X obj 206 124 cos;
-#X connect 0 0 2 0;
-#X connect 2 0 1 0;
-#X restore 654 220 pd e^iθ;
-#X text 769 171 The associated Legendre;
-#X text 770 184 polynomials of the harmonics for;
-#X text 772 216 The complex exponential;
-#X text 774 230 For the harmonics of (azimuthal);
-#X text 774 243 order 0 \, the result is always equal to 1;
-#X text 775 264 For the order of decompostion 1 \, all the normalizations
-are equal to 1, f 40;
-#X text 416 26 Example of the encoding for the order of decomposition
-1 :;
-#X obj 21 11 c.canvasinfos;
-#X obj 20 7 c.loadmess;
-#X obj 3 6 hoa.tuto.header;
-#X connect 0 0 6 0;
-#X connect 0 0 5 0;
-#X connect 0 0 3 0;
-#X connect 0 0 4 0;
-#X connect 1 0 30 0;
-#X connect 3 0 2 1;
-#X connect 4 0 2 2;
-#X connect 5 0 2 3;
-#X connect 6 0 2 0;
-#X connect 7 0 30 1;
-#X connect 8 0 7 0;
-#X connect 8 0 1 0;
-#X connect 10 0 19 0;
-#X connect 11 0 17 0;
-#X connect 17 0 5 1;
-#X connect 18 0 4 1;
-#X connect 19 0 3 1;
-#X connect 30 0 32 0;
-#X connect 30 1 36 0;
-#X connect 30 1 35 0;
-#X connect 32 0 33 0;
-#X connect 32 0 34 0;
-#X connect 32 0 18 0;
-#X connect 33 0 10 0;
-#X connect 34 0 11 0;
-#X connect 35 0 10 1;
-#X connect 36 0 11 1;
-#X connect 44 0 46 0;
-#X connect 45 0 44 0;
+#X connect 1 0 0 0;
