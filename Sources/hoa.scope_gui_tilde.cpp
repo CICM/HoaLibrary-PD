@@ -58,7 +58,7 @@ static void hoa_scope_perform(t_hoa_scope *x, t_object *dsp64, t_sample **ins, l
 {
     for(long i = 0; i < numins; i++)
     {
-        cblas_scopy(sampleframes, ins[i], 1, x->f_signals+i, numins);
+        Signal<t_sample>::vector_copy(sampleframes, ins[i], 1, x->f_signals+i, numins);
     }
     cblas_sscal(numins * sampleframes, x->f_gain, x->f_signals, 1);
     if(x->f_startclock)
@@ -409,7 +409,7 @@ static void hoa_scope_3d_perform(t_hoa_scope_3d *x, t_object *dsp64, t_sample **
 {
     for(long i = 0; i < numins; i++)
     {
-        cblas_scopy(sampleframes, ins[i], 1, x->f_signals+i, numins);
+        Signal<t_sample>::vector_copy(sampleframes, ins[i], 1, x->f_signals+i, numins);
     }
     cblas_sscal(numins * sampleframes, x->f_gain, x->f_signals, 1);
     if(x->f_startclock)

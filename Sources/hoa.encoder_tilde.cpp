@@ -58,7 +58,7 @@ static void hoa_encoder_perform(t_hoa_encoder *x, t_object *dsp, t_sample **ins,
     }
     for(long i = 0; i < numouts; i++)
     {
-        cblas_scopy(sampleframes, x->f_signals+i, numouts, outs[i], 1);
+        Signal<t_sample>::vector_copy(sampleframes, x->f_signals+i, numouts, outs[i], 1);
     }
 }
 
@@ -70,7 +70,7 @@ static void hoa_encoder_perform_offset(t_hoa_encoder *x, t_object *dsp, t_sample
     }
     for(long i = 0; i < numouts; i++)
     {
-        cblas_scopy(sampleframes, x->f_signals+i, numouts, outs[i], 1);
+        Signal<t_sample>::vector_copy(sampleframes, x->f_signals+i, numouts, outs[i], 1);
     }
 }
 
@@ -140,7 +140,7 @@ static void hoa_encoder_3d_perform(t_hoa_encoder_3d *x, t_object *dsp, float **i
     }
     for(long i = 0; i < numouts; i++)
     {
-        cblas_scopy(sampleframes, x->f_signals+i, numouts, outs[i], 1);
+        Signal<t_sample>::vector_copy(sampleframes, x->f_signals+i, numouts, outs[i], 1);
     }
 }
 
@@ -153,7 +153,7 @@ static void hoa_encoder_3d_perform_azimuth(t_hoa_encoder_3d *x, t_object *dsp, t
     }
     for(long i = 0; i < numouts; i++)
     {
-        cblas_scopy(sampleframes, x->f_signals+i, numouts, outs[i], 1);
+        Signal<t_sample>::vector_copy(sampleframes, x->f_signals+i, numouts, outs[i], 1);
     }
 }
 
@@ -166,7 +166,7 @@ static void hoa_encoder_3d_perform_elevation(t_hoa_encoder_3d *x, t_object *dsp,
     }
     for(long i = 0; i < numouts; i++)
     {
-        cblas_scopy(sampleframes, x->f_signals+i, numouts, outs[i], 1);
+        Signal<t_sample>::vector_copy(sampleframes, x->f_signals+i, numouts, outs[i], 1);
     }
 }
 
@@ -178,7 +178,7 @@ static void hoa_encoder_3d_perform_offset(t_hoa_encoder_3d *x, t_object *dsp, t_
     }
     for(long i = 0; i < numouts; i++)
     {
-        cblas_scopy(sampleframes, x->f_signals+i, numouts, outs[i], 1);
+        Signal<t_sample>::vector_copy(sampleframes, x->f_signals+i, numouts, outs[i], 1);
     }
 }
 
