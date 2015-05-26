@@ -82,7 +82,7 @@ static void hoa_decoder_perform64_regular(t_hoa_decoder *x, t_object *dsp64, t_s
 {
     for(long i = 0; i < numins; i++)
     {
-        cblas_scopy(sampleframes, ins[i], 1, x->f_ins+i, numins);
+        Signal<t_sample>::vector_copy(sampleframes, ins[i], 1, x->f_ins+i, numins);
     }
 	for(long i = 0; i < sampleframes; i++)
     {
@@ -90,7 +90,7 @@ static void hoa_decoder_perform64_regular(t_hoa_decoder *x, t_object *dsp64, t_s
     }
     for(long i = 0; i < numouts; i++)
     {
-        cblas_scopy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::vector_copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
     }
 }
 
@@ -98,7 +98,7 @@ static void hoa_decoder_perform64_irregular(t_hoa_decoder *x, t_object *dsp64, t
 {
     for(long i = 0; i < numins; i++)
     {
-        cblas_scopy(sampleframes, ins[i], 1, x->f_ins+i, numins);
+        Signal<t_sample>::vector_copy(sampleframes, ins[i], 1, x->f_ins+i, numins);
     }
     for(long i = 0; i < sampleframes; i++)
     {
@@ -106,7 +106,7 @@ static void hoa_decoder_perform64_irregular(t_hoa_decoder *x, t_object *dsp64, t
     }
     for(long i = 0; i < numouts; i++)
     {
-        cblas_scopy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::vector_copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
     }
 }
 
@@ -115,7 +115,7 @@ static void hoa_decoder_perform64_binaural(t_hoa_decoder *x, t_object *dsp64, t_
     const long max = numins < 11 ? numins : 11;
     for(long i = 0; i < max; i++)
     {
-        cblas_scopy(sampleframes, ins[i], 1, x->f_ins+i, max);
+        Signal<t_sample>::vector_copy(sampleframes, ins[i], 1, x->f_ins+i, max);
     }
     for(long i = 0; i < sampleframes; i++)
     {
@@ -123,7 +123,7 @@ static void hoa_decoder_perform64_binaural(t_hoa_decoder *x, t_object *dsp64, t_
     }
     for(long i = 0; i < 2; i++)
     {
-        cblas_scopy(sampleframes, x->f_outs+i, 2, outs[i], 1);
+        Signal<t_sample>::vector_copy(sampleframes, x->f_outs+i, 2, outs[i], 1);
     }
 }
 
@@ -288,7 +288,7 @@ static void hoa_decoder_3d_perform64(t_hoa_decoder_3d *x, t_object *dsp64, t_sam
 {
     for(long i = 0; i < numins; i++)
     {
-        cblas_scopy(sampleframes, ins[i], 1, x->f_ins+i, numins);
+        Signal<t_sample>::vector_copy(sampleframes, ins[i], 1, x->f_ins+i, numins);
     }
     for(long i = 0; i < sampleframes; i++)
     {
@@ -296,7 +296,7 @@ static void hoa_decoder_3d_perform64(t_hoa_decoder_3d *x, t_object *dsp64, t_sam
     }
     for(long i = 0; i < numouts; i++)
     {
-        cblas_scopy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::vector_copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
     }
     
 }

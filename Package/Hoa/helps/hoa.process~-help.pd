@@ -1,4 +1,4 @@
-#N canvas 414 82 869 535 10;
+#N canvas 414 82 901 661 10;
 #X obj 594 28 hoa.connect;
 #X obj 594 7 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -28,11 +28,9 @@ the patcher as many times as the number of channels.;
 #X obj 8 3 hoa.help.header;
 #X obj 17 425 hoa.help.pub;
 #X obj 421 3 hoa.help.also;
-#X text 439 469 The hoa.process~ use of this patch is an example made
+#X text 439 549 The hoa.process~ use of this patch is an example made
 to show how it works. You would prefer to look at the real uses of
 hoa.process~.;
-#X obj 439 391 hoa.3d.process~ 3 hoa.processexample harmonics;
-#X obj 439 281 hoa.2d.process~ 3 hoa.processexample harmonics;
 #X text 435 50 Open;
 #X text 435 70 Use open message to open a specific instance :;
 #X msg 436 94 open 1;
@@ -43,38 +41,50 @@ harmonic 0 instance.;
 #X text 435 190 Target;
 #X text 435 210 Use target message to route the message to a specific
 instance :;
-#X obj 747 245 c.number @size 53 14 @fontname Helvetica @fontweight
+#X obj 657 245 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X msg 439 245 target 1;
 #X msg 510 245 target -2;
 #X msg 581 245 target all;
-#X msg 661 245 target none;
 #X obj 439 310 print;
 #X msg 591 345 target all;
-#X msg 671 345 target none;
 #X obj 439 420 print;
 #X msg 439 345 target 2 1;
 #X msg 510 345 target 3 -2;
-#X obj 757 345 c.number @size 53 14 @fontname Helvetica @fontweight
+#X obj 667 345 c.number @size 53 17 @fontname Helvetica @fontweight
 normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 (null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 591 455 target all;
+#X obj 439 530 print;
+#X obj 667 455 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X msg 439 455 target 1;
+#X msg 510 455 target 2;
+#X obj 439 501 hoa.3d.process~ 3 hoa.processexample planewaves;
+#X obj 439 391 hoa.3d.process~ 3 hoa.processexample harmonics;
+#X obj 439 281 hoa.2d.process~ 3 hoa.processexample harmonics;
 #X connect 1 0 0 0;
 #X connect 9 0 11 0;
 #X connect 10 0 9 0;
-#X connect 15 0 33 0;
-#X connect 16 0 30 0;
-#X connect 19 0 22 0;
-#X connect 20 0 22 0;
-#X connect 25 0 16 0;
-#X connect 26 0 16 0;
-#X connect 27 0 16 0;
-#X connect 28 0 16 0;
-#X connect 29 0 16 0;
-#X connect 31 0 15 0;
-#X connect 32 0 15 0;
-#X connect 34 0 15 0;
-#X connect 35 0 15 0;
-#X connect 36 0 15 0;
+#X connect 17 0 20 0;
+#X connect 18 0 20 0;
+#X connect 23 0 40 0;
+#X connect 24 0 40 0;
+#X connect 25 0 40 0;
+#X connect 26 0 40 0;
+#X connect 28 0 39 0;
+#X connect 30 0 39 0;
+#X connect 31 0 39 0;
+#X connect 32 0 39 0;
+#X connect 33 0 38 0;
+#X connect 35 0 38 0;
+#X connect 36 0 38 0;
+#X connect 37 0 38 0;
+#X connect 38 0 34 0;
+#X connect 39 0 29 0;
+#X connect 40 0 27 0;

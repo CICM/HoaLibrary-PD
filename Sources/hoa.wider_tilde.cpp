@@ -80,7 +80,7 @@ static void hoa_wider_perform(t_hoa_wider *x, t_object *dsp, t_sample **ins, lon
 {
 	for(long i = 0; i < numins - 1; i++)
     {
-        cblas_scopy(sampleframes, ins[i], 1, x->f_ins+i, numins - 1);
+        Signal<t_sample>::vector_copy(sampleframes, ins[i], 1, x->f_ins+i, numins - 1);
     }
 	for(long i = 0; i < sampleframes; i++)
     {
@@ -89,7 +89,7 @@ static void hoa_wider_perform(t_hoa_wider *x, t_object *dsp, t_sample **ins, lon
     }
     for(long i = 0; i < numouts; i++)
     {
-        cblas_scopy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::vector_copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
     }
 }
 
@@ -97,7 +97,7 @@ static void hoa_wider_3d_perform(t_hoa_wider_3d *x, t_object *dsp, t_sample **in
 {
     for(long i = 0; i < numins - 1; i++)
     {
-        cblas_scopy(sampleframes, ins[i], 1, x->f_ins+i, numins - 1);
+        Signal<t_sample>::vector_copy(sampleframes, ins[i], 1, x->f_ins+i, numins - 1);
     }
     for(long i = 0; i < sampleframes; i++)
     {
@@ -106,7 +106,7 @@ static void hoa_wider_3d_perform(t_hoa_wider_3d *x, t_object *dsp, t_sample **in
     }
     for(long i = 0; i < numouts; i++)
     {
-        cblas_scopy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::vector_copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
     }
 }
 
@@ -114,7 +114,7 @@ static void hoa_wider_perform_offset(t_hoa_wider *x, t_object *dsp, t_sample **i
 {
 	for(long i = 0; i < numins - 1; i++)
     {
-        cblas_scopy(sampleframes, ins[i], 1, x->f_ins+i, numins - 1);
+        Signal<t_sample>::vector_copy(sampleframes, ins[i], 1, x->f_ins+i, numins - 1);
     }
 	for(long i = 0; i < sampleframes; i++)
     {
@@ -122,7 +122,7 @@ static void hoa_wider_perform_offset(t_hoa_wider *x, t_object *dsp, t_sample **i
     }
     for(long i = 0; i < numouts; i++)
     {
-        cblas_scopy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::vector_copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
     }
 }
 
@@ -130,7 +130,7 @@ static void hoa_wider_3d_perform_offset(t_hoa_wider_3d *x, t_object *dsp, t_samp
 {
     for(long i = 0; i < numins - 1; i++)
     {
-        cblas_scopy(sampleframes, ins[i], 1, x->f_ins+i, numins - 1);
+        Signal<t_sample>::vector_copy(sampleframes, ins[i], 1, x->f_ins+i, numins - 1);
     }
     for(long i = 0; i < sampleframes; i++)
     {
@@ -138,7 +138,7 @@ static void hoa_wider_3d_perform_offset(t_hoa_wider_3d *x, t_object *dsp, t_samp
     }
     for(long i = 0; i < numouts; i++)
     {
-        cblas_scopy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::vector_copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
     }
 }
 

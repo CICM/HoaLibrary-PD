@@ -5,6 +5,8 @@ SUFFIXES = .pd
 hoa.librarypatchersdir=$(pkglibdir)/patchers
 
 dist_hoa.librarypatchers_DATA = \
+hoa.fx.2d.decoder~.pd \
+hoa.fx.2d.rotate~.pd \
 hoa.fx.delay~.pd \
 hoa.fx.sum~.pd \
 hoa.fx.freeverb~.pd	\

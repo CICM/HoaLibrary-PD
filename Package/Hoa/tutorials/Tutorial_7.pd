@@ -1,0 +1,166 @@
+#N canvas 57 82 949 729 10;
+#X obj 20 11 c.canvasinfos;
+#X obj 19 7 c.loadmess;
+#X obj 2 6 hoa.tuto.header;
+#X obj 415 6 hoa.help.pub;
+#X text 2 156 Overall \, the decoding operation for one loudspeaker
+(or planewave) comes down to compute the sum of the mutiplication of
+the circular harmonics of the sound field with the circular harmonics
+of a dirac in the direction of the loudspeaker :, f 61;
+#X text 1 229 Example for the 2nd order:;
+#X obj 634 150 hoa.pi 2;
+#X obj 634 130 c.number @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 634 100 c.loadmess 0;
+#X obj 458 452 hoa.2d.meter~ @size 183 183 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @channels
+8 @angles 0 45 90 135 180 225 270 315 @offset 0 @rotation anti-clockwise
+@vectors none @interval 50 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
+0.7 1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor
+0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor
+0 0 1 0.8 @velocitycolor 1 0 0 0.8;
+#X obj 401 661 c.dsp~ @size 30 30 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0 0.8;
+#X text 644 172 Synthesis of the sound field;
+#X text 644 313 of the sound field.;
+#X text 646 417 Click to open.;
+#X text 654 534 of each loudspeaker.;
+#X text 439 669 Dsp on/off;
+#X text 646 397 In the process~ \, we compute the operations;
+#X text 646 407 for each planewaves (or loudspeakers).;
+#X obj 457 204 hoa.2d.scope~ @size 183 183 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
+3 @view 0 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 457 172 hoa.2d.encoder~ 3, f 30;
+#X text 644 303 Representation of the 7 harmonics;
+#N canvas 55 162 410 281 norm 0;
+#X msg 100 100 1;
+#X obj 100 128 /, f 5;
+#X obj 100 150 sig~;
+#X obj 100 192 outlet~;
+#X obj 127 100 + 1;
+#X obj 100 21 c.loadmess;
+#X obj 100 77 t b f;
+#X obj 100 54 f 2;
+#X text 131 55 Order 2;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 4 0 1 1;
+#X connect 5 0 7 0;
+#X connect 6 0 0 0;
+#X connect 6 1 4 0;
+#X connect 7 0 6 0;
+#X restore 205 328 pd norm;
+#X text 305 288 Angle of the;
+#X text 305 298 loudspeaker in;
+#X text 305 308 radians :;
+#X obj 310 330 c.number @size 55 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
+(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X text 10 470 is always;
+#X text 10 481 divided by 2;
+#X text 10 459 The harmonic 0;
+#X text 2 56 After the multiples process in the harmonics domain \,
+the sound field can be rendered into the planewaves domain for a set
+of loudspeakers via the decoding operations. In this tutorial \, we
+present the underlying operations of the regular decoding. For further
+informations about the use of the irregular and binaural decoding \,
+please refer to the decoder help., f 61;
+#X obj 27 361 hoa.2d.encoder~ 1;
+#X obj 205 361 hoa.2d.encoder~ 1, f 18;
+#X obj 90 415 *~;
+#X obj 150 415 *~;
+#X obj 210 415 *~;
+#X obj 90 437 /~ 2;
+#X obj 150 489 +~;
+#X obj 27 331 noise~;
+#X obj 150 511 c.meter~ @size 77 13 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor 0 0.6
+0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
+1 0.6 0 0.8 @overcolor 1 0 0 0.8;
+#X obj 150 534 c.number~ @size 53 17 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
+50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#N canvas 0 22 450 300 rotate 0;
+#X obj 12 58 hoa.pi~;
+#X obj 12 14 phasor~ 0.1;
+#X obj 12 36 *~ 2;
+#X obj 12 80 outlet~;
+#X connect 0 0 3 0;
+#X connect 1 0 2 0;
+#X connect 2 0 0 0;
+#X restore 126 328 pd rotate;
+#X text 203 290 The dirac is;
+#X text 203 300 equal to;
+#X text 203 310 1 / (N + 1);
+#X text 227 249 Loudspeaker in the;
+#X text 227 259 harmonics domain;
+#X text 41 249 Sound field in the;
+#X text 41 259 harmonics domain;
+#X text 243 414 Mutliply each;
+#X text 178 493 harmonics;
+#X text 178 483 Sum all the;
+#X text 243 424 harmonic;
+#X text 145 553 Signal of the;
+#X text 145 563 loudspeaker;
+#X text 6 585 To decode a sound field for a set of loudspeakers \,
+we reproduce the operation for each loudspeaker. This operation can
+be spread out for high orders and in 3d.;
+#X obj 457 147 sig~ 1;
+#X text 417 60 In the example \, all the opeations are done with the
+object hoa.process~ :;
+#X text 653 523 Representation of the contribution;
+#X obj 458 400 hoa.process~ 3 hoa.fx.2d.decoder~ harmonics 8, f 30
+;
+#X connect 0 0 2 0;
+#X connect 1 0 0 0;
+#X connect 6 0 19 1;
+#X connect 7 0 6 0;
+#X connect 8 0 7 0;
+#X connect 19 0 18 0;
+#X connect 19 0 58 0;
+#X connect 19 1 18 1;
+#X connect 19 1 58 1;
+#X connect 19 2 18 2;
+#X connect 19 2 58 2;
+#X connect 19 3 18 3;
+#X connect 19 3 58 3;
+#X connect 19 4 18 4;
+#X connect 19 4 58 4;
+#X connect 19 5 18 5;
+#X connect 19 5 58 5;
+#X connect 19 6 18 6;
+#X connect 19 6 58 6;
+#X connect 21 0 31 0;
+#X connect 25 0 31 1;
+#X connect 30 0 32 0;
+#X connect 30 1 33 0;
+#X connect 30 2 34 0;
+#X connect 31 0 32 0;
+#X connect 31 1 33 1;
+#X connect 31 2 34 1;
+#X connect 32 0 35 0;
+#X connect 33 0 36 0;
+#X connect 34 0 36 0;
+#X connect 35 0 36 0;
+#X connect 36 0 38 0;
+#X connect 36 0 39 0;
+#X connect 37 0 30 0;
+#X connect 40 0 30 1;
+#X connect 55 0 19 0;
+#X connect 58 0 9 0;
+#X connect 58 1 9 1;
+#X connect 58 2 9 2;
+#X connect 58 3 9 3;
+#X connect 58 4 9 4;
+#X connect 58 5 9 5;
+#X connect 58 6 9 6;
+#X connect 58 7 9 7;

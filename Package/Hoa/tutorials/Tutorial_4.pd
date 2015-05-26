@@ -1,0 +1,279 @@
+#N canvas 123 23 966 819 10;
+#X obj 22 9 c.canvasinfos;
+#X obj 21 5 c.loadmess;
+#X obj 4 4 hoa.tuto.header;
+#X obj 417 4 hoa.help.pub;
+#X text 3 53 In Ambisonics \, the planewave is the wave model witch
+underlies the projection and the decomposition of the sound field.
+;
+#X obj 467 119 c.blackboard @size 397 93 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @chalkmode
+0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#N canvas 98 147 724 575 subscript 0;
+#X obj 280 523 outlet;
+#X obj 158 332 until;
+#X obj 158 357 f 0;
+#X obj 182 409 * -1;
+#X obj 261 379 + 10;
+#X obj 182 436 + 42;
+#X obj 242 442 + 42;
+#X obj 159 463 pack f f f f;
+#X obj 142 409 * -1;
+#X obj 159 383 t f f f f;
+#X obj 221 409 + 10;
+#X obj 161 493 c.prepend oval;
+#X obj 189 356 + 20;
+#X obj 377 9 c.loadmess;
+#X msg 388 186 width 20 \, color rgb 0.5 0.5 0.5;
+#X msg 360 208 width 14 \, color rgb 0.4 0.4 0.4;
+#X msg 401 336 width 10 \, color rgb 0.3 0.3 0.3;
+#X msg 401 299 width 7 \, color rgb 0.2 0.2 0.2;
+#X msg 398 274 width 3 \, color rgb 0.1 0.1 0.1;
+#X msg 395 244 width 1 \, color rgb 0 0 0;
+#X msg 389 71 clear \, fill 1 \, width 1 \, color rgb 0 0 0 \, oval
+0 42 10 52 \, fill 0 \,;
+#X obj 375 37 t b b;
+#X obj 225 107 t b b b b b b;
+#X obj 345 158 t b b b;
+#X msg 222 329 0;
+#X msg 164 304 20;
+#X obj 285 158 t b b b;
+#X obj 235 158 t b b b;
+#X obj 175 158 t b b b;
+#X obj 115 158 t b b b;
+#X obj 55 158 t b b b;
+#X connect 1 0 2 0;
+#X connect 2 0 9 0;
+#X connect 2 0 12 0;
+#X connect 3 0 5 0;
+#X connect 4 0 6 0;
+#X connect 5 0 7 1;
+#X connect 6 0 7 3;
+#X connect 7 0 11 0;
+#X connect 8 0 7 0;
+#X connect 9 0 8 0;
+#X connect 9 1 3 0;
+#X connect 9 2 10 0;
+#X connect 9 3 4 0;
+#X connect 10 0 7 2;
+#X connect 11 0 0 0;
+#X connect 12 0 2 1;
+#X connect 13 0 21 0;
+#X connect 14 0 0 0;
+#X connect 15 0 0 0;
+#X connect 16 0 0 0;
+#X connect 17 0 0 0;
+#X connect 18 0 0 0;
+#X connect 19 0 0 0;
+#X connect 20 0 0 0;
+#X connect 21 0 22 0;
+#X connect 21 1 20 0;
+#X connect 22 0 30 0;
+#X connect 22 1 29 0;
+#X connect 22 2 28 0;
+#X connect 22 3 27 0;
+#X connect 22 4 26 0;
+#X connect 22 5 23 0;
+#X connect 23 0 25 0;
+#X connect 23 1 24 0;
+#X connect 23 2 14 0;
+#X connect 24 0 2 1;
+#X connect 25 0 1 0;
+#X connect 26 0 25 0;
+#X connect 26 1 24 0;
+#X connect 26 2 15 0;
+#X connect 27 0 25 0;
+#X connect 27 1 24 0;
+#X connect 27 2 16 0;
+#X connect 28 0 25 0;
+#X connect 28 1 24 0;
+#X connect 28 2 17 0;
+#X connect 29 0 25 0;
+#X connect 29 1 24 0;
+#X connect 29 2 18 0;
+#X connect 30 0 25 0;
+#X connect 30 1 24 0;
+#X connect 30 2 19 0;
+#X restore 502 174 pd subscript;
+#X text 848 80 |;
+#X text 848 90 |;
+#X text 848 100 v;
+#X text 466 80 |;
+#X text 466 90 |;
+#X text 466 100 v;
+#X text 436 70 Circular wave;
+#X text 819 70 Plane wave;
+#X text 526 70 ---------------------------------------------->;
+#X text 366 155 Sound source-->;
+#X obj 574 356 hoa.2d.meter~ @size 129 129 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @channels
+8 @angles 0 45 90 135 180 225 270 315 @offset 0 @rotation anti-clockwise
+@vectors none @interval 50 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
+0.7 1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor
+0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor
+0 0 1 0.8 @velocitycolor 1 0 0 0.8;
+#X obj 403 250 sig~ 1;
+#X obj 112 492 c.dsp~ @size 30 30 @fontname Helvetica @fontweight normal
+@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0 0.8;
+#X text 536 425 ---->;
+#X text 707 425 ---->;
+#X text 411 489 Harmonics domain;
+#X text 759 489 Harmonics domain;
+#X text 586 489 Planewaves domain;
+#N canvas 0 22 450 300 rota 0;
+#X obj 76 49 phasor~ 0.1;
+#X obj 76 76 *~;
+#X obj 126 72 hoa.pi 2;
+#X obj 198 73 c.loadmess;
+#X obj 78 110 outlet~;
+#X connect 0 0 1 0;
+#X connect 1 0 4 0;
+#X connect 2 0 1 1;
+#X connect 3 0 2 0;
+#X restore 525 250 pd rota;
+#X obj 403 272 hoa.2d.encoder~ 3, f 21;
+#X obj 403 356 hoa.2d.scope~ @size 129 129 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
+3 @view 0 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 574 302 hoa.2d.projector~ 3 8;
+#X obj 745 332 hoa.recomposer~ 3 8, f 21;
+#X obj 745 356 hoa.2d.scope~ @size 129 129 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
+3 @view 0 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X text 877 425 ----> ect.;
+#X text 3 272 One of the main advantage of this model lie in its interoperabilty
+with the harmonics model. Indeed \, a sound field represented by set
+of harmonics can also be represented by a set of planewaves without
+loss of informations. This allows to permute the representation of
+the sound field indefinitely from a representation in the harmonics
+domain to a representation in the planewaves representation. Thus \,
+you can decode or project a sound field in the harmonics domain to
+the planewave domain and come back to harmonics domain. The only limitation
+is the angular direction of the planewaves and their number. There
+must be at least as many plane waves as there are harmonics and the
+planewaves must be "equally spaced" (cf decoder).;
+#X text 3 563 In the Ambisonics model \, we assumes that the loudspeakers
+generate planewaves and the microphones record planewaves. This approximation
+allows to use the recordings to generate harmonics and to use the planewaves
+signals after a decoding as the signals of the loudspeakers. Nevertheless
+\, this approach brings artefacts because the underlying models of
+the planewaves and the harmonics don't match exactly with the reality.
+To make up the distorsions of the sound field \, it is common to optimize
+the sound field (cf optim) and/or to change the decoding method depending
+on the loudspeakers arrengement (cf decoder)., f 59;
+#X text 150 499 Dsp On/Off;
+#X obj 403 520 sig~ 1;
+#N canvas 0 22 450 300 rota 0;
+#X obj 76 49 phasor~ 0.1;
+#X obj 76 76 *~;
+#X obj 126 72 hoa.pi 2;
+#X obj 198 73 c.loadmess;
+#X obj 78 110 outlet~;
+#X connect 0 0 1 0;
+#X connect 1 0 4 0;
+#X connect 2 0 1 1;
+#X connect 3 0 2 0;
+#X restore 525 520 pd rota;
+#X obj 403 542 hoa.2d.encoder~ 3, f 21;
+#X obj 403 666 hoa.2d.scope~ @size 129 129 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
+3 @view 0 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 574 572 hoa.2d.optim~ 3 inPhase, f 21;
+#X obj 574 666 hoa.2d.scope~ @size 129 129 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
+3 @view 0 @gain 2 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 734 666 hoa.2d.meter~ @size 129 129 @fontname Helvetica @fontweight
+normal @fontslant roman @fontsize 11 @receive (null) @send (null) @channels
+5 @angles 0 30 110 250 330 @offset 0 @rotation anti-clockwise @vectors
+none @interval 50 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7 1
+@coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85
+0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor 0 0 1
+0.8 @velocitycolor 1 0 0 0.8;
+#X obj 734 612 hoa.2d.decoder~ 3 irregular 5 @angles 0 30 110 250 330
+, f 21;
+#X text 3 133 This wave model has wavefronts whose are infinite parralel
+plane. In practice such waves do not exist but in acoustic when the
+source of the wave is far away the wavefront is considered as a plane.
+, f 59;
+#X connect 0 0 2 0;
+#X connect 1 0 0 0;
+#X connect 6 0 5 0;
+#X connect 18 0 26 0;
+#X connect 25 0 26 1;
+#X connect 26 0 27 0;
+#X connect 26 0 28 0;
+#X connect 26 1 27 1;
+#X connect 26 1 28 1;
+#X connect 26 2 27 2;
+#X connect 26 2 28 2;
+#X connect 26 3 27 3;
+#X connect 26 3 28 3;
+#X connect 26 4 27 4;
+#X connect 26 4 28 4;
+#X connect 26 5 27 5;
+#X connect 26 5 28 5;
+#X connect 26 6 27 6;
+#X connect 26 6 28 6;
+#X connect 28 0 29 0;
+#X connect 28 0 17 0;
+#X connect 28 1 29 1;
+#X connect 28 1 17 1;
+#X connect 28 2 29 2;
+#X connect 28 2 17 2;
+#X connect 28 3 29 3;
+#X connect 28 3 17 3;
+#X connect 28 4 29 4;
+#X connect 28 4 17 4;
+#X connect 28 5 29 5;
+#X connect 28 5 17 5;
+#X connect 28 6 29 6;
+#X connect 28 6 17 6;
+#X connect 28 7 29 7;
+#X connect 28 7 17 7;
+#X connect 29 0 30 0;
+#X connect 29 1 30 1;
+#X connect 29 2 30 2;
+#X connect 29 3 30 3;
+#X connect 29 4 30 4;
+#X connect 29 5 30 5;
+#X connect 29 6 30 6;
+#X connect 35 0 37 0;
+#X connect 36 0 37 1;
+#X connect 37 0 38 0;
+#X connect 37 0 39 0;
+#X connect 37 1 38 1;
+#X connect 37 1 39 1;
+#X connect 37 2 38 2;
+#X connect 37 2 39 2;
+#X connect 37 3 38 3;
+#X connect 37 3 39 3;
+#X connect 37 4 38 4;
+#X connect 37 4 39 4;
+#X connect 37 5 38 5;
+#X connect 37 5 39 5;
+#X connect 37 6 38 6;
+#X connect 37 6 39 6;
+#X connect 39 0 40 0;
+#X connect 39 0 42 0;
+#X connect 39 1 40 1;
+#X connect 39 1 42 1;
+#X connect 39 2 40 2;
+#X connect 39 2 42 2;
+#X connect 39 3 40 3;
+#X connect 39 3 42 3;
+#X connect 39 4 40 4;
+#X connect 39 4 42 4;
+#X connect 39 5 40 5;
+#X connect 39 5 42 5;
+#X connect 39 6 40 6;
+#X connect 39 6 42 6;
+#X connect 42 0 41 0;
+#X connect 42 1 41 1;
+#X connect 42 2 41 2;
+#X connect 42 3 41 3;
+#X connect 42 4 41 4;

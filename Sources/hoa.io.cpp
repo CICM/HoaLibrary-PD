@@ -366,12 +366,7 @@ static void hoa_thisprocess_bang(t_hoa_thisprocess *x)
     if(x->f_nit)
     {
         outlet_list(x->f_out_hoa_mode,  &s_list, 2, x->f_hoa_mode);
-        if(atom_getsym(x->f_hoa_mode) == gensym("2d"))
-            outlet_list(x->f_out_hoa_args, &s_list, 2, x->f_hoa_args);
-        else if(atom_getsym(x->f_hoa_mode) == gensym("3d") && atom_getsym(x->f_hoa_mode+1) == gensym("planewaves"))
-            outlet_list(x->f_out_hoa_args, &s_list, 2, x->f_hoa_args);
-        else
-            outlet_list(x->f_out_hoa_args, &s_list, 3, x->f_hoa_args);
+        outlet_list(x->f_out_hoa_args, &s_list, 3, x->f_hoa_args);
     }
     outlet_symbol(x->f_out_attrs, gensym("done"));
 }
@@ -386,8 +381,10 @@ static void hoa_thisprocess_click(t_hoa_thisprocess *x)
 static void hoa_thisprocess_free(t_hoa_thisprocess *x)
 {
     int i;
-    if(x->f_argc)
+    if(x->f_argc && x->f_args)
+    {
         free(x->f_args);
+    }
     if(x->f_n_attrs)
     {
         for(i = 0; i < x->f_n_attrs; i++)

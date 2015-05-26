@@ -78,7 +78,18 @@ static t_symbol* hoa_sym_free               = gensym("free");
 
 static t_symbol* hoa_sym_all                = gensym("all");
 static t_symbol* hoa_sym_canvas             = gensym("canvas");
-static t_symbol* hoa_sym_hoathisprocess     = gensym("hoa.thisprocess~");
+static t_symbol* hoa_sym_2d                 = gensym("2d");
+static t_symbol* hoa_sym_3d                 = gensym("3d");
+static t_symbol* hoa_sym_harmonics	 		= gensym("harmonics");
+static t_symbol* hoa_sym_planewaves	 		= gensym("planewaves");
+static t_symbol* hoa_sym_hoa_thisprocess    = gensym("hoa.thisprocess~");
+static t_symbol* hoa_sym_hoa_process        = gensym("hoa.process~");
+static t_symbol* hoa_sym_hoa_2d_process     = gensym("hoa.2d.process~");
+static t_symbol* hoa_sym_hoa_3d_process     = gensym("hoa.3d.process~");
+static t_symbol* hoa_sym_hoa_in             = gensym("hoa.in");
+static t_symbol* hoa_sym_hoa_in_tilde       = gensym("hoa.in~");
+static t_symbol* hoa_sym_hoa_out            = gensym("hoa.out");
+static t_symbol* hoa_sym_hoa_out_tilde      = gensym("hoa.out~");
 
 
 static t_symbol* hoa_sym_order              = gensym("order");
