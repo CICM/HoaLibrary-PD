@@ -9,7 +9,7 @@
 extern void hoa_initclass(t_eclass* c)
 {
     char help[MAXPDSTRING];
-    sprintf(help, "helps/%s-help", c->c_class.c_name->s_name);
+    sprintf(help, "helps/%s", c->c_class.c_name->s_name);
     class_sethelpsymbol((t_class *)c, gensym(help));
 }
 
