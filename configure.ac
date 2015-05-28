@@ -8,6 +8,8 @@ AC_CONFIG_FILES([ThirdParty/CicmWrapper/Makefile ThirdParty/CicmWrapper/Sources/
 AC_CONFIG_FILES([Sources/Makefile])
 AC_CONFIG_FILES([Package/Hoa/Makefile Package/Hoa/helps/Makefile Package/Hoa/media/Makefile Package/Hoa/misc/Makefile Package/Hoa/patchers/Makefile Package/Hoa/tutorials/Makefile])
 
+AX_FAT_BINARY()
+
 AC_SUBST(PD_CPPFLAGS)
 AC_SUBST(PD_LDFLAGS)
 

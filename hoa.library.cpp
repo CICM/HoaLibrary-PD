@@ -71,3 +71,8 @@ extern "C" void hoa_setup(void)
     pd_library_add_folder("Hoa", "misc");
 }
 
+extern "C" void Hoa_setup(void)
+{
+    hoa_setup();
+}
+

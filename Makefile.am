@@ -1,20 +1,21 @@
 AUTOMAKE_OPTIONS = foreign
 ACLOCAL_AMFLAGS = -I m4
 
-pkglib_LTLIBRARIES = hoa.la
+pkglib_LTLIBRARIES = Hoa.la
 
-hoa_la_CXXFLAGS = @PD_CPPFLAGS@ -s -O3 -fPIC -fpermissive -std=c++11
-hoa_la_LDFLAGS = -module -avoid-version -shared -shrext .@EXTENSION@  @PD_LDFLAGS@ -fPIC
-hoa_la_LIBADD = Sources/libHoaPd.la
-hoa_la_LIBADD += ThirdParty/CicmWrapper/Sources/libCicmWrapper.la
+Hoa_la_CXXFLAGS = @PD_CPPFLAGS@ -s -O3 -fPIC -fpermissive -std=c++11
+Hoa_la_LDFLAGS = -module -avoid-version -shared -shrext .@EXTENSION@  @PD_LDFLAGS@ -fPIC
+Hoa_la_LIBADD = Sources/libHoaPd.la
+Hoa_la_LIBADD += ThirdParty/CicmWrapper/Sources/libCicmWrapper.la
 
-hoa_la_SOURCES = hoa.library.cpp
+Hoa_la_SOURCES = hoa.library.h \
+hoa.library.cpp
 
 ALL_CFLAGS = -I"$(PD_INCLUDE)"
 
-hoadir=$(pkglibdir)
+Hoadir=$(pkglibdir)
 
-dist_hoa_DATA = \
+dist_Hoa_DATA = \
 	LICENSE.txt \
 	README.txt
 	

@@ -16,6 +16,4 @@ Tutorial_6.pd \
 Tutorial_7.pd \
 Tutorial_8.pd \
 Tutorial_9.pd \
-Tutorial_10.pd \
-Tutorial_11.pd \
-Tutorial_12.pd
+Tutorial_10.pd

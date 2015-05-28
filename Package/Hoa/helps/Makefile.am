@@ -34,7 +34,6 @@ hoa.process~-help.pd \
 hoa.3d.decoder~-help.pd	\
 hoa.syn.delay~-help.pd \
 hoa.3d.encoder~-help.pd \
-hoa.syn.encoder~-help.pd \
 hoa.3d.map~-help.pd \
 hoa.syn.grain~-help.pd \
 hoa.3d.meter~-help.pd \
