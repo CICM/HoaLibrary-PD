@@ -5,7 +5,7 @@ pkglib_LTLIBRARIES = Hoa.la
 
 Hoa_la_CXXFLAGS = @PD_CPPFLAGS@ -s -O3 -fPIC -fpermissive -std=c++11
 Hoa_la_LDFLAGS = -module -avoid-version -shared -shrext .@EXTENSION@  @PD_LDFLAGS@ -fPIC
-Hoa_la_LIBADD = Sources/libHoaPd.la
+Hoa_la_LIBADD = Sources/libHoapd.la
 Hoa_la_LIBADD += ThirdParty/CicmWrapper/Sources/libCicmWrapper.la
 
 Hoa_la_SOURCES = hoa.library.h \
@@ -26,9 +26,9 @@ ORIGDIR=pd-$(PACKAGE_NAME)_$(PACKAGE_VERSION)
 OS=$(shell uname -s)
 DISTBINDIR=$(DISTDIR)-$(OS)
 
-SUBDIRS = Sources
-SUBDIRS+= Package/Hoa
+SUBDIRS= Sources
 SUBDIRS+= ThirdParty/CicmWrapper
+SUBDIRS+= Package/Hoa
 
 $(abs_builddir)/.libs/hoa.@EXTENSION@: hoa.la
 

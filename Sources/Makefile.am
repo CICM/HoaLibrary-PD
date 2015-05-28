@@ -1,12 +1,11 @@
 AUTOMAKE_OPTIONS = foreign
-noinst_LTLIBRARIES = libHoaPd.la
+noinst_LTLIBRARIES = libHoapd.la
 
-libHoaPd_la_CXXFLAGS = @PD_CPPFLAGS@ -O3 -fPIC -fpermissive -std=c++11 -pedantic
-libHoaPd_la_LDFLAGS = -module -avoid-version -shared -shrext .@EXTENSION@  @PD_LDFLAGS@ -fPIC -lblas -framework Accelerate
-libHoaPd_la_LIBADD = 
+libHoapd_la_CXXFLAGS = @PD_CPPFLAGS@ -s -O3 -fPIC -fpermissive -std=c++11 -pedantic
+libHoapd_la_LDFLAGS = -module -avoid-version -shared -shrext .@EXTENSION@ @PD_LDFLAGS@ -fPIC -lblas -framework Accelerate
+libHoapd_la_LIBADD = 
 
-libHoaPd_la_SOURCES = \
-hoa.decoder_tilde.cpp \
+libHoapd_la_SOURCES = hoa.decoder_tilde.cpp \
 hoa.encoder_tilde.cpp \
 hoa.io.cpp \
 hoa.map_tilde.cpp \
@@ -21,4 +20,3 @@ hoa.space_gui.cpp \
 hoa.tools.cpp \
 hoa.wider_tilde.cpp \
 hoa.map_gui.cpp
-
