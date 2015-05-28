@@ -1,7 +1,7 @@
 AUTOMAKE_OPTIONS = foreign
 noinst_LTLIBRARIES = libHoapd.la
 
-libHoapd_la_CXXFLAGS = @PD_CPPFLAGS@ -s -O3 -fPIC -fpermissive -std=c++11 -pedantic
+libHoapd_la_CXXFLAGS = @PD_CPPFLAGS@ -O3 -fPIC -fpermissive -std=c++11 -pedantic
 libHoapd_la_LDFLAGS = -module -avoid-version -shared -shrext .@EXTENSION@ @PD_LDFLAGS@ -fPIC -lblas -framework Accelerate
 libHoapd_la_LIBADD = 
 

@@ -874,6 +874,7 @@ t_pd_err hoa_map_zoom(t_hoa_map *x, t_object *attr, long argc, t_atom *argv)
 t_pd_err hoa_map_view(t_hoa_map *x, t_object *attr, long argc, t_atom *argv)
 {
     post("oui");
+    return 0;
 }
 
 t_pd_err hoa_map_notify(t_hoa_map *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
