@@ -708,7 +708,7 @@ void hoa_map_group(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
 		int causeOutput = 1;
 		if (index > 0)
         {
-            Source::Group* tmp = new Source::Group(index);
+            Source::Group* tmp = x->f_manager->createGroup(index);
             if(param == hoa_sym_set)
             {
                 for(int i = 2; i < ac; i++)
@@ -955,7 +955,7 @@ void hoa_map_infos(t_hoa_map *x)
     t_atom avMute[4];
 
     // Sources
-    ulong numberOfSource = x->f_manager->getSourcesSize();
+    ulong numberOfSource = x->f_manager->getNumberOfSources();
     atom_setsym(avNumber, hoa_sym_source);
     atom_setsym(avNumber+1, hoa_sym_number);
     atom_setlong(avNumber+2, numberOfSource);
@@ -984,7 +984,7 @@ void hoa_map_infos(t_hoa_map *x)
     }
 
     // Groups
-    ulong numberOfGroups = x->f_manager->getGroupsSize();
+    ulong numberOfGroups = x->f_manager->getNumberOfGroups();
     atom_setsym(avNumber, hoa_sym_group);
     atom_setsym(avNumber+1, hoa_sym_number);
     atom_setlong(avNumber+2, numberOfGroups);
@@ -1004,7 +1004,7 @@ void hoa_map_infos(t_hoa_map *x)
 
     for(Source::group_iterator it = x->f_manager->getFirstGroup() ; it != x->f_manager->getLastGroup(); it ++)
     {
-        avSource = new t_atom[it->second->getSourcesSize()+3];
+        avSource = new t_atom[it->second->getNumberOfSources()+3];
         atom_setsym(avSource, hoa_sym_group);
         atom_setsym(avSource+1, hoa_sym_source);
         atom_setlong(avSource+2, it->first);
@@ -1016,7 +1016,7 @@ void hoa_map_infos(t_hoa_map *x)
             atom_setlong(avSource+3+j, ti->first);
             j ++;
         }
-        outlet_list(x->f_out_infos, &s_list, it->second->getSourcesSize()+3, avSource);
+        outlet_list(x->f_out_infos, &s_list, it->second->getNumberOfSources()+3, avSource);
         free(avSource);
     }
 
@@ -1847,7 +1847,7 @@ void hoa_map_mouseup(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifier
         double y1 = ((-x->f_rect_selection.y / x->rect.height * 2.) + 1.) / x->f_zoom_factor;
         double y2 = (((-x->f_rect_selection.y - x->f_rect_selection.height) / x->rect.height * 2.) + 1.) / x->f_zoom_factor;
 
-        Source::Group* tmp = new Source::Group(indexOfNewGroup);
+        Source::Group* tmp = x->f_manager->createGroup(indexOfNewGroup);
         for(Source::source_iterator it = x->f_manager->getFirstSource() ; it != x->f_manager->getLastSource() ; it ++)
         {
             if(x->f_coord_view == hoa_sym_view_xy)
@@ -1974,7 +1974,7 @@ void hoa_map_preset(t_hoa_map *x, t_binbuf *d)
     for(Source::group_iterator it = x->f_manager->getFirstGroup(); it != x->f_manager->getLastGroup(); it++)
     {
         binbuf_addv(d, "sf", hoa_sym_group, (float)it->first);
-        binbuf_addv(d, "f", (float)it->second->getSourcesSize());
+        binbuf_addv(d, "f", (float)it->second->getNumberOfSources());
 
         map<ulong, Source*>& sourcesOfGroup = it->second->getSources();
         for(Source::source_iterator ti = sourcesOfGroup.begin() ; ti != sourcesOfGroup.end() ; ti++)
@@ -2039,7 +2039,7 @@ void hoa_map_sourcesPreset(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
             {
                 index = atom_getlong(av+i+1);
                 nsources = atom_getlong(av+i+2);
-                Source::Group* tmp = new Source::Group(index);
+                Source::Group* tmp = x->f_manager->createGroup(index);
                 for(int j = 0; j < nsources; j++)
                 {
                     if(ac > i+3+j && atom_gettype(av+i+3+j) == A_FLOAT)
@@ -2147,7 +2147,7 @@ void hoa_map_interpolate(t_hoa_map *x, short ac, t_atom *av, short ac2, t_atom* 
             {
                 index = atom_getlong(av+i+1);
                 nsources = atom_getlong(av+i+2);
-                Source::Group* tmp = new Source::Group(index);
+                Source::Group* tmp = x->f_manager->createGroup(index);
                 for(int j = 0; j < nsources; j++)
                 {
                     if(ac > i+3+j && atom_gettype(av+i+3+j) == A_FLOAT)
