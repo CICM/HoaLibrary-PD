@@ -91,6 +91,7 @@ void      hoa_map_set(t_hoa_map *x, t_symbol *s, short ac, t_atom *av);
 void      hoa_map_group(t_hoa_map *x, t_symbol *s, short ac, t_atom *av);
 void      hoa_map_source(t_hoa_map *x, t_symbol *s, short ac, t_atom *av);
 t_pd_err  hoa_map_zoom(t_hoa_map *x, t_object *attr, long argc, t_atom *argv);
+t_pd_err  hoa_map_view(t_hoa_map *x, t_object *attr, long argc, t_atom *argv);
 t_pd_err  hoa_map_notify(t_hoa_map *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
 /*Sorties*/
@@ -374,17 +375,17 @@ void hoa_map_linkmapRemoveWithBindingName(t_hoa_map *x, t_symbol* binding_name)
 						temp->next->update_headptr((t_linkmap *)name->s_thing, temp->next->map->f_self_manager);
 					}
 
-					free(x->f_listmap);
-					x->f_listmap = NULL;
+                    //free(x->f_listmap);
+                    x->f_listmap = NULL;
 
 					x->f_manager = x->f_self_manager; // not sure if this is necessary (normally it is the same pointer)
 				}
 				else if(temp->next != NULL && temp->next->map == x)
 				{
 					// we restore the original pointer
-					temp->next->map->f_manager = temp->next->map->f_self_manager;
+					temp->next->map->f_manager = temp->next->map->f_manager;
 					// then we copy the shared Source::Manager into the original one
-					temp->next->map->f_self_manager = new Source::Manager(*head_map->f_self_manager);
+					temp->next->map->f_manager = new Source::Manager(*head_map->f_self_manager);
 
 					temp2 = temp->next->next;
 					free(temp->next);
@@ -413,7 +414,15 @@ t_pd_err hoa_map_bindnameSet(t_hoa_map *x, void *attr, long argc, t_atom *argv)
 				x->f_binding_name = new_binding_name;
 			}
 			else
+            {
 				x->f_binding_name = hoa_sym_null;
+            }
+
+            ebox_notify((t_ebox *)x, NULL, hoa_sym_modified, NULL, NULL);
+            ebox_invalidate_layer((t_ebox *)x, hoa_sym_sources_layer);
+            ebox_invalidate_layer((t_ebox *)x, hoa_sym_groups_layer);
+            ebox_redraw((t_ebox *)x);
+            hoa_map_output(x);
 		}
 	}
 	else
@@ -421,12 +430,6 @@ t_pd_err hoa_map_bindnameSet(t_hoa_map *x, void *attr, long argc, t_atom *argv)
        hoa_map_linkmapRemoveWithBindingName(x, x->f_binding_name);
 		x->f_binding_name = hoa_sym_null;
 	}
-
-	ebox_notify((t_ebox *)x, NULL, hoa_sym_modified, NULL, NULL);
-    ebox_invalidate_layer((t_ebox *)x, hoa_sym_sources_layer);
-    ebox_invalidate_layer((t_ebox *)x, hoa_sym_groups_layer);
-    ebox_redraw((t_ebox *)x);
-    hoa_map_output(x);
 
 	return 0;
 }
@@ -708,7 +711,14 @@ void hoa_map_group(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
 		int causeOutput = 1;
 		if (index > 0)
         {
-            Source::Group* tmp = x->f_manager->createGroup(index);
+            bool newGroupCreated = false;
+            Source::Group* tmp = x->f_manager->getGroup(index);
+            if (!tmp)
+            {
+                tmp = x->f_manager->createGroup(index);
+                newGroupCreated = true;
+            }
+
             if(param == hoa_sym_set)
             {
                 for(int i = 2; i < ac; i++)
@@ -824,7 +834,14 @@ void hoa_map_group(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
             {
                 causeOutput = 0;
             }
-            x->f_manager->addGroup(tmp);
+
+            if (newGroupCreated)
+            {
+                if (!x->f_manager->addGroup(tmp))
+                {
+                    delete tmp;
+                }
+            }
         }
 
 		ebox_notify((t_ebox *)x, NULL, hoa_sym_modified, NULL, NULL);
@@ -852,6 +869,11 @@ t_pd_err hoa_map_zoom(t_hoa_map *x, t_object *attr, long argc, t_atom *argv)
     ebox_invalidate_layer((t_ebox *)x, hoa_sym_sources_layer);
     ebox_invalidate_layer((t_ebox *)x, hoa_sym_groups_layer);
     return 0;
+}
+
+t_pd_err hoa_map_view(t_hoa_map *x, t_object *attr, long argc, t_atom *argv)
+{
+    post("oui");
 }
 
 t_pd_err hoa_map_notify(t_hoa_map *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
@@ -1847,7 +1869,13 @@ void hoa_map_mouseup(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifier
         double y1 = ((-x->f_rect_selection.y / x->rect.height * 2.) + 1.) / x->f_zoom_factor;
         double y2 = (((-x->f_rect_selection.y - x->f_rect_selection.height) / x->rect.height * 2.) + 1.) / x->f_zoom_factor;
 
-        Source::Group* tmp = x->f_manager->createGroup(indexOfNewGroup);
+        bool newGroupCreated = false;
+        Source::Group* tmp = x->f_manager->getGroup(indexOfNewGroup);
+        if (!tmp)
+        {
+            tmp = x->f_manager->createGroup(indexOfNewGroup);
+            newGroupCreated = true;
+        }
         for(Source::source_iterator it = x->f_manager->getFirstSource() ; it != x->f_manager->getLastSource() ; it ++)
         {
             if(x->f_coord_view == hoa_sym_view_xy)
@@ -1872,7 +1900,14 @@ void hoa_map_mouseup(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifier
                 causeOutput = causeRedraw = causeNotify = 1;
             }
         }
-        x->f_manager->addGroup(tmp);
+
+        if (newGroupCreated)
+        {
+            if (!x->f_manager->addGroup(tmp))
+            {
+                delete tmp;
+            }
+        }
     }
 
     x->f_rect_selection_exist = x->f_rect_selection.width = x->f_rect_selection.height = 0;
@@ -2039,7 +2074,15 @@ void hoa_map_sourcesPreset(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
             {
                 index = atom_getlong(av+i+1);
                 nsources = atom_getlong(av+i+2);
-                Source::Group* tmp = x->f_manager->createGroup(index);
+
+                bool newGroupCreated = false;
+                Source::Group* tmp = x->f_manager->getGroup(index);
+                if (!tmp)
+                {
+                    tmp = x->f_manager->createGroup(index);
+                    newGroupCreated = true;
+                }
+
                 for(int j = 0; j < nsources; j++)
                 {
                     if(ac > i+3+j && atom_gettype(av+i+3+j) == A_FLOAT)
@@ -2062,7 +2105,13 @@ void hoa_map_sourcesPreset(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
                 else
                     tmp->setDescription("");
 
-                x->f_manager->addGroup(tmp);
+                if (newGroupCreated)
+                {
+                    if (!x->f_manager->addGroup(tmp))
+                    {
+                        delete tmp;
+                    }
+                }
                 i += (7+nsources);
             }
             else
@@ -2147,7 +2196,15 @@ void hoa_map_interpolate(t_hoa_map *x, short ac, t_atom *av, short ac2, t_atom* 
             {
                 index = atom_getlong(av+i+1);
                 nsources = atom_getlong(av+i+2);
-                Source::Group* tmp = x->f_manager->createGroup(index);
+
+                bool newGroupCreated = false;
+                Source::Group* tmp = x->f_manager->getGroup(index);
+                if (!tmp)
+                {
+                    tmp = x->f_manager->createGroup(index);
+                    newGroupCreated = true;
+                }
+
                 for(int j = 0; j < nsources; j++)
                 {
                     if(ac > i+3+j && atom_gettype(av+i+3+j) == A_FLOAT)
@@ -2169,7 +2226,13 @@ void hoa_map_interpolate(t_hoa_map *x, short ac, t_atom *av, short ac2, t_atom* 
                 else
                     tmp->setDescription("");
 
-                x->f_manager->addGroup(tmp);
+                if (newGroupCreated)
+                {
+                    if (!x->f_manager->addGroup(tmp))
+                    {
+                        delete tmp;
+                    }
+                }
                 i += (7+nsources);
             }
             else
