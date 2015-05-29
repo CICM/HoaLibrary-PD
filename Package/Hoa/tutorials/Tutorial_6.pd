@@ -1,25 +1,31 @@
-#N canvas 0 23 1430 759 10;
+#N canvas 0 23 1425 747 10;
 #X obj 21 11 c.canvasinfos;
 #X obj 20 7 c.loadmess;
 #X obj 3 6 hoa.tuto.header;
 #X obj 546 6 hoa.help.pub;
-#X obj 11 467 hoa.2d.scope~ @size 225 225 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-1 @view 0 @gain 100 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
-0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 11 467 hoa.2d.scope~ @size 225 225 @fontname "Helvetica" @fontweight
+"normal"eight @fontslant "roman"slant @fontsize 11 @receive "(null)"ve
+@send "(null)"ve @order 1 @view 0 @gain 100 @interval 100 @bgcolor
+0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0
+0 1 1;
 #X obj 120 356 sig~ 1;
-#X obj 383 468 hoa.2d.scope~ @size 225 225 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-7 @view 0 @gain 100 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
-0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 383 468 hoa.2d.scope~ @size 225 225 @fontname "Helvetica" @fontweight
+"normal"eight @fontslant "roman"slant @fontsize 11 @receive "(null)"ve
+@send "(null)"ve @order 7 @view 0 @gain 100 @interval 100 @bgcolor
+0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0
+0 1 1;
 #X obj 383 386 sig~ 1;
-#X obj 602 410 c.number @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+#X obj 602 410 c.number @size 53 17 @fontname "Helvetica"Ïb÷\,¨
+@fontweight "normal".¥øÏb÷\,¨ @fontslant "roman"¿.¥øÏb÷\,¨ @fontsize
+11 @receive "(null)".¥øÏb÷\,¨ @send "(null)".¥øÏb÷\,¨ @presetname
+"(null)".¥øÏb÷\,¨ @min "(null)".¥øÏb÷€äa @max "(null)".¥øÏb÷€äa
+@minmax "(null)".¥øÏb÷€äa "(null)".¥øÏb÷€äa @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 251 355 c.number @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+#X obj 251 355 c.number @size 53 17 @fontname "Helvetica"Ïb÷\,¨
+@fontweight "normal".¥øÏb÷\,¨ @fontslant "roman"¿.¥øÏb÷\,¨ @fontsize
+11 @receive "(null)".¥øÏb÷\,¨ @send "(null)".¥øÏb÷\,¨ @presetname
+"(null)".¥øÏb÷\,¨ @min "(null)".¥øÏb÷€äa @max "(null)".¥øÏb÷€äa
+@minmax "(null)".¥øÏb÷€äa "(null)".¥øÏb÷€äa @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X text 70 357 Source;
 #X obj 11 419 *~ 1;
@@ -33,9 +39,10 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X text 365 136 if m < 0;
 #X text 365 166 else;
 #X text 615 444 Look inside;
-#X obj 592 273 c.dsp~ @size 30 30 @fontname Helvetica @fontweight normal
-@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0 0.8;
+#X obj 592 273 c.dsp~ @size 30 30 @fontname "Helvetica"Ïb÷\,¨ @fontweight
+"normal".¥øÏb÷\,¨ @fontslant "roman"¿.¥øÏb÷\,¨ @fontsize 11 @receive
+"(null)".¥øÏb÷\,¨ @send "(null)".¥øÏb÷\,¨ @bgcolor 0.75 0.75
+0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0 0.8;
 #X text 633 279 Dsp On/Off;
 #X text 3 191 For an order of decomposition 1 \, the sound field is
 composed by 3 circular harmonics. The harmonics depends on the azimuth
@@ -51,13 +58,11 @@ Legendre polynomial \, e^i is the complex exponential \, S the signal
 \, l the degree \, m the order \, Î¸ azimuth and Ï† elevation.;
 #X text 1058 90 Y[l \, m] = k(l \, m) * P'[l \, |m|](cos(Ï†)) * e^i|m|Î¸
 * S, f 55;
-#X text 1058 291 k(l \, m) = sqrt((l - |m|)! / (l + |m|)!) * sqrt(2)
-, f 59;
 #X text 1058 274 The normalization k is defined by, f 59;
 #X text 1058 164 The associated Legendre polynomial is defined by,
 f 59;
 #X text 1058 181 P'[0 \, 0](x) = 1, f 59;
-#X text 1060 311 Note that the complex exponential e^i is similar to
+#X text 1060 321 Note that the complex exponential e^i is similar to
 the 2d encoding operation.;
 #X text 717 57 Encoding a source in the spherical harmonics domain
 amounts to synthesize the spherical harmonics Y depending on the azimuth
@@ -69,40 +74,48 @@ by, f 54;
 #X text 365 86 Y[l \, m](Î¸) = e^i|m|Î¸ * S;
 #X text 375 181 Y[l \, m](Î¸) = cos(|m|*Î¸);
 #X obj 1093 396 sig~ 1;
-#X obj 1202 370 c.number @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+#X obj 1202 370 c.number @size 53 17 @fontname "Helvetica"Ïb÷\,¨
+@fontweight "normal".¥øÏb÷\,¨ @fontslant "roman"¿.¥øÏb÷\,¨ @fontsize
+11 @receive "(null)".¥øÏb÷\,¨ @send "(null)".¥øÏb÷\,¨ @presetname
+"(null)".¥øÏb÷\,¨ @min "(null)".¥øÏb÷€äa @max "(null)".¥øÏb÷€äa
+@minmax "(null)".¥øÏb÷€äa "(null)".¥øÏb÷€äa @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X text 1325 439 Look inside;
 #X text 1080 371 Azimuth Î¸ in radian;
 #X obj 1202 343 c.loadmess 0;
-#X obj 1312 390 c.number @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+#X obj 1312 390 c.number @size 53 17 @fontname "Helvetica"Ïb÷\,¨
+@fontweight "normal".¥øÏb÷\,¨ @fontslant "roman"¿.¥øÏb÷\,¨ @fontsize
+11 @receive "(null)".¥øÏb÷\,¨ @send "(null)".¥øÏb÷\,¨ @presetname
+"(null)".¥øÏb÷\,¨ @min "(null)".¥øÏb÷€äa @max "(null)".¥øÏb÷€äa
+@minmax "(null)".¥øÏb÷€äa "(null)".¥øÏb÷€äa @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X obj 1312 363 c.loadmess 0;
 #X text 1178 391 Elevation Ï† in radian;
-#X obj 1093 434 hoa.3d.process~ 7 hoa.syn.3d.encoder~ harmonics, f
-37;
-#X obj 1093 469 hoa.3d.scope~ @size 225 225 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-7 @view 0 0 0 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
-0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj 843 311 c.number @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+#X obj 1093 469 hoa.3d.scope~ @size 225 225 @fontname "Helvetica" @fontweight
+"normal"eight @fontslant "roman"slant @fontsize 11 @receive "(null)"ve
+@send "(null)"ve @order 7 @view 0 0 0 @gain 1 @interval 100 @bgcolor
+0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0
+0 1 1;
+#X obj 843 311 c.number @size 53 17 @fontname "Helvetica"Ïb÷\,¨
+@fontweight "normal".¥øÏb÷\,¨ @fontslant "roman"¿.¥øÏb÷\,¨ @fontsize
+11 @receive "(null)".¥øÏb÷\,¨ @send "(null)".¥øÏb÷\,¨ @presetname
+"(null)".¥øÏb÷\,¨ @min "(null)".¥øÏb÷€äa @max "(null)".¥øÏb÷€äa
+@minmax "(null)".¥øÏb÷€äa "(null)".¥øÏb÷€äa @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 750 468 hoa.3d.scope~ @size 225 225 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-1 @view 0 0 0 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
-0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj 973 311 c.number @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
+#X obj 750 468 hoa.3d.scope~ @size 225 225 @fontname "Helvetica" @fontweight
+"normal"eight @fontslant "roman"slant @fontsize 11 @receive "(null)"ve
+@send "(null)"ve @order 1 @view 0 0 0 @gain 1 @interval 100 @bgcolor
+0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0
+0 1 1;
+#X obj 973 311 c.number @size 53 17 @fontname "Helvetica"Ïb÷\,¨
+@fontweight "normal".¥øÏb÷\,¨ @fontslant "roman"¿.¥øÏb÷\,¨ @fontsize
+11 @receive "(null)".¥øÏb÷\,¨ @send "(null)".¥øÏb÷\,¨ @presetname
+"(null)".¥øÏb÷\,¨ @min "(null)".¥øÏb÷€äa @max "(null)".¥øÏb÷€äa
+@minmax "(null)".¥øÏb÷€äa "(null)".¥øÏb÷€äa @decimal 6 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 917 371 cos;
+#X obj 917 360 cos;
 #X obj 750 389 sig~ 1;
-#X obj 843 371 sin;
+#X obj 843 360 sin;
 #N canvas 65 92 450 300 P' 0;
 #X obj 6 6 inlet;
 #X obj 6 198 outlet;
@@ -125,7 +138,7 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X connect 7 0 2 0;
 #X connect 8 0 3 0;
 #X connect 9 0 6 0;
-#X restore 870 371 pd P';
+#X restore 870 360 pd P';
 #X obj 750 426 *~ 1;
 #N canvas 65 92 450 300 P' 0;
 #X obj 6 6 inlet;
@@ -149,7 +162,7 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X connect 7 0 2 0;
 #X connect 8 0 3 0;
 #X connect 9 0 6 0;
-#X restore 1017 371 pd P';
+#X restore 1017 360 pd P';
 #N canvas 511 463 468 341 wrap_angles 0;
 #X obj 82 39 inlet;
 #X obj 195 49 inlet;
@@ -187,7 +200,7 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X connect 12 1 9 0;
 #X connect 13 0 9 0;
 #X restore 843 338 pd wrap_angles;
-#X obj 990 371 cos;
+#X obj 990 360 cos;
 #X text 907 291 Elevation Ï† in radian;
 #X text 777 291 Azimuth Î¸ in radian;
 #X text 716 127 For an order of decomposition 1 \, the sound field
@@ -204,11 +217,7 @@ from a point of the space., f 57;
 to synthesize the circular harmonics Y depending on an azimuth Î¸ and
 an order of decomposition N.;
 #X text 716 197 The harmonic 0 0 : S;
-#X text 716 212 The harmonic 1 -1 : sin(Î¸) * -âˆš(1âˆ’cos(Ï†)^2) *
-S;
-#X text 716 226 The harmonic 1 0 : cos(Ï†) * S;
-#X text 716 240 The harmonic 1 1 : cos(Î¸) * -âˆš(1âˆ’cos(Ï†)^2) *
-S;
+#X text 716 240 The harmonic 1 0 : cos(Ï†) * S;
 #X text 1058 201 P'[l \, l](x) = âˆ’(2l+1)âˆš(1âˆ’x^2)P[l \, l](x)
 , f 59;
 #X text 1058 221 P'[l \, l-1](x) = x(2l+1)P[l \, l](x), f 59;
@@ -222,10 +231,53 @@ Y are defined by, f 54;
 #X text 1055 56 In 3d \, for high orders of decomposition \, the harmonics
 Y are defined by;
 #X obj 896 426 *~ 0;
-#X obj 843 395 * 1, f 5;
-#X obj 990 395 * 1, f 5;
+#X obj 843 380 * 1, f 5;
+#X obj 990 380 * 1, f 5;
 #X obj 822 426 *~ 0;
 #X obj 969 426 *~ -1;
+#X text 1058 291 k(l \, m) = sqrt((l - |m|)! / (l + |m|)!) * sqrt((2-Ïƒ)/
+4Ï€);
+#X text 1058 306 with Ïƒ = 1 if m = 0 else Ïƒ = 0;
+#X text 716 212 The harmonic 1 -1 : sin(Î¸) * -âˆš(1âˆ’cos(Ï†)^2) *
+-âˆš(1/4Ï€) * S, f 53;
+#X text 716 256 The harmonic 1 1 : cos(Î¸) * -âˆš(1âˆ’cos(Ï†)^2) *
+-âˆš(1/4Ï€) * S;
+#N canvas 0 23 450 300 norm 0;
+#X obj 105 155 hoa.pi;
+#X obj 105 176 t b f;
+#X obj 105 220 /;
+#X obj 105 242 sqrt;
+#X obj 105 264 outlet;
+#X obj 105 131 c.loadmess 4;
+#X obj 105 198 f 1;
+#X connect 0 0 1 0;
+#X connect 1 0 6 0;
+#X connect 1 1 2 1;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 5 0 0 0;
+#X connect 6 0 2 0;
+#X restore 882 380 pd norm;
+#X obj 843 402 * 1, f 7;
+#N canvas 0 23 450 300 norm 0;
+#X obj 105 155 hoa.pi;
+#X obj 105 176 t b f;
+#X obj 105 220 /;
+#X obj 105 242 sqrt;
+#X obj 105 264 outlet;
+#X obj 105 131 c.loadmess 4;
+#X obj 105 198 f 1;
+#X connect 0 0 1 0;
+#X connect 1 0 6 0;
+#X connect 1 1 2 1;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 5 0 0 0;
+#X connect 6 0 2 0;
+#X restore 1029 380 pd norm;
+#X obj 990 402 * 1, f 7;
+#X obj 1093 434 hoa.3d.process~ 7 hoa.syn.3d.encoder~ harmonics, f
+37;
 #X connect 0 0 2 0;
 #X connect 1 0 0 0;
 #X connect 5 0 11 0;
@@ -255,95 +307,99 @@ Y are defined by;
 #X connect 26 12 6 12;
 #X connect 26 13 6 13;
 #X connect 26 14 6 14;
-#X connect 37 0 8 0;
-#X connect 42 0 50 0;
-#X connect 43 0 50 1;
-#X connect 46 0 43 0;
-#X connect 47 0 50 2;
-#X connect 48 0 47 0;
-#X connect 50 0 51 0;
-#X connect 50 1 51 1;
-#X connect 50 2 51 2;
-#X connect 50 3 51 3;
-#X connect 50 4 51 4;
-#X connect 50 5 51 5;
-#X connect 50 6 51 6;
-#X connect 50 7 51 7;
-#X connect 50 8 51 8;
-#X connect 50 9 51 9;
-#X connect 50 10 51 10;
-#X connect 50 11 51 11;
-#X connect 50 12 51 12;
-#X connect 50 13 51 13;
-#X connect 50 14 51 14;
-#X connect 50 15 51 15;
-#X connect 50 16 51 16;
-#X connect 50 17 51 17;
-#X connect 50 18 51 18;
-#X connect 50 19 51 19;
-#X connect 50 20 51 20;
-#X connect 50 21 51 21;
-#X connect 50 22 51 22;
-#X connect 50 23 51 23;
-#X connect 50 24 51 24;
-#X connect 50 25 51 25;
-#X connect 50 26 51 26;
-#X connect 50 27 51 27;
-#X connect 50 28 51 28;
-#X connect 50 29 51 29;
-#X connect 50 30 51 30;
-#X connect 50 31 51 31;
-#X connect 50 32 51 32;
-#X connect 50 33 51 33;
-#X connect 50 34 51 34;
-#X connect 50 35 51 35;
-#X connect 50 36 51 36;
-#X connect 50 37 51 37;
-#X connect 50 38 51 38;
-#X connect 50 39 51 39;
-#X connect 50 40 51 40;
-#X connect 50 41 51 41;
-#X connect 50 42 51 42;
-#X connect 50 43 51 43;
-#X connect 50 44 51 44;
-#X connect 50 45 51 45;
-#X connect 50 46 51 46;
-#X connect 50 47 51 47;
-#X connect 50 48 51 48;
-#X connect 50 49 51 49;
-#X connect 50 50 51 50;
-#X connect 50 51 51 51;
-#X connect 50 52 51 52;
-#X connect 50 53 51 53;
-#X connect 50 54 51 54;
-#X connect 50 55 51 55;
-#X connect 50 56 51 56;
-#X connect 50 57 51 57;
-#X connect 50 58 51 58;
-#X connect 50 59 51 59;
-#X connect 50 60 51 60;
-#X connect 50 61 51 61;
-#X connect 50 62 51 62;
-#X connect 50 63 51 63;
-#X connect 52 0 61 0;
-#X connect 54 0 61 1;
-#X connect 55 0 84 1;
-#X connect 56 0 59 0;
-#X connect 56 0 84 0;
-#X connect 56 0 87 0;
-#X connect 56 0 88 0;
-#X connect 57 0 85 0;
-#X connect 58 0 85 1;
-#X connect 59 0 53 0;
-#X connect 60 0 86 1;
-#X connect 61 0 57 0;
-#X connect 61 0 62 0;
-#X connect 61 1 55 0;
-#X connect 61 1 58 0;
-#X connect 61 1 60 0;
-#X connect 62 0 86 0;
-#X connect 84 0 53 2;
-#X connect 85 0 87 1;
-#X connect 86 0 88 1;
-#X connect 87 0 53 1;
-#X connect 88 0 53 3;
+#X connect 36 0 8 0;
+#X connect 41 0 93 0;
+#X connect 42 0 93 1;
+#X connect 45 0 42 0;
+#X connect 46 0 93 2;
+#X connect 47 0 46 0;
+#X connect 50 0 59 0;
+#X connect 52 0 59 1;
+#X connect 53 0 80 1;
+#X connect 54 0 57 0;
+#X connect 54 0 80 0;
+#X connect 54 0 83 0;
+#X connect 54 0 84 0;
+#X connect 55 0 81 0;
+#X connect 56 0 81 1;
+#X connect 57 0 51 0;
+#X connect 58 0 82 1;
+#X connect 59 0 55 0;
+#X connect 59 0 60 0;
+#X connect 59 1 53 0;
+#X connect 59 1 56 0;
+#X connect 59 1 58 0;
+#X connect 60 0 82 0;
+#X connect 80 0 51 2;
+#X connect 81 0 90 0;
+#X connect 82 0 92 0;
+#X connect 83 0 51 1;
+#X connect 84 0 51 3;
+#X connect 89 0 90 1;
+#X connect 90 0 83 1;
+#X connect 91 0 92 1;
+#X connect 92 0 84 1;
+#X connect 93 0 49 0;
+#X connect 93 1 49 1;
+#X connect 93 2 49 2;
+#X connect 93 3 49 3;
+#X connect 93 4 49 4;
+#X connect 93 5 49 5;
+#X connect 93 6 49 6;
+#X connect 93 7 49 7;
+#X connect 93 8 49 8;
+#X connect 93 9 49 9;
+#X connect 93 10 49 10;
+#X connect 93 11 49 11;
+#X connect 93 12 49 12;
+#X connect 93 13 49 13;
+#X connect 93 14 49 14;
+#X connect 93 15 49 15;
+#X connect 93 16 49 16;
+#X connect 93 17 49 17;
+#X connect 93 18 49 18;
+#X connect 93 19 49 19;
+#X connect 93 20 49 20;
+#X connect 93 21 49 21;
+#X connect 93 22 49 22;
+#X connect 93 23 49 23;
+#X connect 93 24 49 24;
+#X connect 93 25 49 25;
+#X connect 93 26 49 26;
+#X connect 93 27 49 27;
+#X connect 93 28 49 28;
+#X connect 93 29 49 29;
+#X connect 93 30 49 30;
+#X connect 93 31 49 31;
+#X connect 93 32 49 32;
+#X connect 93 33 49 33;
+#X connect 93 34 49 34;
+#X connect 93 35 49 35;
+#X connect 93 36 49 36;
+#X connect 93 37 49 37;
+#X connect 93 38 49 38;
+#X connect 93 39 49 39;
+#X connect 93 40 49 40;
+#X connect 93 41 49 41;
+#X connect 93 42 49 42;
+#X connect 93 43 49 43;
+#X connect 93 44 49 44;
+#X connect 93 45 49 45;
+#X connect 93 46 49 46;
+#X connect 93 47 49 47;
+#X connect 93 48 49 48;
+#X connect 93 49 49 49;
+#X connect 93 50 49 50;
+#X connect 93 51 49 51;
+#X connect 93 52 49 52;
+#X connect 93 53 49 53;
+#X connect 93 54 49 54;
+#X connect 93 55 49 55;
+#X connect 93 56 49 56;
+#X connect 93 57 49 57;
+#X connect 93 58 49 58;
+#X connect 93 59 49 59;
+#X connect 93 60 49 60;
+#X connect 93 61 49 61;
+#X connect 93 62 49 62;
+#X connect 93 63 49 63;
