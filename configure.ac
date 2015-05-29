@@ -8,7 +8,13 @@ AC_CONFIG_FILES([Sources/Makefile])
 AC_CONFIG_FILES([ThirdParty/CicmWrapper/Makefile  ThirdParty/CicmWrapper/Sources/Makefile  ThirdParty/CicmWrapper/Sources/ebox/Makefile ThirdParty/CicmWrapper/Sources/eclass/Makefile ThirdParty/CicmWrapper/Sources/ecommon/Makefile ThirdParty/CicmWrapper/Sources/egraphics/Makefile ThirdParty/CicmWrapper/Sources/eobj/Makefile ThirdParty/CicmWrapper/Sources/epopup/Makefile])
 AC_CONFIG_FILES([Package/Hoa/Makefile Package/Hoa/helps/Makefile Package/Hoa/media/Makefile Package/Hoa/misc/Makefile Package/Hoa/patchers/Makefile Package/Hoa/tutorials/Makefile])
 
-AC_DEFINE(HOA_USE_BLAS)
+AC_ARG_WITH([pdextended], [AS_HELP_STRING([--with-pdextended], [use PD-Extended instead of PD-Vanilla])], [], [with_pdextended=no])
+AS_IF([test "x$with_pdextended" != xno],  AC_DEFINE(PD_EXTENDED,[],[Use PD-Extended]), [])
+
+AC_ARG_WITH([cblas], [AS_HELP_STRING([--with-cblas], [use cBlas optimizations])], [], [with_cblas=no])
+AS_IF([test "x$with_cblas" != xno],  AC_DEFINE(HOA_USE_BLAS,[],[Use cBlas]), [])
+AM_CONDITIONAL([HOA_USE_BLAS], [test $HOA_USE_BLAS = yes])
+
 AX_FAT_BINARY()
 
 AC_SUBST(PD_CPPFLAGS)

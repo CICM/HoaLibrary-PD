@@ -20,11 +20,11 @@ Helps and tutorials are availables in the <em>Hoa</em> folder of the <em>help br
 ### Compilation : 
 
 	./autogen.sh (if needed)
-	./configure
+	./configure or ./configure --with-pdextended or ./configure --with-cblas or ./configure --with-pdextended --with-cblas
 	make
 	make install (optional)
 
-XCode, CodeBlock and Visual Studio projects are also available.
+The use of cBlas is highly recommended for the binaural. XCode, CodeBlock and Visual Studio projects are also available.
 
 ### Dependencies : 
 

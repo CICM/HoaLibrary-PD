@@ -2,7 +2,10 @@ AUTOMAKE_OPTIONS = foreign
 noinst_LTLIBRARIES = libHoapd.la
 
 libHoapd_la_CXXFLAGS = @PD_CPPFLAGS@ -O3 -fPIC -fpermissive -std=c++11 -pedantic
-libHoapd_la_LDFLAGS = -module -avoid-version -shared -shrext .@EXTENSION@ @PD_LDFLAGS@ -fPIC -lblas -framework Accelerate
+libHoapd_la_LDFLAGS = -module -avoid-version -shared -shrext .@EXTENSION@ @PD_LDFLAGS@ -fPIC 
+if HOA_USE_BLAS
+libHoapd_la_LDFLAGS += -lblas -framework Accelerate
+endif
 libHoapd_la_LIBADD = 
 
 libHoapd_la_SOURCES = hoa.decoder_tilde.cpp \
