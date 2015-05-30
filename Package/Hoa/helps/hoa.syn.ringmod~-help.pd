@@ -2,10 +2,10 @@
 #X msg 363 361 \; pd dsp 1;
 #X msg 363 396 \; pd dsp 0;
 #X obj 75 99 hoa.soundgrain;
-#X obj 75 128 c.gain~ @size 131 10 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @kncolor 0.5 0.5 0.5 1;
+#X obj 75 128 c.gain~ @size 131 10 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @kncolor 0.5 0.5 0.5 1;
 #X obj 576 36 hoa.connect;
 #X obj 576 16 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -16,14 +16,14 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X obj 420 8 hoa.help.also;
 #X obj 75 527 hoa.2d.decoder~ 7 ambisonics 16;
 #X obj 75 559 hoa.dac~ 1:16 -----------------;
-#X obj 75 252 hoa.2d.scope~ @size 189 189 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-7 @view 0 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+#X obj 75 252 hoa.2d.scope~ @size 189 189 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@order 7 @view 0 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj 258 145 c.number @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min 0 @max 5000 @minmax 0 5000 @decimal 6 @bgcolor 0.75 0.75
-0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 258 145 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 5000 @minmax 0 5000 @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X text 345 222 orders and the degrees of the harmonics.;
 #X text 345 232 You can also use it in the plane waves domain.;
 #X text 260 75 Control the global frequency., f 12;

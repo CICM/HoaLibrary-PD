@@ -1,4 +1,4 @@
-#N canvas 200 90 438 587 10;
+#N canvas 539 58 438 587 10;
 #X text 4 47 Hoa Library allows musicians and composers to synthesize
 \, transform and render sound fields in a creative and artistic way.
 This library facilitates the understanding and the appropriation of
@@ -9,18 +9,18 @@ synthesis \, perspective distorsion or spatial filtering.;
 #X obj 19 4 loadbang;
 #X obj 3 3 hoa.help.header;
 #X obj 24 518 hoa.help.pub;
-#X obj 5 156 c.tab @size 398 36 @fontname Monaco @fontweight normal
-@fontslant roman @fontsize 13 @receive (null) @send (null) @presetname
-(null) @orientation 0 @toggle 1 @items 2d 3d common process tutos @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @hocolor
-0.5 0.5 0.5 1 @secolor 0.35 0.35 0.35 1;
-#X obj 5 196 c.tab @size 398 264 @fontname Monaco @fontweight normal
-@fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @orientation 1 @toggle 0 @items 'Tutorial 1' 'Tutorial 2' 'Tutorial 3'
-'Tutorial 4' 'Tutorial 5' 'Tutorial 6' 'Tutorial 7' 'Tutorial 8' 'Tutorial 9'
-'Tutorial 10' 'Tools 2D' 'Tools 3D' @bgcolor 0.75 0.75 0.75 1 @bdcolor
-0.5 0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5 1 @secolor 0.35
-0.35 0.35 1;
+#X obj 5 156 c.tab @size 398 36 @fontname "Monaco" @fontweight "normal"
+@fontslant "roman" @fontsize 13 @receive "(null)" @send "(null)" @presetname
+"(null)" @orientation 0 @toggle 1 @items "2d" "3d" "common" "process"
+"tutos" @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1 @hocolor 0.5 0.5 0.5 1 @secolor 0.35 0.35 0.35 1;
+#X obj 5 196 c.tab @size 398 264 @fontname "Monaco" @fontweight "normal"
+@fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)" @presetname
+"(null)" @orientation 1 @toggle 0 @items "Tutorial 1" "Tutorial 2"
+"Tutorial 3" "Tutorial 4" "Tutorial 5" "Tutorial 6" "Tutorial 7" "Tutorial 8"
+"Tutorial 9" "Tutorial 10" "Tools 2D" "Tools 3D" @bgcolor 0.75 0.75
+0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5
+1 @secolor 0.35 0.35 0.35 1;
 #N canvas 809 275 452 384 sel.hoa.txt 0;
 #X obj -556 -387 unpack s s;
 #X msg -394 -362 clear;
@@ -162,9 +162,9 @@ synthesis \, perspective distorsion or spatial filtering.;
 #X connect 26 2 24 0;
 #X restore 220 420 pd hoa.open.hel;
 #X obj 6 173 c.loadmess 0;
-#X obj 5 464 c.blackboard @size 398 39 @fontname Monaco @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @chalkmode
-0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X obj 5 464 c.blackboard @size 398 39 @fontname "Monaco" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@chalkmode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
 #X connect 1 0 3 0;
 #X connect 2 0 1 0;
 #X connect 5 1 7 0;

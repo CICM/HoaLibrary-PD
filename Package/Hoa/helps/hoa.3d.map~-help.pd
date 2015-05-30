@@ -1,10 +1,10 @@
 #N canvas 168 87 1195 625 10;
 #X msg 647 43 \; pd dsp 1;
 #X msg 647 78 \; pd dsp 0;
-#X obj 645 239 c.number~ @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
-50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
+#X obj 645 239 c.number~ @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@interval 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
 #X obj 487 88 hoa.connect;
 #X obj 487 68 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -16,10 +16,10 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 #X text 646 221 azimuth;
 #X text 737 220 elevation;
 #X obj 727 191 hoa.pi~ 1;
-#X obj 737 238 c.number~ @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
-50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
+#X obj 737 238 c.number~ @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@interval 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
 #X obj 727 166 hoa.tri~ 0.1 -0.5 0.5;
 #X obj 632 166 phasor~ -0.5;
 #X obj 400 561 hoa.help.pub;
@@ -28,22 +28,26 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 #X text 233 131 radius;
 #X text 78 130 ordinate;
 #X text 12 130 abscissa;
-#X obj 16 154 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 80 154 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 236 154 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 300 154 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 16 154 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 80 154 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 236 154 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 300 154 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
 #X text 30 227 source 1;
 #X obj 16 189 c.pak 0 0 0, f 22;
 #X obj 31 326 hoa.3d.decoder~ 1 regular 8 --------------------;
@@ -52,55 +56,57 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X msg 16 210 1 car \$1 \$2 \$3;
 #X msg 236 210 2 pol \$1 \$2 \$3;
 #X obj 236 189 c.pak 0 0 0, f 22;
-#X obj 31 356 hoa.3d.meter~ @size 291 145.5 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @channels
-8 @angles 0 45 90 45 180 45 270 45 0 -45 90 -45 180 -45 270 -45 @offset
-0 0 0 @rotation anti-clockwise @view top-bottom @vectors none @interval
-50 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7 1 @coldcolor 0 0.6
-0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
-1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor
-1 0 0 0.8;
-#X obj 145 154 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 31 356 hoa.3d.meter~ @size 291 145.5 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@channels 8 @angles 0 45 90 45 180 45 270 45 0 -45 90 -45 180 -45 270
+-45 @offset 0 0 0 @rotation "anti-clockwise" @view "top-bottom" @vectors
+"none" @interval 50 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7
+1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85
+0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor
+0 0 1 0.8 @velocitycolor 1 0 0 0.8;
+#X obj 145 154 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
 #X text 143 130 height;
-#X obj 365 154 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 365 154 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
 #X text 297 131 azimuth;
 #X text 362 131 elevation;
 #X text 441 227 source 1;
 #X obj 442 326 hoa.3d.decoder~ 1 regular 8 --------------------;
 #X obj 442 301 hoa.3d.optim~ 1 inPhase ------------------------;
-#X obj 442 356 hoa.3d.meter~ @size 291 145.5 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @channels
-8 @angles 0 45 90 45 180 45 270 45 0 -45 90 -45 180 -45 270 -45 @offset
-0 0 0 @rotation anti-clockwise @view top-bottom @vectors none @interval
-50 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7 1 @coldcolor 0 0.6
-0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
-1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor
-1 0 0 0.8;
+#X obj 442 356 hoa.3d.meter~ @size 291 145.5 @fontname "Helvetica"
+@fontweight "normal" @fontslant "roman" @fontsize 11 @receive "(null)"
+@send "(null)" @channels 8 @angles 0 45 90 45 180 45 270 45 0 -45 90
+-45 180 -45 270 -45 @offset 0 0 0 @rotation "anti-clockwise" @view
+"top-bottom" @vectors "none" @interval 50 @bgcolor 0.76 0.76 0.76 1
+@bdcolor 0.7 0.7 0.7 1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73
+0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1
+0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor 1 0 0 0.8;
 #X text 557 222 radius;
 #X obj 537 191 +~ 1;
 #X obj 537 166 osc~ 0.3;
-#X obj 552 239 c.number~ @size 48 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
-50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
+#X obj 552 239 c.number~ @size 48 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@interval 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
 #X obj 822 244 sig~ 1;
 #X text 821 227 source 1;
 #X obj 822 326 hoa.3d.decoder~ 1 regular 8 --------------------;
 #X obj 822 301 hoa.3d.optim~ 1 inPhase ------------------------;
-#X obj 822 356 hoa.3d.meter~ @size 291 145.5 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @channels
-8 @angles 0 45 90 45 180 45 270 45 0 -45 90 -45 180 -45 270 -45 @offset
-0 0 0 @rotation anti-clockwise @view top-bottom @vectors none @interval
-50 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7 1 @coldcolor 0 0.6
-0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
-1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor
-1 0 0 0.8;
+#X obj 822 356 hoa.3d.meter~ @size 291 145.5 @fontname "Helvetica"
+@fontweight "normal" @fontslant "roman" @fontsize 11 @receive "(null)"
+@send "(null)" @channels 8 @angles 0 45 90 45 180 45 270 45 0 -45 90
+-45 180 -45 270 -45 @offset 0 0 0 @rotation "anti-clockwise" @view
+"top-bottom" @vectors "none" @interval 50 @bgcolor 0.76 0.76 0.76 1
+@bdcolor 0.7 0.7 0.7 1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73
+0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1
+0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor 1 0 0 0.8;
 #X obj 442 272 hoa.3d.map~ 1 1 polar --------------------------;
 #X obj 822 272 hoa.3d.map~ 1 1 cartesian ----------------------;
 #X obj 440 517 hoa.dac~ 1:8 -----------------------------------;
@@ -111,19 +117,19 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @channels
 #X obj 1012 165 osc~ 0.25;
 #X text 1030 203 ordinate;
 #X text 928 203 abscissa;
-#X obj 927 223 c.number~ @size 48 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
-50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
-#X obj 1023 223 c.number~ @size 48 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
-50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
+#X obj 927 223 c.number~ @size 48 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@interval 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
+#X obj 1023 223 c.number~ @size 48 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@interval 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
 #X obj 1107 187 *~ 2;
-#X obj 1118 223 c.number~ @size 48 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
-50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
+#X obj 1118 223 c.number~ @size 48 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@interval 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
 #X text 1125 203 height;
 #X text 774 84 With one source \, you can drive it with signals. Set
 the mode polar (or pol or 0) to use polar coordinates (radius \, azimuth

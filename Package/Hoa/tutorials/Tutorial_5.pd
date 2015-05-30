@@ -3,24 +3,24 @@
 #X obj 21 5 c.loadmess;
 #X obj 4 4 hoa.tuto.header;
 #X obj 417 4 hoa.help.pub;
-#X obj 144 396 hoa.2d.scope~ @size 225 225 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-7 @view 0 @gain 100 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
-0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 144 396 hoa.2d.scope~ @size 225 225 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@order 7 @view 0 @gain 100 @interval 100 @bgcolor 0.76 0.76 0.76 1
+@bdcolor 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X obj 144 284 sig~ 1;
-#X obj 363 307 c.number @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min 0 @max 7 @minmax 0 7 @decimal 0 @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 346 307 c.incdec @size 15 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @step
-1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @arcolor 0 0 0 1
-;
+#X obj 363 307 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 7 @minmax 0 7 @decimal 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 346 307 c.incdec @size 15 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@step 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @arcolor 0
+0 0 1;
 #N canvas 0 50 496 402 map.deg 0;
 #X obj 249 320 outlet;
 #X obj 248 202 / 2;
 #X obj 251 228 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0.5 256;
+-262144 -1 -1 4 256;
 #X obj 246 172 + 1;
 #X obj 319 180 % 2;
 #X obj 256 295 int;
@@ -76,18 +76,18 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @step
 #X obj 144 362 hoa.2d.process~ 7 hoa.fx.gain~ harmonics, f 37;
 #X text 202 307 Order of decomposition;
 #X obj 363 285 c.loadmess 7;
-#X obj 554 396 hoa.2d.scope~ @size 225 225 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-7 @view 0 @gain 100 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
-0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 554 396 hoa.2d.scope~ @size 225 225 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@order 7 @view 0 @gain 100 @interval 100 @bgcolor 0.76 0.76 0.76 1
+@bdcolor 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X obj 554 284 sig~ 1;
 #X obj 144 336 hoa.2d.encoder~ 7 -----------------;
 #X obj 554 336 hoa.2d.encoder~ 7 -----------------;
 #X obj 554 362 hoa.2d.wider~ 7 ---------------------;
-#X obj 773 308 c.number @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 773 308 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X text 583 309 Fractional decomposition order;
 #X text 833 309 minmax: 0 - 1;
 #X obj 773 281 c.loadmess 1;
@@ -105,9 +105,10 @@ with which the listener perceives a point source. The "spatial resolution"
 is a broader concept to qualify more varied and complex sound field
 where sound field is not necessarily composed of point sources (eg.
 diffuse sound field)., f 66;
-#X obj 578 132 c.dsp~ @size 30 30 @fontname Helvetica @fontweight normal
-@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0 0.8;
+#X obj 578 132 c.dsp~ @size 30 30 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0
+0.8;
 #X text 615 138 Dsp On/Off;
 #X connect 0 0 2 0;
 #X connect 1 0 0 0;

@@ -271,7 +271,7 @@
 				8F3E8ACD1AB9C286009A8EFC /* hoa.library.cpp */,
 				8F3E8ACE1AB9C286009A8EFC /* hoa.library.h */,
 				8F83E8091A60346F00FDDCC8 /* Sources */,
-				8F1F1B761A5425AF0026B9E8 /* Sources */,
+				8F1F1B761A5425AF0026B9E8 /* CicmWrapper */,
 				8F1F1AA61A5425390026B9E8 /* HoaLibrary */,
 				59FB02F717A7FAA9001E977D /* Accelerate.framework */,
 				5913847015DAA36D0029AD16 /* Products */,
@@ -296,7 +296,7 @@
 			path = ThirdParty/HoaLibrary;
 			sourceTree = "<group>";
 		};
-		8F1F1B761A5425AF0026B9E8 /* Sources */ = {
+		8F1F1B761A5425AF0026B9E8 /* CicmWrapper */ = {
 			isa = PBXGroup;
 			children = (
 				8F1F1B771A5425AF0026B9E8 /* cicm_wrapper.h */,
@@ -310,7 +310,7 @@
 				8F1F1BAF1A5425AF0026B9E8 /* epopup */,
 				8F1F1BB31A5425AF0026B9E8 /* estruct.h */,
 			);
-			name = Sources;
+			name = CicmWrapper;
 			path = ThirdParty/CicmWrapper/Sources;
 			sourceTree = "<group>";
 		};

@@ -3,9 +3,9 @@
 #X obj 21 3 c.loadmess;
 #X obj 4 2 hoa.tuto.header;
 #X obj 417 2 hoa.help.pub;
-#X obj 439 59 c.blackboard @size 320 320 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @chalkmode
-0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X obj 439 59 c.blackboard @size 320 320 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@chalkmode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
 #N canvas 0 50 635 265 subscript 0;
 #X obj 142 243 outlet;
 #X obj 154 46 c.loadmess;
@@ -20,9 +20,9 @@ line 70 54 81 53 \, color rgb 0 0 0 \, text 140 61 FRONT \, text 144
 #X connect 1 0 2 0;
 #X connect 2 0 0 0;
 #X restore 502 126 pd subscript;
-#X obj 439 396 c.blackboard @size 320 320 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @chalkmode
-0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X obj 439 396 c.blackboard @size 320 320 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@chalkmode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
 #N canvas 729 414 635 265 subscript 0;
 #X obj 142 243 outlet;
 #X obj 154 46 c.loadmess;

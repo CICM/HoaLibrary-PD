@@ -3,9 +3,9 @@
 #X msg 371 134 \; pd dsp 1;
 #X msg 371 172 \; pd dsp 0;
 #X obj 215 161 *~;
-#X obj 20 311 hoa.2d.scope~ @size 201 201 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-4 @view 0 @gain 10 @interval 20 @bgcolor 0.758847 0.758847 0.758847
+#X obj 20 311 hoa.2d.scope~ @size 201 201 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@order 4 @view 0 @gain 10 @interval 20 @bgcolor 0.758847 0.758847 0.758847
 1 @bdcolor 0.699562 0.699562 0.699562 1 @phcolor 1 0 0 1 @nhcolor 0
 0 1 1;
 #X text 336 293 Here \, we apply differents delay lines on each signal.
@@ -15,45 +15,46 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
 #X obj 585 25 hoa.connect;
 #X obj 585 4 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 358 311 hoa.2d.space @size 201 201 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send hoadelproj
-@presetname hoadelpreset @channels 10 @minmax 1 3000 @bgcolor 0.76
+#X obj 358 311 hoa.2d.space @size 201 201 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "hoadelproj"
+@presetname "hoadelpreset" @channels 10 @minmax 1 3000 @bgcolor 0.76
 0.76 0.76 1 @bdcolor 0.7 0.7 0.7 1 @spcolor 0.27 0.43 0.54 0.25 @ptcolor
 0 0 0 1;
 #X obj 20 182 hoa.2d.encoder~ 4 ---------------;
 #X obj 20 208 hoa.2d.projector~ 4 10 ----------;
 #X obj 230 123 c.loadmess;
 #X obj 275 219 r hoadelproj;
-#X obj 20 161 c.gain~ @size 127 12 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @kncolor 0.5 0.5 0.5 1;
+#X obj 20 161 c.gain~ @size 127 12 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @kncolor 0.5 0.5 0.5 1;
 #X msg 470 157 inter \$1;
-#X obj 470 133 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min 1 @max (null) @minmax 1 (null) @decimal 6 @bgcolor 0.75
-0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 470 133 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 1 @max "(null)" @minmax 1 "(null)" @decimal
+6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
+1;
 #X obj 470 111 line;
-#X obj 470 184 c.preset @size 121 41 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @emcolor
-0.85 0.85 0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15 0.15 1 @preset
-[ @index 0 @hoadelpreset hoa.2d.space list 1 1 1 1 1 1 1 1 1 1 @index
-1 @hoadelpreset hoa.2d.space list 92.5173 1937.78 2108.48 1390.73 1
-3000 3000 3000 3000 2335.39 @index 2 @hoadelpreset hoa.2d.space list
-1882.71 61.5205 59.4307 1953.11 813.017 2917.27 184.399 252.658 2269.49
-146.736 @index 3 @hoadelpreset hoa.2d.space list 3000 2666.9 2664.81
-3000 3000 3000 2789.78 2858.03 3000 2752.11 @index 4 @hoadelpreset
-hoa.2d.space list 1 1 1 3000 1 1 1 1 1 1 @index 5 @hoadelpreset hoa.2d.space
-list 1 1 1 3000 3000 3000 3000 1 1 1 @index 6 @hoadelpreset hoa.2d.space
-list 3000 1 3000 1 1 1 1 3000 1 3000 @index 7 @hoadelpreset hoa.2d.space
-list 1387.1 3000 1613.9 1387.1 1613.9 1 1 1 1387.1 1613.9 @index 8
-@hoadelpreset hoa.2d.space list 1 84.1164 3000 1387.1 1 1 3000 1 1387.1
-3000 @index 9 @hoadelpreset hoa.2d.space list 1 84.1164 3000 3000 3000
-1 1 3000 3000 3000 @index 10 @hoadelpreset hoa.2d.space list 3000 88.6911
-81.6861 2914.74 3000 3000 88.6911 1 2912.31 3000 @index 11 @hoadelpreset
-hoa.2d.space list 3000 2998.94 88.6885 82.7172 2914.77 3000 2998.94
-88.6592 2.05962 2912.34 ];
+#X obj 470 184 c.preset @size 121 41 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1
+@emcolor 0.85 0.85 0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15
+0.15 1 @preset [ @index 0 @hoadelpreset hoa.2d.space list 1 1 1 1 1
+1 1 1 1 1 @index 1 @hoadelpreset hoa.2d.space list 92.5173 1937.78
+2108.48 1390.73 1 3000 3000 3000 3000 2335.39 @index 2 @hoadelpreset
+hoa.2d.space list 1882.71 61.5205 59.4307 1953.11 813.017 2917.27 184.399
+252.658 2269.49 146.736 @index 3 @hoadelpreset hoa.2d.space list 3000
+2666.9 2664.81 3000 3000 3000 2789.78 2858.03 3000 2752.11 @index 4
+@hoadelpreset hoa.2d.space list 1 1 1 3000 1 1 1 1 1 1 @index 5 @hoadelpreset
+hoa.2d.space list 1 1 1 3000 3000 3000 3000 1 1 1 @index 6 @hoadelpreset
+hoa.2d.space list 3000 1 3000 1 1 1 1 3000 1 3000 @index 7 @hoadelpreset
+hoa.2d.space list 1387.1 3000 1613.9 1387.1 1613.9 1 1 1 1387.1 1613.9
+@index 8 @hoadelpreset hoa.2d.space list 1 84.1164 3000 1387.1 1 1
+3000 1 1387.1 3000 @index 9 @hoadelpreset hoa.2d.space list 1 84.1164
+3000 3000 3000 1 1 3000 3000 3000 @index 10 @hoadelpreset hoa.2d.space
+list 3000 88.6911 81.6861 2914.74 3000 3000 88.6911 1 2912.31 3000
+@index 11 @hoadelpreset hoa.2d.space list 3000 2998.94 88.6885 82.7172
+2914.77 3000 2998.94 88.6592 2.05962 2912.34 ];
 #X text 468 63 Interpolations;
 #X obj 358 524 c.prepend set;
 #X msg 358 546 2.00666 22.304 24.1816 16.2866 1 33.988 33.988 33.988

@@ -10,48 +10,52 @@
 #X msg 488 233 \; pd dsp 0;
 #X obj 202 147 hoa.pi~ 2;
 #X obj 381 146 hoa.pi~ 1;
-#X obj 204 101 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 382 101 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 204 101 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
+#X obj 382 101 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
 #X obj 381 122 hoa.tri~ 0.05 -0.5 0.5;
 #X obj 202 122 phasor~ 0.5;
-#X obj 691 196 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min 1 @max 64 @minmax 1 64 @decimal 0 @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 691 196 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 1 @max 64 @minmax 1 64 @decimal 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X msg 691 229 channels \$1;
 #X text 788 175 channels;
 #X text 788 165 Rotation of;
 #X msg 791 229 rotation \$1;
-#X obj 791 195 c.menu @size 100 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @hover 0 @items Anti-Clockwise Clockwise @states 0 0 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 791 195 c.menu @size 100 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @hover 0 @items "Anti-Clockwise" "Clockwise" @states
+0 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0
+0 1;
 #X text 695 175 channels;
 #X text 695 165 Number of;
-#X obj 573 196 c.menu @size 100 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @hover 0 @items none energy velocity both @states 0 0 0 0 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 573 196 c.menu @size 100 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @hover 0 @items "none" "energy" "velocity" "both"
+@states 0 0 0 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
 #X msg 573 230 vectors \$1;
 #X text 590 166 Vectors to;
 #X text 590 176 display;
 #X obj 731 277 s hoameter3d;
-#X obj 24 288 hoa.3d.meter~ @size 363 181.5 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive hoameter3d @send (null)
-@channels 20 @angles 180 69.1 159.1 0 90 20.9 135 35.3 135 -35.3 180
--69.1 20.9 0 90 -20.9 45 35.3 45 -35.3 0 69.1 200.9 0 270 20.9 225
-35.3 225 -35.3 0 -69.1 339.1 0 270 -20.9 315 35.3 315 -35.3 @offset
-0 0 0 @rotation anti-clockwise @view top-bottom @vectors energy @interval
-50 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7 1 @coldcolor 0 0.6
-0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
-1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor
-1 0 0 0.8;
+#X obj 24 288 hoa.3d.meter~ @size 363 181.5 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "hoameter3d" @send
+"(null)" @channels 20 @angles 180 69.1 159.1 0 90 20.9 135 35.3 135
+-35.3 180 -69.1 20.9 0 90 -20.9 45 35.3 45 -35.3 0 69.1 200.9 0 270
+20.9 225 35.3 225 -35.3 0 -69.1 339.1 0 270 -20.9 315 35.3 315 -35.3
+@offset 0 0 0 @rotation "anti-clockwise" @view "top-bottom" @vectors
+"energy" @interval 50 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7
+1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85
+0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor
+0 0 1 0.8 @velocitycolor 1 0 0 0.8;
 #X obj 24 171 hoa.3d.encoder~ 3 ------------------------------------------
 ;
 #X obj 24 214 hoa.3d.optim~ 3 inPhase ------------------------------------
@@ -60,11 +64,11 @@ normal @fontslant roman @fontsize 11 @receive hoameter3d @send (null)
 ;
 #X obj 691 139 c.loadmess 20;
 #X obj 402 219 r hoadec3d;
-#X obj 915 195 c.menu @size 100 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @hover 0 @items top bottom top-bottom top/bottom @states 0 0
-0 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0
-0 1;
+#X obj 915 195 c.menu @size 100 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @hover 0 @items "top" "bottom" "top-bottom" "top/bottom"
+@states 0 0 0 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
 #X msg 915 229 view \$1;
 #X obj 915 139 c.loadmess set 2;
 #X text 9 48 hoa.2d.meter~ displays the peak levels for a spherical

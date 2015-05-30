@@ -9,21 +9,23 @@ the circular harmonics of the sound field with the circular harmonics
 of a dirac in the direction of the loudspeaker :, f 61;
 #X text 1 229 Example for the 2nd order:;
 #X obj 634 150 hoa.pi 2;
-#X obj 634 130 c.number @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 634 130 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
 #X obj 634 100 c.loadmess 0;
-#X obj 458 452 hoa.2d.meter~ @size 183 183 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @channels
-8 @angles 0 45 90 135 180 225 270 315 @offset 0 @rotation anti-clockwise
-@vectors none @interval 50 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
-0.7 1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor
-0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor
-0 0 1 0.8 @velocitycolor 1 0 0 0.8;
-#X obj 401 661 c.dsp~ @size 30 30 @fontname Helvetica @fontweight normal
-@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0 0.8;
+#X obj 458 452 hoa.2d.meter~ @size 183 183 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@channels 8 @angles 0 45 90 135 180 225 270 315 @offset 0 @rotation
+"anti-clockwise" @vectors "none" @interval 50 @bgcolor 0.76 0.76 0.76
+1 @bdcolor 0.7 0.7 0.7 1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73
+0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1
+0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor 1 0 0 0.8;
+#X obj 401 661 c.dsp~ @size 30 30 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0
+0.8;
 #X text 644 172 Synthesis of the sound field;
 #X text 644 313 of the sound field.;
 #X text 646 417 Click to open.;
@@ -31,9 +33,9 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @channels
 #X text 439 669 Dsp on/off;
 #X text 646 397 In the process~ \, we compute the operations;
 #X text 646 407 for each planewaves (or loudspeakers).;
-#X obj 457 204 hoa.2d.scope~ @size 183 183 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-3 @view 0 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+#X obj 457 204 hoa.2d.scope~ @size 183 183 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@order 3 @view 0 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X obj 457 172 hoa.2d.encoder~ 3, f 30;
 #X text 644 303 Representation of the 7 harmonics;
@@ -59,10 +61,11 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
 #X text 305 288 Angle of the;
 #X text 305 298 loudspeaker in;
 #X text 305 308 radians :;
-#X obj 310 330 c.number @size 55 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 310 330 c.number @size 55 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
 #X text 10 470 is always;
 #X text 10 481 divided by 2;
 #X text 10 459 The harmonic 0;
@@ -80,15 +83,15 @@ please refer to the decoder help., f 61;
 #X obj 90 437 /~ 2;
 #X obj 150 489 +~;
 #X obj 27 331 noise~;
-#X obj 150 511 c.meter~ @size 77 13 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
-50 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor 0 0.6
-0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
+#X obj 150 511 c.meter~ @size 77 13 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@interval 50 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor
+0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
 1 0.6 0 0.8 @overcolor 1 0 0 0.8;
-#X obj 150 534 c.number~ @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
-50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
+#X obj 150 534 c.number~ @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@interval 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
 #N canvas 0 22 450 300 rotate 0;
 #X obj 12 58 hoa.pi~;
 #X obj 12 14 phasor~ 0.1;

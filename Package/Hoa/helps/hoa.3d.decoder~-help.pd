@@ -1,10 +1,10 @@
 #N canvas 92 82 1278 742 10;
 #X msg 1029 451 \; pd dsp 1;
 #X msg 1029 486 \; pd dsp 0;
-#X obj 500 155 c.gain~ @size 131 10 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @kncolor 0.5 0.5 0.5 1;
+#X obj 500 155 c.gain~ @size 131 10 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @kncolor 0.5 0.5 0.5 1;
 #X obj 751 128 hoa.connect;
 #X obj 751 108 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
@@ -12,10 +12,10 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X obj 1 2 loadbang;
 #X obj 1 2 hoa.help.header;
 #X obj 417 2 hoa.help.also;
-#X obj 898 450 c.meter~ @size 13 85 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
-50 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor 0 0.6
-0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
+#X obj 898 450 c.meter~ @size 13 85 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@interval 50 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor
+0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
 1 0.6 0 0.8 @overcolor 1 0 0 0.8;
 #X obj 630 197 hoa.pi~ 2;
 #X obj 761 197 hoa.pi~ 0.5;
@@ -26,10 +26,10 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
 #X text 6 46 hoa.3d.encoder~ decodes an ambisonic sound field for several
 loudspeakers configurations or for headphones.;
 #X obj 920 546 hoa.dac~ 1:2 -------------------------------;
-#X obj 1181 440 c.meter~ @size 13 85 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
-50 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor 0 0.6
-0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
+#X obj 1181 440 c.meter~ @size 13 85 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@interval 50 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor
+0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
 1 0.6 0 0.8 @overcolor 1 0 0 0.8;
 #X obj 631 175 phasor~ 0.3;
 #X text 9 104 1st argument is the order.;
@@ -40,15 +40,16 @@ with the object. You have to write it in the box or to send a message.
 ;
 #X text 940 417 Binaural mode is used for headphones.;
 #X obj 121 365 hoa.3d.optim~ 3 maxRe ---------------------;
-#X obj 121 443 hoa.3d.meter~ @size 261 130.5 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @channels
-20 @angles 180 69.1 159.1 0 90 20.9 135 35.3 135 -35.3 180 -69.1 20.9
-0 90 -20.9 45 35.3 45 -35.3 0 69.1 200.9 0 270 20.9 225 35.3 225 -35.3
-0 -69.1 339.1 0 270 -20.9 315 35.3 315 -35.3 @offset 0 0 0 @rotation
-anti-clockwise @view top-bottom @vectors none @interval 50 @bgcolor
-0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7 1 @coldcolor 0 0.6 0 0.8 @tepidcolor
-0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor
-1 0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor 1 0 0 0.8;
+#X obj 121 443 hoa.3d.meter~ @size 261 130.5 @fontname "Helvetica"
+@fontweight "normal" @fontslant "roman" @fontsize 11 @receive "(null)"
+@send "(null)" @channels 20 @angles 180 69.1 159.1 0 90 20.9 135 35.3
+135 -35.3 180 -69.1 20.9 0 90 -20.9 45 35.3 45 -35.3 0 69.1 200.9 0
+270 20.9 225 35.3 225 -35.3 0 -69.1 339.1 0 270 -20.9 315 35.3 315
+-35.3 @offset 0 0 0 @rotation "anti-clockwise" @view "top-bottom" @vectors
+"none" @interval 50 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7
+1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85
+0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor
+0 0 1 0.8 @velocitycolor 1 0 0 0.8;
 #X text 5 206 Ambisonic decoding is used for a set loudspeakers spread
 over a sphere.;
 #X text 4 259 (Rotation around;
@@ -81,15 +82,17 @@ is perfect to the decomposition orders 1 \, 2 & 3 An higher decomposition
 order creates artefacts.;
 #X obj 495 323 c.loadmess;
 #X obj 878 173 hoa.pi;
-#X obj 881 112 c.number @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 881 112 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
 #X obj 948 173 hoa.pi;
-#X obj 951 112 c.number @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min (null) @max (null) @minmax (null) (null) @decimal 6 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 951 112 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
+@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
+0 0 0 1;
 #X obj 121 398 hoa.3d.decoder~ 3 rehular 20 ------------, f 43;
 #X connect 2 0 14 0;
 #X connect 4 0 3 0;

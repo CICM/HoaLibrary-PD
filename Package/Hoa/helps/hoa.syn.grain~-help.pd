@@ -2,10 +2,10 @@
 #X msg 290 358 \; pd dsp 1;
 #X msg 290 393 \; pd dsp 0;
 #X obj 73 95 hoa.soundgrain;
-#X obj 73 124 c.gain~ @size 131 10 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @kncolor 0.5 0.5 0.5 1;
+#X obj 73 124 c.gain~ @size 131 10 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @kncolor 0.5 0.5 0.5 1;
 #X obj 574 32 hoa.connect;
 #X obj 574 12 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -16,29 +16,30 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X obj 418 4 hoa.help.also;
 #X obj 73 523 hoa.2d.decoder~ 7 ambisonics 16;
 #X obj 73 555 hoa.dac~ 1:16 -----------------;
-#X obj 73 248 hoa.2d.scope~ @size 189 189 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-7 @view 0 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+#X obj 73 248 hoa.2d.scope~ @size 189 189 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@order 7 @view 0 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X text 363 188 You can also use it in the plane waves domain.;
 #X msg 453 318 size \$1;
-#X obj 453 291 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min 0 @max (null) @minmax 0 (null) @decimal 6 @bgcolor 0.75
-0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 543 291 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min 0 @max 5000 @minmax 0 5000 @decimal 6 @bgcolor 0.75 0.75
-0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 453 291 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max "(null)" @minmax 0 "(null)" @decimal
+6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
+1;
+#X obj 543 291 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 5000 @minmax 0 5000 @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X msg 543 318 delay \$1;
-#X obj 453 411 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 543 411 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 453 411 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 543 411 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X msg 453 438 feedback \$1;
 #X msg 543 438 rarefaction \$1;
 #X obj 453 263 c.loadmess 20;

@@ -1,4 +1,4 @@
-#N canvas 133 129 613 395 10;
+#N canvas 568 143 613 395 10;
 #X text 27 46 hoa.dac~ facilitates the routing of large array of loudspeakers.
 ;
 #X text 31 148 Channels 1 to 8 :;

@@ -1,10 +1,10 @@
-#N canvas 109 96 797 672 10;
+#N canvas 398 35 797 672 10;
 #X msg 16 341 \; pd dsp 1;
 #X msg 16 376 \; pd dsp 0;
-#X obj 113 134 c.gain~ @size 131 10 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @kncolor 0.5 0.5 0.5 1;
+#X obj 113 134 c.gain~ @size 131 10 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @kncolor 0.5 0.5 0.5 1;
 #X obj 574 32 hoa.connect;
 #X obj 574 12 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -13,49 +13,49 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X obj 2 4 hoa.help.header;
 #X obj 67 616 hoa.help.pub;
 #X obj 418 4 hoa.help.also;
-#X obj 113 325 hoa.2d.scope~ @size 189 189 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-3 @view 0 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+#X obj 113 325 hoa.2d.scope~ @size 189 189 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@order 3 @view 0 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X obj 113 533 hoa.2d.decoder~ 3 ambisonics 8;
 #X obj 113 565 hoa.dac~ 1:8 -----------------;
 #X obj 113 152 hoa.2d.encoder~ 3 ---------;
 #X obj 272 95 phasor~ 0.1;
 #X obj 113 95 phasor~ 1;
-#X obj 339 179 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 339 179 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X obj 338 158 c.loadmess 0;
-#X obj 429 179 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 429 179 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X msg 429 203 wet \$1;
 #X obj 428 158 c.loadmess 1;
 #X msg 339 203 dry \$1;
 #X obj 272 121 hoa.pi~ 2;
 #X text 368 402 You can also use it in the planewave domain.;
-#X obj 529 179 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 529 179 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X msg 529 203 damp \$1;
 #X obj 528 158 c.loadmess 0.5;
-#X obj 640 179 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 640 179 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X obj 639 158 c.loadmess 0.75;
 #X msg 640 203 roomsize \$1;
 #X text 368 368 With diffusion \, the roomsize and the damping value
 ;
 #X text 368 378 are mapped depending on the harmonic orders and degrees.
 ;
-#X obj 640 259 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 640 259 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X obj 639 238 c.loadmess 0.75;
 #X text 368 345 Attrs : wet \, dry \, roomsize \, damp \, diff;
 #X obj 113 259 hoa.2d.process~ 3 hoa.fx.freeverb~ harmonics @wet 1

@@ -6,9 +6,9 @@
 #X text 3 53 In Ambisonics \, the planewave is the wave model witch
 underlies the projection and the decomposition of the sound field.
 ;
-#X obj 467 119 c.blackboard @size 397 93 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @chalkmode
-0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X obj 467 119 c.blackboard @size 397 93 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@chalkmode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
 #N canvas 98 147 724 575 subscript 0;
 #X obj 280 523 outlet;
 #X obj 158 332 until;
@@ -105,17 +105,18 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @chalkmode
 #X text 819 70 Plane wave;
 #X text 526 70 ---------------------------------------------->;
 #X text 366 155 Sound source-->;
-#X obj 574 356 hoa.2d.meter~ @size 129 129 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @channels
-8 @angles 0 45 90 135 180 225 270 315 @offset 0 @rotation anti-clockwise
-@vectors none @interval 50 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
-0.7 1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor
-0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor
-0 0 1 0.8 @velocitycolor 1 0 0 0.8;
+#X obj 574 356 hoa.2d.meter~ @size 129 129 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@channels 8 @angles 0 45 90 135 180 225 270 315 @offset 0 @rotation
+"anti-clockwise" @vectors "none" @interval 50 @bgcolor 0.76 0.76 0.76
+1 @bdcolor 0.7 0.7 0.7 1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73
+0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1
+0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor 1 0 0 0.8;
 #X obj 403 250 sig~ 1;
-#X obj 112 492 c.dsp~ @size 30 30 @fontname Helvetica @fontweight normal
-@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0 0.8;
+#X obj 112 492 c.dsp~ @size 30 30 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0
+0.8;
 #X text 536 425 ---->;
 #X text 707 425 ---->;
 #X text 411 489 Harmonics domain;
@@ -133,15 +134,15 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @channels
 #X connect 3 0 2 0;
 #X restore 525 250 pd rota;
 #X obj 403 272 hoa.2d.encoder~ 3, f 21;
-#X obj 403 356 hoa.2d.scope~ @size 129 129 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-3 @view 0 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+#X obj 403 356 hoa.2d.scope~ @size 129 129 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@order 3 @view 0 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X obj 574 302 hoa.2d.projector~ 3 8;
 #X obj 745 332 hoa.recomposer~ 3 8, f 21;
-#X obj 745 356 hoa.2d.scope~ @size 129 129 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-3 @view 0 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+#X obj 745 356 hoa.2d.scope~ @size 129 129 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@order 3 @view 0 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X text 877 425 ----> ect.;
 #X text 3 272 One of the main advantage of this model lie in its interoperabilty
@@ -178,22 +179,22 @@ on the loudspeakers arrengement (cf decoder)., f 59;
 #X connect 3 0 2 0;
 #X restore 525 520 pd rota;
 #X obj 403 542 hoa.2d.encoder~ 3, f 21;
-#X obj 403 666 hoa.2d.scope~ @size 129 129 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-3 @view 0 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+#X obj 403 666 hoa.2d.scope~ @size 129 129 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@order 3 @view 0 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X obj 574 572 hoa.2d.optim~ 3 inPhase, f 21;
-#X obj 574 666 hoa.2d.scope~ @size 129 129 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-3 @view 0 @gain 2 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+#X obj 574 666 hoa.2d.scope~ @size 129 129 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@order 3 @view 0 @gain 2 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj 734 666 hoa.2d.meter~ @size 129 129 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @channels
-5 @angles 0 30 110 250 330 @offset 0 @rotation anti-clockwise @vectors
-none @interval 50 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7 1
-@coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85
-0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor 0 0 1
-0.8 @velocitycolor 1 0 0 0.8;
+#X obj 734 666 hoa.2d.meter~ @size 129 129 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@channels 5 @angles 0 30 110 250 330 @offset 0 @rotation "anti-clockwise"
+@vectors "none" @interval 50 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7
+0.7 0.7 1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor
+0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor
+0 0 1 0.8 @velocitycolor 1 0 0 0.8;
 #X obj 734 612 hoa.2d.decoder~ 3 irregular 5 @angles 0 30 110 250 330
 , f 21;
 #X text 3 133 This wave model has wavefronts whose are infinite parralel

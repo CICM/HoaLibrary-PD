@@ -2,10 +2,10 @@
 #X msg 363 389 \; pd dsp 1;
 #X msg 363 424 \; pd dsp 0;
 #X obj 293 85 hoa.soundgrain;
-#X obj 293 114 c.gain~ @size 131 10 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @kncolor 0.5 0.5 0.5 1;
+#X obj 293 114 c.gain~ @size 131 10 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @kncolor 0.5 0.5 0.5 1;
 #X obj 578 32 hoa.connect;
 #X obj 578 12 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -15,31 +15,33 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X obj 6 4 hoa.help.header;
 #X obj 136 632 hoa.help.pub;
 #X obj 422 4 hoa.help.also;
-#X obj 293 182 hoa.2d.scope~ @size 183 183 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-7 @view 0 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+#X obj 293 182 hoa.2d.scope~ @size 183 183 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@order 7 @view 0 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X obj 287 573 hoa.2d.decoder~ 7 ambisonics 16;
 #X obj 287 605 hoa.dac~ 1:16 -----------------;
 #X obj 293 132 hoa.2d.encoder~ 7 ------------;
-#X obj 23 362 hoa.2d.scope~ @size 189 189 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-7 @view 0 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+#X obj 23 362 hoa.2d.scope~ @size 189 189 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@order 7 @view 0 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj 33 190 c.number @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min 0 @max (null) @minmax 0 (null) @decimal 6 @bgcolor 0.75
-0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 33 190 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max "(null)" @minmax 0 "(null)" @decimal
+6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
+1;
 #X obj 533 244 hoa.2d.projector~ 7 16, f 29;
-#X obj 533 422 hoa.2d.scope~ @size 189 189 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-7 @view 0 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+#X obj 533 422 hoa.2d.scope~ @size 189 189 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@order 7 @view 0 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X obj 533 378 hoa.2d.recomposer~ 7 16 fixe, f 31;
-#X obj 716 72 hoa.2d.space @size 189 189 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @channels 16 @minmax 0 5000 @bgcolor 0.76 0.76 0.76 1 @bdcolor
-0.7 0.7 0.7 1 @spcolor 0.27 0.43 0.54 0.25 @ptcolor 0 0 0 1;
+#X obj 716 72 hoa.2d.space @size 189 189 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @channels 16 @minmax 0 5000 @bgcolor 0.76 0.76
+0.76 1 @bdcolor 0.7 0.7 0.7 1 @spcolor 0.27 0.43 0.54 0.25 @ptcolor
+0 0 0 1;
 #X obj 469 76 phasor~ 1;
 #X obj 23 309 hoa.2d.process~ 7 hoa.fx.delay~ harmonics, f 31;
 #X obj 533 309 hoa.2d.process~ 16 hoa.fx.delay~ planewaves, f 31;

@@ -1,4 +1,4 @@
-#N canvas 158 254 927 585 10;
+#N canvas 136 407 927 585 10;
 #X text 12 140 The 2nd outlet outputs the hoa.process~ mode.;
 #X msg 18 182 open all;
 #X msg 18 252 open all;

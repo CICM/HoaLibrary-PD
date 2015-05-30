@@ -1,9 +1,10 @@
 #N canvas 526 87 840 686 10;
 #X text 360 315 Mousewheel and alt to change the zoom.;
-#X obj 33 146 hoa.map @size 225 225 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-hoamapexample @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7 1 @view
-xy @outputmode polar @zoom 0.4 @mapname (null);
+#X obj 33 146 hoa.map @size 225 225 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "hoamapexample" @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7
+0.7 0.7 1 @view "xy" @outputmode "polar" @zoom 0.4 @mapname "(null)"
+;
 #X obj 33 122 c.loadmess;
 #X msg 534 541 \; pd dsp 1;
 #X msg 534 576 \; pd dsp 0;
@@ -151,32 +152,32 @@ and send a message to hoa.2D.map~ to mute the source (exept for groups).
 #X text 850 419 (create the group 1 before);
 #X text 873 441 (create the source 3 before);
 #X text 104 79 Bang to output;
-#X obj 27 76 c.number @size 53 14 @fontname Helvetica @fontweight normal
-@fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min 0.2 @max 1 @minmax 0.2 1 @decimal 6 @bgcolor 0.75 0.75
-0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 109 106 c.bang @size 17 17 @fontname Helvetica @fontweight normal
-@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
-#X obj 577 324 c.toggle @size 15 15 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5
-0.5 0.5 1;
-#X obj 424 294 c.toggle @size 15 15 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5
-0.5 0.5 1;
-#X obj 501 344 c.toggle @size 15 15 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5
-0.5 0.5 1;
+#X obj 27 76 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0.2 @max 1 @minmax 0.2 1 @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 109 106 c.bang @size 17 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 577 324 c.toggle @size 15 15 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @crcolor 0.5 0.5 0.5 1;
+#X obj 424 294 c.toggle @size 15 15 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @crcolor 0.5 0.5 0.5 1;
+#X obj 501 344 c.toggle @size 15 15 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @crcolor 0.5 0.5 0.5 1;
 #X msg 740 100 source 1 description Jimi Hendrix;
 #X msg 762 123 group 1 description Band of Gypsys;
 #X msg 774 292 group 1 color 0.2 0.9 0 1;
-#X obj 68 221 hoa.map @size 225 225 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive map_mes @send (null)
-@presetname (null) @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7 1
-@view xy @outputmode polar @zoom 0.6 @mapname (null);
+#X obj 68 221 hoa.map @size 225 225 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "map_mes" @send "(null)"
+@presetname "(null)" @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7
+1 @view "xy" @outputmode "polar" @zoom 0.6 @mapname "(null)";
 #X text 213 82 Clear all;
 #X msg 501 155 source 2 abscissa 2.5;
 #X msg 577 351 group 1 mute \$1;
@@ -245,64 +246,65 @@ Exemple : "source 1 color 1 0.2 0.6 1;
 #X text 257 47 Change the coordinates type;
 #X obj 531 283 receive map_outs_groups;
 #X obj 277 450 route list;
-#X obj 58 145 hoa.map @size 225 225 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-hoamapex3 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7 1 @view xy
-@outputmode polar @zoom 0.35 @mapname (null);
-#X obj 58 100 c.bang @size 17 17 @fontname Helvetica @fontweight normal
-@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 58 145 hoa.map @size 225 225 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "hoamapex3" @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
+0.7 1 @view "xy" @outputmode "polar" @zoom 0.35 @mapname "(null)";
+#X obj 58 100 c.bang @size 17 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
 #X text 33 56 Outputs sources;
 #X text 21 72 and groups coordinates;
 #X msg 297 98 outputmode \$1;
-#X obj 299 72 c.menu @size 85 14 @fontname Helvetica @fontweight normal
-@fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @hover 0 @items polar cartesian @states 0 0 @bgcolor 0.75 0.75
-0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 299 72 c.menu @size 85 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @hover 0 @items "polar" "cartesian" @states 0
+0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
+1;
 #X text 168 68 Output general;
 #X text 172 83 informations;
 #X obj 588 477 c.prepend set;
 #X msg 588 509 polar 1.01801 2.0884 0;
 #X obj 531 447 route mute;
-#X obj 531 509 c.toggle @size 15 15 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5
-0.5 0.5 1;
+#X obj 531 509 c.toggle @size 15 15 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @crcolor 0.5 0.5 0.5 1;
 #X text 600 321 Route group by index;
 #X obj 592 215 c.prepend set;
 #X msg 592 247 polar 1.22229 2.08092 0;
 #X obj 535 185 route mute;
-#X obj 535 247 c.toggle @size 15 15 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5
-0.5 0.5 1;
+#X obj 535 247 c.toggle @size 15 15 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @crcolor 0.5 0.5 0.5 1;
 #X obj 617 125 c.prepend set;
 #X msg 617 157 polar 1.8561 0.595592 0;
 #X obj 560 95 route mute;
-#X obj 560 157 c.toggle @size 15 15 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5
-0.5 0.5 1;
+#X obj 560 157 c.toggle @size 15 15 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @crcolor 0.5 0.5 0.5 1;
 #X obj 613 376 c.prepend set;
 #X msg 613 408 polar 1.15395 2.72225 0;
 #X obj 556 346 route mute;
-#X obj 556 408 c.toggle @size 15 15 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5
-0.5 0.5 1;
+#X obj 556 408 c.toggle @size 15 15 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @crcolor 0.5 0.5 0.5 1;
 #X text 601 58 Route source by index;
 #X obj 329 527 print group;
 #X obj 277 502 print source;
 #X obj 277 476 route source group;
-#X obj 445 99 c.preset @size 15 15 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 10 @receive (null) @send (null) @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @emcolor
-0.85 0.85 0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15 0.15 1 @preset
-[ @index 0 @hoamapex3 hoa.map sources_preset source 1 -1.06667 -0.596826
-0 0 0.2 0.2 0.2 1 (null) source 2 -1.04127 1.53651 0 0 0.2 0.2 0.2
-1 (null) source 3 0.596825 1.71429 0 0 0.2 0.1 0.8 0.6 Jimmy_Hash group
-1 3 1 2 3 0.2 0.2 0.2 1 (null) group 2 2 1 2 0.2 0.2 0.2 1 (null) ]
-;
+#X obj 445 99 c.preset @size 15 15 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 10 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1
+@emcolor 0.85 0.85 0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15
+0.15 1 @preset [ @index 0 @hoamapex3 hoa.map sources_preset source
+1 -1.06667 -0.596826 0 0 0.2 0.2 0.2 1 (null) source 2 -1.04127 1.53651
+0 0 0.2 0.2 0.2 1 (null) source 3 0.596825 1.71429 0 0 0.2 0.1 0.8
+0.6 Jimmy_Hash group 1 3 1 2 3 0.2 0.2 0.2 1 (null) group 2 2 1 2 0.2
+0.2 0.2 1 (null) ];
 #X obj 445 57 c.loadmess 1;
 #X obj 445 77 pipe 200;
 #X obj 535 58 route 1 2;
@@ -339,19 +341,19 @@ normal @fontslant roman @fontsize 10 @receive (null) @send (null) @bgcolor
 #X connect 39 1 29 0;
 #X connect 40 0 6 0;
 #X restore 603 362 pd outputs;
-#X obj 400 566 c.preset @size 103 41 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @emcolor
-0.85 0.85 0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15 0.15 1 @preset
-[ @index 0 @hoamapexample hoa.map sources_preset source 1 -0.966667
-2.06667 0 0 0.2 0.2 0.2 1 Rachelle source 2 -1.03333 0.0444445 0 0
-0.2 0.2 0.2 1 Bob source 3 1.25556 1.95556 0 0 0.2 0.2 0.2 1 Fred source
-4 1.85556 -0.466667 0 0 0.2 0.2 0.2 1 Lucy group 1 4 1 2 3 4 0.2 0.2
-0.2 1 Potos @index 1 @hoamapexample hoa.map sources_preset source 1
--0.811111 1.32222 0 0 0.2 0.2 0.2 1 Rachelle source 2 -0.188889 0.0333333
-0 0 0.2 0.2 0.2 1 Bob source 3 1.32222 1.03333 0 0 0.2 0.2 0.2 1 Fred
-source 4 1.98889 0.233333 0 0 0.2 0.2 0.2 1 Lucy group 1 4 1 2 3 4
-0.2 0.2 0.2 1 Potos @index 2 @hoamapexample hoa.map sources_preset
+#X obj 400 566 c.preset @size 103 41 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1
+@emcolor 0.85 0.85 0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15
+0.15 1 @preset [ @index 0 @hoamapexample hoa.map sources_preset source
+1 -0.966667 2.06667 0 0 0.2 0.2 0.2 1 Rachelle source 2 -1.03333 0.0444445
+0 0 0.2 0.2 0.2 1 Bob source 3 1.25556 1.95556 0 0 0.2 0.2 0.2 1 Fred
+source 4 1.85556 -0.466667 0 0 0.2 0.2 0.2 1 Lucy group 1 4 1 2 3 4
+0.2 0.2 0.2 1 Potos @index 1 @hoamapexample hoa.map sources_preset
+source 1 -0.811111 1.32222 0 0 0.2 0.2 0.2 1 Rachelle source 2 -0.188889
+0.0333333 0 0 0.2 0.2 0.2 1 Bob source 3 1.32222 1.03333 0 0 0.2 0.2
+0.2 1 Fred source 4 1.98889 0.233333 0 0 0.2 0.2 0.2 1 Lucy group 1
+4 1 2 3 4 0.2 0.2 0.2 1 Potos @index 2 @hoamapexample hoa.map sources_preset
 source 1 -0.6 0.1 0 0 0.2 0.2 0.2 1 Rachelle source 2 0.0222222 -1.18889
 0 0 0.2 0.2 0.2 1 Bob source 3 1.53333 -0.188889 0 0 0.2 0.2 0.2 1
 Fred source 4 2.2 -0.988889 0 0 0.2 0.2 0.2 1 Lucy group 1 4 1 2 3
@@ -389,18 +391,20 @@ source 1 -0.966667 2.06667 0 0 0.2 0.2 0.2 1 Rachelle source 2 -1.03333
 0.2 1 Fred source 4 1.85556 -0.466667 0 0 0.2 0.2 0.2 1 Lucy group
 1 4 1 2 3 4 0.2 0.2 0.2 1 Potos ];
 #X msg 400 541 inter \$1;
-#X obj 400 513 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min 1 @max (null) @minmax 1 (null) @decimal 6 @bgcolor 0.75
-0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 529 450 c.toggle @size 15 15 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5
-0.5 0.5 1;
-#X obj 464 450 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min 1 @max (null) @minmax 1 (null) @decimal 6 @bgcolor 0.75
-0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 400 513 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 1 @max "(null)" @minmax 1 "(null)" @decimal
+6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
+1;
+#X obj 529 450 c.toggle @size 15 15 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @crcolor 0.5 0.5 0.5 1;
+#X obj 464 450 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 1 @max "(null)" @minmax 1 "(null)" @decimal
+6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
+1;
 #N canvas 65 87 450 300 preset_player 0;
 #X obj 158 175 line;
 #X obj 182 209 sel 11;
@@ -442,35 +446,35 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X text 449 344 Control with messages;
 #X text 601 343 Output informations;
 #X obj 464 399 c.loadmess 10000;
-#X obj 400 450 c.toggle @size 15 15 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @crcolor 0.5
-0.5 0.5 1;
+#X obj 400 450 c.toggle @size 15 15 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
+1 @crcolor 0.5 0.5 0.5 1;
 #X obj 12 22 c.patcherinfos;
 #X obj 17 5 loadbang;
 #X obj 2 5 hoa.help.header;
 #X obj 148 650 hoa.help.pub;
 #X obj 418 5 hoa.help.also;
 #N canvas 373 200 893 540 3D 0;
-#X obj 48 209 hoa.map @size 225 225 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-hoamapex2 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7 1 @view xy
-@outputmode polar @zoom 0.35 @mapname cicm;
-#X obj 336 209 hoa.map @size 225 225 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7 1 @view xz @outputmode
-polar @zoom 0.35 @mapname cicm;
+#X obj 48 209 hoa.map @size 225 225 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "hoamapex2" @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
+0.7 1 @view "xy" @outputmode "polar" @zoom 0.35 @mapname "cicm";
+#X obj 336 209 hoa.map @size 225 225 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7
+1 @view "xz" @outputmode "polar" @zoom 0.35 @mapname "cicm";
 #X obj 336 471 c.prepend set;
 #X msg 336 499 polar 2.18354 2.9071 -0.307217;
 #X obj 336 169 c.prepend view;
-#X obj 336 137 c.menu @size 40 14 @fontname Helvetica @fontweight normal
-@fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @hover 0 @items xy xz yz @states 0 0 0 @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 627 206 hoa.map @size 225 225 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7 1 @view yz @outputmode
-polar @zoom 0.35 @mapname cicm;
+#X obj 336 137 c.menu @size 40 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @hover 0 @items "xy" "xz" "yz" @states 0 0 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 627 206 hoa.map @size 225 225 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7
+1 @view "yz" @outputmode "polar" @zoom 0.35 @mapname "cicm";
 #X text 734 193 |;
 #X text 734 186 ^;
 #X text 734 175 z;
@@ -490,23 +494,24 @@ polar @zoom 0.35 @mapname cicm;
 #X text 293 313 x;
 #X text 156 176 y;
 #X obj 627 174 c.prepend view;
-#X obj 627 142 c.menu @size 40 14 @fontname Helvetica @fontweight normal
-@fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @hover 0 @items xy xz yz @states 0 0 0 @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 627 142 c.menu @size 40 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @hover 0 @items "xy" "xz" "yz" @states 0 0 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X obj 48 170 c.prepend view;
-#X obj 48 138 c.menu @size 40 14 @fontname Helvetica @fontweight normal
-@fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @hover 0 @items xy xz yz @states 0 0 0 @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 796 65 c.preset @size 15 15 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 10 @receive (null) @send (null) @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @emcolor
-0.85 0.85 0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15 0.15 1 @preset
-[ @index 0 @hoamapex2 hoa.map sources_preset source 1 0.0380952 -0.0243387
-1.70794 0 0.2 0.2 0.2 1 (null) source 2 -0.483598 -2.02434 -0.660318
-0 0.2 0.2 0.2 1 (null) source 3 1.38413 -0.122751 -0.171428 0 0.2 0.2
-0.2 1 (null) group 1 3 1 2 3 0.2 0.2 0.2 1 (null) ];
+#X obj 48 138 c.menu @size 40 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @hover 0 @items "xy" "xz" "yz" @states 0 0 0 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 796 65 c.preset @size 15 15 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 10 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1
+@emcolor 0.85 0.85 0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15
+0.15 1 @preset [ @index 0 @hoamapex2 hoa.map sources_preset source
+1 0.0380952 -0.0243387 1.70794 0 0.2 0.2 0.2 1 (null) source 2 -0.483598
+-2.02434 -0.660318 0 0.2 0.2 0.2 1 (null) source 3 1.38413 -0.122751
+-0.171428 0 0.2 0.2 0.2 1 (null) group 1 3 1 2 3 0.2 0.2 0.2 1 (null)
+];
 #X obj 48 108 c.loadmess set 0;
 #X obj 336 108 c.loadmess set 1;
 #X obj 627 112 c.loadmess set 2;

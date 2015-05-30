@@ -1,26 +1,26 @@
-#N canvas 85 23 885 785 10;
-#X obj 570 288 hoa.2d.scope~ @size 189 189 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-7 @view 0 @gain 1 @interval 100 @bgcolor 0.7 0.7 0.7 1 @bdcolor 0.5
-0.5 0.5 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#N canvas 458 55 885 785 10;
+#X obj 570 288 hoa.2d.scope~ @size 189 189 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@order 7 @view 0 @gain 1 @interval 100 @bgcolor 0.7 0.7 0.7 1 @bdcolor
+0.5 0.5 0.5 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X obj 768 220 hoa.pi 2;
 #X obj 753 240 *~;
 #X obj 753 181 phasor~ 0.1;
 #X obj 570 226 sig~ 1;
 #X obj 768 201 loadbang;
-#X obj 571 510 hoa.2d.meter~ @size 189 189 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @channels
-16 @angles 0 22.5 45 67.5 90 112.5 135 157.5 180 202.5 225 247.5 270
-292.5 315 337.5 @offset 0 @rotation anti-clockwise @vectors energy
-@interval 50 @bgcolor 0.7 0.7 0.7 1 @bdcolor 0.5 0.5 0.5 1 @coldcolor
-0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor
-1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor
-1 0 0 0.8;
+#X obj 571 510 hoa.2d.meter~ @size 189 189 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@channels 16 @angles 0 22.5 45 67.5 90 112.5 135 157.5 180 202.5 225
+247.5 270 292.5 315 337.5 @offset 0 @rotation "anti-clockwise" @vectors
+"energy" @interval 50 @bgcolor 0.7 0.7 0.7 1 @bdcolor 0.5 0.5 0.5 1
+@coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85
+0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor 0 0 1
+0.8 @velocitycolor 1 0 0 0.8;
 #X text 541 210 Source synthesis;
-#X obj 763 283 c.number~ @size 53 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @interval
-50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
+#X obj 763 283 c.number~ @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@interval 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
+0.5 1 @textcolor 0 0 0 1;
 #X obj 19 7 c.canvasinfos;
 #X obj 18 3 c.loadmess;
 #X obj 1 1 hoa.tuto.header;
@@ -32,9 +32,10 @@ synthesis \, transformation and restitution of sound field based on
 a physical representation of the sound space in the spherical or circular
 harmonics domain or in the planewaves domain that allows a wide range
 of sound and space processings., f 65;
-#X obj 442 678 c.dsp~ @size 30 30 @fontname Helvetica @fontweight normal
-@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0 0.8;
+#X obj 442 678 c.dsp~ @size 30 30 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0
+0.8;
 #X text 479 684 Dsp On/Off;
 #X text 432 482 2 - Decoding for a set;
 #X text 455 492 of planewaves;

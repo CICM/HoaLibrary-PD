@@ -8,32 +8,33 @@
 #X msg 195 153 0.876279 1 1 1 0.0306693 0.0306693 0.0137424 0 0 0.017797
 0.0343521 0.0879706 0.0634424;
 #X obj 69 511 c.prepend set;
-#X obj 69 141 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min 1 @max 250 @minmax 1 250 @decimal 6 @bgcolor 0.76 0.76
-0.76 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 69 141 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 1 @max 250 @minmax 1 250 @decimal 6 @bgcolor
+0.76 0.76 0.76 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X obj 69 97 c.loadmess set 16;
-#X obj 418 484 c.preset @size 121 41 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @emcolor
-0.85 0.85 0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15 0.15 1 @preset
-[ @index 0 @spacepreset hoa.2d.space list 0.268812 0.308778 0.42228
-0.568753 0.788201 0.80421 0.876024 0.907126 1 0.103335 0.134466 0.255546
-0.394962 0.394665 0.397036 0.343979 @index 1 @spacepreset hoa.2d.space
-list 0.532779 0.588845 0.684887 0 0 0 0.0445425 0.0978753 0.143325
-0.0625148 0.030905 0.034628 0.0435662 0.501465 0.549832 0.479624 @index
-2 @spacepreset hoa.2d.space list 0 0 0 0 0 0 1 0 0 0 0 0.0100281 0.00180078
-0.451538 1 0 @index 3 @spacepreset hoa.2d.space list 0 0.00669422 1
-0 0 0 1 0 0 0 1 0.0100281 0.00180078 0.451538 1 0 @index 4 @spacepreset
+#X obj 418 484 c.preset @size 121 41 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1
+@emcolor 0.85 0.85 0.85 1 @stcolor 0.5 0.5 0.5 1 @secolor 0.15 0.15
+0.15 1 @preset [ @index 0 @spacepreset hoa.2d.space list 0.268812 0.308778
+0.42228 0.568753 0.788201 0.80421 0.876024 0.907126 1 0.103335 0.134466
+0.255546 0.394962 0.394665 0.397036 0.343979 @index 1 @spacepreset
+hoa.2d.space list 0.532779 0.588845 0.684887 0 0 0 0.0445425 0.0978753
+0.143325 0.0625148 0.030905 0.034628 0.0435662 0.501465 0.549832 0.479624
+@index 2 @spacepreset hoa.2d.space list 0 0 0 0 0 0 1 0 0 0 0 0.0100281
+0.00180078 0.451538 1 0 @index 3 @spacepreset hoa.2d.space list 0 0.00669422
+1 0 0 0 1 0 0 0 1 0.0100281 0.00180078 0.451538 1 0 @index 4 @spacepreset
 hoa.2d.space list 0.931365 0.0690971 0 0 0.930903 0.705041 0 0 0.930903
 0.0784322 0.00236926 0.420463 0.962103 0.0690971 0 0.00623167 @index
 5 @spacepreset hoa.2d.space list 1 0.714482 0.645385 0.645385 1 1 0.645385
 0.692838 1 0.723817 0.647754 1 1 0.714482 0.645385 0.651617 ];
 #X msg 418 444 inter \$1;
-#X obj 418 416 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min 1 @max (null) @minmax 1 (null) @decimal 6 @bgcolor 0.75
-0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 418 416 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 1 @max "(null)" @minmax 1 "(null)" @decimal
+6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
+1;
 #X obj 418 390 line;
 #X msg 418 359 1 \, 6 6000;
 #X text 388 204 1 - Click and drag to;
@@ -45,55 +46,56 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X text 388 294 click and drag to compute;
 #X text 388 304 a rotation of the coefficients;
 #X text 416 332 Preset :;
-#X obj 31 141 c.bang @size 17 17 @fontname Helvetica @fontweight normal
-@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
-#X obj 69 222 hoa.2d.space @size 269 269 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive hoaspacer @send hoaspaces
-@presetname spacepreset @channels 16 @minmax 0 1 @bgcolor 0.76 0.76
-0.76 1 @bdcolor 0.7 0.7 0.7 1 @spcolor 0.272711 0.434756 0.545421 0.25
-@ptcolor 0 0 0 1;
+#X obj 31 141 c.bang @size 17 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 69 222 hoa.2d.space @size 269 269 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "hoaspacer" @send
+"hoaspaces" @presetname "spacepreset" @channels 16 @minmax 0 1 @bgcolor
+0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7 1 @spcolor 0.272711 0.434756
+0.545421 0.25 @ptcolor 0 0 0 1;
 #X text 388 284 3 - Hold alt and;
 #X obj 590 30 hoa.connect;
 #X obj 590 11 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 632 361 hoa.2d.projector~ 7 16 ---------;
 #X obj 632 69 hoa.soundcoat;
-#X obj 632 158 hoa.2d.scope~ @size 195 195 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-7 @view 0 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+#X obj 632 158 hoa.2d.scope~ @size 195 195 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@order 7 @view 0 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X obj 632 445 hoa.2d.recomposer~ 7 16 --------;
 #X obj 823 382 r hoaspaces;
-#X obj 632 100 c.gain~ @size 150 10 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @kncolor 0.5 0.5 0.5 1;
+#X obj 632 100 c.gain~ @size 150 10 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @kncolor 0.5 0.5 0.5 1;
 #X text 838 404 Spatial;
 #X text 838 414 filetring;
 #X msg 889 118 size \$1;
 #X obj 821 92 r hoagrain;
 #X obj 889 149 s hoagrain;
-#X obj 889 91 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min 0 @max (null) @minmax 0 (null) @decimal 6 @bgcolor 0.75
-0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 889 91 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max "(null)" @minmax 0 "(null)" @decimal
+6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
+1;
 #X msg 895 521 \; pd dsp 1;
 #X msg 895 556 \; pd dsp 0;
-#X obj 979 91 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min 0 @max 5000 @minmax 0 5000 @decimal 6 @bgcolor 0.75 0.75
-0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 979 91 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 5000 @minmax 0 5000 @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X msg 979 118 delay \$1;
 #X obj 889 269 s hoagrain;
-#X obj 889 211 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 979 211 c.number @size 53 14 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor 0.75 0.75 0.75
-1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 889 211 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 979 211 c.number @size 53 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
 #X msg 889 238 feedback \$1;
 #X msg 979 238 rarefaction \$1;
 #X obj 889 63 c.loadmess 20;
@@ -144,9 +146,9 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X text 6 49 hoa.2d.space is a graphical user interface that facilitates
 the control of processing in the plane wave domain., f 80;
 #X obj 632 403 hoa.2d.process~ 16 hoa.fx.gain~ planewaves, f 32;
-#X obj 632 468 hoa.2d.scope~ @size 195 195 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-7 @view 0 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
+#X obj 632 468 hoa.2d.scope~ @size 195 195 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@order 7 @view 0 @gain 10 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X obj 13 22 c.patcherinfos;
 #X obj 18 5 loadbang;
