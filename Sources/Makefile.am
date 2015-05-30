@@ -10,6 +10,7 @@ libHoapd_la_LIBADD =
 
 libHoapd_la_SOURCES = hoa.decoder_tilde.cpp \
 hoa.encoder_tilde.cpp \
+hoa.exchanger_tilde.cpp \
 hoa.io.cpp \
 hoa.map_tilde.cpp \
 hoa.meter_gui_tilde.cpp \

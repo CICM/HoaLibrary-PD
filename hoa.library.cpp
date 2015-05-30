@@ -58,6 +58,7 @@ extern "C" void hoa_setup(void)
     setup_hoa0x2e2d0x2escope_tilde();
     setup_hoa0x2e2d0x2espace();
     setup_hoa0x2e2d0x2ewider_tilde();
+    setup_hoa0x2e2d0x2eexchanger_tilde();
 
     // HOA 3D //
     setup_hoa0x2e3d0x2edecoder_tilde();
@@ -67,6 +68,7 @@ extern "C" void hoa_setup(void)
     setup_hoa0x2e3d0x2emap_tilde();
 	setup_hoa0x2e3d0x2emeter_tilde();
     setup_hoa0x2e3d0x2escope_tilde();
+    setup_hoa0x2e3d0x2eexchanger_tilde();
 
     pd_library_add_folder("Hoa", "patchers");
     pd_library_add_folder("Hoa", "clippings");

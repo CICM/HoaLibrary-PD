@@ -131,6 +131,8 @@
 		8F9D78C61AAF07160091BFDF /* Hrtf.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8F9D78C51AAF07160091BFDF /* Hrtf.hpp */; };
 		8F9D78C71AAF07160091BFDF /* Hrtf.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8F9D78C51AAF07160091BFDF /* Hrtf.hpp */; };
 		8FAC0C56196985A400E09ACB /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FB02F717A7FAA9001E977D /* Accelerate.framework */; };
+		8FAD33081B19B05B002CBB4B /* hoa.exchanger_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FAD33071B19B05B002CBB4B /* hoa.exchanger_tilde.cpp */; };
+		8FAD33091B19B05B002CBB4B /* hoa.exchanger_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FAD33071B19B05B002CBB4B /* hoa.exchanger_tilde.cpp */; };
 		8FC2ED861A627B4800DBD231 /* hoa.scope_gui_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2ED851A627B4800DBD231 /* hoa.scope_gui_tilde.cpp */; };
 		8FC2ED871A627B4800DBD231 /* hoa.scope_gui_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC2ED851A627B4800DBD231 /* hoa.scope_gui_tilde.cpp */; };
 		8FC2ED961A62A0DC00DBD231 /* Source.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8FC2ED8F1A62A0DC00DBD231 /* Source.hpp */; };
@@ -228,6 +230,7 @@
 		8F83E80F1A60346F00FDDCC8 /* hoa.wider_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.wider_tilde.cpp; sourceTree = "<group>"; };
 		8F9D78C51AAF07160091BFDF /* Hrtf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Hrtf.hpp; sourceTree = "<group>"; };
 		8FAC0C91196985A400E09ACB /* Hoa.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = Hoa.pd_darwin; sourceTree = BUILT_PRODUCTS_DIR; };
+		8FAD33071B19B05B002CBB4B /* hoa.exchanger_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.exchanger_tilde.cpp; sourceTree = "<group>"; };
 		8FC2ED851A627B4800DBD231 /* hoa.scope_gui_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.scope_gui_tilde.cpp; sourceTree = "<group>"; };
 		8FC2ED8F1A62A0DC00DBD231 /* Source.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Source.hpp; sourceTree = "<group>"; };
 		8FC2EDA31A62B32A00DBD231 /* hoa.decoder_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.decoder_tilde.cpp; sourceTree = "<group>"; };
@@ -395,6 +398,7 @@
 				8FC2EDA31A62B32A00DBD231 /* hoa.decoder_tilde.cpp */,
 				8FC2EDA41A62B32A00DBD231 /* hoa.meter_gui_tilde.cpp */,
 				8F80BF151A613B0A00692F98 /* hoa.encoder_tilde.cpp */,
+				8FAD33071B19B05B002CBB4B /* hoa.exchanger_tilde.cpp */,
 				8F80BF161A613B0A00692F98 /* hoa.map_tilde.cpp */,
 				8F83E80A1A60346F00FDDCC8 /* hoa.io.cpp */,
 				8F83E80B1A60346F00FDDCC8 /* hoa.map_gui.cpp */,
@@ -595,6 +599,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FAD33081B19B05B002CBB4B /* hoa.exchanger_tilde.cpp in Sources */,
 				8F1F1BCF1A5425AF0026B9E8 /* eclass_basic.c in Sources */,
 				8F1F1C011A5425AF0026B9E8 /* eobj_proxy.c in Sources */,
 				8F80BF191A613B0A00692F98 /* hoa.map_tilde.cpp in Sources */,
@@ -643,6 +648,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FAD33091B19B05B002CBB4B /* hoa.exchanger_tilde.cpp in Sources */,
 				8F1F1BD01A5425AF0026B9E8 /* eclass_basic.c in Sources */,
 				8F1F1C021A5425AF0026B9E8 /* eobj_proxy.c in Sources */,
 				8F80BF1A1A613B0A00692F98 /* hoa.map_tilde.cpp in Sources */,
