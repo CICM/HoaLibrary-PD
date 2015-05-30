@@ -995,7 +995,7 @@ void hoa_map_infos(t_hoa_map *x)
         j ++;
     }
     outlet_list(x->f_out_infos, 0L, numberOfSource+2, avIndex);
-    free(avIndex);
+    delete [] avIndex;
 
     atom_setsym(avMute, hoa_sym_source);
     atom_setsym(avMute+1, hoa_sym_mute);
