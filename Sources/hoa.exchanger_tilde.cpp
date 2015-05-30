@@ -174,21 +174,13 @@ static void *hoa_exchanger_3d_new(t_symbol *s, long argc, t_atom *argv)
     return x;
 }
 
-int zizi = 1;
+int zizi = 4;
 
 static void hoa_exchanger_3d_perform(t_hoa_exchanger_3d *x, t_object *dsp, float **ins, long numins, float **outs, long numouts, long sampleframes, long f,void *up)
 {
     for(long i = 0; i < numins; i++)
     {
         Signal<t_sample>::vector_copy(sampleframes, ins[i], 1, x->f_ins+i, numins);
-        if(zizi && x->f_exchanger->getNumbering() == Exchanger<Hoa3d, t_sample>::toSID)
-        {
-            for(long i = 0; i < numins; i++)
-            {
-                post("%i %f", i,  x->f_ins[i]);
-            }
-            zizi = 0;
-        }
     }
     for(long i = 0; i < sampleframes; i++)
     {
