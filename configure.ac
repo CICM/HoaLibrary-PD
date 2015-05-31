@@ -11,10 +11,6 @@ AC_CONFIG_FILES([Package/Hoa/Makefile Package/Hoa/helps/Makefile Package/Hoa/med
 AC_ARG_WITH([pdextended], [AS_HELP_STRING([--with-pdextended], [use PD-Extended instead of PD-Vanilla])], [], [with_pdextended=no])
 AS_IF([test "x$with_pdextended" != xno],  AC_DEFINE(PD_EXTENDED,[],[Use PD-Extended]), [])
 
-AC_ARG_WITH([cblas], [AS_HELP_STRING([--with-cblas], [use cBlas optimizations])], [], [with_cblas=no])
-AS_IF([test "x$with_cblas" != xno],  AC_DEFINE(HOA_USE_BLAS,[],[Use cBlas]), [])
-AM_CONDITIONAL([HOA_USE_BLAS], [test $HOA_USE_BLAS = yes])
-
 AX_FAT_BINARY()
 
 AC_SUBST(PD_CPPFLAGS)
