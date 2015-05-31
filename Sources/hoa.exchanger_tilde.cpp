@@ -51,7 +51,7 @@ static void hoa_exchanger_perform(t_hoa_exchanger *x, t_object *dsp, t_sample **
 {
     for(long i = 0; i < nins; i++)
     {
-        Signal<t_sample>::vector_copy(sampleframes, ins[i], 1, x->f_ins+i, nins);
+        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, nins);
     }
     for(long i = 0; i < sampleframes; i++)
     {
@@ -59,7 +59,7 @@ static void hoa_exchanger_perform(t_hoa_exchanger *x, t_object *dsp, t_sample **
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::vector_copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
     }
 }
 
@@ -180,7 +180,7 @@ static void hoa_exchanger_3d_perform(t_hoa_exchanger_3d *x, t_object *dsp, float
 {
     for(long i = 0; i < numins; i++)
     {
-        Signal<t_sample>::vector_copy(sampleframes, ins[i], 1, x->f_ins+i, numins);
+        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numins);
     }
     for(long i = 0; i < sampleframes; i++)
     {
@@ -188,7 +188,7 @@ static void hoa_exchanger_3d_perform(t_hoa_exchanger_3d *x, t_object *dsp, float
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::vector_copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
     }
 }
 

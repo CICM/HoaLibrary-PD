@@ -20,15 +20,15 @@ Helps and tutorials are availables in the <em>Hoa</em> folder of the <em>help br
 ### Compilation : 
 
 	./autogen.sh (if needed)
-	./configure or ./configure --with-pdextended or ./configure --with-cblas or ./configure --with-pdextended --with-cblas
+	./configure or ./configure --with-pdextended
 	make
 	make install (optional)
 
-The use of cBlas is highly recommended for the binaural. XCode, CodeBlock and Visual Studio projects are also available.
+XCode, CodeBlock and Visual Studio projects are also available.
 
 ### Dependencies : 
 
-[Hoa Library](https://github.com/CICM/HoaLibrary-Light "Hoa Library") (with [cBlas](http://www.netlib.org/clapack/cblas/ "cBlas")) & the [Cicm Wrapper](https://github.com/CICM/CicmWrapper "Cicm Wrapper").
+[Hoa Library](https://github.com/CICM/HoaLibrary-Light "Hoa Library") & the [Cicm Wrapper](https://github.com/CICM/CicmWrapper "Cicm Wrapper").
 
 ### Authors :
 

@@ -46,7 +46,7 @@ static void hoa_projector_perform(t_hoa_projector *x, t_object *dsp64, t_sample 
 {
     for(long i = 0; i < numins; i++)
     {
-        Signal<t_sample>::vector_copy(sampleframes, ins[i], 1, x->f_ins+i, numins);
+        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numins);
     }
 	for(long i = 0; i < sampleframes; i++)
     {
@@ -54,7 +54,7 @@ static void hoa_projector_perform(t_hoa_projector *x, t_object *dsp64, t_sample 
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::vector_copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
     }
 }
 

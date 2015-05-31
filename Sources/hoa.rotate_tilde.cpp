@@ -49,7 +49,7 @@ static void hoa_rotate_perform(t_hoa_rotate *x, t_object *dsp64, t_sample **ins,
 {
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::vector_copy(sampleframes, ins[i], 1, x->f_ins+i, numouts);
+        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numouts);
     }
 	for(long i = 0; i < sampleframes; i++)
     {
@@ -58,7 +58,7 @@ static void hoa_rotate_perform(t_hoa_rotate *x, t_object *dsp64, t_sample **ins,
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::vector_copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
     }
 }
 
@@ -66,7 +66,7 @@ static void hoa_rotate_perform_offset(t_hoa_rotate *x, t_object *dsp64, t_sample
 {
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::vector_copy(sampleframes, ins[i], 1, x->f_ins+i, numouts);
+        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numouts);
     }
 	for(long i = 0; i < sampleframes; i++)
     {
@@ -74,7 +74,7 @@ static void hoa_rotate_perform_offset(t_hoa_rotate *x, t_object *dsp64, t_sample
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::vector_copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
     }
 }
 

@@ -244,7 +244,7 @@ static void hoa_meter_perform(t_hoa_meter *x, t_object *dsp, t_sample **ins, lon
 {
     for(long i = 0; i < numins; i++)
     {
-        Signal<t_sample>::vector_copy(sampleframes, ins[i], 1, x->f_signals+i, numins);
+        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_signals+i, numins);
     }
     for(x->f_ramp = 0; x->f_ramp < sampleframes; x->f_ramp++)
     {
@@ -1005,7 +1005,7 @@ static void hoa_meter_3d_perform(t_hoa_meter_3d *x, t_object *dsp, float **ins, 
 {
     for(int i = 0; i < numins; i++)
     {
-        Signal<t_sample>::vector_copy(sampleframes, ins[i], 1, x->f_signals+i, numins);
+        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_signals+i, numins);
     }
     for(x->f_ramp = 0; x->f_ramp < sampleframes; x->f_ramp++)
     {
