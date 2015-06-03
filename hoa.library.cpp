@@ -26,11 +26,7 @@ extern "C" void hoa_setup(void)
 
     post("HOA Library by Julien Colafrancesco, Pierre Guillot, Eliott Paris & Thomas Le Meur");
     post("© 2012 - 2015  CICM | Paris 8 University");
-#ifdef HOA_USE_CBLAS
-    post("Version %s (%s) for %s with cBlas optimization.", hoaversion, __DATE__, pdversion);
-#else
-    post("Version %s (%s) for %s without cBlas optimization.", hoaversion, __DATE__, pdversion);
-#endif
+    post("Version %s (%s) for %s.", hoaversion, __DATE__, pdversion);
     post("");
 
     // HOA COMMON //
