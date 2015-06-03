@@ -960,6 +960,8 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
         else
         {
             pd_error(x, "hoa.process~ : error while loading canvas : %s.", atom_getsym(argv+1)->s_name);
+            hoa_process_free(x);
+            return NULL;
         }
         
         bool have_ctl_ins   = false;
