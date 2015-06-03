@@ -115,16 +115,9 @@ static void hoa_decoder_perform64_binaural(t_hoa_decoder *x, t_object *dsp64, t_
     const long max = numins < 11 ? numins : 11;
     for(long i = 0; i < max; i++)
     {
-        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, max);
+        Signal<t_sample>::copy(sampleframes, ins[i], x->f_ins+i*sampleframes);
     }
-    for(long i = 0; i < sampleframes; i++)
-    {
-        (static_cast<Decoder<Hoa2d, t_sample>::Binaural*>(x->f_decoder))->process(x->f_ins + max * i, x->f_outs + 2 * i);
-    }
-    for(long i = 0; i < 2; i++)
-    {
-        Signal<t_sample>::copy(sampleframes, x->f_outs+i, 2, outs[i], 1);
-    }
+    (static_cast<Decoder<Hoa2d, t_sample>::Binaural*>(x->f_decoder))->processBlock(x->f_ins, outs);
 }
 
 static void hoa_decoder_dsp(t_hoa_decoder *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
