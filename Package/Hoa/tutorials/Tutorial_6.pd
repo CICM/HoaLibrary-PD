@@ -1,4 +1,4 @@
-#N canvas 59 117 1425 747 10;
+#N canvas 65 54 1301 714 10;
 #X obj 21 11 c.canvasinfos;
 #X obj 20 7 c.loadmess;
 #X obj 3 6 hoa.tuto.header;
@@ -13,12 +13,12 @@
 @order 7 @view 0 @gain 100 @interval 100 @bgcolor 0.76 0.76 0.76 1
 @bdcolor 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X obj 383 386 sig~ 1;
-#X obj 602 410 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "2376-a6" @send "(null)"
+#X obj 602 410 c.number @size 53 14 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "init" @send "(null)"
 @presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 251 355 c.number @size 53 17 @fontname "Helvetica" @fontweight
+#X obj 251 355 c.number @size 53 14 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
 @presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
@@ -45,8 +45,6 @@ composed by 3 circular harmonics. The harmonics depends on the azimuth
 θ and the signal S:, f 57;
 #X text 365 201 With l the degree \, m the (azimuthal) order \, θ
 the azimuth and S the signal to encode., f 54;
-#X obj 383 434 hoa.2d.process~ 7 hoa.syn.2d.encoder~ harmonics, f
-37;
 #X text 480 411 Azimuth θ in radian;
 #X text 189 333 Azimuth θ in radian;
 #X text 1058 111 With k is the normalization \, P' is the associated
@@ -69,21 +67,21 @@ by, f 54;
 #X text 365 86 Y[l \, m](θ) = e^i|m|θ * S;
 #X text 375 181 Y[l \, m](θ) = cos(|m|*θ);
 #X obj 1093 403 sig~ 1;
-#X obj 1202 370 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "2376-a6" @send "(null)"
+#X obj 1202 377 c.number @size 53 14 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "init" @send "(null)"
 @presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
 #X text 1325 439 Look inside;
-#X text 1080 371 Azimuth θ in radian;
-#X obj 1312 390 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "2376-a6" @send "(null)"
+#X text 1082 376 Azimuth θ in radian;
+#X obj 1312 397 c.number @size 53 14 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "init" @send "(null)"
 @presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X text 1178 391 Elevation φ in radian;
-#X obj 814 311 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "\$0-a6" @send "(null)"
+#X text 1180 396 Elevation φ in radian;
+#X obj 814 305 c.number @size 53 14 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "init" @send "(null)"
 @presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
@@ -91,8 +89,8 @@ by, f 54;
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
 @order 1 @view 0 0 0 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76
 1 @bdcolor 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj 943 311 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "2376-a6" @send "(null)"
+#X obj 943 305 c.number @size 53 14 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "init" @send "(null)"
 @presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
@@ -145,8 +143,8 @@ by, f 54;
 #X connect 7 0 2 0;
 #X connect 8 0 3 0;
 #X connect 9 0 6 0;
-#X restore 1017 360 pd P';
-#N canvas 511 463 468 341 wrap_angles 0;
+#X restore 1023 360 pd P';
+#N canvas 526 308 468 374 wrap_angles 0;
 #X obj 82 39 inlet;
 #X obj 195 49 inlet;
 #X obj 195 71 /, f 7;
@@ -154,15 +152,16 @@ by, f 54;
 #X obj 234 26 c.loadmess;
 #X obj 195 137 *, f 7;
 #X obj 195 93 + 0.25;
-#X obj 196 116 wrap;
-#X obj 105 163 >;
-#X obj 104 234 t b f;
-#X obj 81 260 +, f 4;
+#X obj 195 116 wrap;
+#X obj 105 203 >;
+#X obj 104 274 t b f;
+#X obj 81 300 +, f 4;
 #X obj 120 128 hoa.pi 1;
-#X obj 105 188 sel 1;
-#X obj 105 210 hoa.pi 1;
-#X obj 81 282 outlet;
-#X obj 195 281 outlet, f 30;
+#X obj 105 228 sel 1;
+#X obj 105 250 hoa.pi 1;
+#X obj 81 322 outlet;
+#X obj 222 320 outlet, f 30;
+#X obj 195 157 t f f;
 #X connect 0 0 10 0;
 #X connect 1 0 2 0;
 #X connect 2 0 6 0;
@@ -170,8 +169,7 @@ by, f 54;
 #X connect 3 0 5 1;
 #X connect 4 0 3 0;
 #X connect 4 0 11 0;
-#X connect 5 0 8 0;
-#X connect 5 0 15 0;
+#X connect 5 0 16 0;
 #X connect 6 0 7 0;
 #X connect 7 0 5 0;
 #X connect 8 0 12 0;
@@ -182,10 +180,12 @@ by, f 54;
 #X connect 12 0 13 0;
 #X connect 12 1 9 0;
 #X connect 13 0 9 0;
-#X restore 843 338 pd wrap_angles;
-#X obj 990 360 cos;
-#X text 907 291 Elevation φ in radian;
-#X text 777 291 Azimuth θ in radian;
+#X connect 16 0 8 0;
+#X connect 16 1 15 0;
+#X restore 843 332 pd wrap_angles;
+#X obj 996 360 cos;
+#X text 907 285 Elevation φ in radian;
+#X text 777 285 Azimuth θ in radian;
 #X text 716 127 For an order of decomposition 1 \, the sound field
 is composed by 4 spherical harmonics. The harmonics depends on the
 azimuth θ \, the elevation φ and the signal S:, f 53;
@@ -215,17 +215,17 @@ Y are defined by, f 54;
 Y are defined by;
 #X obj 896 426 *~ 0;
 #X obj 843 380 * 1, f 5;
-#X obj 990 380 * 1, f 5;
+#X obj 996 380 * 1, f 5;
 #X obj 822 426 *~ 0;
 #X obj 969 426 *~ -1;
 #X text 1058 291 k(l \, m) = sqrt((l - |m|)! / (l + |m|)!) * sqrt((2-σ)/
 4π);
-#X text 1058 306 with σ = 1 if m = 0 else σ = 0;
+#X text 979 242 with σ = 1 if m = 0 else σ = 0;
 #X text 716 212 The harmonic 1 -1 : sin(θ) * -√(1−cos(φ)^2) *
 -√(1/4π) * S, f 53;
 #X text 716 256 The harmonic 1 1 : cos(θ) * -√(1−cos(φ)^2) *
 -√(1/4π) * S;
-#N canvas 0 23 450 300 norm 0;
+#N canvas 65 82 450 300 norm 0;
 #X obj 105 155 hoa.pi;
 #X obj 105 176 t b f;
 #X obj 105 220 /;
@@ -242,7 +242,7 @@ Y are defined by;
 #X connect 6 0 2 0;
 #X restore 882 380 pd norm;
 #X obj 843 402 * 1, f 7;
-#N canvas 0 23 450 300 norm 0;
+#N canvas 0 50 450 300 norm 0;
 #X obj 105 155 hoa.pi;
 #X obj 105 176 t b f;
 #X obj 105 220 /;
@@ -257,23 +257,25 @@ Y are defined by;
 #X connect 3 0 4 0;
 #X connect 5 0 0 0;
 #X connect 6 0 2 0;
-#X restore 1029 380 pd norm;
-#X obj 990 402 * 1, f 7;
+#X restore 1035 380 pd norm;
+#X obj 996 402 * 1, f 7;
 #X obj 373 10 c.loadmess 0;
-#X obj 373 29 s \$0-a6;
-#X obj 1093 434 hoa.3d.process~ 7 hoa.syn.3d.encoder~ harmonics, f
-37;
 #X obj 1093 469 hoa.3d.scope~ @size 225 225 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
 @order 7 @view 0 0 0 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76
 1 @bdcolor 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 383 434 hoa.2d.process~ 7 hoa.syn.2d.encoder~ harmonics, f
+37;
+#X obj 1093 433 hoa.3d.process~ 7 hoa.syn.3d.encoder~ harmonics, f
+37;
+#X obj 373 29 s init;
 #X connect 0 0 2 0;
 #X connect 1 0 0 0;
 #X connect 5 0 11 0;
 #X connect 5 0 13 0;
 #X connect 5 0 12 0;
-#X connect 7 0 26 0;
-#X connect 8 0 26 1;
+#X connect 7 0 90 0;
+#X connect 8 0 90 1;
 #X connect 9 0 14 0;
 #X connect 9 0 15 0;
 #X connect 11 0 4 0;
@@ -281,112 +283,112 @@ Y are defined by;
 #X connect 13 0 4 1;
 #X connect 14 0 13 1;
 #X connect 15 0 12 1;
-#X connect 26 0 6 0;
-#X connect 26 1 6 1;
-#X connect 26 2 6 2;
-#X connect 26 3 6 3;
-#X connect 26 4 6 4;
-#X connect 26 5 6 5;
-#X connect 26 6 6 6;
-#X connect 26 7 6 7;
-#X connect 26 8 6 8;
-#X connect 26 9 6 9;
-#X connect 26 10 6 10;
-#X connect 26 11 6 11;
-#X connect 26 12 6 12;
-#X connect 26 13 6 13;
-#X connect 26 14 6 14;
-#X connect 40 0 91 0;
-#X connect 41 0 91 1;
-#X connect 44 0 91 2;
-#X connect 46 0 55 0;
-#X connect 48 0 55 1;
-#X connect 49 0 76 1;
-#X connect 50 0 53 0;
+#X connect 39 0 91 0;
+#X connect 40 0 91 1;
+#X connect 43 0 91 2;
+#X connect 45 0 54 0;
+#X connect 47 0 54 1;
+#X connect 48 0 75 1;
+#X connect 49 0 52 0;
+#X connect 49 0 75 0;
+#X connect 49 0 78 0;
+#X connect 49 0 79 0;
 #X connect 50 0 76 0;
-#X connect 50 0 79 0;
-#X connect 50 0 80 0;
-#X connect 51 0 77 0;
-#X connect 52 0 77 1;
-#X connect 53 0 47 0;
-#X connect 54 0 78 1;
-#X connect 55 0 51 0;
-#X connect 55 0 56 0;
-#X connect 55 1 49 0;
-#X connect 55 1 52 0;
-#X connect 55 1 54 0;
-#X connect 56 0 78 0;
-#X connect 76 0 47 2;
-#X connect 77 0 86 0;
-#X connect 78 0 88 0;
-#X connect 79 0 47 1;
-#X connect 80 0 47 3;
-#X connect 85 0 86 1;
-#X connect 86 0 79 1;
-#X connect 87 0 88 1;
-#X connect 88 0 80 1;
-#X connect 89 0 90 0;
-#X connect 91 0 92 0;
-#X connect 91 1 92 1;
-#X connect 91 2 92 2;
-#X connect 91 3 92 3;
-#X connect 91 4 92 4;
-#X connect 91 5 92 5;
-#X connect 91 6 92 6;
-#X connect 91 7 92 7;
-#X connect 91 8 92 8;
-#X connect 91 9 92 9;
-#X connect 91 10 92 10;
-#X connect 91 11 92 11;
-#X connect 91 12 92 12;
-#X connect 91 13 92 13;
-#X connect 91 14 92 14;
-#X connect 91 15 92 15;
-#X connect 91 16 92 16;
-#X connect 91 17 92 17;
-#X connect 91 18 92 18;
-#X connect 91 19 92 19;
-#X connect 91 20 92 20;
-#X connect 91 21 92 21;
-#X connect 91 22 92 22;
-#X connect 91 23 92 23;
-#X connect 91 24 92 24;
-#X connect 91 25 92 25;
-#X connect 91 26 92 26;
-#X connect 91 27 92 27;
-#X connect 91 28 92 28;
-#X connect 91 29 92 29;
-#X connect 91 30 92 30;
-#X connect 91 31 92 31;
-#X connect 91 32 92 32;
-#X connect 91 33 92 33;
-#X connect 91 34 92 34;
-#X connect 91 35 92 35;
-#X connect 91 36 92 36;
-#X connect 91 37 92 37;
-#X connect 91 38 92 38;
-#X connect 91 39 92 39;
-#X connect 91 40 92 40;
-#X connect 91 41 92 41;
-#X connect 91 42 92 42;
-#X connect 91 43 92 43;
-#X connect 91 44 92 44;
-#X connect 91 45 92 45;
-#X connect 91 46 92 46;
-#X connect 91 47 92 47;
-#X connect 91 48 92 48;
-#X connect 91 49 92 49;
-#X connect 91 50 92 50;
-#X connect 91 51 92 51;
-#X connect 91 52 92 52;
-#X connect 91 53 92 53;
-#X connect 91 54 92 54;
-#X connect 91 55 92 55;
-#X connect 91 56 92 56;
-#X connect 91 57 92 57;
-#X connect 91 58 92 58;
-#X connect 91 59 92 59;
-#X connect 91 60 92 60;
-#X connect 91 61 92 61;
-#X connect 91 62 92 62;
-#X connect 91 63 92 63;
+#X connect 51 0 76 1;
+#X connect 52 0 46 0;
+#X connect 53 0 77 1;
+#X connect 54 0 50 0;
+#X connect 54 0 55 0;
+#X connect 54 1 48 0;
+#X connect 54 1 51 0;
+#X connect 54 1 53 0;
+#X connect 55 0 77 0;
+#X connect 75 0 46 2;
+#X connect 76 0 85 0;
+#X connect 77 0 87 0;
+#X connect 78 0 46 1;
+#X connect 79 0 46 3;
+#X connect 84 0 85 1;
+#X connect 85 0 78 1;
+#X connect 86 0 87 1;
+#X connect 87 0 79 1;
+#X connect 88 0 92 0;
+#X connect 90 0 6 0;
+#X connect 90 1 6 1;
+#X connect 90 2 6 2;
+#X connect 90 3 6 3;
+#X connect 90 4 6 4;
+#X connect 90 5 6 5;
+#X connect 90 6 6 6;
+#X connect 90 7 6 7;
+#X connect 90 8 6 8;
+#X connect 90 9 6 9;
+#X connect 90 10 6 10;
+#X connect 90 11 6 11;
+#X connect 90 12 6 12;
+#X connect 90 13 6 13;
+#X connect 90 14 6 14;
+#X connect 91 0 89 0;
+#X connect 91 1 89 1;
+#X connect 91 2 89 2;
+#X connect 91 3 89 3;
+#X connect 91 4 89 4;
+#X connect 91 5 89 5;
+#X connect 91 6 89 6;
+#X connect 91 7 89 7;
+#X connect 91 8 89 8;
+#X connect 91 9 89 9;
+#X connect 91 10 89 10;
+#X connect 91 11 89 11;
+#X connect 91 12 89 12;
+#X connect 91 13 89 13;
+#X connect 91 14 89 14;
+#X connect 91 15 89 15;
+#X connect 91 16 89 16;
+#X connect 91 17 89 17;
+#X connect 91 18 89 18;
+#X connect 91 19 89 19;
+#X connect 91 20 89 20;
+#X connect 91 21 89 21;
+#X connect 91 22 89 22;
+#X connect 91 23 89 23;
+#X connect 91 24 89 24;
+#X connect 91 25 89 25;
+#X connect 91 26 89 26;
+#X connect 91 27 89 27;
+#X connect 91 28 89 28;
+#X connect 91 29 89 29;
+#X connect 91 30 89 30;
+#X connect 91 31 89 31;
+#X connect 91 32 89 32;
+#X connect 91 33 89 33;
+#X connect 91 34 89 34;
+#X connect 91 35 89 35;
+#X connect 91 36 89 36;
+#X connect 91 37 89 37;
+#X connect 91 38 89 38;
+#X connect 91 39 89 39;
+#X connect 91 40 89 40;
+#X connect 91 41 89 41;
+#X connect 91 42 89 42;
+#X connect 91 43 89 43;
+#X connect 91 44 89 44;
+#X connect 91 45 89 45;
+#X connect 91 46 89 46;
+#X connect 91 47 89 47;
+#X connect 91 48 89 48;
+#X connect 91 49 89 49;
+#X connect 91 50 89 50;
+#X connect 91 51 89 51;
+#X connect 91 52 89 52;
+#X connect 91 53 89 53;
+#X connect 91 54 89 54;
+#X connect 91 55 89 55;
+#X connect 91 56 89 56;
+#X connect 91 57 89 57;
+#X connect 91 58 89 58;
+#X connect 91 59 89 59;
+#X connect 91 60 89 60;
+#X connect 91 61 89 61;
+#X connect 91 62 89 62;
+#X connect 91 63 89 63;
