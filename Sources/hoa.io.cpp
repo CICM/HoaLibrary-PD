@@ -243,8 +243,10 @@ static void hoa_out_tilde_perform(t_hoa_out_tilde *x, t_object *dsp, float **inp
 
 static void hoa_out_tilde_dsp(t_hoa_out_tilde *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
 {
-    if(x->f_signal)
+    if(x->f_signal && count[0])
+    {
         object_method(dsp, gensym("dsp_add"), x, (method)hoa_out_tilde_perform, 0, NULL);
+    }
 }
 
 extern "C" void setup_hoa0x2eout_tilde(void)
