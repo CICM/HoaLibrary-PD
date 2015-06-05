@@ -9,6 +9,7 @@
 using namespace hoa;
 
 #define DEFDACBLKSIZE 64
+EXTERN t_sample *sys_soundout;
 
 typedef struct _hoa_pi
 {	
