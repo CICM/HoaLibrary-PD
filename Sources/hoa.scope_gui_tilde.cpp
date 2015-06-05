@@ -123,11 +123,11 @@ static long hoa_scope_oksize(t_hoa_scope *x, t_rect *newrect)
 
 static t_pd_err hoa_scope_set_order(t_hoa_scope *x, t_object *attr, long ac, t_atom *av)
 {
-    long order;
+    ulong order;
 	if (ac && av && atom_gettype(av) == A_LONG)
     {
         order = pd_clip_minmax(atom_getlong(av), 1, 63);
-        if(order != x->f_scope->getDecompositionOrder() && order > 0)
+        if(order != x->f_scope->getDecompositionOrder())
         {
             int dspState = canvas_suspend_dsp();
 
@@ -226,7 +226,7 @@ static void draw_harmonics(t_hoa_scope *x, t_object *view, t_rect *rect)
         // positive harmonics
         pathLength = 0;
         egraphics_set_color_rgba(g, &x->f_color_ph);
-        for(long i = 0; i < x->f_scope->getNumberOfPoints(); i++)
+        for(ulong i = 0; i < x->f_scope->getNumberOfPoints(); i++)
         {
             if(x->f_scope->getPointValue(i) >= 0)
             {
@@ -248,7 +248,7 @@ static void draw_harmonics(t_hoa_scope *x, t_object *view, t_rect *rect)
         // negative harmonics
         pathLength = 0;
         egraphics_set_color_rgba(g, &x->f_color_nh);
-        for(long i = 0; i < x->f_scope->getNumberOfPoints(); i++)
+        for(ulong i = 0; i < x->f_scope->getNumberOfPoints(); i++)
         {
             if(x->f_scope->getPointValue(i) < 0)
             {
@@ -465,11 +465,11 @@ static long hoa_scope_3d_oksize(t_hoa_scope_3d *x, t_rect *newrect)
 
 static t_pd_err hoa_scope_3d_set_order(t_hoa_scope_3d *x, t_object *attr, long ac, t_atom *av)
 {
-    long order;
+    ulong order;
     if (ac && av && atom_gettype(av) == A_LONG)
     {
         order = pd_clip_minmax(atom_getlong(av), 1, 10);
-        if(order != x->f_scope->getDecompositionOrder() && order > 0)
+        if(order != x->f_scope->getDecompositionOrder())
         {
             int dspState = canvas_suspend_dsp();
 
@@ -539,7 +539,7 @@ static void draw_harmonics(t_hoa_scope_3d *x, t_object *view, t_rect *rect)
             color_neg = rgba_addContrast(x->f_color_nh, constrast);
             egraphics_set_color_rgba(g, &color_pos);
             double elev = x->f_scope->getPointElevation(j);
-            for(int i = 0; i < x->f_scope->getNumberOfColumns(); i++)
+            for(ulong i = 0; i < x->f_scope->getNumberOfColumns(); i++)
             {
                 double azim = x->f_scope->getPointAzimuth(i);
                 double value = x->f_scope->getPointValue(j, i);
@@ -564,7 +564,7 @@ static void draw_harmonics(t_hoa_scope_3d *x, t_object *view, t_rect *rect)
             pathLength = 0;
             // negative harmonics
             egraphics_set_color_rgba(g, &color_neg);
-            for(int i = 0; i < x->f_scope->getNumberOfColumns(); i++)
+            for(ulong i = 0; i < x->f_scope->getNumberOfColumns(); i++)
             {
                 double azim = x->f_scope->getPointAzimuth(i);
                 double value = x->f_scope->getPointValue(j, i);
@@ -619,7 +619,7 @@ static void draw_harmonics(t_hoa_scope_3d *x, t_object *view, t_rect *rect)
             egraphics_stroke(g);
         }
 
-        for(int j = x->f_scope->getNumberOfRows() * 0.5; j < x->f_scope->getNumberOfRows(); j++)
+        for(ulong j = x->f_scope->getNumberOfRows() * 0.5; j < x->f_scope->getNumberOfRows(); j++)
         {
             // positive harmonics
             pathLength = 0;
@@ -628,7 +628,7 @@ static void draw_harmonics(t_hoa_scope_3d *x, t_object *view, t_rect *rect)
             color_neg = rgba_addContrast(x->f_color_nh, constrast);
             egraphics_set_color_rgba(g, &color_pos);
             double elev = x->f_scope->getPointElevation(j);
-            for(int i = 0; i < x->f_scope->getNumberOfColumns(); i++)
+            for(ulong i = 0; i < x->f_scope->getNumberOfColumns(); i++)
             {
                 double azim = x->f_scope->getPointAzimuth(i);
                 double value = x->f_scope->getPointValue(j, i);
@@ -653,7 +653,7 @@ static void draw_harmonics(t_hoa_scope_3d *x, t_object *view, t_rect *rect)
             pathLength = 0;
             // negative harmonics
             egraphics_set_color_rgba(g, &color_neg);
-            for(int i = 0; i < x->f_scope->getNumberOfColumns(); i++)
+            for(ulong i = 0; i < x->f_scope->getNumberOfColumns(); i++)
             {
                 double azim = x->f_scope->getPointAzimuth(i);
                 double value = x->f_scope->getPointValue(j, i);

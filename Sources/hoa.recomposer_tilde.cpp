@@ -11,19 +11,19 @@ using namespace hoa;
 typedef struct _hoa_recomposer
 {
     t_edspobj                                   f_obj;
-    
+
     Recomposer<Hoa2d, t_sample, hoa::Fixe>*     f_fixe;
     Recomposer<Hoa2d, t_sample, hoa::Fisheye>*  f_fisheye;
     Line<t_sample>                              f_line;
     Recomposer<Hoa2d, t_sample, hoa::Free>*     f_free;
     PolarLines<Hoa2d,t_sample>*                 f_lines;
     t_sample*                                   f_lines_vector;
-    
+
 	t_sample*                                   f_ins;
     t_sample*                                   f_outs;
     t_symbol*                                   f_mode;
     t_sample                                    f_ramp;
-    
+
 } t_hoa_recomposer;
 
 static t_eclass *hoa_recomposer_class;
@@ -34,7 +34,7 @@ static void *hoa_recomposer_new(t_symbol *s, long argc, t_atom *argv)
     int numberOfPlanewaves = 4;
     t_hoa_recomposer *x = (t_hoa_recomposer *)eobj_new(hoa_recomposer_class);
     t_binbuf *d         = binbuf_via_atoms(argc,argv);
-    
+
 	if(x && d)
 	{
         x->f_mode = hoa_sym_fixe;
@@ -50,7 +50,7 @@ static void *hoa_recomposer_new(t_symbol *s, long argc, t_atom *argv)
             else if(atom_getsym(argv+2) == hoa_sym_fisheye)
                 x->f_mode = hoa_sym_fisheye;
         }
-        
+
         if(x->f_mode == hoa_sym_fixe)
         {
             x->f_fixe = new Recomposer<Hoa2d, t_sample, Fixe>(order, numberOfPlanewaves);
@@ -82,12 +82,12 @@ static void *hoa_recomposer_new(t_symbol *s, long argc, t_atom *argv)
             eobj_dspsetup(x, x->f_free->getNumberOfPlanewaves(), x->f_free->getNumberOfHarmonics());
             x->f_lines_vector   = new float[x->f_free->getNumberOfPlanewaves() * 2];
         }
-        
+
         ebox_attrprocess_viabinbuf(x, d);
-        
+
         return x;
 	}
-	
+
    	return NULL;
 }
 
@@ -103,7 +103,7 @@ static void hoa_recomposer_angle(t_hoa_recomposer *x, t_symbol *s, short ac, t_a
 {
     if(ac && av && x->f_mode == hoa_sym_free)
     {
-        for(int i = 0; i < x->f_free->getNumberOfPlanewaves() && i < ac; i++)
+        for(int i = 0; i < (int)x->f_free->getNumberOfPlanewaves() && i < ac; i++)
         {
             if(atom_gettype(av+i) == A_FLOAT)
             {
@@ -117,7 +117,7 @@ static void hoa_recomposer_wide(t_hoa_recomposer *x, t_symbol *s, short ac, t_at
 {
     if(ac && av && x->f_mode == hoa_sym_free)
     {
-        for(int i = 0; i < x->f_free->getNumberOfPlanewaves() && i < ac; i++)
+        for(int i = 0; i < (int)x->f_free->getNumberOfPlanewaves() && i < ac; i++)
         {
             if(atom_gettype(av+i) == A_FLOAT)
             {
@@ -150,12 +150,12 @@ static void hoa_recomposer_perform_fisheye(t_hoa_recomposer *x, t_object *dsp64,
     {
         Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numberOfPlanewaves);
     }
-    for(ulong i = 0; i < sampleframes; i++)
+    for(long i = 0; i < sampleframes; i++)
     {
         x->f_fisheye->setFisheye(ins[numberOfPlanewaves][i]);
         x->f_fisheye->process(x->f_ins + numberOfPlanewaves * i, x->f_outs + numouts * i);
     }
-    for(ulong i = 0; i < numouts; i++)
+    for(long i = 0; i < numouts; i++)
     {
         Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
     }
@@ -168,12 +168,12 @@ static void hoa_recomposer_perform_fisheye_offset(t_hoa_recomposer *x, t_object 
     {
         Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numberOfPlanewaves);
     }
-    for(ulong i = 0; i < sampleframes; i++)
+    for(long i = 0; i < sampleframes; i++)
     {
         x->f_fisheye->setFisheye(x->f_line.process());
         x->f_fisheye->process(x->f_ins + numberOfPlanewaves * i, x->f_outs + numouts * i);
     }
-    for(ulong i = 0; i < numouts; i++)
+    for(long i = 0; i < numouts; i++)
     {
         Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
     }
@@ -182,21 +182,21 @@ static void hoa_recomposer_perform_fisheye_offset(t_hoa_recomposer *x, t_object 
 static void hoa_recomposer_perform_free(t_hoa_recomposer *x, t_object *dsp64, float **ins, long numins, float **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     int numberOfPlanewaves = x->f_free->getNumberOfPlanewaves();
-    
-    for(ulong i = 0; i < numberOfPlanewaves && i < numins; i++)
+
+    for(long i = 0; i < numberOfPlanewaves && i < numins; i++)
     {
         Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numberOfPlanewaves);
     }
-    for(ulong i = 0; i < sampleframes; i++)
+    for(long i = 0; i < sampleframes; i++)
     {
         x->f_lines->process(x->f_lines_vector);
-        for(ulong j = 0; j < numberOfPlanewaves; j++)
+        for(long j = 0; j < numberOfPlanewaves; j++)
             x->f_free->setWidening(j, x->f_lines_vector[j]);
-        for(ulong j = 0; j < numberOfPlanewaves; j++)
+        for(long j = 0; j < numberOfPlanewaves; j++)
             x->f_free->setAzimuth(j, x->f_lines_vector[j + numberOfPlanewaves]);
         x->f_free->process(x->f_ins + numberOfPlanewaves * i, x->f_outs + numouts * i);
     }
-    for(ulong i = 0; i < numouts; i++)
+    for(long i = 0; i < numouts; i++)
     {
         Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
     }
@@ -254,24 +254,24 @@ static t_pd_err ramp_set(t_hoa_recomposer *x, t_object *attr, long argc, t_atom 
             x->f_lines->setRamp(x->f_ramp / 1000. * sys_getsr());
         }
     }
-    
+
     return 0;
 }
 
 extern "C" void setup_hoa0x2e2d0x2erecomposer_tilde(void)
 {
     t_eclass* c;
-    
+
     c = eclass_new("hoa.2d.recomposer~", (method)hoa_recomposer_new, (method)hoa_recomposer_free, (short)sizeof(t_hoa_recomposer), CLASS_NOINLET, A_GIMME, 0);
     class_addcreator((t_newmethod)hoa_recomposer_new, gensym("hoa.recomposer~"), A_GIMME, 0);
-    
+
     eclass_dspinit(c);
     hoa_initclass(c);
     eclass_addmethod(c, (method)hoa_recomposer_dsp,     "dsp",      A_CANT, 0);
     eclass_addmethod(c, (method)hoa_recomposer_angle,   "angle",    A_GIMME,0);
     eclass_addmethod(c, (method)hoa_recomposer_wide,    "wide",     A_GIMME,0);
     eclass_addmethod(c, (method)hoa_recomposer_float,   "float",    A_FLOAT,0);
-    
+
     CLASS_ATTR_DOUBLE			(c,"ramp", 0, t_hoa_recomposer, f_ramp);
     CLASS_ATTR_LABEL			(c,"ramp", 0, "Ramp Time in milliseconds");
     CLASS_ATTR_CATEGORY			(c,"ramp", 0, "Behavior");
@@ -279,7 +279,7 @@ extern "C" void setup_hoa0x2e2d0x2erecomposer_tilde(void)
     CLASS_ATTR_ORDER			(c,"ramp", 0,  "2");
     CLASS_ATTR_DEFAULT          (c,"ramp", 0, "20");
     CLASS_ATTR_SAVE             (c,"ramp", 1);
-    
+
     eclass_register(CLASS_OBJ, c);
     hoa_recomposer_class = c;
 }

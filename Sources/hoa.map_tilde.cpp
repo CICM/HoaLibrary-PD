@@ -42,14 +42,14 @@ static void *hoa_map_tilde_new(t_symbol *s, long argc, t_atom *argv)
     int numberOfSources = 1;
     t_hoa_map_tilde *x  = (t_hoa_map_tilde *)eobj_new(hoa_map_tilde_class);
     t_binbuf *d         = binbuf_via_atoms(argc,argv);
-    
+
 	if(x && d)
 	{
 		if(atom_gettype(argv) == A_LONG)
 			order = pd_clip_min(atom_getlong(argv), 1);
         if(argc > 1 && atom_gettype(argv+1) == A_LONG)
             numberOfSources = pd_clip_minmax(atom_getlong(argv+1), 1, 255);
-        
+
         if(argc > 2 && atom_gettype(argv+2) == A_SYM)
         {
             if(atom_getsym(argv+2) == hoa_sym_car || atom_getsym(argv+2) == hoa_sym_cartesian)
@@ -59,33 +59,33 @@ static void *hoa_map_tilde_new(t_symbol *s, long argc, t_atom *argv)
         }
         else
             x->f_mode = 0;
-        
+
         x->f_ramp       = 100;
 		x->f_map        = new Encoder<Hoa2d, t_sample>::Multi(order, numberOfSources);
 		x->f_lines      = new PolarLines<Hoa2d, t_sample>(x->f_map->getNumberOfSources());
         x->f_lines->setRamp(0.1 * sys_getsr());
-        
+
         for(ulong i = 0; i < x->f_map->getNumberOfSources(); i++)
         {
             x->f_lines->setRadiusDirect(i, 1);
             x->f_lines->setAzimuthDirect(i, 0.);
         }
-        
+
 		if(x->f_map->getNumberOfSources() == 1)
             eobj_dspsetup(x, 3, x->f_map->getNumberOfHarmonics());
         else
             eobj_dspsetup(x, x->f_map->getNumberOfSources(), x->f_map->getNumberOfHarmonics());
-        
+
         if(x->f_map->getNumberOfSources() == 1)
             x->f_sig_ins    = new t_sample[3 * HOA_MAXBLKSIZE];
         else
             x->f_sig_ins    = new t_sample[x->f_map->getNumberOfSources() * HOA_MAXBLKSIZE];
-		
+
         x->f_sig_outs       = new t_sample[x->f_map->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
         x->f_lines_vector   = new t_sample[x->f_map->getNumberOfSources() * 2];
 
         ebox_attrprocess_viabinbuf(x, d);
-        
+
         return x;
 	}
 
@@ -130,9 +130,9 @@ static void hoa_map_tilde_list(t_hoa_map_tilde *x, t_symbol* s, long argc, t_ato
     if(argc > 2 && argv && atom_gettype(argv) == A_LONG && atom_gettype(argv+1) == A_SYM)
     {
         int index = atom_getlong(argv);
-        if(index < 1 || index > x->f_map->getNumberOfSources())
+        if(index < 1 || (ulong)index > x->f_map->getNumberOfSources())
             return;
-        
+
         if(argc > 3 && (atom_getsym(argv+1) == hoa_sym_polar || atom_getsym(argv+1) == hoa_sym_pol))
         {
             x->f_lines->setRadius(index-1, atom_getfloat(argv+2));
@@ -177,7 +177,7 @@ static void hoa_map_tilde_perform_multisources(t_hoa_map_tilde *x, t_object *dsp
 			x->f_map->setRadius(j, x->f_lines_vector[j]);
         for(long j = 0; j < nsources; j++)
 			x->f_map->setAzimuth(j, x->f_lines_vector[j + nsources]);
-        
+
         x->f_map->process(x->f_sig_ins + numins * i, x->f_sig_outs + numouts * i);
     }
     for(long i = 0; i < numouts; i++)
@@ -275,7 +275,7 @@ static void hoa_map_tilde_perform_in1_in2(t_hoa_map_tilde *x, t_object *dsp64, t
             x->f_map->setAzimuth(0, Math<float>::azimuth(ins[1][i], ins[2][i]));
             x->f_map->setRadius(0, Math<float>::radius(ins[1][i], ins[2][i]));
             x->f_map->process(&ins[0][i], x->f_sig_outs + numouts * i);
-            
+
         }
     }
     for(long i = 0; i < numouts; i++)
@@ -317,23 +317,23 @@ static void hoa_map_tilde_free(t_hoa_map_tilde *x)
 extern "C" void setup_hoa0x2e2d0x2emap_tilde(void)
 {
     t_eclass* c;
-    
+
     c = eclass_new("hoa.2d.map~", (method)hoa_map_tilde_new, (method)hoa_map_tilde_free, (short)sizeof(t_hoa_map_tilde), 0L, A_GIMME, 0);
     class_addcreator((t_newmethod)hoa_map_tilde_new, gensym("hoa.map~"), A_GIMME, 0);
-    
+
     eclass_dspinit(c);
     hoa_initclass(c);
     eclass_addmethod(c, (method)hoa_map_tilde_dsp,          "dsp",      A_CANT, 0);
     eclass_addmethod(c, (method)hoa_map_tilde_list,         "list",     A_GIMME, 0);
     eclass_addmethod(c, (method)hoa_map_tilde_float,        "float",    A_FLOAT, 0);
-    
+
     CLASS_ATTR_FLOAT            (c, "ramp", 0, t_hoa_map_tilde, f_ramp);
     CLASS_ATTR_CATEGORY			(c, "ramp", 0, "Behavior");
     CLASS_ATTR_LABEL			(c, "ramp", 0, "Ramp Time (ms)");
     CLASS_ATTR_ORDER			(c, "ramp", 0, "2");
     CLASS_ATTR_ACCESSORS		(c, "ramp", NULL, hoa_map_tilde_ramp_set);
     CLASS_ATTR_SAVE				(c, "ramp", 1);
-    
+
     eclass_register(CLASS_OBJ, c);
     hoa_map_tilde_class = c;
 }
@@ -350,7 +350,7 @@ static void *hoa_map_3d_tilde_new(t_symbol *s, long argc, t_atom *argv)
             order = pd_clip_min(atom_getlong(argv), 1);
         if(argc > 1 && atom_gettype(argv+1) == A_LONG)
             numberOfSources = pd_clip_minmax(atom_getlong(argv+1), 1, 255);
-        
+
         if(argc > 2 && atom_gettype(argv+2) == A_SYM)
         {
             if(atom_getsym(argv+2) == gensym("car") || atom_getsym(argv+2) == gensym("cartesian"))
@@ -360,37 +360,37 @@ static void *hoa_map_3d_tilde_new(t_symbol *s, long argc, t_atom *argv)
         }
         else
             x->f_mode = 0;
-        
+
         x->f_ramp       = 100;
         x->f_map        = new Encoder<Hoa3d, t_sample>::Multi(order, numberOfSources);
         x->f_lines      = new PolarLines<Hoa3d, t_sample>(x->f_map->getNumberOfSources());
         x->f_lines->setRamp(0.1 * sys_getsr());
-        
+
         for(ulong i = 0; i < x->f_map->getNumberOfSources(); i++)
         {
             x->f_lines->setRadiusDirect(i, 1);
             x->f_lines->setAzimuthDirect(i, 0.);
             x->f_lines->setElevationDirect(i, 0.);
         }
-        
+
         if(x->f_map->getNumberOfSources() == 1)
             eobj_dspsetup(x, 4, x->f_map->getNumberOfHarmonics());
         else
             eobj_dspsetup(x, x->f_map->getNumberOfSources(), x->f_map->getNumberOfHarmonics());
-        
+
         if(x->f_map->getNumberOfSources() == 1)
             x->f_sig_ins    = new t_sample[4 * HOA_MAXBLKSIZE];
         else
             x->f_sig_ins    = new t_sample[x->f_map->getNumberOfSources() * HOA_MAXBLKSIZE];
-        
+
         x->f_sig_outs       = new t_sample[x->f_map->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
         x->f_lines_vector   = new t_sample[x->f_map->getNumberOfSources() * 3];
-        
+
         ebox_attrprocess_viabinbuf(x, d);
-        
+
         return x;
     }
-    
+
     return NULL;
 }
 
@@ -451,9 +451,9 @@ static void hoa_map_3d_tilde_list(t_hoa_map_3d_tilde *x, t_symbol* s, long argc,
     if(argc > 2 && argv && atom_gettype(argv) == A_LONG && atom_gettype(argv+1) == A_SYM)
     {
         int index = atom_getlong(argv);
-        if(index < 1 || index > x->f_map->getNumberOfSources())
+        if(index < 1 || (ulong)index > x->f_map->getNumberOfSources())
             return;
-        
+
         if(argc > 4 && (atom_getsym(argv+1) == hoa_sym_polar || atom_getsym(argv+1) == hoa_sym_pol))
         {
             x->f_lines->setRadius(index-1, atom_getfloat(argv+2));
@@ -483,7 +483,7 @@ static t_pd_err hoa_map_3d_tilde_ramp_set(t_hoa_map_3d_tilde *x, t_object *attr,
             x->f_lines->setRamp(x->f_ramp / 1000. * sys_getsr());
         }
     }
-    
+
     return 0;
 }
 
@@ -727,7 +727,7 @@ void hoa_map_3d_tilde_perform_multisources(t_hoa_map_3d_tilde *x, t_object *dsp6
             x->f_map->setAzimuth(j, x->f_lines_vector[j + nsources]);
         for(int j = 0; j < nsources; j++)
             x->f_map->setElevation(j, x->f_lines_vector[j + nsources * 2]);
-        
+
         x->f_map->process(x->f_sig_ins + numins * i, x->f_sig_outs + numouts * i);
     }
     for(long i = 0; i < numouts; i++)
@@ -739,7 +739,7 @@ void hoa_map_3d_tilde_perform_multisources(t_hoa_map_3d_tilde *x, t_object *dsp6
 static void hoa_map_3d_tilde_dsp(t_hoa_map_3d_tilde *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
 {
     x->f_lines->setRamp(x->f_ramp / 1000. * samplerate);
-    
+
     if(x->f_map->getNumberOfSources() == 1)
     {
         if(count[1] && count[2] && count[3])
@@ -778,22 +778,22 @@ static void hoa_map_3d_tilde_free(t_hoa_map_3d_tilde *x)
 extern "C" void setup_hoa0x2e3d0x2emap_tilde(void)
 {
     t_eclass* c;
-    
+
     c = eclass_new("hoa.3d.map~", (method)hoa_map_3d_tilde_new, (method)hoa_map_3d_tilde_free, (short)sizeof(t_hoa_map_3d_tilde), CLASS_NOINLET, A_GIMME, 0);
-    
+
     eclass_dspinit(c);
     hoa_initclass(c);
     eclass_addmethod(c, (method)hoa_map_3d_tilde_dsp,          "dsp",      A_CANT, 0);
     eclass_addmethod(c, (method)hoa_map_3d_tilde_list,         "list",     A_GIMME, 0);
     eclass_addmethod(c, (method)hoa_map_3d_tilde_float,        "float",    A_FLOAT, 0);
-    
+
     CLASS_ATTR_DOUBLE           (c, "ramp", 0, t_hoa_map_3d_tilde, f_ramp);
     CLASS_ATTR_CATEGORY			(c, "ramp", 0, "Behavior");
     CLASS_ATTR_LABEL			(c, "ramp", 0, "Ramp Time (ms)");
     CLASS_ATTR_ORDER			(c, "ramp", 0, "2");
     CLASS_ATTR_ACCESSORS		(c, "ramp", NULL, hoa_map_3d_tilde_ramp_set);
     CLASS_ATTR_SAVE				(c, "ramp", 1);
-    
+
     eclass_register(CLASS_OBJ, c);
     hoa_map_3d_tilde_class = c;
 }
