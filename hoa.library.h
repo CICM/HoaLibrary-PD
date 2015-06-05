@@ -92,6 +92,7 @@ static t_symbol* hoa_sym_hoa_in             = gensym("hoa.in");
 static t_symbol* hoa_sym_hoa_in_tilde       = gensym("hoa.in~");
 static t_symbol* hoa_sym_hoa_out            = gensym("hoa.out");
 static t_symbol* hoa_sym_hoa_out_tilde      = gensym("hoa.out~");
+static t_symbol* hoa_sym_obj                = gensym("obj");
 
 
 static t_symbol* hoa_sym_order              = gensym("order");

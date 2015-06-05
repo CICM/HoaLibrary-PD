@@ -8,47 +8,26 @@
 #include "../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 using namespace hoa;
 
-extern "C"
+typedef struct _block
 {
-#include "../ThirdParty/CicmWrapper/Sources/ecommon/d_ugen.h"
-}
-
-#ifdef PD_EXTENDED
-extern t_canvas *canvas_list;
-#endif
-
-static t_canvas *sys_getcanvaslist()
-{
-#ifdef PD_EXTENDED
-    return canvas_list;
-#else
-    return pd_this->pd_canvaslist;
-#endif
-}
-
-static void sys_setcanvaslist(t_canvas* canvas)
-{
-#ifdef PD_EXTENDED
-    canvas_list = canvas;
-#else
-    pd_this->pd_canvaslist = canvas;
-#endif
-}
-
-static void canvas_removefromlist(t_canvas *x)
-{
-    t_canvas *z;
-    if (x == sys_getcanvaslist())
-    {
-        sys_setcanvaslist(x->gl_next);
-    }
-    else
-    {
-        for (z = sys_getcanvaslist(); z->gl_next != x; z = z->gl_next)
-            ;
-        z->gl_next = x->gl_next;
-    }
-}
+    t_object x_obj;
+    int x_vecsize;      /* size of audio signals in this block */
+    int x_calcsize;     /* number of samples actually to compute */
+    int x_overlap;
+    int x_phase;        /* from 0 to period-1; when zero we run the block */
+    int x_period;       /* submultiple of containing canvas */
+    int x_frequency;    /* supermultiple of comtaining canvas */
+    int x_count;        /* number of times parent block has called us */
+    int x_chainonset;   /* beginning of code in DSP chain */
+    int x_blocklength;  /* length of dspchain for this block */
+    int x_epiloglength; /* length of epilog */
+    char x_switched;    /* true if we're acting as a a switch */
+    char x_switchon;    /* true if we're switched on */
+    char x_reblock;     /* true if inlets and outlets are reblocking */
+    int x_upsample;     /* upsampling-factor */
+    int x_downsample;   /* downsampling-factor */
+    int x_return;       /* stop right after this block (for one-shots) */
+} t_block;
 
 typedef struct _hoa_in
 {
@@ -103,7 +82,6 @@ typedef struct _hoa_thisprocess
 
 class ProcessInstance
 {
-    t_dspcontext*               m_context;
     t_canvas*                   m_canvas;
     vector<t_hoa_thisprocess*>  m_thisprocesses;
     vector<t_hoa_in*>           m_ins;
@@ -181,40 +159,42 @@ private:
     
     static void thisprocess_init(t_hoa_thisprocess* thisprocess, long argc, t_atom* argv, long nattrs, t_atom* attrs)
     {
-        if(argc > 0 && argv)
+        if(thisprocess)
         {
-            if(thisprocess->f_argc < argc)
+            if(argc > 0 && argv)
             {
-                if(!thisprocess->f_argc && !thisprocess->f_args)
+                if(thisprocess->f_argc < argc)
                 {
-                    free(thisprocess->f_args);
+                    if(!thisprocess->f_argc && !thisprocess->f_args)
+                    {
+                        free(thisprocess->f_args);
+                    }
+                    thisprocess->f_argc = argc;
+                    thisprocess->f_args = (t_atom *)malloc(argc * sizeof(t_atom));
                 }
-                thisprocess->f_argc = argc;
-                thisprocess->f_args = (t_atom *)malloc(argc * sizeof(t_atom));
+                memcpy(thisprocess->f_args, argv, argc * sizeof(t_atom));
             }
-            memcpy(thisprocess->f_args, argv, argc * sizeof(t_atom));
-        }
-        if(nattrs && attrs)
-        {
-            for(int i = 0; i < thisprocess->f_n_attrs; i++)
+            if(nattrs && attrs)
             {
-                if(atoms_has_attribute(nattrs, attrs, thisprocess->f_attr_name[i]))
+                for(int i = 0; i < thisprocess->f_n_attrs; i++)
                 {
-                    free(thisprocess->f_attr_vals[i]);
-                    thisprocess->f_attr_size[i] = 0;
-                    atoms_get_attribute(nattrs, attrs, thisprocess->f_attr_name[i],
-                                        &thisprocess->f_attr_size[i],
-                                        &thisprocess->f_attr_vals[i]);
+                    if(atoms_has_attribute(nattrs, attrs, thisprocess->f_attr_name[i]))
+                    {
+                        free(thisprocess->f_attr_vals[i]);
+                        thisprocess->f_attr_size[i] = 0;
+                        atoms_get_attribute(nattrs, attrs, thisprocess->f_attr_name[i],
+                                            &thisprocess->f_attr_size[i],
+                                            &thisprocess->f_attr_vals[i]);
+                    }
                 }
             }
+            thisprocess->f_nit = 1;
         }
-        thisprocess->f_nit = 1;
     }
     
 public:
     ProcessInstance(t_canvas* parent,
                     t_symbol* name,
-                    t_symbol* dir,
                     t_symbol* domain,
                     t_symbol* dimension,
                     long ac1, long ac2, long ac3,
@@ -223,21 +203,37 @@ public:
                     long nattr,
                     t_atom* attrs)
     {
-        m_context = dsp_context_new();
-        t_pd *canvas = s__X.s_thing;
-        s__X.s_thing = 0;
-        t_atom av[3];
-        atom_setfloat(av, ac1);
-        atom_setfloat(av+1, ac2);
-        atom_setfloat(av+2, ac3);
-        canvas_setargs(domain == hoa_sym_planewaves ? 2 : 3, av);
-        binbuf_evalfile(name, dir);
-        while(((t_pd *)m_canvas != s__X.s_thing) && s__X.s_thing)
+        m_canvas = NULL;
+        t_atom av[6];
+        atom_setlong(av, 1);
+        atom_setlong(av+1, 1);
+        atom_setsym(av+2, name);
+        atom_setfloat(av+3, ac1);
+        atom_setfloat(av+4, ac2);
+        atom_setfloat(av+5, ac3);
+        pd_typedmess((t_pd *)parent, hoa_sym_obj, domain == hoa_sym_harmonics ? 6 : 5, av);
+        for(t_gobj* z = parent->gl_list; z; z = z->g_next)
         {
-            m_canvas = (t_canvas *)s__X.s_thing;
-            vmess((t_pd *)m_canvas, gensym("pop"), "i", 1);
+            if(eobj_getclassname(z) == hoa_sym_canvas)
+            {
+                t_binbuf* b = ((t_canvas *)z)->gl_obj.te_binbuf;
+                if(b)
+                {
+                    int natom      = binbuf_getnatom(b);
+                    t_atom* vec  = binbuf_getvec(b);
+                    if(natom > (domain == hoa_sym_harmonics ? 3 : 2) && vec)
+                    {
+                        if(atom_getsym(vec) == name &&
+                           atom_getlong(vec+1) == ac1 &&
+                           atom_getlong(vec+2) == ac2 &&
+                           (domain == hoa_sym_planewaves || atom_getlong(vec+3) == ac3))
+                        {
+                            m_canvas = (t_canvas *)z;
+                        }
+                    }
+                }
+            }
         }
-        
         if(m_canvas)
         {
             getThisProcess(m_canvas);
@@ -250,13 +246,9 @@ public:
                 atom_setfloat(m_thisprocesses[i]->f_hoa_args+2, ac3);
                 thisprocess_init(m_thisprocesses[i], argc, argv, nattr, attrs);
             }
-            m_canvas->gl_owner = parent;
-            canvas_removefromlist(m_canvas);
             canvas_loadbang(m_canvas);
-            canvas_vis(m_canvas, 0);
             getIos(m_canvas);
         }
-        s__X.s_thing = canvas;
     }
     
     ~ProcessInstance()
@@ -274,16 +266,15 @@ public:
         {
             canvas_free(m_canvas);
         }
-        dsp_context_free(m_context);
     }
     
-    void show()
+    inline void show() const noexcept
     {
         if(m_canvas)
             canvas_vis(m_canvas, 1);
     }
     
-    void sendBang()
+    inline void sendBang() const noexcept
     {
         for(ulong i = 0; i < m_ins.size(); i++)
         {
@@ -291,7 +282,7 @@ public:
         }
     }
     
-    void sendBang(ulong extra)
+    inline void sendBang(ulong extra) const noexcept
     {
         for(ulong i = 0; i < m_ins_extra.size(); i++)
         {
@@ -302,7 +293,7 @@ public:
         }
     }
     
-    void sendFloat(const float f)
+    inline void sendFloat(const float f) const noexcept
     {
         for(ulong i = 0; i < m_ins.size(); i++)
         {
@@ -310,7 +301,7 @@ public:
         }
     }
     
-    void sendFloat(ulong extra, const float f)
+    inline void sendFloat(ulong extra, const float f) const noexcept
     {
         for(ulong i = 0; i < m_ins_extra.size(); i++)
         {
@@ -321,7 +312,7 @@ public:
         }
     }
     
-    void sendSymbol(t_symbol* s)
+    inline void sendSymbol(t_symbol* s) const noexcept
     {
         for(ulong i = 0; i < m_ins.size(); i++)
         {
@@ -329,7 +320,7 @@ public:
         }
     }
     
-    void sendSymbol(ulong extra, t_symbol* s)
+    inline void sendSymbol(ulong extra, t_symbol* s) const noexcept
     {
         for(ulong i = 0; i < m_ins_extra.size(); i++)
         {
@@ -340,7 +331,7 @@ public:
         }
     }
     
-    void sendList(t_symbol* s, int argc, t_atom* argv)
+    inline void sendList(t_symbol* s, int argc, t_atom* argv) const noexcept
     {
         for(ulong i = 0; i < m_ins.size(); i++)
         {
@@ -348,7 +339,7 @@ public:
         }
     }
     
-    void sendList(ulong extra, t_symbol* s, int argc, t_atom* argv)
+    inline void sendList(ulong extra, t_symbol* s, int argc, t_atom* argv) const noexcept
     {
         for(ulong i = 0; i < m_ins_extra.size(); i++)
         {
@@ -359,7 +350,7 @@ public:
         }
     }
     
-    void sendAnything(t_symbol* s, int argc, t_atom* argv)
+    inline void sendAnything(t_symbol* s, int argc, t_atom* argv) const noexcept
     {
         for(ulong i = 0; i < m_ins.size(); i++)
         {
@@ -367,7 +358,7 @@ public:
         }
     }
     
-    void sendAnything(ulong extra, t_symbol* s, int argc, t_atom* argv)
+    inline void sendAnything(ulong extra, t_symbol* s, int argc, t_atom* argv) const noexcept
     {
         for(ulong i = 0; i < m_ins_extra.size(); i++)
         {
@@ -378,17 +369,17 @@ public:
         }
     }
     
-    bool hasNormalInputs() const
+    inline bool hasNormalInputs() const
     {
         return !m_ins.empty();
     }
     
-    bool hasNormalSignalInputs() const
+    inline bool hasNormalSignalInputs() const
     {
         return !m_ins_sig.empty();
     }
     
-    ulong getMaximumInputExtraIndex() const
+    inline ulong getMaximumInputExtraIndex() const
     {
         ulong n = 0ul;
         for(ulong i = 0; i < m_ins_extra.size(); i++)
@@ -399,7 +390,7 @@ public:
         return n;
     }
     
-    ulong getMaximumSignalInputExtraIndex() const
+    inline ulong getMaximumSignalInputExtraIndex() const
     {
         ulong n = 0ul;
         for(ulong i = 0; i < m_ins_extra_sig.size(); i++)
@@ -410,17 +401,17 @@ public:
         return n;
     }
     
-    bool hasNormalOutputs() const
+    inline bool hasNormalOutputs() const
     {
         return !m_outs.empty();
     }
     
-    bool hasNormalSignalOutputs() const
+    inline bool hasNormalSignalOutputs() const
     {
         return !m_outs_sig.empty();
     }
     
-    ulong getMaximumOutputExtraIndex() const
+    inline ulong getMaximumOutputExtraIndex() const
     {
         ulong n = 0ul;
         for(ulong i = 0; i < m_outs_extra.size(); i++)
@@ -431,7 +422,7 @@ public:
         return n;
     }
     
-    ulong getMaximumSignalOutputExtraIndex() const
+    inline ulong getMaximumSignalOutputExtraIndex() const
     {
         ulong n = 0ul;
         for(ulong i = 0; i < m_outs_extra_sig.size(); i++)
@@ -442,7 +433,7 @@ public:
         return n;
     }
     
-    void setNomalOutlet(t_outlet* outlet)
+    inline void setNomalOutlet(t_outlet* outlet)
     {
         for(ulong i = 0; i < m_outs.size(); i++)
         {
@@ -450,7 +441,7 @@ public:
         }
     }
     
-    void setExtraOutlet(t_outlet* outlet, int index)
+    inline void setExtraOutlet(t_outlet* outlet, int index)
     {
         for(ulong i = 0; i < m_outs_extra.size(); i++)
         {
@@ -463,7 +454,6 @@ public:
     
     bool prepareDsp(t_sample* in, vector<t_sample*>& ixtra, t_sample* out, vector<t_sample*>& oxtra)
     {
-        dsp_context_removecanvas(m_context);
         if(hasNormalSignalInputs())
         {
             if(!in)
@@ -487,7 +477,7 @@ public:
         {
             if(!out)
             {
-               return true;
+                return true;
             }
             for(size_t i = 0; i < m_outs_sig.size(); i++)
             {
@@ -502,9 +492,6 @@ public:
             }
             m_outs_extra_sig[i]->f_signal = oxtra[m_outs_extra_sig[i]->f_extra-1];
         }
-        
-        dsp_context_addcanvas(m_context, m_canvas);
-        dsp_context_compile(m_context);
         return false;
     }
 };
@@ -512,6 +499,8 @@ public:
 typedef struct _hoa_process
 {
     t_edspobj               f_obj;
+    t_canvas*               f_global;
+    t_block*                f_switch;
     t_symbol*               f_domain;
     t_symbol*               f_dimension;
     vector<ProcessInstance*>f_instances;
@@ -527,6 +516,7 @@ static t_eclass *hoa_process_class;
 
 static void hoa_process_perform(t_hoa_process *x, t_object *dsp, float **inps, long ni, float **outs, long nouts, long sampleframe, long f,void *up)
 {
+    pd_bang((t_pd *)x->f_switch);
     for(int i = 0; i < nouts; i++)
     {
         memcpy(outs[i], x->f_outlets_signals[i], sampleframe * sizeof(t_sample));
@@ -537,7 +527,11 @@ static void hoa_process_perform(t_hoa_process *x, t_object *dsp, float **inps, l
 
 static void hoa_process_dsp(t_hoa_process *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
 {
-    signal_cleanup();
+    if(!x->f_global && !x->f_switch)
+    {
+        pd_error(x, "process~ not initialized can't compile DSP chain.");
+        return;
+    }
     vector<t_sample*> ins;
     vector<t_sample*> ixtra;
     vector<t_sample*> outs;
@@ -602,7 +596,6 @@ static void hoa_process_dsp(t_hoa_process *x, t_object *dsp, short *count, doubl
             oxtra.push_back(x->f_outlets_signals[i]);
         }
     }
-    
     for(ulong i = 0; i < x->f_instances.size(); i++)
     {
         if(!x->f_instances[i] || x->f_instances[i]->prepareDsp(ins[i], ixtra, outs[i], oxtra))
@@ -611,6 +604,7 @@ static void hoa_process_dsp(t_hoa_process *x, t_object *dsp, short *count, doubl
             return;
         }
     }
+    mess0((t_pd *)x->f_global, gensym("dsp"));
     object_method(dsp, gensym("dsp_add"), x, (method)hoa_process_perform, 0, NULL);
 }
 
@@ -811,15 +805,20 @@ static void hoa_process_anything(t_hoa_process *x, t_symbol* s, int argc, t_atom
 
 static void hoa_process_free(t_hoa_process *x)
 {
-    signal_cleanup();
     for(int i = 0 ; i < x->f_outlets_signals.size(); i++)
     {
-        delete [] x->f_outlets_signals[i];
+        if(x->f_outlets_signals[i])
+        {
+            delete [] x->f_outlets_signals[i];
+        }
     }
     x->f_outlets_signals.clear();
     for(int i = 0; i < x->f_instances.size(); i++)
     {
-        delete x->f_instances[i];
+        if(x->f_instances[i])
+        {
+           delete x->f_instances[i];
+        }
     }
     x->f_instances.clear();
     eobj_dspfree(x);
@@ -836,192 +835,202 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
     t_hoa_process *x = (t_hoa_process *)eobj_new(hoa_process_class);
     if(x)
     {
-        char dirbuf[MAXPDSTRING], *nameptr;
-        
         x->f_target = _hoa_process::target_all;
-        if(canvas_open(canvas_getcurrent(), atom_getsym(argv+1)->s_name, ".pd", dirbuf, &nameptr, MAXPDSTRING, 0) >= 0)
+        t_pd *was = s__X.s_thing;
+        x->f_global = canvas_new(NULL, gensym(""), 0, NULL);
+        s__X.s_thing = was;
+        if(x->f_global)
         {
-            t_symbol* name = gensym(nameptr);
-            t_symbol* dir  = gensym(dirbuf);
-            long    narg = pd_clip_min(atoms_get_attributes_offset(argc - 3, argv + 3), 0);
-            t_atom* args = argv + 3;
-            long    natr = pd_clip_min(argc - narg - 3, 0);
-            t_atom* atrs = argv + 3 + narg;
-            
-            if((s == hoa_sym_hoa_2d_process || s == hoa_sym_hoa_process) && atom_getsym(argv+2) != hoa_sym_planewaves)
+            canvas_vis(x->f_global, 0);
+            t_atom av[3];
+            atom_setlong(av, 10); atom_setlong(av+1, 10);atom_setsym(av+2, gensym("switch~"));
+            pd_typedmess((t_pd *)x->f_global, gensym("obj"), 3, av);
+            if(x->f_global->gl_list->g_pd->c_name == gensym("block~"))
             {
-                x->f_domain     = hoa_sym_harmonics;
-                x->f_dimension  = hoa_sym_2d;
-                ulong order  = pd_clip_minmax(atom_getlong(argv), 1, 63);
-                x->f_instances.resize(Harmonic<Hoa2d, t_sample>::getNumberOfHarmonics(order));
+                x->f_switch = (t_block *)x->f_global->gl_list;
+            }
+            if(x->f_switch)
+            {
+                long    narg = pd_clip_min(atoms_get_attributes_offset(argc - 3, argv + 3), 0);
+                t_atom* args = argv + 3;
+                long    natr = pd_clip_min(argc - narg - 3, 0);
+                t_atom* atrs = argv + 3 + narg;
+                if((s == hoa_sym_hoa_2d_process || s == hoa_sym_hoa_process) && atom_getsym(argv+2) != hoa_sym_planewaves)
+                {
+                    x->f_domain     = hoa_sym_harmonics;
+                    x->f_dimension  = hoa_sym_2d;
+                    ulong order  = pd_clip_minmax(atom_getlong(argv), 1, 63);
+                    x->f_instances.resize(Harmonic<Hoa2d, t_sample>::getNumberOfHarmonics(order));
+                    
+                    for(ulong i = 0; i < x->f_instances.size(); i++)
+                    {
+                        x->f_instances[i] = new (std::nothrow) ProcessInstance(x->f_global,
+                                                                               atom_getsym(argv+1),
+                                                                               hoa_sym_harmonics,
+                                                                               hoa_sym_2d,
+                                                                               order,
+                                                                               Harmonic<Hoa2d, t_sample>::getDegree(i),
+                                                                               Harmonic<Hoa2d, t_sample>::getOrder(i),
+                                                                               narg, args, natr, atrs);
+                        if(!x->f_instances[i])
+                        {
+                            pd_error(x, "%s : Error while loading canvas.", s->s_name);
+                            hoa_process_free(x);
+                            return NULL;
+                        }
+                    }
+                }
+                else if(s == hoa_sym_hoa_3d_process && atom_getsym(argv+2) != hoa_sym_planewaves)
+                {
+                    x->f_domain    = hoa_sym_harmonics;
+                    x->f_dimension = hoa_sym_3d;
+                    ulong order  = pd_clip_minmax(atom_getlong(argv), 1, 10);
+                    x->f_instances.resize(Harmonic<Hoa3d, t_sample>::getNumberOfHarmonics(order));
+                    
+                    for(ulong i = 0; i < x->f_instances.size(); i++)
+                    {
+                        x->f_instances[i] = new (std::nothrow) ProcessInstance(x->f_global,
+                                                                               atom_getsym(argv+1),
+                                                                               hoa_sym_harmonics,
+                                                                               hoa_sym_3d,
+                                                                               order,
+                                                                               Harmonic<Hoa3d, t_sample>::getDegree(i),
+                                                                               Harmonic<Hoa3d, t_sample>::getOrder(i),
+                                                                               narg, args, natr, atrs);
+                        if(!x->f_instances[i])
+                        {
+                            pd_error(x, "%s : Error while loading canvas.", s->s_name);
+                            hoa_process_free(x);
+                            return NULL;
+                        }
+                    }
+                }
+                else if((s == hoa_sym_hoa_2d_process || s == hoa_sym_hoa_process) && atom_getsym(argv+2) == hoa_sym_planewaves)
+                {
+                    x->f_domain    = hoa_sym_planewaves;
+                    x->f_dimension = hoa_sym_2d;
+                    ulong argument  = pd_clip_minmax(atom_getlong(argv), 1, HOA_MAX_PLANEWAVES);
+                    x->f_instances.resize(argument);
+                    
+                    for(ulong i = 0; i < x->f_instances.size(); i++)
+                    {
+                        x->f_instances[i] = new (std::nothrow) ProcessInstance(x->f_global,
+                                                                               atom_getsym(argv+1),
+                                                                               hoa_sym_planewaves,
+                                                                               hoa_sym_2d,
+                                                                               argument,
+                                                                               i+1,
+                                                                               i+1,
+                                                                               narg, args, natr, atrs);
+                        if(!x->f_instances[i])
+                        {
+                            pd_error(x, "%s : Error while loading canvas.", s->s_name);
+                            hoa_process_free(x);
+                            return NULL;
+                        }
+                    }
+                }
+                else if(s == hoa_sym_hoa_3d_process && atom_getsym(argv+2) == hoa_sym_planewaves)
+                {
+                    x->f_domain    = hoa_sym_planewaves;
+                    x->f_dimension = hoa_sym_3d;
+                    ulong argument = pd_clip_minmax(atom_getlong(argv), 1, HOA_MAX_PLANEWAVES);
+                    x->f_instances.resize(argument);
+                    
+                    for(ulong i = 0; i < x->f_instances.size(); i++)
+                    {
+                        x->f_instances[i] = new (std::nothrow) ProcessInstance(eobj_getcanvas(x),
+                                                                               atom_getsym(argv+1),
+                                                                               hoa_sym_planewaves,
+                                                                               hoa_sym_3d,
+                                                                               argument,
+                                                                               i+1,
+                                                                               i+1,
+                                                                               narg, args, natr, atrs);
+                        if(!x->f_instances[i])
+                        {
+                            pd_error(x, "%s : Error while loading canvas.", s->s_name);
+                            hoa_process_free(x);
+                            return NULL;
+                        }
+                    }
+                }
+                else
+                {
+                    pd_error(x, "hoa.process~ : 3rd argument must \"harmonics\" or \"planewaves\".");
+                }
+                
+                bool have_ctl_ins   = false;
+                bool have_sig_ins   = false;
+                bool have_ctl_outs  = false;
+                bool have_sig_outs  = false;
+                ulong max_ctl_ins_extra     = 0ul;
+                ulong max_sig_ins_extra     = 0ul;
+                ulong max_ctl_outs_extra    = 0ul;
+                ulong max_sig_outs_extra    = 0ul;
                 
                 for(ulong i = 0; i < x->f_instances.size(); i++)
                 {
-                    x->f_instances[i] = new (std::nothrow) ProcessInstance(eobj_getcanvas(x),
-                                                            name,
-                                                            dir,
-                                                            hoa_sym_harmonics,
-                                                            hoa_sym_2d,
-                                                            order,
-                                                            Harmonic<Hoa2d, t_sample>::getDegree(i),
-                                                            Harmonic<Hoa2d, t_sample>::getOrder(i),
-                                                            narg, args, natr, atrs);
-                    if(!x->f_instances[i])
+                    if(x->f_instances[i])
                     {
-                        pd_error(x, "%s : Error while loading canvas.", s->s_name);
-                        hoa_process_free(x);
-                        return NULL;
+                        have_ctl_ins = max(have_ctl_ins, x->f_instances[i]->hasNormalInputs());
+                        have_sig_ins = max(have_sig_ins, x->f_instances[i]->hasNormalSignalInputs());
+                        have_ctl_outs = max(have_ctl_outs, x->f_instances[i]->hasNormalOutputs());
+                        have_sig_outs = max(have_sig_outs, x->f_instances[i]->hasNormalSignalOutputs());
+                        max_ctl_ins_extra   = max(max_ctl_ins_extra, x->f_instances[i]->getMaximumInputExtraIndex());
+                        max_sig_ins_extra   = max(max_sig_ins_extra, x->f_instances[i]->getMaximumSignalInputExtraIndex());
+                        max_ctl_outs_extra  = max(max_ctl_outs_extra, x->f_instances[i]->getMaximumOutputExtraIndex());
+                        max_sig_outs_extra  = max(max_sig_outs_extra, x->f_instances[i]->getMaximumSignalOutputExtraIndex());
                     }
                 }
-            }
-            else if(s == hoa_sym_hoa_3d_process && atom_getsym(argv+2) != hoa_sym_planewaves)
-            {
-                x->f_domain    = hoa_sym_harmonics;
-                x->f_dimension = hoa_sym_3d;
-                ulong order  = pd_clip_minmax(atom_getlong(argv), 1, 10);
-                x->f_instances.resize(Harmonic<Hoa3d, t_sample>::getNumberOfHarmonics(order));
                 
-                for(ulong i = 0; i < x->f_instances.size(); i++)
+                eobj_dspsetup(x,
+                              have_sig_ins * x->f_instances.size() + max_sig_ins_extra,
+                              have_sig_outs * x->f_instances.size() + max_sig_outs_extra);
+                for(ulong i = 0; i < have_sig_outs * x->f_instances.size() + max_sig_outs_extra; i++)
                 {
-                    x->f_instances[i] = new (std::nothrow) ProcessInstance(eobj_getcanvas(x),
-                                                            name,
-                                                            dir,
-                                                            hoa_sym_harmonics,
-                                                            hoa_sym_3d,
-                                                            order,
-                                                            Harmonic<Hoa3d, t_sample>::getDegree(i),
-                                                            Harmonic<Hoa3d, t_sample>::getOrder(i),
-                                                            narg, args, natr, atrs);
-                    if(!x->f_instances[i])
-                    {
-                        pd_error(x, "%s : Error while loading canvas.", s->s_name);
-                        hoa_process_free(x);
-                        return NULL;
-                    }
+                    x->f_outlets_signals.push_back(new t_sample[HOA_MAXBLKSIZE]);
                 }
-            }
-            else if((s == hoa_sym_hoa_2d_process || s == hoa_sym_hoa_process) && atom_getsym(argv+2) == hoa_sym_planewaves)
-            {
-                x->f_domain    = hoa_sym_planewaves;
-                x->f_dimension = hoa_sym_2d;
-                ulong argument  = pd_clip_minmax(atom_getlong(argv), 1, HOA_MAX_PLANEWAVES);
-                x->f_instances.resize(argument);
                 
-                for(ulong i = 0; i < x->f_instances.size(); i++)
+                if(have_ctl_ins && !have_sig_ins)
                 {
-                    x->f_instances[i] = new (std::nothrow) ProcessInstance(eobj_getcanvas(x),
-                                                            name,
-                                                            dir,
-                                                            hoa_sym_planewaves,
-                                                            hoa_sym_2d,
-                                                            argument,
-                                                            i+1,
-                                                            i+1,
-                                                            narg, args, natr, atrs);
-                    if(!x->f_instances[i])
+                    for(ulong i = 0; i < x->f_instances.size(); i++)
                     {
-                        pd_error(x, "%s : Error while loading canvas.", s->s_name);
-                        hoa_process_free(x);
-                        return NULL;
+                        eobj_proxynew(x);
                     }
                 }
-            }
-            else if(s == hoa_sym_hoa_3d_process && atom_getsym(argv+2) == hoa_sym_planewaves)
-            {
-                x->f_domain    = hoa_sym_planewaves;
-                x->f_dimension = hoa_sym_3d;
-                ulong argument = pd_clip_minmax(atom_getlong(argv), 1, HOA_MAX_PLANEWAVES);
-                x->f_instances.resize(argument);
+                for(ulong i = max_sig_ins_extra; i < max_ctl_ins_extra; i++)
+                {
+                    eobj_proxynew(x);
+                }
                 
-                for(ulong i = 0; i < x->f_instances.size(); i++)
+                if(have_ctl_outs)
                 {
-                    x->f_instances[i] = new (std::nothrow) ProcessInstance(eobj_getcanvas(x),
-                                                            name,
-                                                            dir,
-                                                            hoa_sym_planewaves,
-                                                            hoa_sym_3d,
-                                                            argument,
-                                                            i+1,
-                                                            i+1,
-                                                            narg, args, natr, atrs);
-                    if(!x->f_instances[i])
+                    for(ulong i = 0; i < x->f_instances.size(); i++)
                     {
-                        pd_error(x, "%s : Error while loading canvas.", s->s_name);
-                        hoa_process_free(x);
-                        return NULL;
+                        if(x->f_instances[i])
+                        {
+                            x->f_instances[i]->setNomalOutlet(outlet_new((t_object *)x, &s_anything));
+                        }
                     }
                 }
-            }
-            else
-            {
-                pd_error(x, "hoa.process~ : 3rd argument must \"harmonics\" or \"planewaves\".");
-            }
-        }
-        else
-        {
-            pd_error(x, "hoa.process~ : error while loading canvas : %s.", atom_getsym(argv+1)->s_name);
-            hoa_process_free(x);
-            return NULL;
-        }
-        
-        bool have_ctl_ins   = false;
-        bool have_sig_ins   = false;
-        bool have_ctl_outs  = false;
-        bool have_sig_outs  = false;
-        ulong max_ctl_ins_extra     = 0ul;
-        ulong max_sig_ins_extra     = 0ul;
-        ulong max_ctl_outs_extra    = 0ul;
-        ulong max_sig_outs_extra    = 0ul;
-        
-        for(ulong i = 0; i < x->f_instances.size(); i++)
-        {
-            have_ctl_ins = max(have_ctl_ins, x->f_instances[i]->hasNormalInputs());
-            have_sig_ins = max(have_sig_ins, x->f_instances[i]->hasNormalSignalInputs());
-            have_ctl_outs = max(have_ctl_outs, x->f_instances[i]->hasNormalOutputs());
-            have_sig_outs = max(have_sig_outs, x->f_instances[i]->hasNormalSignalOutputs());
-            max_ctl_ins_extra   = max(max_ctl_ins_extra, x->f_instances[i]->getMaximumInputExtraIndex());
-            max_sig_ins_extra   = max(max_sig_ins_extra, x->f_instances[i]->getMaximumSignalInputExtraIndex());
-            max_ctl_outs_extra  = max(max_ctl_outs_extra, x->f_instances[i]->getMaximumOutputExtraIndex());
-            max_sig_outs_extra  = max(max_sig_outs_extra, x->f_instances[i]->getMaximumSignalOutputExtraIndex());
-        }
-        
-        eobj_dspsetup(x,
-                      have_sig_ins * x->f_instances.size() + max_sig_ins_extra,
-                      have_sig_outs * x->f_instances.size() + max_sig_outs_extra);
-        for(ulong i = 0; i < have_sig_outs * x->f_instances.size() + max_sig_outs_extra; i++)
-        {
-            x->f_outlets_signals.push_back(new t_sample[HOA_MAXBLKSIZE]);
-        }
-        
-        if(have_ctl_ins && !have_sig_ins)
-        {
-            for(ulong i = 0; i < x->f_instances.size(); i++)
-            {
-                eobj_proxynew(x);
-            }
-        }
-        for(ulong i = max_sig_ins_extra; i < max_ctl_ins_extra; i++)
-        {
-            eobj_proxynew(x);
-        }
-        
-        if(have_ctl_outs)
-        {
-            for(ulong i = 0; i < x->f_instances.size(); i++)
-            {
-                x->f_instances[i]->setNomalOutlet(outlet_new((t_object *)x, &s_anything));
+                
+                for(ulong i = 0; i < max_ctl_outs_extra; i++)
+                {
+                    t_outlet* outlet = outlet_new((t_object *)x, &s_anything);
+                    for(ulong j = 0; j < x->f_instances.size(); j++)
+                    {
+                        if(x->f_instances[j])
+                        {
+                            x->f_instances[j]->setExtraOutlet(outlet, i+1);
+                        }
+                    }
+                }
+                x->f_have_ins = have_ctl_ins || have_sig_ins;
             }
         }
         
-        for(ulong i = 0; i < max_ctl_outs_extra; i++)
-        {
-            t_outlet* outlet = outlet_new((t_object *)x, &s_anything);
-            for(ulong j = 0; j < x->f_instances.size(); j++)
-            {
-                x->f_instances[j]->setExtraOutlet(outlet, i+1);
-            }
-        }
-        x->f_have_ins = have_ctl_ins || have_sig_ins;
+        
     }
 
     return x;
