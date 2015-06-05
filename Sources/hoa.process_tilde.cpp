@@ -8,27 +8,6 @@
 #include "../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 using namespace hoa;
 
-typedef struct _block
-{
-    t_object x_obj;
-    int x_vecsize;      /* size of audio signals in this block */
-    int x_calcsize;     /* number of samples actually to compute */
-    int x_overlap;
-    int x_phase;        /* from 0 to period-1; when zero we run the block */
-    int x_period;       /* submultiple of containing canvas */
-    int x_frequency;    /* supermultiple of comtaining canvas */
-    int x_count;        /* number of times parent block has called us */
-    int x_chainonset;   /* beginning of code in DSP chain */
-    int x_blocklength;  /* length of dspchain for this block */
-    int x_epiloglength; /* length of epilog */
-    char x_switched;    /* true if we're acting as a a switch */
-    char x_switchon;    /* true if we're switched on */
-    char x_reblock;     /* true if inlets and outlets are reblocking */
-    int x_upsample;     /* upsampling-factor */
-    int x_downsample;   /* downsampling-factor */
-    int x_return;       /* stop right after this block (for one-shots) */
-} t_block;
-
 typedef struct _hoa_in
 {
     t_eobj  f_obj;
@@ -500,7 +479,7 @@ typedef struct _hoa_process
 {
     t_edspobj               f_obj;
     t_canvas*               f_global;
-    t_block*                f_switch;
+    t_object*               f_switch;
     t_symbol*               f_domain;
     t_symbol*               f_dimension;
     vector<ProcessInstance*>f_instances;
@@ -847,7 +826,7 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
             pd_typedmess((t_pd *)x->f_global, gensym("obj"), 3, av);
             if(x->f_global->gl_list->g_pd->c_name == gensym("block~"))
             {
-                x->f_switch = (t_block *)x->f_global->gl_list;
+                x->f_switch = (t_object *)x->f_global->gl_list;
             }
             if(x->f_switch)
             {
