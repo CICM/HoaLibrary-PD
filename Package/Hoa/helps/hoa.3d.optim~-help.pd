@@ -1,13 +1,14 @@
-#N canvas 505 74 570 676 10;
+#N canvas 502 82 570 676 10;
 #X obj 320 100 phasor~ -0.3;
 #X msg 455 211 \; pd dsp 1;
 #X msg 455 249 \; pd dsp 0;
 #X text 6 196 basic has no effect.;
 #X text 6 225 confined to the center of the;
-#X obj 105 148 c.menu @size 100 17 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
-(null) @hover 0 @items basic maxRe inPhase @states 0 0 0 @bgcolor 0.75
-0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
+#X obj 105 148 c.menu @size 100 14 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @hover 0 @items "basic" "maxRe" "inPhase" @states
+0 0 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0
+0 0 1;
 #X obj 214 125 hoa.soundcoat;
 #X text 6 215 maxRe is used when audience;
 #X text 5 254 inPhase is used when audience;
@@ -24,10 +25,10 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @presetname
 #X obj 3 4 hoa.help.header;
 #X obj 110 606 hoa.help.pub;
 #X obj 414 4 hoa.help.also;
-#X obj 214 268 hoa.3d.scope~ @size 219 219 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
-3 @gain 20 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7
-0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 215 268 hoa.3d.scope~ @size 219 219 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@order 3 @view 0 0 0 @gain 20 @interval 100 @bgcolor 0.76 0.76 0.76
+1 @bdcolor 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X obj 214 192 hoa.3d.optim~ 3 maxRe --------------;
 #X obj 214 153 hoa.3d.encoder~ 3 ------------------;
 #X obj 215 526 hoa.3d.decoder~ 3 regular 20 -------;
