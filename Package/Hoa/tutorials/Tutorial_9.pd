@@ -8,23 +8,23 @@
 #X obj 19 12 c.loadmess;
 #X obj 2 4 hoa.tuto.header;
 #X obj 44 515 hoa.help.pub;
-#X text 1 84 For further informations about the use of the rotate object
-\, please refer to the help :, f 81;
-#X obj 44 102 hoa.2d.rotate~ 2;
-#X text 1 124 In this tutorial \, we present the underlying operations
+#X text 1 114 For further informations about the use of the rotate
+object \, please refer to the help :, f 81;
+#X obj 44 132 hoa.2d.rotate~ 2;
+#X text 1 184 In this tutorial \, we present the underlying operations
 of the rotation., f 81;
-#X obj 197 395 c.dsp~ @size 30 30 @fontname "Helvetica" @fontweight
+#X obj 197 455 c.dsp~ @size 30 30 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @logocolor 0 0.6 0
 0.8;
-#X text 235 403 Dsp on/off;
-#X text 31 190 If m < 0;
-#X text 31 230 else if m > 0;
-#X text 31 270 else if m = 0;
-#X text 1 154 Each new harmonic of order m is the result of a combination
+#X text 235 463 Dsp on/off;
+#X text 31 250 If m < 0;
+#X text 31 290 else if m > 0;
+#X text 31 330 else if m = 0;
+#X text 1 214 Each new harmonic of order m is the result of a combination
 of the harmonics of the same degree l multiplied by factors that depends
 on the angle of rotation θ :, f 81;
-#X text 1 324 Note : In 2d \, each degree l has 2 harmonics with the
+#X text 1 384 Note : In 2d \, each degree l has 2 harmonics with the
 order m = [-l \, l]. For example \, the degree 1 has the harmonic -1
 and the harmonic 1, f 81;
 #X obj 726 208 phasor~ 0.1;
@@ -47,11 +47,11 @@ axis (2d only)., f 81;
 #X text 746 269 Angle of rotation;
 #X text 711 148 Clean sound field;
 #X text 741 448 Rotated sound field;
-#X text 45 210 - h'[l \, m] = sin(l*θ) * h[l \, |m|] + cos(l*θ) *
+#X text 45 270 - h'[l \, m] = sin(l*θ) * h[l \, |m|] + cos(l*θ) *
 h[l \, m];
-#X text 45 250 - h'[l \, m] = cos(l*θ) * h[l \, m] - sin(l*θ) * h[l
+#X text 45 310 - h'[l \, m] = cos(l*θ) * h[l \, m] - sin(l*θ) * h[l
 \, -m];
-#X text 45 290 - h'[l \, m] = h[l \, m];
+#X text 45 350 - h'[l \, m] = h[l \, m];
 #X obj 513 316 hoa.2d.process~ 3 hoa.fx.2d.rotate~, f 36;
 #X connect 0 0 18 0;
 #X connect 2 0 4 0;
