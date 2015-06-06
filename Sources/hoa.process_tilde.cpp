@@ -54,8 +54,8 @@ typedef struct _hoa_thisprocess
 
     long        f_n_attrs;
     t_symbol**  f_attr_name;
-    t_atom*     f_attr_vals[EPD_MAX_SIGS];
-    long        f_attr_size[EPD_MAX_SIGS];
+    t_atom*     f_attr_vals[64];
+    long        f_attr_size[64];
     double      f_time;
 } t_hoa_thisprocess;
 
@@ -437,6 +437,7 @@ public:
         {
             if(!in)
             {
+                bug("process don't have input signal.");
                 return true;
             }
             for(size_t i = 0; i < m_ins_sig.size(); i++)
@@ -448,6 +449,7 @@ public:
         {
             if(m_ins_extra_sig[i]->f_extra > ixtra.size() || !ixtra[m_ins_extra_sig[i]->f_extra-1])
             {
+                bug("process don't have input signal extra %i.", m_ins_extra_sig[i]->f_extra);
                 return true;
             }
             m_ins_extra_sig[i]->f_signal = ixtra[m_ins_extra_sig[i]->f_extra-1];
@@ -456,6 +458,7 @@ public:
         {
             if(!out)
             {
+                bug("process don't have output signal.");
                 return true;
             }
             for(size_t i = 0; i < m_outs_sig.size(); i++)
@@ -467,6 +470,7 @@ public:
         {
             if(m_outs_extra_sig[i]->f_extra > oxtra.size() || !oxtra[m_outs_extra_sig[i]->f_extra-1])
             {
+                bug("process don't have output signal extra %i.", m_outs_extra_sig[i]->f_extra);
                 return true;
             }
             m_outs_extra_sig[i]->f_signal = oxtra[m_outs_extra_sig[i]->f_extra-1];
@@ -784,6 +788,7 @@ static void hoa_process_anything(t_hoa_process *x, t_symbol* s, int argc, t_atom
 
 static void hoa_process_free(t_hoa_process *x)
 {
+    int state = canvas_suspend_dsp();
     for(int i = 0 ; i < x->f_outlets_signals.size(); i++)
     {
         if(x->f_outlets_signals[i])
@@ -799,8 +804,13 @@ static void hoa_process_free(t_hoa_process *x)
            delete x->f_instances[i];
         }
     }
+    if(x->f_global && x->f_switch)
+    {
+        //canvas_free(x->f_global);
+    }
     x->f_instances.clear();
     eobj_dspfree(x);
+    canvas_resume_dsp(state);
 }
 
 static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
@@ -810,10 +820,11 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
         error("%s needs at least 2 arguments : 1 integer for the order of decomposition or number of planewaves, 1 symbol for the patch.", s->s_name);
         return NULL;
     }
-
     t_hoa_process *x = (t_hoa_process *)eobj_new(hoa_process_class);
     if(x)
     {
+        x->f_global = NULL;
+        x->f_switch = NULL;
         x->f_target = _hoa_process::target_all;
         t_pd *was = s__X.s_thing;
         x->f_global = canvas_new(NULL, gensym(""), 0, NULL);
@@ -1008,10 +1019,12 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
                 x->f_have_ins = have_ctl_ins || have_sig_ins;
             }
         }
-        
-        
+        else
+        {
+            x->f_global = NULL;
+            x->f_switch = NULL;
+        }
     }
-
     return x;
 }
 

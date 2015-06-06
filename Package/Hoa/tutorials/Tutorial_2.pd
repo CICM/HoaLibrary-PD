@@ -36,8 +36,6 @@ arc 20 20 303 303 140 40 \, line 15 161 25 161 \, line 54 70 43 74
 #X connect 1 0 2 0;
 #X connect 2 0 0 0;
 #X restore 502 456 pd subscript;
-#X text 3 409 Assuming that the listener is directed to 0° \, it is
-customary to define :, f 65;
 #X text 3 436 The "front" of the sound field at 0° or 0 rad azimuth
 , f 65;
 #X text 3 451 The "left" of the sound field at 90 ° or π/2 rad azimuth
@@ -67,11 +65,13 @@ of view are represented by the green arrrows \, the 0° azimuth and
 elevation and their rotation direction are represented by the blue
 arrows., f 65;
 #X text 3 131 The coordinate system used within the library is similar
-to the geographics coordinates. We arbitrarily define the direction
+to the geographic coordinates. We arbitrarily define the direction
 of rotation as counterclockwise for the azimuth and from the bottom
 to the top for the elevation. The 0° of the azimuth is 90° phase
 shifted relative to a mathematical representation of a circle. The
 0° of elevation matches with the equatorial plan, f 65;
+#X text 3 409 Assuming that the listener is directed to 0° \, it is
+customary to define:, f 65;
 #X connect 0 0 2 0;
 #X connect 1 0 0 0;
 #X connect 5 0 4 0;

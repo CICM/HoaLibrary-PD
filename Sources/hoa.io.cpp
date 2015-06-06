@@ -62,8 +62,8 @@ typedef struct _hoa_thisprocess
 
     long        f_n_attrs;
     t_symbol**  f_attr_name;
-    t_atom*     f_attr_vals[EPD_MAX_SIGS];
-    long        f_attr_size[EPD_MAX_SIGS];
+    t_atom*     f_attr_vals[64];
+    long        f_attr_size[64];
     double      f_time;
 } t_hoa_thisprocess;
 

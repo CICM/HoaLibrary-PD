@@ -3,9 +3,6 @@
 #X obj 21 5 c.loadmess;
 #X obj 4 4 hoa.tuto.header;
 #X obj 417 4 hoa.help.pub;
-#X text 3 53 In Ambisonics \, the planewave is the wave model witch
-underlies the projection and the decomposition of the sound field.
-;
 #X obj 467 119 c.blackboard @size 397 93 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
 @chalkmode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
@@ -145,26 +142,6 @@ underlies the projection and the decomposition of the sound field.
 @order 3 @view 0 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X text 877 425 ----> ect.;
-#X text 3 272 One of the main advantage of this model lie in its interoperabilty
-with the harmonics model. Indeed \, a sound field represented by set
-of harmonics can also be represented by a set of planewaves without
-loss of informations. This allows to permute the representation of
-the sound field indefinitely from a representation in the harmonics
-domain to a representation in the planewaves representation. Thus \,
-you can decode or project a sound field in the harmonics domain to
-the planewave domain and come back to harmonics domain. The only limitation
-is the angular direction of the planewaves and their number. There
-must be at least as many plane waves as there are harmonics and the
-planewaves must be "equally spaced" (cf decoder).;
-#X text 3 563 In the Ambisonics model \, we assumes that the loudspeakers
-generate planewaves and the microphones record planewaves. This approximation
-allows to use the recordings to generate harmonics and to use the planewaves
-signals after a decoding as the signals of the loudspeakers. Nevertheless
-\, this approach brings artefacts because the underlying models of
-the planewaves and the harmonics don't match exactly with the reality.
-To make up the distorsions of the sound field \, it is common to optimize
-the sound field (cf optim) and/or to change the decoding method depending
-on the loudspeakers arrengement (cf decoder)., f 59;
 #X text 150 499 Dsp On/Off;
 #X obj 403 520 sig~ 1;
 #N canvas 0 22 450 300 rota 0;
@@ -201,80 +178,103 @@ on the loudspeakers arrengement (cf decoder)., f 59;
 plane. In practice such waves do not exist but in acoustic when the
 source of the wave is far away the wavefront is considered as a plane.
 , f 59;
+#X text 3 53 In Ambisonics \, the planewave is the wave model wich
+underlies the projection and the decomposition of the sound field.
+;
+#X text 3 272 One of the main advantage of this model lies in its interoperabilty
+with the harmonics model. Indeed \, a sound field represented by set
+of harmonics can also be represented by a set of planewaves without
+loss of informations. This allows to permute the representation of
+the sound field indefinitely from a representation in the harmonics
+domain to a representation in the planewaves representation. Thus \,
+you can decode or project a sound field in the harmonics domain to
+the planewave domain and come back to harmonics domain. The only limitation
+is the angular direction of the planewaves and their number. There
+must be at least as many plane waves as there are harmonics and the
+planewaves must be "equally spaced" (cf decoder).;
+#X text 3 563 In the Ambisonics model \, we assume that the loudspeakers
+generate planewaves and the microphones record planewaves. This approximation
+allows to use the recordings to generate harmonics and to use the planewaves
+signals after a decoding as the signals of the loudspeakers. Nevertheless
+\, this approach brings artefacts because the underlying models of
+the planewaves and the harmonics don't match exactly with the reality.
+To make up the distorsions of the sound field \, it is common to optimize
+the sound field (cf optim) and/or to change the decoding method depending
+on the loudspeakers arrangement (cf decoder)., f 59;
 #X connect 0 0 2 0;
 #X connect 1 0 0 0;
-#X connect 6 0 5 0;
-#X connect 18 0 26 0;
-#X connect 25 0 26 1;
-#X connect 26 0 27 0;
-#X connect 26 0 28 0;
-#X connect 26 1 27 1;
-#X connect 26 1 28 1;
-#X connect 26 2 27 2;
-#X connect 26 2 28 2;
-#X connect 26 3 27 3;
-#X connect 26 3 28 3;
-#X connect 26 4 27 4;
-#X connect 26 4 28 4;
-#X connect 26 5 27 5;
-#X connect 26 5 28 5;
-#X connect 26 6 27 6;
-#X connect 26 6 28 6;
+#X connect 5 0 4 0;
+#X connect 17 0 25 0;
+#X connect 24 0 25 1;
+#X connect 25 0 26 0;
+#X connect 25 0 27 0;
+#X connect 25 1 26 1;
+#X connect 25 1 27 1;
+#X connect 25 2 26 2;
+#X connect 25 2 27 2;
+#X connect 25 3 26 3;
+#X connect 25 3 27 3;
+#X connect 25 4 26 4;
+#X connect 25 4 27 4;
+#X connect 25 5 26 5;
+#X connect 25 5 27 5;
+#X connect 25 6 26 6;
+#X connect 25 6 27 6;
+#X connect 27 0 28 0;
+#X connect 27 0 16 0;
+#X connect 27 1 28 1;
+#X connect 27 1 16 1;
+#X connect 27 2 28 2;
+#X connect 27 2 16 2;
+#X connect 27 3 28 3;
+#X connect 27 3 16 3;
+#X connect 27 4 28 4;
+#X connect 27 4 16 4;
+#X connect 27 5 28 5;
+#X connect 27 5 16 5;
+#X connect 27 6 28 6;
+#X connect 27 6 16 6;
+#X connect 27 7 28 7;
+#X connect 27 7 16 7;
 #X connect 28 0 29 0;
-#X connect 28 0 17 0;
 #X connect 28 1 29 1;
-#X connect 28 1 17 1;
 #X connect 28 2 29 2;
-#X connect 28 2 17 2;
 #X connect 28 3 29 3;
-#X connect 28 3 17 3;
 #X connect 28 4 29 4;
-#X connect 28 4 17 4;
 #X connect 28 5 29 5;
-#X connect 28 5 17 5;
 #X connect 28 6 29 6;
-#X connect 28 6 17 6;
-#X connect 28 7 29 7;
-#X connect 28 7 17 7;
-#X connect 29 0 30 0;
-#X connect 29 1 30 1;
-#X connect 29 2 30 2;
-#X connect 29 3 30 3;
-#X connect 29 4 30 4;
-#X connect 29 5 30 5;
-#X connect 29 6 30 6;
-#X connect 35 0 37 0;
-#X connect 36 0 37 1;
-#X connect 37 0 38 0;
-#X connect 37 0 39 0;
-#X connect 37 1 38 1;
-#X connect 37 1 39 1;
-#X connect 37 2 38 2;
-#X connect 37 2 39 2;
-#X connect 37 3 38 3;
-#X connect 37 3 39 3;
-#X connect 37 4 38 4;
-#X connect 37 4 39 4;
-#X connect 37 5 38 5;
-#X connect 37 5 39 5;
-#X connect 37 6 38 6;
-#X connect 37 6 39 6;
-#X connect 39 0 40 0;
-#X connect 39 0 42 0;
-#X connect 39 1 40 1;
-#X connect 39 1 42 1;
-#X connect 39 2 40 2;
-#X connect 39 2 42 2;
-#X connect 39 3 40 3;
-#X connect 39 3 42 3;
-#X connect 39 4 40 4;
-#X connect 39 4 42 4;
-#X connect 39 5 40 5;
-#X connect 39 5 42 5;
-#X connect 39 6 40 6;
-#X connect 39 6 42 6;
-#X connect 42 0 41 0;
-#X connect 42 1 41 1;
-#X connect 42 2 41 2;
-#X connect 42 3 41 3;
-#X connect 42 4 41 4;
+#X connect 32 0 34 0;
+#X connect 33 0 34 1;
+#X connect 34 0 35 0;
+#X connect 34 0 36 0;
+#X connect 34 1 35 1;
+#X connect 34 1 36 1;
+#X connect 34 2 35 2;
+#X connect 34 2 36 2;
+#X connect 34 3 35 3;
+#X connect 34 3 36 3;
+#X connect 34 4 35 4;
+#X connect 34 4 36 4;
+#X connect 34 5 35 5;
+#X connect 34 5 36 5;
+#X connect 34 6 35 6;
+#X connect 34 6 36 6;
+#X connect 36 0 37 0;
+#X connect 36 0 39 0;
+#X connect 36 1 37 1;
+#X connect 36 1 39 1;
+#X connect 36 2 37 2;
+#X connect 36 2 39 2;
+#X connect 36 3 37 3;
+#X connect 36 3 39 3;
+#X connect 36 4 37 4;
+#X connect 36 4 39 4;
+#X connect 36 5 37 5;
+#X connect 36 5 39 5;
+#X connect 36 6 37 6;
+#X connect 36 6 39 6;
+#X connect 39 0 38 0;
+#X connect 39 1 38 1;
+#X connect 39 2 38 2;
+#X connect 39 3 38 3;
+#X connect 39 4 38 4;

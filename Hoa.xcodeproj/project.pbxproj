@@ -747,6 +747,7 @@
 				INSTALL_PATH = $SRCROOT/Package/Hoa;
 				LIBRARY_SEARCH_PATHS = "";
 				LLVM_LTO = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = (
 					"-undefined",
 					dynamic_lookup,

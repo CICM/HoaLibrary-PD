@@ -154,12 +154,6 @@ informations., f 60;
 #X text 734 551 Rotation around the axes x \, y and z :;
 #X obj 734 602 c.pak f f f, f 24;
 #X text 813 260 Dsp On/Off;
-#X text 3 243 The harmonics depends on a degree l and an (azimuthal)
-order m. For the circular harmonics \, each degree l includes 2 harmonics
-witch the orders are m = -l and m = l (the degree 0 has 1 harmonic
-with the order 0). For the spherical harmonics \, each degree l has
-2l+1 harmonics witch the orders go from -l to l. In fact \, the circular
-harmonics are particular cases of the spherical harmonics.;
 #X text 3 492 In 2d \, for an order of decomposition N = 7 \, there
 are 15 harmonics sorted by their degrees and their orders : [degree
 \, order];
@@ -170,16 +164,22 @@ are 12 harmonics sorted by their degrees and their orders : [degree
 #X text 797 103 Order degree and channels numbering for 2D.;
 #X text 797 163 Order degree and channels numbering for 3D.;
 #X obj 871 187 hoa.tools.3d;
-#X text 3 123 This functions are circular in 2d and spherical in 3d.
-That means their takes angles as variables and the result of the functions
-differs according to the value of the angles. These angles are the
-azimuth θ for the circular harmonics or the azimuth θ and the elevation
-φ for the spherical harmonics.;
 #X text 3 383 The decomposition of a sound field in the harmonics domain
 is performed according to an order of decomposition N. A given decomposition
 order N includes all the degrees from 0 to N. Thus \, in 2d \, the
 sound field is composed by 2N+1 circular harmonics and in 3d the sound
 field is composed by (N+1)^2 spherical harmonics.;
+#X text 3 123 These functions are circular in 2d and spherical in 3d.
+That means they take angles as variables and the result of the functions
+differs according to the value of the angles. These angles are the
+azimuth θ for the circular harmonics or the azimuth θ and the elevation
+φ for the spherical harmonics.;
+#X text 3 243 The harmonics depend on a degree l and an (azimuthal)
+order m. For the circular harmonics \, each degree l includes 2 harmonics
+wich orders are m = -l and m = l (the degree 0 has 1 harmonic with
+the order 0). For the spherical harmonics \, each degree l has 2l+1
+harmonics witch the orders go from -l to l. In fact \, the circular
+harmonics are particular cases of the spherical harmonics.;
 #X connect 0 0 2 0;
 #X connect 1 0 0 0;
 #X connect 5 0 6 0;

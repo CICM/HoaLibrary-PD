@@ -8,7 +8,7 @@
 #X obj 20 4 c.loadmess;
 #X obj 3 3 hoa.tuto.header;
 #X obj 11 577 hoa.help.pub;
-#X obj 396 41 sig~ 1;
+#X obj 395 41 sig~ 1;
 #N canvas 877 209 450 315 maxRe 0;
 #X obj 63 12 inlet;
 #X obj 63 264 outlet;
@@ -173,11 +173,6 @@
 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
 #X text 405 17 Optimizations are similar in 2D and 3D.;
-#X text 2 50 Ambisonics assume that there is one listener at the center
-of a perfect circle or sphere. Such situation are very rare \, in fact
-the loudspeakers arrangement is never optimal and the audience is generally
-spreads all over the sound space. To compensate the artefacts due to
-these restrictions \, several optimizations are offered :;
 #X text 8 141 - The basic optimization does nothing. It isn't the optimal
 choice for the spatialization of punctual sources but it should be
 preferred for diffuse sound fields.;
@@ -227,52 +222,57 @@ depends on the order of decompostion N and the degree l.;
 0 0 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0
 0 0 1;
 #X obj 629 232 c.loadmess set 1;
-#X obj 395 324 hoa.3d.process~ 2 hoa.fx.optim~ harmonics inPhase,
-f 38;
+#X text 2 50 Ambisonics assume that there is one listener at the center
+of a perfect circle or sphere. Such situations are very rare \, in
+fact the loudspeaker arrangement is never optimal and the audience
+is generally spreads all over the sound space. To compensate the artefacts
+due to these restrictions \, several optimizations are offered :;
 #X text 8 192 - The maxRe optimization filters the signal for an audience
 confined to the center of the sound space. The gain g for each harmonic
-depends on the order of decompostion N and the degree l.;
+depends on the order of decomposition N and the degree l.;
+#X obj 395 324 hoa.3d.process~ 2 hoa.fx.optim~ harmonics inPhase,
+f 38;
 #X connect 0 0 15 2;
 #X connect 1 0 3 0;
 #X connect 2 0 1 0;
 #X connect 5 0 15 0;
-#X connect 6 0 24 0;
-#X connect 7 0 31 0;
+#X connect 6 0 23 0;
+#X connect 7 0 30 0;
 #X connect 15 0 11 0;
-#X connect 15 0 36 0;
+#X connect 15 0 37 0;
 #X connect 15 1 11 1;
-#X connect 15 1 36 1;
+#X connect 15 1 37 1;
 #X connect 15 2 11 2;
-#X connect 15 2 36 2;
+#X connect 15 2 37 2;
 #X connect 15 3 11 3;
-#X connect 15 3 36 3;
+#X connect 15 3 37 3;
 #X connect 15 4 11 4;
-#X connect 15 4 36 4;
+#X connect 15 4 37 4;
 #X connect 15 5 11 5;
-#X connect 15 5 36 5;
+#X connect 15 5 37 5;
 #X connect 15 6 11 6;
-#X connect 15 6 36 6;
+#X connect 15 6 37 6;
 #X connect 15 7 11 7;
-#X connect 15 7 36 7;
+#X connect 15 7 37 7;
 #X connect 15 8 11 8;
-#X connect 15 8 36 8;
+#X connect 15 8 37 8;
 #X connect 16 0 15 1;
-#X connect 21 0 6 0;
-#X connect 21 0 23 0;
-#X connect 22 0 6 1;
-#X connect 23 0 22 0;
-#X connect 27 0 29 0;
-#X connect 27 0 7 0;
-#X connect 28 0 7 1;
-#X connect 29 0 28 0;
-#X connect 34 1 36 9;
-#X connect 35 0 34 0;
-#X connect 36 0 10 0;
-#X connect 36 1 10 1;
-#X connect 36 2 10 2;
-#X connect 36 3 10 3;
-#X connect 36 4 10 4;
-#X connect 36 5 10 5;
-#X connect 36 6 10 6;
-#X connect 36 7 10 7;
-#X connect 36 8 10 8;
+#X connect 20 0 6 0;
+#X connect 20 0 22 0;
+#X connect 21 0 6 1;
+#X connect 22 0 21 0;
+#X connect 26 0 28 0;
+#X connect 26 0 7 0;
+#X connect 27 0 7 1;
+#X connect 28 0 27 0;
+#X connect 33 1 37 9;
+#X connect 34 0 33 0;
+#X connect 37 0 10 0;
+#X connect 37 1 10 1;
+#X connect 37 2 10 2;
+#X connect 37 3 10 3;
+#X connect 37 4 10 4;
+#X connect 37 5 10 5;
+#X connect 37 6 10 6;
+#X connect 37 7 10 7;
+#X connect 37 8 10 8;
