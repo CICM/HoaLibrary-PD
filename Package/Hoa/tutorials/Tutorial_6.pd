@@ -1,4 +1,4 @@
-#N canvas 65 54 1301 714 10;
+#N canvas 8 23 1440 722 10;
 #X obj 21 11 c.canvasinfos;
 #X obj 20 7 c.loadmess;
 #X obj 3 6 hoa.tuto.header;
@@ -13,12 +13,12 @@
 @order 7 @view 0 @gain 100 @interval 100 @bgcolor 0.76 0.76 0.76 1
 @bdcolor 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X obj 383 386 sig~ 1;
-#X obj 602 410 c.number @size 53 14 @fontname "Helvetica" @fontweight
+#X obj 602 410 c.number @size 53 17 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "init" @send "(null)"
 @presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
-#X obj 251 355 c.number @size 53 14 @fontname "Helvetica" @fontweight
+#X obj 251 355 c.number @size 53 17 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
 @presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
@@ -47,9 +47,6 @@ composed by 3 circular harmonics. The harmonics depends on the azimuth
 the azimuth and S the signal to encode., f 54;
 #X text 480 411 Azimuth θ in radian;
 #X text 189 333 Azimuth θ in radian;
-#X text 1058 111 With k is the normalization \, P' is the associated
-Legendre polynomial \, e^i is the complex exponential \, S the signal
-\, l the degree \, m the order \, θ azimuth and φ elevation.;
 #X text 1058 90 Y[l \, m] = k(l \, m) * P'[l \, |m|](cos(φ)) * e^i|m|θ
 * S, f 55;
 #X text 1058 274 The normalization k is defined by, f 59;
@@ -58,29 +55,26 @@ f 59;
 #X text 1058 181 P'[0 \, 0](x) = 1, f 59;
 #X text 1060 321 Note that the complex exponential e^i is similar to
 the 2d encoding operation.;
-#X text 717 57 Encoding a source in the spherical harmonics domain
-amounts to synthesize the spherical harmonics Y depending on the azimuth
-θ and the elevation φ and an order of decomposition N :, f 52;
 #X text 365 106 and the the complex exponential e^i can be simplified
 by, f 54;
 #X text 375 151 Y[l \, m](θ) = sin(|m|*θ);
 #X text 365 86 Y[l \, m](θ) = e^i|m|θ * S;
 #X text 375 181 Y[l \, m](θ) = cos(|m|*θ);
 #X obj 1093 403 sig~ 1;
-#X obj 1202 377 c.number @size 53 14 @fontname "Helvetica" @fontweight
+#X obj 1202 377 c.number @size 53 17 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "init" @send "(null)"
 @presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
 #X text 1325 439 Look inside;
 #X text 1082 376 Azimuth θ in radian;
-#X obj 1312 397 c.number @size 53 14 @fontname "Helvetica" @fontweight
+#X obj 1312 397 c.number @size 53 17 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "init" @send "(null)"
 @presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
 0 0 0 1;
 #X text 1180 396 Elevation φ in radian;
-#X obj 814 305 c.number @size 53 14 @fontname "Helvetica" @fontweight
+#X obj 814 305 c.number @size 53 17 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "init" @send "(null)"
 @presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
@@ -89,7 +83,7 @@ by, f 54;
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
 @order 1 @view 0 0 0 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76
 1 @bdcolor 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj 943 305 c.number @size 53 14 @fontname "Helvetica" @fontweight
+#X obj 943 305 c.number @size 53 17 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "init" @send "(null)"
 @presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
@@ -186,19 +180,10 @@ by, f 54;
 #X obj 996 360 cos;
 #X text 907 285 Elevation φ in radian;
 #X text 777 285 Azimuth θ in radian;
-#X text 716 127 For an order of decomposition 1 \, the sound field
-is composed by 4 spherical harmonics. The harmonics depends on the
-azimuth θ \, the elevation φ and the signal S:, f 53;
 #X text 757 450 Harmo 0 0;
 #X text 827 450 Harmo 1 -1;
 #X text 900 450 Harmo 1 0;
 #X text 977 450 Harmo 1 1;
-#X text 2 55 With Ambisonics \, the encoding operation gives the spatials
-informations to a sound. Thus \, the sound can be listened as coming
-from a point of the space., f 57;
-#X text 2 135 Encoding a source in the circular harmonics domain amounts
-to synthesize the circular harmonics Y depending on an azimuth θ and
-an order of decomposition N.;
 #X text 716 197 The harmonic 0 0 : S;
 #X text 716 240 The harmonic 1 0 : cos(φ) * S;
 #X text 1058 201 P'[l \, l](x) = −(2l+1)√(1−x^2)P[l \, l](x)
@@ -220,7 +205,6 @@ Y are defined by;
 #X obj 969 426 *~ -1;
 #X text 1058 291 k(l \, m) = sqrt((l - |m|)! / (l + |m|)!) * sqrt((2-σ)/
 4π);
-#X text 979 242 with σ = 1 if m = 0 else σ = 0;
 #X text 716 212 The harmonic 1 -1 : sin(θ) * -√(1−cos(φ)^2) *
 -√(1/4π) * S, f 53;
 #X text 716 256 The harmonic 1 1 : cos(θ) * -√(1−cos(φ)^2) *
@@ -269,13 +253,30 @@ Y are defined by;
 #X obj 1093 433 hoa.3d.process~ 7 hoa.syn.3d.encoder~ harmonics, f
 37;
 #X obj 373 29 s init;
+#X text 1059 308 with σ = 1 if m = 0 else σ = 0;
+#X text 2 55 With Ambisonics \, the encoding operation gives the spatial
+informations for a sound. Thus \, the sound can be listened as coming
+from a point of the space., f 57;
+#X text 2 135 Encoding a source in the circular harmonics domain consists
+in synthesizing the circular harmonics Y depending on an azimuth θ
+and an order of decomposition N.;
+#X text 717 57 Encoding a source in the spherical harmonics domain
+consists in synthesizing the spherical harmonics Y depending on the
+azimuth θ and the elevation φ and an order of decomposition N :,
+f 52;
+#X text 716 127 For an order of decomposition 1 \, the sound field
+is composed by 4 spherical harmonics. The harmonic depends on the azimuth
+θ \, the elevation φ and the signal S:, f 53;
+#X text 1058 111 k is the normalization \, P' is the associated Legendre
+polynomial \, e^i is the complex exponential \, S the signal \, l the
+degree \, m the order \, θ azimuth and φ elevation.;
 #X connect 0 0 2 0;
 #X connect 1 0 0 0;
 #X connect 5 0 11 0;
 #X connect 5 0 13 0;
 #X connect 5 0 12 0;
-#X connect 7 0 90 0;
-#X connect 8 0 90 1;
+#X connect 7 0 84 0;
+#X connect 8 0 84 1;
 #X connect 9 0 14 0;
 #X connect 9 0 15 0;
 #X connect 11 0 4 0;
@@ -283,112 +284,112 @@ Y are defined by;
 #X connect 13 0 4 1;
 #X connect 14 0 13 1;
 #X connect 15 0 12 1;
-#X connect 39 0 91 0;
-#X connect 40 0 91 1;
-#X connect 43 0 91 2;
-#X connect 45 0 54 0;
-#X connect 47 0 54 1;
-#X connect 48 0 75 1;
-#X connect 49 0 52 0;
-#X connect 49 0 75 0;
-#X connect 49 0 78 0;
-#X connect 49 0 79 0;
-#X connect 50 0 76 0;
-#X connect 51 0 76 1;
-#X connect 52 0 46 0;
-#X connect 53 0 77 1;
-#X connect 54 0 50 0;
-#X connect 54 0 55 0;
-#X connect 54 1 48 0;
-#X connect 54 1 51 0;
-#X connect 54 1 53 0;
-#X connect 55 0 77 0;
-#X connect 75 0 46 2;
-#X connect 76 0 85 0;
-#X connect 77 0 87 0;
-#X connect 78 0 46 1;
-#X connect 79 0 46 3;
-#X connect 84 0 85 1;
-#X connect 85 0 78 1;
-#X connect 86 0 87 1;
-#X connect 87 0 79 1;
-#X connect 88 0 92 0;
-#X connect 90 0 6 0;
-#X connect 90 1 6 1;
-#X connect 90 2 6 2;
-#X connect 90 3 6 3;
-#X connect 90 4 6 4;
-#X connect 90 5 6 5;
-#X connect 90 6 6 6;
-#X connect 90 7 6 7;
-#X connect 90 8 6 8;
-#X connect 90 9 6 9;
-#X connect 90 10 6 10;
-#X connect 90 11 6 11;
-#X connect 90 12 6 12;
-#X connect 90 13 6 13;
-#X connect 90 14 6 14;
-#X connect 91 0 89 0;
-#X connect 91 1 89 1;
-#X connect 91 2 89 2;
-#X connect 91 3 89 3;
-#X connect 91 4 89 4;
-#X connect 91 5 89 5;
-#X connect 91 6 89 6;
-#X connect 91 7 89 7;
-#X connect 91 8 89 8;
-#X connect 91 9 89 9;
-#X connect 91 10 89 10;
-#X connect 91 11 89 11;
-#X connect 91 12 89 12;
-#X connect 91 13 89 13;
-#X connect 91 14 89 14;
-#X connect 91 15 89 15;
-#X connect 91 16 89 16;
-#X connect 91 17 89 17;
-#X connect 91 18 89 18;
-#X connect 91 19 89 19;
-#X connect 91 20 89 20;
-#X connect 91 21 89 21;
-#X connect 91 22 89 22;
-#X connect 91 23 89 23;
-#X connect 91 24 89 24;
-#X connect 91 25 89 25;
-#X connect 91 26 89 26;
-#X connect 91 27 89 27;
-#X connect 91 28 89 28;
-#X connect 91 29 89 29;
-#X connect 91 30 89 30;
-#X connect 91 31 89 31;
-#X connect 91 32 89 32;
-#X connect 91 33 89 33;
-#X connect 91 34 89 34;
-#X connect 91 35 89 35;
-#X connect 91 36 89 36;
-#X connect 91 37 89 37;
-#X connect 91 38 89 38;
-#X connect 91 39 89 39;
-#X connect 91 40 89 40;
-#X connect 91 41 89 41;
-#X connect 91 42 89 42;
-#X connect 91 43 89 43;
-#X connect 91 44 89 44;
-#X connect 91 45 89 45;
-#X connect 91 46 89 46;
-#X connect 91 47 89 47;
-#X connect 91 48 89 48;
-#X connect 91 49 89 49;
-#X connect 91 50 89 50;
-#X connect 91 51 89 51;
-#X connect 91 52 89 52;
-#X connect 91 53 89 53;
-#X connect 91 54 89 54;
-#X connect 91 55 89 55;
-#X connect 91 56 89 56;
-#X connect 91 57 89 57;
-#X connect 91 58 89 58;
-#X connect 91 59 89 59;
-#X connect 91 60 89 60;
-#X connect 91 61 89 61;
-#X connect 91 62 89 62;
-#X connect 91 63 89 63;
+#X connect 37 0 85 0;
+#X connect 38 0 85 1;
+#X connect 41 0 85 2;
+#X connect 43 0 52 0;
+#X connect 45 0 52 1;
+#X connect 46 0 70 1;
+#X connect 47 0 50 0;
+#X connect 47 0 70 0;
+#X connect 47 0 73 0;
+#X connect 47 0 74 0;
+#X connect 48 0 71 0;
+#X connect 49 0 71 1;
+#X connect 50 0 44 0;
+#X connect 51 0 72 1;
+#X connect 52 0 48 0;
+#X connect 52 0 53 0;
+#X connect 52 1 46 0;
+#X connect 52 1 49 0;
+#X connect 52 1 51 0;
+#X connect 53 0 72 0;
+#X connect 70 0 44 2;
+#X connect 71 0 79 0;
+#X connect 72 0 81 0;
+#X connect 73 0 44 1;
+#X connect 74 0 44 3;
+#X connect 78 0 79 1;
+#X connect 79 0 73 1;
+#X connect 80 0 81 1;
+#X connect 81 0 74 1;
+#X connect 82 0 86 0;
+#X connect 84 0 6 0;
+#X connect 84 1 6 1;
+#X connect 84 2 6 2;
+#X connect 84 3 6 3;
+#X connect 84 4 6 4;
+#X connect 84 5 6 5;
+#X connect 84 6 6 6;
+#X connect 84 7 6 7;
+#X connect 84 8 6 8;
+#X connect 84 9 6 9;
+#X connect 84 10 6 10;
+#X connect 84 11 6 11;
+#X connect 84 12 6 12;
+#X connect 84 13 6 13;
+#X connect 84 14 6 14;
+#X connect 85 0 83 0;
+#X connect 85 1 83 1;
+#X connect 85 2 83 2;
+#X connect 85 3 83 3;
+#X connect 85 4 83 4;
+#X connect 85 5 83 5;
+#X connect 85 6 83 6;
+#X connect 85 7 83 7;
+#X connect 85 8 83 8;
+#X connect 85 9 83 9;
+#X connect 85 10 83 10;
+#X connect 85 11 83 11;
+#X connect 85 12 83 12;
+#X connect 85 13 83 13;
+#X connect 85 14 83 14;
+#X connect 85 15 83 15;
+#X connect 85 16 83 16;
+#X connect 85 17 83 17;
+#X connect 85 18 83 18;
+#X connect 85 19 83 19;
+#X connect 85 20 83 20;
+#X connect 85 21 83 21;
+#X connect 85 22 83 22;
+#X connect 85 23 83 23;
+#X connect 85 24 83 24;
+#X connect 85 25 83 25;
+#X connect 85 26 83 26;
+#X connect 85 27 83 27;
+#X connect 85 28 83 28;
+#X connect 85 29 83 29;
+#X connect 85 30 83 30;
+#X connect 85 31 83 31;
+#X connect 85 32 83 32;
+#X connect 85 33 83 33;
+#X connect 85 34 83 34;
+#X connect 85 35 83 35;
+#X connect 85 36 83 36;
+#X connect 85 37 83 37;
+#X connect 85 38 83 38;
+#X connect 85 39 83 39;
+#X connect 85 40 83 40;
+#X connect 85 41 83 41;
+#X connect 85 42 83 42;
+#X connect 85 43 83 43;
+#X connect 85 44 83 44;
+#X connect 85 45 83 45;
+#X connect 85 46 83 46;
+#X connect 85 47 83 47;
+#X connect 85 48 83 48;
+#X connect 85 49 83 49;
+#X connect 85 50 83 50;
+#X connect 85 51 83 51;
+#X connect 85 52 83 52;
+#X connect 85 53 83 53;
+#X connect 85 54 83 54;
+#X connect 85 55 83 55;
+#X connect 85 56 83 56;
+#X connect 85 57 83 57;
+#X connect 85 58 83 58;
+#X connect 85 59 83 59;
+#X connect 85 60 83 60;
+#X connect 85 61 83 61;
+#X connect 85 62 83 62;
+#X connect 85 63 83 63;
