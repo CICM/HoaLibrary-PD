@@ -1,10 +1,4 @@
 #N canvas 539 58 438 587 10;
-#X text 4 47 Hoa Library allows musicians and composers to synthesize
-\, transform and render sound fields in a creative and artistic way.
-This library facilitates the understanding and the appropriation of
-key concepts of Ambisonics. Thanks to original graphical interfaces
-a lot of new signal processing are allowed like diffuse sound field
-synthesis \, perspective distorsion or spatial filtering.;
 #X obj 14 21 c.patcherinfos;
 #X obj 19 4 loadbang;
 #X obj 3 3 hoa.help.header;
@@ -16,11 +10,11 @@ synthesis \, perspective distorsion or spatial filtering.;
 0 0 0 1 @hocolor 0.5 0.5 0.5 1 @secolor 0.35 0.35 0.35 1;
 #X obj 5 196 c.tab @size 398 264 @fontname "Monaco" @fontweight "normal"
 @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)" @presetname
-"(null)" @orientation 1 @toggle 0 @items "Tutorial 1" "Tutorial 2"
-"Tutorial 3" "Tutorial 4" "Tutorial 5" "Tutorial 6" "Tutorial 7" "Tutorial 8"
-"Tutorial 9" "Tutorial 10" "Tools 2D" "Tools 3D" @bgcolor 0.75 0.75
-0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @hocolor 0.5 0.5 0.5
-1 @secolor 0.35 0.35 0.35 1;
+"(null)" @orientation 1 @toggle 0 @items "hoa.2d.decoder~" "hoa.2d.encoder~"
+"hoa.2d.map~" "hoa.2d.meter~" "hoa.2d.optim~" "hoa.2d.projector~" "hoa.2d.recomposer~"
+"hoa.2d.rotate~" "hoa.2d.scope~" "hoa.2d.space" "hoa.2d.wider~" @bgcolor
+0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1 @hocolor
+0.5 0.5 0.5 1 @secolor 0.35 0.35 0.35 1;
 #N canvas 809 275 452 384 sel.hoa.txt 0;
 #X obj -556 -387 unpack s s;
 #X msg -394 -362 clear;
@@ -165,15 +159,21 @@ synthesis \, perspective distorsion or spatial filtering.;
 #X obj 5 464 c.blackboard @size 398 39 @fontname "Monaco" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
 @chalkmode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
-#X connect 1 0 3 0;
-#X connect 2 0 1 0;
-#X connect 5 1 7 0;
-#X connect 5 1 8 1;
-#X connect 5 1 9 0;
-#X connect 6 0 9 1;
-#X connect 6 1 9 2;
-#X connect 6 2 8 0;
-#X connect 7 0 6 0;
-#X connect 8 0 11 0;
-#X connect 10 0 5 0;
+#X text 4 47 Hoa Library allows musicians and composers to synthesize
+\, transform and render sound fields in a creative and artistic way.
+This library facilitates the understanding and the appropriation of
+key concepts of Ambisonics. Thanks to original graphical interfaces
+a lot of new signal processings are allowed like diffuse sound field
+synthesis \, perspective distorsion or spatial filtering.;
+#X connect 0 0 2 0;
+#X connect 1 0 0 0;
+#X connect 4 1 6 0;
+#X connect 4 1 7 1;
+#X connect 4 1 8 0;
+#X connect 5 0 8 1;
+#X connect 5 1 8 2;
+#X connect 5 2 7 0;
+#X connect 6 0 5 0;
+#X connect 7 0 10 0;
+#X connect 9 0 4 0;
 #X coords 0 -2.14748e+09 1 -2.14748e+09 100 60 0;
