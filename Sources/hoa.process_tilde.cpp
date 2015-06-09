@@ -929,7 +929,7 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
                     
                     for(ulong i = 0; i < x->f_instances.size(); i++)
                     {
-                        x->f_instances[i] = new (std::nothrow) ProcessInstance(eobj_getcanvas(x),
+                        x->f_instances[i] = new (std::nothrow) ProcessInstance(x->f_global,
                                                                                atom_getsym(argv+1),
                                                                                hoa_sym_planewaves,
                                                                                hoa_sym_3d,
