@@ -1,19 +1,214 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
-	<File name="ThirdParty/CicmWrapper/Sources/ecommon/ecommon.c" open="1" top="1" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="ThirdParty/HoaLibrary/Sources/Decoder.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="739" topLine="0" />
+			<Cursor1 position="36083" topLine="683" />
 		</Cursor>
 	</File>
-	<File name="ThirdParty/CicmWrapper/Sources/ecommon/ecommon.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="ThirdParty/CicmWrapper/Sources/ecommon/ecommon.c" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="6" />
+			<Cursor1 position="13589" topLine="565" />
 		</Cursor>
 	</File>
-	<File name="hoa.library.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="ThirdParty/HoaLibrary/Sources/Processor.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="651" topLine="0" />
+			<Cursor1 position="4730" topLine="116" />
+		</Cursor>
+	</File>
+	<File name="ThirdParty/CicmWrapper/Sources/ecommon/pd-vanilla/m_pd.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="21598" topLine="744" />
+		</Cursor>
+	</File>
+	<File name="Sources/hoa.map_tilde.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="16920" topLine="428" />
+		</Cursor>
+	</File>
+	<File name="ThirdParty/CicmWrapper/Sources/ecommon/ecommon.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5262" topLine="186" />
+		</Cursor>
+	</File>
+	<File name="Sources/hoa.encoder_tilde.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1473" topLine="33" />
+		</Cursor>
+	</File>
+	<File name="ThirdParty/CicmWrapper/Sources/epopup/epopup.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2068" topLine="49" />
+		</Cursor>
+	</File>
+	<File name="Sources/hoa.process_tilde.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="26796" topLine="832" />
+		</Cursor>
+	</File>
+	<File name="ThirdParty/CicmWrapper/Sources/eclass/eclass.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1406" topLine="34" />
+		</Cursor>
+	</File>
+	<File name="ThirdParty/CicmWrapper/Sources/eobj/eobj_dsp.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4157" topLine="107" />
+		</Cursor>
+	</File>
+	<File name="ThirdParty/HoaLibrary/Sources/Scope.hpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="378" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="ThirdParty/CicmWrapper/Sources/ecommon/pd-extended/s_stuff.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="684" topLine="371" />
+		</Cursor>
+	</File>
+	<File name="ThirdParty/HoaLibrary/Sources/Signal.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3548" topLine="161" />
+		</Cursor>
+	</File>
+	<File name="ThirdParty/CicmWrapper/Sources/eclass/eclass_basic.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7354" topLine="151" />
+		</Cursor>
+	</File>
+	<File name="Sources/hoa.decoder_tilde.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="11112" topLine="299" />
+		</Cursor>
+	</File>
+	<File name="Sources/hoa.scope_gui_tilde.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="24220" topLine="643" />
+		</Cursor>
+	</File>
+	<File name="ThirdParty/CicmWrapper/Sources/ecommon/pd-vanilla/s_stuff.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="682" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="hoa.library.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="443" topLine="2" />
+		</Cursor>
+	</File>
+	<File name="ThirdParty/HoaLibrary/Sources/Meter.hpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="9619" topLine="228" />
+		</Cursor>
+	</File>
+	<File name="Sources/hoa.meter_gui_tilde.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="45506" topLine="1217" />
+		</Cursor>
+	</File>
+	<File name="Sources/hoa.io.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7939" topLine="289" />
+		</Cursor>
+	</File>
+	<File name="ThirdParty/HoaLibrary/Sources/Recomposer.hpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6543" topLine="27" />
+		</Cursor>
+		<Folding>
+			<Collapse line="16" />
+			<Collapse line="23" />
+			<Collapse line="28" />
+			<Collapse line="77" />
+		</Folding>
+	</File>
+	<File name="ThirdParty/HoaLibrary/Sources/Exchanger.hpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="12699" topLine="270" />
+		</Cursor>
+	</File>
+	<File name="ThirdParty/HoaLibrary/Sources/Encoder.hpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="33341" topLine="54" />
+		</Cursor>
+		<Folding>
+			<Collapse line="17" />
+			<Collapse line="309" />
+			<Collapse line="353" />
+			<Collapse line="662" />
+			<Collapse line="791" />
+			<Collapse line="835" />
+			<Collapse line="1135" />
+			<Collapse line="1464" />
+		</Folding>
+	</File>
+	<File name="ThirdParty/HoaLibrary/Sources/Source.hpp" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="56794" topLine="1479" />
+		</Cursor>
+	</File>
+	<File name="ThirdParty/HoaLibrary/Sources/Tools.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="8868" topLine="17" />
+		</Cursor>
+		<Folding>
+			<Collapse line="15" />
+			<Collapse line="121" />
+			<Collapse line="126" />
+			<Collapse line="133" />
+			<Collapse line="136" />
+			<Collapse line="143" />
+			<Collapse line="147" />
+			<Collapse line="152" />
+			<Collapse line="156" />
+			<Collapse line="161" />
+			<Collapse line="166" />
+			<Collapse line="171" />
+			<Collapse line="176" />
+			<Collapse line="181" />
+			<Collapse line="185" />
+			<Collapse line="195" />
+			<Collapse line="202" />
+			<Collapse line="207" />
+			<Collapse line="236" />
+			<Collapse line="241" />
+			<Collapse line="248" />
+			<Collapse line="253" />
+			<Collapse line="260" />
+		</Folding>
+	</File>
+	<File name="Sources/hoa.wider_tilde.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="45" />
+		</Cursor>
+	</File>
+	<File name="ThirdParty/HoaLibrary/Sources/Defs.hpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="788" topLine="62" />
+		</Cursor>
+	</File>
+	<File name="hoa.library.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1990" topLine="55" />
+		</Cursor>
+	</File>
+	<File name="ThirdParty/HoaLibrary/Sources/Harmonics.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="11978" topLine="339" />
+		</Cursor>
+	</File>
+	<File name="Sources/hoa.recomposer_tilde.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3230" topLine="62" />
+		</Cursor>
+		<Folding>
+			<Collapse line="130" />
+			<Collapse line="146" />
+		</Folding>
+	</File>
+	<File name="ThirdParty/HoaLibrary/Sources/Planewaves.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="20472" topLine="441" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
