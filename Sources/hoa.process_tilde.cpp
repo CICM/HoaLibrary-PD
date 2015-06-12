@@ -265,7 +265,7 @@ public:
     {
         for(ulong i = 0; i < m_ins_extra.size(); i++)
         {
-            if(m_ins_extra[i]->f_extra == extra)
+            if(ulong(m_ins_extra[i]->f_extra) == extra)
             {
                 pd_bang((t_pd *)m_ins_extra[i]);
             }
@@ -284,7 +284,7 @@ public:
     {
         for(ulong i = 0; i < m_ins_extra.size(); i++)
         {
-            if(m_ins_extra[i]->f_extra == extra)
+            if(ulong(m_ins_extra[i]->f_extra) == extra)
             {
                 pd_float((t_pd *)m_ins_extra[i], f);
             }
@@ -303,7 +303,7 @@ public:
     {
         for(ulong i = 0; i < m_ins_extra.size(); i++)
         {
-            if(m_ins_extra[i]->f_extra == extra)
+            if(ulong(m_ins_extra[i]->f_extra) == extra)
             {
                 pd_symbol((t_pd *)m_ins_extra[i], s);
             }
@@ -322,7 +322,7 @@ public:
     {
         for(ulong i = 0; i < m_ins_extra.size(); i++)
         {
-            if(m_ins_extra[i]->f_extra == extra)
+            if(ulong(m_ins_extra[i]->f_extra) == extra)
             {
                 pd_list((t_pd *)m_ins_extra[i], s, argc, argv);
             }
@@ -341,7 +341,7 @@ public:
     {
         for(ulong i = 0; i < m_ins_extra.size(); i++)
         {
-            if(m_ins_extra[i]->f_extra == extra)
+            if(ulong(m_ins_extra[i]->f_extra) == extra)
             {
                 pd_typedmess((t_pd *)m_ins_extra[i], s, argc, argv);
             }
@@ -363,7 +363,7 @@ public:
         ulong n = 0ul;
         for(ulong i = 0; i < m_ins_extra.size(); i++)
         {
-            if(m_ins_extra[i]->f_extra > n)
+            if(ulong(m_ins_extra[i]->f_extra) > n)
                 n = m_ins_extra[i]->f_extra;
         }
         return n;
@@ -374,7 +374,7 @@ public:
         ulong n = 0ul;
         for(ulong i = 0; i < m_ins_extra_sig.size(); i++)
         {
-            if(m_ins_extra_sig[i]->f_extra > n)
+            if(ulong(m_ins_extra_sig[i]->f_extra) > n)
                 n = m_ins_extra_sig[i]->f_extra;
         }
         return n;
@@ -395,7 +395,7 @@ public:
         ulong n = 0ul;
         for(ulong i = 0; i < m_outs_extra.size(); i++)
         {
-            if(m_outs_extra[i]->f_extra > n)
+            if(ulong(m_outs_extra[i]->f_extra) > n)
                 n = m_outs_extra[i]->f_extra;
         }
         return n;
@@ -406,7 +406,7 @@ public:
         ulong n = 0ul;
         for(ulong i = 0; i < m_outs_extra_sig.size(); i++)
         {
-            if(m_outs_extra_sig[i]->f_extra > n)
+            if(ulong(m_outs_extra_sig[i]->f_extra) > n)
                 n = m_outs_extra_sig[i]->f_extra;
         }
         return n;
@@ -447,7 +447,7 @@ public:
         }
         for(size_t i = 0; i < m_ins_extra_sig.size(); i++)
         {
-            if(m_ins_extra_sig[i]->f_extra > ixtra.size() || !ixtra[m_ins_extra_sig[i]->f_extra-1])
+            if(ulong(m_ins_extra_sig[i]->f_extra) > ixtra.size() || !ixtra[m_ins_extra_sig[i]->f_extra-1])
             {
                 bug("process don't have input signal extra %i.", m_ins_extra_sig[i]->f_extra);
                 return true;
@@ -468,7 +468,7 @@ public:
         }
         for(size_t i = 0; i < m_outs_extra_sig.size(); i++)
         {
-            if(m_outs_extra_sig[i]->f_extra > oxtra.size() || !oxtra[m_outs_extra_sig[i]->f_extra-1])
+            if(ulong(m_outs_extra_sig[i]->f_extra) > oxtra.size() || !oxtra[m_outs_extra_sig[i]->f_extra-1])
             {
                 bug("process don't have output signal extra %i.", m_outs_extra_sig[i]->f_extra);
                 return true;
@@ -669,7 +669,7 @@ static void hoa_process_target(t_hoa_process *x, t_symbol* s, int argc, t_atom* 
 static void hoa_process_bang(t_hoa_process *x)
 {
     long index = eobj_getproxy(x);
-    if(x->f_have_ins && index < x->f_instances.size())
+    if(x->f_have_ins && ulong(index) < x->f_instances.size())
     {
         x->f_instances[index]->sendBang();
     }
@@ -693,7 +693,7 @@ static void hoa_process_bang(t_hoa_process *x)
 static void hoa_process_float(t_hoa_process *x, float f)
 {
     long index = eobj_getproxy(x);
-    if(x->f_have_ins && index < x->f_instances.size())
+    if(x->f_have_ins && ulong(index) < x->f_instances.size())
     {
         x->f_instances[index]->sendFloat(f);
     }
@@ -717,7 +717,7 @@ static void hoa_process_float(t_hoa_process *x, float f)
 static void hoa_process_symbol(t_hoa_process *x, t_symbol* s)
 {
     long index = eobj_getproxy(x);
-    if(x->f_have_ins && index < x->f_instances.size())
+    if(x->f_have_ins && ulong(index) < x->f_instances.size())
     {
         x->f_instances[index]->sendSymbol(s);
     }
@@ -741,7 +741,7 @@ static void hoa_process_symbol(t_hoa_process *x, t_symbol* s)
 static void hoa_process_list(t_hoa_process *x, t_symbol* s, int argc, t_atom* argv)
 {
     long index = eobj_getproxy(x);
-    if(x->f_have_ins && index < x->f_instances.size())
+    if(x->f_have_ins && ulong(index) < x->f_instances.size())
     {
         x->f_instances[index]->sendList(s, argc, argv);
     }
@@ -765,7 +765,7 @@ static void hoa_process_list(t_hoa_process *x, t_symbol* s, int argc, t_atom* ar
 static void hoa_process_anything(t_hoa_process *x, t_symbol* s, int argc, t_atom* argv)
 {
     long index = eobj_getproxy(x);
-    if(x->f_have_ins && index < x->f_instances.size())
+    if(x->f_have_ins && ulong(index) < x->f_instances.size())
     {
         x->f_instances[index]->sendAnything(s, argc, argv);
     }
@@ -789,7 +789,7 @@ static void hoa_process_anything(t_hoa_process *x, t_symbol* s, int argc, t_atom
 static void hoa_process_free(t_hoa_process *x)
 {
     int state = canvas_suspend_dsp();
-    for(int i = 0 ; i < x->f_outlets_signals.size(); i++)
+    for(ulong i = 0 ; i < x->f_outlets_signals.size(); i++)
     {
         if(x->f_outlets_signals[i])
         {
@@ -797,7 +797,7 @@ static void hoa_process_free(t_hoa_process *x)
         }
     }
     x->f_outlets_signals.clear();
-    for(int i = 0; i < x->f_instances.size(); i++)
+    for(ulong i = 0; i < x->f_instances.size(); i++)
     {
         if(x->f_instances[i])
         {
