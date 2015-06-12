@@ -204,6 +204,43 @@ static t_pd_err hoa_decoder_offset_get(t_hoa_decoder *x, void *attr, long* argc,
     return 0;
 }
 
+static t_pd_err hoa_decoder_crop_set(t_hoa_decoder *x, void *attr, long argc, t_atom *argv)
+{
+    if(argc && argv && atom_gettype(argv) == A_FLOAT)
+    {
+        if(x->f_mode == gensym("binaural"))
+        {
+            int dspState = canvas_suspend_dsp();
+            (static_cast<Decoder<Hoa2d, t_sample>::Binaural*>(x->f_decoder))->setCropSize(atom_getfloat(argv));
+            canvas_resume_dsp(dspState);
+        }
+    }
+    return 0;
+}
+
+static t_pd_err hoa_decoder_crop_get(t_hoa_decoder *x, void *attr, long* argc, t_atom **argv)
+{
+    *argc = 1;
+    *argv = (t_atom *)malloc(*argc * sizeof(t_atom));
+    if(*argc && *argv)
+    {
+        if(x->f_mode == gensym("binaural"))
+        {
+            atom_setfloat(*argv, (static_cast<Decoder<Hoa2d, t_sample>::Binaural*>(x->f_decoder))->getCropSize());
+        }
+        else
+        {
+            atom_setfloat(*argv, 0);
+        }
+    }
+    else
+    {
+        *argc = 0;
+        *argv = NULL;
+    }
+    return 0;
+}
+
 static void hoa_decoder_free(t_hoa_decoder *x)
 {
     eobj_dspfree(x);
@@ -234,6 +271,12 @@ extern "C" void setup_hoa0x2e2d0x2edecoder_tilde(void)
     CLASS_ATTR_CATEGORY			(c, "offset", 0, "Planewaves");
     CLASS_ATTR_LABEL            (c, "offset", 0, "Offset of Channels");
     CLASS_ATTR_SAVE             (c, "offset", 0);
+    
+    CLASS_ATTR_LONG             (c, "crop", 0, t_hoa_decoder, f_attrs);
+    CLASS_ATTR_ACCESSORS		(c, "crop", hoa_decoder_crop_get, hoa_decoder_crop_set);
+    CLASS_ATTR_CATEGORY			(c, "crop", 0, "Planewaves");
+    CLASS_ATTR_LABEL            (c, "crop", 0, "Crop of the Responses");
+    CLASS_ATTR_SAVE             (c, "crop", 0);
 
     eclass_register(CLASS_OBJ, c);
     hoa_decoder_class = c;
@@ -411,6 +454,43 @@ static t_pd_err hoa_decoder_3d_offset_get(t_hoa_decoder_3d *x, void *attr, long 
     return 0;
 }
 
+static t_pd_err hoa_decoder_3d_crop_set(t_hoa_decoder_3d *x, void *attr, long argc, t_atom *argv)
+{
+    if(argc && argv && atom_gettype(argv) == A_FLOAT)
+    {
+        if(x->f_mode == gensym("binaural"))
+        {
+            int dspState = canvas_suspend_dsp();
+            (static_cast<Decoder<Hoa3d, t_sample>::Binaural*>(x->f_decoder))->setCropSize(atom_getfloat(argv));
+            canvas_resume_dsp(dspState);
+        }
+    }
+    return 0;
+}
+
+static t_pd_err hoa_decoder_3d_crop_get(t_hoa_decoder_3d *x, void *attr, long* argc, t_atom **argv)
+{
+    *argc = 1;
+    *argv = (t_atom *)malloc(*argc * sizeof(t_atom));
+    if(*argc && *argv)
+    {
+        if(x->f_mode == gensym("binaural"))
+        {
+            atom_setfloat(*argv, (static_cast<Decoder<Hoa3d, t_sample>::Binaural*>(x->f_decoder))->getCropSize());
+        }
+        else
+        {
+            atom_setfloat(*argv, 0);
+        }
+    }
+    else
+    {
+        *argc = 0;
+        *argv = NULL;
+    }
+    return 0;
+}
+
 static void hoa_decoder_3d_free(t_hoa_decoder_3d *x)
 {
     eobj_dspfree(x);
@@ -440,6 +520,12 @@ extern "C" void setup_hoa0x2e3d0x2edecoder_tilde(void)
     CLASS_ATTR_CATEGORY			(c, "offset", 0, "Planewaves");
     CLASS_ATTR_LABEL            (c, "offset", 0, "Offset of Channels");
     CLASS_ATTR_SAVE             (c, "offset", 0);
+    
+    CLASS_ATTR_LONG             (c, "crop", 0, t_hoa_decoder, f_attrs);
+    CLASS_ATTR_ACCESSORS		(c, "crop", hoa_decoder_3d_crop_get, hoa_decoder_3d_crop_set);
+    CLASS_ATTR_CATEGORY			(c, "crop", 0, "Planewaves");
+    CLASS_ATTR_LABEL            (c, "crop", 0, "Crop of the Responses");
+    CLASS_ATTR_SAVE             (c, "crop", 0);
 
     eclass_register(CLASS_OBJ, c);
     hoa_decoder_3d_class = c;
