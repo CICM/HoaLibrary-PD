@@ -1004,10 +1004,10 @@
 	"common.h"
 
 1433951444 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.decoder_tilde.cpp
-	"../hoa.library.h"
+	"../hoa.library.hpp"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
-1433504703 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/hoa.library.h
+1433504703 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/hoa.library.hpp
 	"ThirdParty/CicmWrapper/Sources/cicm_wrapper.h"
 
 1433293514 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/cicm_wrapper.h
@@ -1185,27 +1185,27 @@
 	"Signal.hpp"
 
 1433293417 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.encoder_tilde.cpp
-	"../hoa.library.h"
+	"../hoa.library.hpp"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
 1433594516 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.io.cpp
-	"../hoa.library.h"
+	"../hoa.library.hpp"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
 1433293417 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.map_gui.cpp
-	"../hoa.library.h"
+	"../hoa.library.hpp"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
 1433865130 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.map_tilde.cpp
-	"../hoa.library.h"
+	"../hoa.library.hpp"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
 1433528952 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.meter_gui_tilde.cpp
-	"../hoa.library.h"
+	"../hoa.library.hpp"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
 1433930206 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.process_tilde.cpp
-	"../hoa.library.h"
+	"../hoa.library.hpp"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
 1433293514 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/d_ugen.h
@@ -1221,31 +1221,31 @@
 	<stdarg.h>
 
 1433293417 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.projector_tilde.cpp
-	"../hoa.library.h"
+	"../hoa.library.hpp"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
 1434021818 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.recomposer_tilde.cpp
-	"../hoa.library.h"
+	"../hoa.library.hpp"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
 1433293417 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.rotate_tilde.cpp
-	"../hoa.library.h"
+	"../hoa.library.hpp"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
 1433463849 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.scope_gui_tilde.cpp
-	"../hoa.library.h"
+	"../hoa.library.hpp"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
 1433293417 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.space_gui.cpp
-	"../hoa.library.h"
+	"../hoa.library.hpp"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
 1433594516 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.tools.cpp
-	"../hoa.library.h"
+	"../hoa.library.hpp"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
 1433293417 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.wider_tilde.cpp
-	"../hoa.library.h"
+	"../hoa.library.hpp"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
 1433594511 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ebox/ebox_attr.c
@@ -1297,17 +1297,17 @@
 	"epopup.h"
 
 1433411905 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/hoa.library.cpp
-	"hoa.library.h"
+	"hoa.library.hpp"
 
 1433929035 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Exchanger.hpp
 	"Processor.hpp"
 
 1433293417 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.exchanger_tilde.cpp
-	"../hoa.library.h"
+	"../hoa.library.hpp"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
 1433293417 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.optim_tilde.cpp
-	"../hoa.library.h"
+	"../hoa.library.hpp"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
 1433293514 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ebox/ebox_basic.c

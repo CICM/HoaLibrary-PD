@@ -4,7 +4,7 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
-#include "hoa.library.h"
+#include "hoa.library.hpp"
 
 extern void hoa_initclass(t_eclass* c)
 {

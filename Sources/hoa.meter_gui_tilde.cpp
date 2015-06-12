@@ -4,7 +4,7 @@
  // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
 
-#include "../hoa.library.h"
+#include "../hoa.library.hpp"
 #include "../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 using namespace hoa;
 
