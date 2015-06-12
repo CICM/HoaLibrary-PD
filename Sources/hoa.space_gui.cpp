@@ -364,7 +364,7 @@ void draw_background(t_hoa_space *x, t_object *view, t_rect *rect)
 	ebox_paint_layer((t_ebox *)x, hoa_sym_background_layer, 0., 0.);
 }
 
-double cosine_interpolation(double y1, double y2, float mu)
+static double cosine_interpolation(double y1, double y2, float mu)
 {
     double mu2;
     mu2 = (1-cos(mu*HOA_PI))/2;

@@ -766,7 +766,7 @@ static t_pd_err channels_3d_get(t_hoa_meter_3d *x, void *attr, long *argc, t_ato
     return 0;
 }
 
-t_pd_err channels_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
+static t_pd_err channels_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
 {
     if(argc && argv)
     {
@@ -849,7 +849,7 @@ static t_pd_err angles_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *
     return 0;
 }
 
-t_pd_err offset_3d_get(t_hoa_meter_3d *x, void *attr, long *argc, t_atom **argv)
+static t_pd_err offset_3d_get(t_hoa_meter_3d *x, void *attr, long *argc, t_atom **argv)
 {
     argc[0] = 3;
     argv[0] = (t_atom *)malloc(3 * sizeof(t_atom));

@@ -487,7 +487,7 @@ static t_pd_err hoa_map_3d_tilde_ramp_set(t_hoa_map_3d_tilde *x, t_object *attr,
     return 0;
 }
 
-void hoa_map_3d_tilde_perform_in1_in2_in3(t_hoa_map_3d_tilde *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_map_3d_tilde_perform_in1_in2_in3(t_hoa_map_3d_tilde *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     if(!x->f_mode)
     {
@@ -515,7 +515,7 @@ void hoa_map_3d_tilde_perform_in1_in2_in3(t_hoa_map_3d_tilde *x, t_object *dsp64
     }
 }
 
-void hoa_map_3d_tilde_perform_in1_in2(t_hoa_map_3d_tilde *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_map_3d_tilde_perform_in1_in2(t_hoa_map_3d_tilde *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     if(!x->f_mode)
     {
@@ -545,7 +545,7 @@ void hoa_map_3d_tilde_perform_in1_in2(t_hoa_map_3d_tilde *x, t_object *dsp64, t_
     }
 }
 
-void hoa_map_3d_tilde_perform_in1_in3(t_hoa_map_3d_tilde *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_map_3d_tilde_perform_in1_in3(t_hoa_map_3d_tilde *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     if(!x->f_mode)
     {
@@ -575,7 +575,8 @@ void hoa_map_3d_tilde_perform_in1_in3(t_hoa_map_3d_tilde *x, t_object *dsp64, t_
     }
 }
 
-void hoa_map_3d_tilde_perform_in2_in3(t_hoa_map_3d_tilde *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+/*
+static void hoa_map_3d_tilde_perform_in2_in3(t_hoa_map_3d_tilde *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     if(!x->f_mode)
     {
@@ -604,8 +605,9 @@ void hoa_map_3d_tilde_perform_in2_in3(t_hoa_map_3d_tilde *x, t_object *dsp64, t_
         Signal<t_sample>::copy(sampleframes, x->f_sig_outs+i, numouts, outs[i], 1);
     }
 }
+ */
 
-void hoa_map_3d_tilde_perform_in1(t_hoa_map_3d_tilde *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_map_3d_tilde_perform_in1(t_hoa_map_3d_tilde *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     if(!x->f_mode)
     {
@@ -635,7 +637,7 @@ void hoa_map_3d_tilde_perform_in1(t_hoa_map_3d_tilde *x, t_object *dsp64, t_samp
     }
 }
 
-void hoa_map_3d_tilde_perform_in2(t_hoa_map_3d_tilde *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_map_3d_tilde_perform_in2(t_hoa_map_3d_tilde *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     if(!x->f_mode)
     {
@@ -665,7 +667,7 @@ void hoa_map_3d_tilde_perform_in2(t_hoa_map_3d_tilde *x, t_object *dsp64, t_samp
     }
 }
 
-void hoa_map_3d_tilde_perform_in3(t_hoa_map_3d_tilde *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_map_3d_tilde_perform_in3(t_hoa_map_3d_tilde *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     if(!x->f_mode)
     {
@@ -695,7 +697,7 @@ void hoa_map_3d_tilde_perform_in3(t_hoa_map_3d_tilde *x, t_object *dsp64, t_samp
     }
 }
 
-void hoa_map_3d_tilde_perform(t_hoa_map_3d_tilde *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_map_3d_tilde_perform(t_hoa_map_3d_tilde *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     for(long i = 0; i < sampleframes; i++)
     {
@@ -711,7 +713,7 @@ void hoa_map_3d_tilde_perform(t_hoa_map_3d_tilde *x, t_object *dsp64, t_sample *
     }
 }
 
-void hoa_map_3d_tilde_perform_multisources(t_hoa_map_3d_tilde *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
+static void hoa_map_3d_tilde_perform_multisources(t_hoa_map_3d_tilde *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
     int nsources = x->f_map->getNumberOfSources();
     for(long i = 0; i < numins; i++)
