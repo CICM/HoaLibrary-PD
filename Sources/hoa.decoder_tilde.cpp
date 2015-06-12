@@ -35,7 +35,7 @@ static t_eclass *hoa_decoder_3d_class;
 static void *hoa_decoder_new(t_symbol *s, long argc, t_atom *argv)
 {
     int	order = 1;
-    int number_of_channels = 4;
+    int arg   = 4;
     t_symbol* mode = gensym("regular");
     t_hoa_decoder *x = (t_hoa_decoder *)eobj_new(hoa_decoder_class);
     t_binbuf *d      = binbuf_via_atoms(argc,argv);
@@ -45,16 +45,18 @@ static void *hoa_decoder_new(t_symbol *s, long argc, t_atom *argv)
         if(argc && argv && atom_gettype(argv) == A_LONG)
         {
             order = pd_clip_minmax(atom_getlong(argv), 1, 63);
-            number_of_channels = order * 2 + 1;
         }
         if(argc > 1 && argv+1 && atom_gettype(argv+1) == A_SYM)
             mode = atom_getsym(argv+1);
-        if(argc > 2 && argv+2 && atom_gettype(argv+2) == A_LONG)
-            number_of_channels = pd_clip_min(atom_getlong(argv+2), 1);
 
         if(mode == gensym("irregular"))
         {
-            x->f_decoder = new Decoder<Hoa2d, t_sample>::Irregular(order, number_of_channels);
+            arg = order * 2 + 1;
+            if(argc > 2 && argv+2 && atom_gettype(argv+2) == A_LONG)
+            {
+                arg = pd_clip_min(atom_getlong(argv+2), 1);
+            }
+            x->f_decoder = new Decoder<Hoa2d, t_sample>::Irregular(order, arg);
             x->f_mode = mode;
         }
         else if(mode == gensym("binaural"))
@@ -64,7 +66,12 @@ static void *hoa_decoder_new(t_symbol *s, long argc, t_atom *argv)
         }
         else
         {
-            x->f_decoder = new Decoder<Hoa2d, t_sample>::Regular(order, number_of_channels);
+            arg = order * 2 + 1;
+            if(argc > 2 && argv+2 && atom_gettype(argv+2) == A_LONG)
+            {
+                arg = pd_clip_min(atom_getlong(argv+2), 1);
+            }
+            x->f_decoder = new Decoder<Hoa2d, t_sample>::Regular(order, arg);
             x->f_mode = gensym("regular");
         }
 
@@ -218,7 +225,7 @@ extern "C" void setup_hoa0x2e2d0x2edecoder_tilde(void)
 
     CLASS_ATTR_DOUBLE_VARSIZE	(c, "angles",0, t_hoa_decoder, f_attrs, f_attrs, HOA_MAX_PLANEWAVES);
     CLASS_ATTR_ACCESSORS		(c, "angles", hoa_decoder_angles_get, hoa_decoder_angles_set);
-    CLASS_ATTR_CATEGORY			(c, "offset", 0, "Planewaves");
+    CLASS_ATTR_CATEGORY			(c, "angles", 0, "Planewaves");
     CLASS_ATTR_LABEL			(c, "angles", 0, "Angles of Loudspeakers");
     CLASS_ATTR_SAVE             (c, "angles", 0);
 
@@ -255,14 +262,17 @@ static void *hoa_decoder_3d_new(t_symbol *s, long argc, t_atom *argv)
         if(mode == gensym("irregular"))
         {
             x->f_decoder = new Decoder<Hoa3d, t_sample>::Regular(order, number_of_channels);
+            x->f_mode = mode;
         }
         else if(mode == gensym("binaural"))
         {
             x->f_decoder = new Decoder<Hoa3d, t_sample>::Binaural(order);
+            x->f_mode = mode;
         }
         else
         {
             x->f_decoder = new Decoder<Hoa3d, t_sample>::Regular(order, number_of_channels);
+            x->f_mode = mode;
         }
 
         eobj_dspsetup(x, x->f_decoder->getNumberOfHarmonics(), x->f_decoder->getNumberOfPlanewaves());
@@ -296,12 +306,7 @@ static void hoa_decoder_3d_perform64_regular(t_hoa_decoder_3d *x, t_object *dsp6
 
 static void hoa_decoder_3d_perform64_binaural(t_hoa_decoder_3d *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
-    const long max = numins < 16 ? numins : 16;
-    for(long i = 0; i < max; i++)
-    {
-        Signal<t_sample>::copy(sampleframes, ins[i], x->f_ins+i*sampleframes);
-    }
-    (static_cast<Decoder<Hoa3d, t_sample>::Binaural*>(x->f_decoder))->processBlock(x->f_ins, outs);
+    (static_cast<Decoder<Hoa3d, t_sample>::Binaural*>(x->f_decoder))->processBlock((const t_sample**)ins, outs);
 }
 
 static void hoa_decoder_3d_dsp(t_hoa_decoder *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
