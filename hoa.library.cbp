@@ -7,31 +7,28 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Release">
-				<Option output="Package/Hoa/hoa.pd_linux" prefix_auto="0" extension_auto="0" />
+				<Option output="Package/Hoa/Hoa.pd_linux" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="Linux" />
 				<Option object_output="Linux" />
 				<Option type="3" />
 				<Option compiler="gcc" />
+				<Option host_application="/usr/local/bin/pd" />
+				<Option run_host_application_in_terminal="0" />
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
-					<Add option="-O2" />
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-O3" />
+					<Add option="-g" />
 					<Add option="-fPIC" />
-					<Add option="-fpermissive" />
 					<Add option="-D_LINUX" />
-					<Add directory="../ThirdParty/CBlas/Linux64/lib/" />
-					<Add directory="../ThirdParty/CBlas/Linux64/include/" />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
 					<Add option="-fPIC" />
-					<Add library="libblas.a" />
-					<Add directory="../ThirdParty/CBlas/Linux64/lib/" />
-					<Add directory="../ThirdParty/CBlas/Linux64/include/" />
 				</Linker>
 			</Target>
 			<Target title="Release32">
-				<Option output="Package/Hoa/hoa.pd_linux" prefix_auto="0" extension_auto="0" />
+				<Option output="Package/Hoa/Hoa.pd_linux" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="Linux" />
 				<Option object_output="Linux" />
 				<Option type="3" />
@@ -39,24 +36,20 @@
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
+					<Add option="-fexpensive-optimizations" />
 					<Add option="-O3" />
 					<Add option="-fPIC" />
 					<Add option="-m32" />
 					<Add option="-D_LINUX" />
-					<Add directory="../ThirdParty/CBlas/Linux32/lib" />
-					<Add directory="../ThirdParty/CBlas/Linux32/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
 					<Add option="-fPIC" />
 					<Add option="-m32" />
-					<Add library="libblas.a" />
-					<Add directory="../ThirdParty/CBlas/Linux32/lib" />
-					<Add directory="../ThirdParty/CBlas/Linux32/include" />
 				</Linker>
 			</Target>
 			<Target title="Release_extented">
-				<Option output="Package/Hoa/hoa.pd_linux" prefix_auto="0" extension_auto="0" />
+				<Option output="Package/Hoa/Hoa.pd_linux" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="Linux" />
 				<Option object_output="Linux" />
 				<Option type="3" />
@@ -64,24 +57,19 @@
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
-					<Add option="-O2" />
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-O3" />
 					<Add option="-fPIC" />
-					<Add option="-fpermissive" />
 					<Add option="-D_LINUX" />
 					<Add option="-DPD_EXTENTED=1" />
-					<Add directory="../ThirdParty/CBlas/Linux64/lib/" />
-					<Add directory="../ThirdParty/CBlas/Linux64/include/" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
 					<Add option="-fPIC" />
-					<Add library="libblas.a" />
-					<Add directory="../ThirdParty/CBlas/Linux64/lib/" />
-					<Add directory="../ThirdParty/CBlas/Linux64/include/" />
 				</Linker>
 			</Target>
 			<Target title="Release32_extented">
-				<Option output="Package/Hoa/hoa.pd_linux" prefix_auto="0" extension_auto="0" />
+				<Option output="Package/Hoa/Hoa.pd_linux" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="Linux" />
 				<Option object_output="Linux" />
 				<Option type="3" />
@@ -89,21 +77,17 @@
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
+					<Add option="-fexpensive-optimizations" />
 					<Add option="-O3" />
 					<Add option="-fPIC" />
 					<Add option="-m32" />
 					<Add option="-D_LINUX" />
 					<Add option="-DPD_EXTENTED=1" />
-					<Add directory="../ThirdParty/CBlas/Linux32/lib" />
-					<Add directory="../ThirdParty/CBlas/Linux32/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
 					<Add option="-fPIC" />
 					<Add option="-m32" />
-					<Add library="libblas.a" />
-					<Add directory="../ThirdParty/CBlas/Linux32/lib" />
-					<Add directory="../ThirdParty/CBlas/Linux32/include" />
 				</Linker>
 			</Target>
 		</Build>
@@ -112,6 +96,7 @@
 		</Compiler>
 		<Unit filename="Sources/hoa.decoder_tilde.cpp" />
 		<Unit filename="Sources/hoa.encoder_tilde.cpp" />
+		<Unit filename="Sources/hoa.exchanger_tilde.cpp" />
 		<Unit filename="Sources/hoa.io.cpp" />
 		<Unit filename="Sources/hoa.map_gui.cpp" />
 		<Unit filename="Sources/hoa.map_tilde.cpp" />
@@ -164,10 +149,6 @@
 		<Unit filename="ThirdParty/CicmWrapper/Sources/eclass/eclass_widget.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="ThirdParty/CicmWrapper/Sources/ecommon/d_ugen.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="ThirdParty/CicmWrapper/Sources/ecommon/d_ugen.h" />
 		<Unit filename="ThirdParty/CicmWrapper/Sources/ecommon/eboxflag.h" />
 		<Unit filename="ThirdParty/CicmWrapper/Sources/ecommon/ecommon.c">
 			<Option compilerVar="CC" />
@@ -223,6 +204,7 @@
 		<Unit filename="ThirdParty/HoaLibrary/Sources/Decoder.hpp" />
 		<Unit filename="ThirdParty/HoaLibrary/Sources/Defs.hpp" />
 		<Unit filename="ThirdParty/HoaLibrary/Sources/Encoder.hpp" />
+		<Unit filename="ThirdParty/HoaLibrary/Sources/Exchanger.hpp" />
 		<Unit filename="ThirdParty/HoaLibrary/Sources/Harmonics.hpp" />
 		<Unit filename="ThirdParty/HoaLibrary/Sources/Hoa.hpp" />
 		<Unit filename="ThirdParty/HoaLibrary/Sources/Hrtf.hpp" />

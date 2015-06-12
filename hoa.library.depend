@@ -1003,39 +1003,37 @@
 	<stddef.h>
 	"common.h"
 
-1429005876 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.decoder_tilde.cpp
+1433951444 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.decoder_tilde.cpp
 	"../hoa.library.h"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
-1429005876 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/hoa.library.h
+1433504703 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/hoa.library.h
 	"ThirdParty/CicmWrapper/Sources/cicm_wrapper.h"
 
-1429005917 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/cicm_wrapper.h
+1433293514 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/cicm_wrapper.h
 	"epd.h"
 	"epd_max.h"
 
-1429005917 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/epd.h
+1433293514 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/epd.h
 	"eclass/eclass.h"
 
-1429005917 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/eclass/eclass.h
+1433293514 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/eclass/eclass.h
 	"../estruct.h"
 	"../ebox/ebox.h"
 	"../epopup/epopup.h"
 
-1429005917 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/estruct.h
+1433594511 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/estruct.h
 	"ecommon/ecommon.h"
 
-1429191957 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/ecommon.h
+1433721076 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/ecommon.h
 	<io.h>
 	<unistd.h>
 	"pd-extended/m_pd.h"
 	"pd-extended/m_imp.h"
 	"pd-extended/g_canvas.h"
-	"pd-extended/s_stuff.h"
 	"pd-vanilla/m_pd.h"
 	"pd-vanilla/m_imp.h"
 	"pd-vanilla/g_canvas.h"
-	"pd-vanilla/s_stuff.h"
 	<stdio.h>
 	<stdlib.h>
 	<stdint.h>
@@ -1046,50 +1044,50 @@
 	<fcntl.h>
 	"eboxflag.h"
 
-1429005917 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/pd-extended/m_pd.h
+1433293514 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/pd-extended/m_pd.h
 	<stddef.h>
 	<stdint.h>
 	<stdio.h>
 
-1429005917 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/pd-extended/m_imp.h
+1433293514 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/pd-extended/m_imp.h
 
-1429005917 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/pd-extended/g_canvas.h
+1433293514 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/pd-extended/g_canvas.h
 
-1429005917 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/pd-extended/s_stuff.h
+1433293514 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/pd-extended/s_stuff.h
 
-1429005917 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/pd-vanilla/m_pd.h
+1433293514 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/pd-vanilla/m_pd.h
 	<stddef.h>
 	<stdint.h>
 	<stdio.h>
 
-1429005917 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/pd-vanilla/m_imp.h
+1433293514 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/pd-vanilla/m_imp.h
 
-1429005917 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/pd-vanilla/g_canvas.h
+1433293514 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/pd-vanilla/g_canvas.h
 
-1429005917 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/pd-vanilla/s_stuff.h
+1433293514 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/pd-vanilla/s_stuff.h
 
-1429005917 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/eboxflag.h
+1433293514 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/eboxflag.h
 
-1429191957 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ebox/ebox.h
+1433293514 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ebox/ebox.h
 	"../estruct.h"
 	"../egraphics/egraphics.h"
 	"../eobj/eobj.h"
 
-1429005917 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/egraphics/egraphics.h
+1433293514 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/egraphics/egraphics.h
 	"../estruct.h"
 
-1429005917 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/eobj/eobj.h
+1433721076 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/eobj/eobj.h
 	"../estruct.h"
 	"../egraphics/egraphics.h"
 	"../ecommon/ecommon.h"
 
-1429005917 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/epopup/epopup.h
+1433293514 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/epopup/epopup.h
 	"../estruct.h"
 	"../ebox/ebox.h"
 
-1429005917 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/epd_max.h
+1433293514 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/epd_max.h
 
-1429005920 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Hoa.hpp
+1433293533 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Hoa.hpp
 	"Harmonics.hpp"
 	"Planewaves.hpp"
 	"Encoder.hpp"
@@ -1103,19 +1101,18 @@
 	"Scope.hpp"
 	"Wider.hpp"
 	"Source.hpp"
+	"Exchanger.hpp"
 	"Tools.hpp"
 
-1429005920 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Harmonics.hpp
+1433929504 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Harmonics.hpp
 	"Math.hpp"
 	"Signal.hpp"
 
-1429005920 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Math.hpp
+1433293533 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Math.hpp
 	"Defs.hpp"
 
-1429005920 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Defs.hpp
+1433951014 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Defs.hpp
 	<Accelerate/Accelerate.h>
-	<gsl_cblas.h>
-	<cblas.h>
 	<string>
 	<cmath>
 	<vector>
@@ -1127,92 +1124,91 @@
 	<z_dsp.h>
 	<ext_common.h>
 
-1429005920 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Signal.hpp
+1433337943 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Signal.hpp
 	"Defs.hpp"
 
-1429005920 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Planewaves.hpp
+1433293533 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Planewaves.hpp
 	"Math.hpp"
 	"Signal.hpp"
 
-1429005920 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Encoder.hpp
+1434024546 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Encoder.hpp
 	"Processor.hpp"
 
-1429005920 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Processor.hpp
+1433293533 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Processor.hpp
 	"Harmonics.hpp"
 	"Planewaves.hpp"
 
-1429187547 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Optim.hpp
+1433293533 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Optim.hpp
 	"Processor.hpp"
 
-1429005920 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Rotate.hpp
+1433293533 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Rotate.hpp
 	"Processor.hpp"
 
-1429190352 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Decoder.hpp
+1433594503 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Decoder.hpp
 	"Encoder.hpp"
 	"Hrtf.hpp"
 
-1429005920 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Hrtf.hpp
+1433293533 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Hrtf.hpp
 	"Defs.hpp"
 
-1429005920 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Vector.hpp
+1433721088 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Vector.hpp
 	"Planewaves.hpp"
 
-1429005920 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Meter.hpp
+1433293533 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Meter.hpp
 	"Planewaves.hpp"
 	"Voronoi.hpp"
 
-1429005920 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Voronoi.hpp
+1433293533 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Voronoi.hpp
 	"Defs.hpp"
 	"Math.hpp"
 
-1429005920 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Projector.hpp
+1433293533 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Projector.hpp
 	"Encoder.hpp"
 	"Planewaves.hpp"
 
-1429005920 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Recomposer.hpp
+1434024821 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Recomposer.hpp
 	"Encoder.hpp"
 	"Planewaves.hpp"
 
-1429005920 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Scope.hpp
+1433293533 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Scope.hpp
 	"Encoder.hpp"
 	"Planewaves.hpp"
 
-1429005920 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Wider.hpp
+1433293533 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Wider.hpp
 	"Processor.hpp"
 
-1429191978 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Source.hpp
+1433462805 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Source.hpp
 	"Math.hpp"
 
-1429005920 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Tools.hpp
+1434020049 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Tools.hpp
 	"Math.hpp"
 	"Signal.hpp"
 
-1429005876 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.encoder_tilde.cpp
+1433293417 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.encoder_tilde.cpp
 	"../hoa.library.h"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
-1429005876 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.io.cpp
+1433594516 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.io.cpp
 	"../hoa.library.h"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
-1429171025 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.map_gui.cpp
+1433293417 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.map_gui.cpp
 	"../hoa.library.h"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
-1429005876 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.map_tilde.cpp
+1433865130 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.map_tilde.cpp
 	"../hoa.library.h"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
-1429005876 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.meter_gui_tilde.cpp
+1433528952 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.meter_gui_tilde.cpp
 	"../hoa.library.h"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
-1429005876 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.process_tilde.cpp
+1433930206 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.process_tilde.cpp
 	"../hoa.library.h"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
-	"../ThirdParty/CicmWrapper/Sources/ecommon/d_ugen.h"
 
-1429005917 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/d_ugen.h
+1433293514 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/d_ugen.h
 	"pd-extended/m_pd.h"
 	"pd-extended/m_imp.h"
 	"pd-extended/g_canvas.h"
@@ -1224,79 +1220,120 @@
 	<stdlib.h>
 	<stdarg.h>
 
-1429005876 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.projector_tilde.cpp
+1433293417 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.projector_tilde.cpp
 	"../hoa.library.h"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
-1429005876 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.recomposer_tilde.cpp
+1434021818 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.recomposer_tilde.cpp
 	"../hoa.library.h"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
-1429005876 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.rotate_tilde.cpp
+1433293417 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.rotate_tilde.cpp
 	"../hoa.library.h"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
-1429005876 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.scope_gui_tilde.cpp
+1433463849 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.scope_gui_tilde.cpp
 	"../hoa.library.h"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
-1429005876 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.space_gui.cpp
+1433293417 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.space_gui.cpp
 	"../hoa.library.h"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
-1429005876 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.tools.cpp
+1433594516 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.tools.cpp
 	"../hoa.library.h"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
-1429005876 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.wider_tilde.cpp
+1433293417 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.wider_tilde.cpp
 	"../hoa.library.h"
 	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 
-1429005917 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ebox/ebox_attr.c
+1433594511 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ebox/ebox_attr.c
 	"ebox.h"
 
-1429005917 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ebox/ebox_patcher.c
+1433293514 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ebox/ebox_patcher.c
 	"ebox.h"
 
-1429005917 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ebox/ebox_window.c
+1433293514 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ebox/ebox_window.c
 	"ebox.h"
 
-1429005917 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/eclass/eclass_attrnew.c
+1433594511 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/eclass/eclass_attrnew.c
 	"eclass.h"
 
-1429005917 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/eclass/eclass_attroptions.c
+1433293514 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/eclass/eclass_attroptions.c
 	"eclass.h"
 
-1429005917 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/d_ugen.c
+1433462592 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/d_ugen.c
 	"d_ugen.h"
 
-1429005917 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/egraphics/egraphics.c
+1433293514 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/egraphics/egraphics.c
 	"egraphics.h"
 
-1429005917 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/egraphics/egraphics_color.c
+1433293514 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/egraphics/egraphics_color.c
 	"egraphics.h"
 
-1429005917 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/egraphics/egraphics_forms.c
+1433293514 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/egraphics/egraphics_forms.c
 	"egraphics.h"
 
-1429005917 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/egraphics/egraphics_matrix.c
+1433293514 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/egraphics/egraphics_matrix.c
 	"egraphics.h"
 
-1429005917 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/egraphics/egraphics_text.c
+1433293514 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/egraphics/egraphics_text.c
 	"egraphics.h"
 
-1429005917 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/eobj/eobj_basic.c
+1433528913 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/eobj/eobj_basic.c
 	"eobj.h"
 
-1429005917 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/eobj/eobj_dsp.c
+1433862671 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/eobj/eobj_dsp.c
 	"eobj.h"
 
-1429005917 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/eobj/eobj_handle.c
+1433594511 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/eobj/eobj_handle.c
 	"eobj.h"
 
-1429005917 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/eobj/eobj_router.c
+1433721076 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/eobj/eobj_router.c
 	"eobj.h"
 
-1429005917 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/epopup/epopup.c
+1433293514 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/epopup/epopup.c
 	"epopup.h"
+
+1433411905 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/hoa.library.cpp
+	"hoa.library.h"
+
+1433929035 /home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/HoaLibrary/Sources/Exchanger.hpp
+	"Processor.hpp"
+
+1433293417 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.exchanger_tilde.cpp
+	"../hoa.library.h"
+	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
+
+1433293417 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/Sources/hoa.optim_tilde.cpp
+	"../hoa.library.h"
+	"../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
+
+1433293514 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ebox/ebox_basic.c
+	"ebox.h"
+
+1433594511 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ebox/ebox_draw.c
+	"ebox.h"
+
+1433594511 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ebox/ebox_handle.c
+	"ebox.h"
+
+1433293514 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/eclass/eclass_attrgetter.c
+	"eclass.h"
+
+1433293514 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/eclass/eclass_attrsetter.c
+	"eclass.h"
+
+1433428389 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/eclass/eclass_basic.c
+	"eclass.h"
+
+1433293514 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/eclass/eclass_widget.c
+	"eclass.h"
+
+1433462607 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/ecommon/ecommon.c
+	"ecommon.h"
+
+1433861289 source:/home/thomas94/Logiciels/CICM/HoaLibrary-PD/ThirdParty/CicmWrapper/Sources/eobj/eobj_proxy.c
+	"eobj.h"
 
