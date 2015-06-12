@@ -30,15 +30,15 @@ static t_eclass *hoa_exchanger_3d_class;
 
 static void *hoa_exchanger_new(t_symbol *s, long argc, t_atom *argv)
 {
-	int	order = 1;
+	ulong order = 1;
     t_hoa_exchanger *x = (t_hoa_exchanger *)eobj_new(hoa_exchanger_class);
 	if (x)
 	{
         if(atom_gettype(argv) == A_LONG)
-            order = pd_clip_minmax(atom_getlong(argv), 1, 63);
+            order = ulong(pd_clip_minmax(atom_getlong(argv), 1, 63));
         
         x->f_exchanger = new Exchanger<Hoa2d, t_sample>(order);
-        eobj_dspsetup(x, x->f_exchanger->getNumberOfHarmonics(), x->f_exchanger->getNumberOfHarmonics());
+        eobj_dspsetup(x, long(x->f_exchanger->getNumberOfHarmonics()), long(x->f_exchanger->getNumberOfHarmonics()));
         
         x->f_ins = new t_sample[x->f_exchanger->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
         x->f_outs = new t_sample[x->f_exchanger->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
@@ -51,7 +51,7 @@ static void hoa_exchanger_perform(t_hoa_exchanger *x, t_object *dsp, t_sample **
 {
     for(long i = 0; i < nins; i++)
     {
-        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, nins);
+        Signal<t_sample>::copy(ulong(sampleframes), ins[i], 1, x->f_ins+i, ulong(nins));
     }
     for(long i = 0; i < sampleframes; i++)
     {
@@ -59,7 +59,7 @@ static void hoa_exchanger_perform(t_hoa_exchanger *x, t_object *dsp, t_sample **
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
@@ -93,14 +93,14 @@ extern "C" void setup_hoa0x2e2d0x2eexchanger_tilde(void)
 
 static void *hoa_exchanger_3d_new(t_symbol *s, long argc, t_atom *argv)
 {
-    int	order = 1;
+    ulong order = 1;
     Exchanger<Hoa3d, t_sample>::Normalization   norm = Exchanger<Hoa3d, t_sample>::SN3D;
     Exchanger<Hoa3d, t_sample>::Numbering       numb = Exchanger<Hoa3d, t_sample>::ACN;
     t_hoa_exchanger_3d *x = (t_hoa_exchanger_3d *)eobj_new(hoa_exchanger_3d_class);
     if(x)
     {
         if(atom_gettype(argv) == A_LONG)
-            order = pd_clip_minmax(atom_getlong(argv), 1, 10);
+            order = ulong(pd_clip_minmax(atom_getlong(argv), 1, 10));
         for(int i = 1; i < 3; i++)
         {
             if(argc > i && atom_gettype(argv+i) == A_SYM)
@@ -166,7 +166,7 @@ static void *hoa_exchanger_3d_new(t_symbol *s, long argc, t_atom *argv)
         x->f_exchanger = new Exchanger<Hoa3d, t_sample>(order);
         x->f_exchanger->setNormalization(norm);
         x->f_exchanger->setNumbering(numb);
-        eobj_dspsetup(x, x->f_exchanger->getNumberOfHarmonics(), x->f_exchanger->getNumberOfHarmonics());
+        eobj_dspsetup(x, long(x->f_exchanger->getNumberOfHarmonics()), long(x->f_exchanger->getNumberOfHarmonics()));
         
         x->f_ins = new t_sample[x->f_exchanger->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
         x->f_outs = new t_sample[x->f_exchanger->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
@@ -180,7 +180,7 @@ static void hoa_exchanger_3d_perform(t_hoa_exchanger_3d *x, t_object *dsp, float
 {
     for(long i = 0; i < numins; i++)
     {
-        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numins);
+        Signal<t_sample>::copy(ulong(sampleframes), ins[i], 1, x->f_ins+i, ulong(numins));
     }
     for(long i = 0; i < sampleframes; i++)
     {
@@ -188,7 +188,7 @@ static void hoa_exchanger_3d_perform(t_hoa_exchanger_3d *x, t_object *dsp, float
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 

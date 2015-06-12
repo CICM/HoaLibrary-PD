@@ -30,15 +30,15 @@ static t_eclass *hoa_wider_3d_class;
 
 static void *hoa_wider_new(t_symbol *s, long argc, t_atom *argv)
 {
-    int	order = 1;
+    ulong	order = 1;
     t_hoa_wider *x = (t_hoa_wider *)eobj_new(hoa_wider_class);
 	if(x)
 	{
 		if(atom_gettype(argv) == A_LONG)
-			order = pd_clip_minmax(atom_getlong(argv), 1, 63);
+			order = ulong(pd_clip_minmax(atom_getlong(argv), 1, 63));
         
 		x->f_wider = new Wider<Hoa2d, t_sample>(order);
-        eobj_dspsetup(x, x->f_wider->getNumberOfHarmonics() + 1, x->f_wider->getNumberOfHarmonics());
+        eobj_dspsetup(x, long(x->f_wider->getNumberOfHarmonics() + 1), long(x->f_wider->getNumberOfHarmonics()));
         
 		x->f_ins = new t_sample[x->f_wider->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
         x->f_outs = new t_sample[x->f_wider->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
@@ -49,15 +49,15 @@ static void *hoa_wider_new(t_symbol *s, long argc, t_atom *argv)
 
 static void *hoa_wider_3d_new(t_symbol *s, long argc, t_atom *argv)
 {
-    int	order = 1;
+    ulong	order = 1;
     t_hoa_wider_3d *x = (t_hoa_wider_3d *)eobj_new(hoa_wider_3d_class);
     if(x)
     {
         if(atom_gettype(argv) == A_LONG)
-            order = pd_clip_minmax(atom_getlong(argv), 1, 10);
+            order = ulong(pd_clip_minmax(atom_getlong(argv), 1, 10));
         
         x->f_wider = new Wider<Hoa3d, t_sample>(order);
-        eobj_dspsetup(x, x->f_wider->getNumberOfHarmonics() + 1, x->f_wider->getNumberOfHarmonics());
+        eobj_dspsetup(x, long(x->f_wider->getNumberOfHarmonics() + 1), long(x->f_wider->getNumberOfHarmonics()));
         
         x->f_ins = new t_sample[x->f_wider->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
         x->f_outs = new t_sample[x->f_wider->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
@@ -80,7 +80,7 @@ static void hoa_wider_perform(t_hoa_wider *x, t_object *dsp, t_sample **ins, lon
 {
 	for(long i = 0; i < numins - 1; i++)
     {
-        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numins - 1);
+        Signal<t_sample>::copy(ulong(sampleframes), ins[i], 1, x->f_ins+i, ulong(numins - 1));
     }
 	for(long i = 0; i < sampleframes; i++)
     {
@@ -89,7 +89,7 @@ static void hoa_wider_perform(t_hoa_wider *x, t_object *dsp, t_sample **ins, lon
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
@@ -97,7 +97,7 @@ static void hoa_wider_3d_perform(t_hoa_wider_3d *x, t_object *dsp, t_sample **in
 {
     for(long i = 0; i < numins - 1; i++)
     {
-        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numins - 1);
+        Signal<t_sample>::copy(ulong(sampleframes), ins[i], 1, x->f_ins+i, ulong(numins - 1));
     }
     for(long i = 0; i < sampleframes; i++)
     {
@@ -106,7 +106,7 @@ static void hoa_wider_3d_perform(t_hoa_wider_3d *x, t_object *dsp, t_sample **in
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
@@ -114,7 +114,7 @@ static void hoa_wider_perform_offset(t_hoa_wider *x, t_object *dsp, t_sample **i
 {
 	for(long i = 0; i < numins - 1; i++)
     {
-        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numins - 1);
+        Signal<t_sample>::copy(ulong(sampleframes), ins[i], 1, x->f_ins+i, ulong(numins - 1));
     }
 	for(long i = 0; i < sampleframes; i++)
     {
@@ -122,7 +122,7 @@ static void hoa_wider_perform_offset(t_hoa_wider *x, t_object *dsp, t_sample **i
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
@@ -130,7 +130,7 @@ static void hoa_wider_3d_perform_offset(t_hoa_wider_3d *x, t_object *dsp, t_samp
 {
     for(long i = 0; i < numins - 1; i++)
     {
-        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numins - 1);
+        Signal<t_sample>::copy(ulong(sampleframes), ins[i], 1, x->f_ins+i, ulong(numins - 1));
     }
     for(long i = 0; i < sampleframes; i++)
     {
@@ -138,7 +138,7 @@ static void hoa_wider_3d_perform_offset(t_hoa_wider_3d *x, t_object *dsp, t_samp
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 

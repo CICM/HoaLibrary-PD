@@ -38,17 +38,17 @@ static t_eclass *hoa_map_3d_tilde_class;
 
 static void *hoa_map_tilde_new(t_symbol *s, long argc, t_atom *argv)
 {
-    int	order = 1;
-    int numberOfSources = 1;
+    ulong order = 1;
+    ulong numberOfSources = 1;
     t_hoa_map_tilde *x  = (t_hoa_map_tilde *)eobj_new(hoa_map_tilde_class);
     t_binbuf *d         = binbuf_via_atoms(argc,argv);
 
 	if(x && d)
 	{
 		if(atom_gettype(argv) == A_LONG)
-			order = pd_clip_min(atom_getlong(argv), 1);
+			order = ulong(pd_clip_min(atom_getlong(argv), 1));
         if(argc > 1 && atom_gettype(argv+1) == A_LONG)
-            numberOfSources = pd_clip_minmax(atom_getlong(argv+1), 1, 255);
+            numberOfSources = ulong(pd_clip_minmax(atom_getlong(argv+1), 1, 255));
 
         if(argc > 2 && atom_gettype(argv+2) == A_SYM)
         {
@@ -72,9 +72,9 @@ static void *hoa_map_tilde_new(t_symbol *s, long argc, t_atom *argv)
         }
 
 		if(x->f_map->getNumberOfSources() == 1)
-            eobj_dspsetup(x, 3, x->f_map->getNumberOfHarmonics());
+            eobj_dspsetup(x, 3, long(x->f_map->getNumberOfHarmonics()));
         else
-            eobj_dspsetup(x, x->f_map->getNumberOfSources(), x->f_map->getNumberOfHarmonics());
+            eobj_dspsetup(x, long(x->f_map->getNumberOfSources()), long(x->f_map->getNumberOfHarmonics()));
 
         if(x->f_map->getNumberOfSources() == 1)
             x->f_sig_ins    = new t_sample[3 * HOA_MAXBLKSIZE];
@@ -135,17 +135,17 @@ static void hoa_map_tilde_list(t_hoa_map_tilde *x, t_symbol* s, long argc, t_ato
 
         if(argc > 3 && (atom_getsym(argv+1) == hoa_sym_polar || atom_getsym(argv+1) == hoa_sym_pol))
         {
-            x->f_lines->setRadius(index-1, atom_getfloat(argv+2));
-            x->f_lines->setAzimuth(index-1, atom_getfloat(argv+3));
+            x->f_lines->setRadius(ulong(index-1), atom_getfloat(argv+2));
+            x->f_lines->setAzimuth(ulong(index-1), atom_getfloat(argv+3));
         }
         else if(argc > 3 && (atom_getsym(argv+1) == hoa_sym_cartesian || atom_getsym(argv+1) == hoa_sym_car))
         {
-            x->f_lines->setRadius(index-1, Math<float>::radius(atom_getfloat(argv+2), atom_getfloat(argv+3)));
-            x->f_lines->setAzimuth(index-1, Math<float>::azimuth(atom_getfloat(argv+2), atom_getfloat(argv+3)));
+            x->f_lines->setRadius(ulong(index-1), Math<float>::radius(atom_getfloat(argv+2), atom_getfloat(argv+3)));
+            x->f_lines->setAzimuth(ulong(index-1), Math<float>::azimuth(atom_getfloat(argv+2), atom_getfloat(argv+3)));
         }
         else if(argc > 2 && atom_getsym(argv+1) == hoa_sym_mute)
         {
-            x->f_map->setMute(index-1, atom_getlong(argv+2));
+            x->f_map->setMute(ulong(index-1), atom_getlong(argv+2));
         }
     }
 }

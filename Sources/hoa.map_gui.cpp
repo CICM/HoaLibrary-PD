@@ -631,11 +631,11 @@ void hoa_map_source(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
             else if(param == hoa_sym_remove)
             {
                 x->f_manager->removeSource(index);
-                t_atom av[3];
-                atom_setlong(av, index);
-                atom_setsym(av+1, hoa_sym_mute);
-                atom_setlong(av+2, 1);
-                outlet_list(x->f_out_sources, 0L, 3, av);
+                t_atom av2[3];
+                atom_setlong(av2, index);
+                atom_setsym(av2+1, hoa_sym_mute);
+                atom_setlong(av2+2, 1);
+                outlet_list(x->f_out_sources, 0L, 3, av2);
             }
             else if(param == hoa_sym_mute)
                 tmp->setMute(atom_getlong(av+2));
@@ -781,10 +781,10 @@ void hoa_map_group(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
             else if(param == hoa_sym_remove)
             {
                 x->f_manager->removeGroup(index);
-                t_atom av[3];
-                atom_setlong(av, index+1);
-                atom_setsym(av+1, hoa_sym_mute);
-                atom_setlong(av+2, 1);
+                t_atom av2[3];
+                atom_setlong(av2, index+1);
+                atom_setsym(av2+1, hoa_sym_mute);
+                atom_setlong(av2+2, 1);
                 outlet_list(x->f_out_groups, 0L, 3, av);
             }
             else if(param == hoa_sym_description)
