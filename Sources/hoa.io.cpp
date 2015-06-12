@@ -356,7 +356,7 @@ static void *hoa_thisprocess_new(t_symbol *s, long argc, t_atom *argv)
 
 static void hoa_thisprocess_bang(t_hoa_thisprocess *x)
 {
-    char        attr_char[MAXPDSTRING];
+    char attr_char[MAXPDSTRING];
     for(int i = 0; i < x->f_n_attrs; i++)
     {
         sprintf(attr_char, "%s", x->f_attr_name[i]->s_name+1);

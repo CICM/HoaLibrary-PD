@@ -82,6 +82,16 @@
 		8F3E8AD01AB9C286009A8EFC /* hoa.library.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F3E8ACD1AB9C286009A8EFC /* hoa.library.cpp */; };
 		8F3E8AD11AB9C286009A8EFC /* hoa.library.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F3E8ACE1AB9C286009A8EFC /* hoa.library.h */; };
 		8F3E8AD21AB9C286009A8EFC /* hoa.library.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F3E8ACE1AB9C286009A8EFC /* hoa.library.h */; };
+		8F4DC7791B25B5E00050A443 /* HrirIrc1002C.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8F4DC7741B25B5E00050A443 /* HrirIrc1002C.hpp */; };
+		8F4DC77A1B25B5E00050A443 /* HrirIrc1002C.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8F4DC7741B25B5E00050A443 /* HrirIrc1002C.hpp */; };
+		8F4DC77B1B25B5E00050A443 /* HrirIrc1003C.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8F4DC7751B25B5E00050A443 /* HrirIrc1003C.hpp */; };
+		8F4DC77C1B25B5E00050A443 /* HrirIrc1003C.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8F4DC7751B25B5E00050A443 /* HrirIrc1003C.hpp */; };
+		8F4DC77D1B25B5E00050A443 /* HrirIrc1004C.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8F4DC7761B25B5E00050A443 /* HrirIrc1004C.hpp */; };
+		8F4DC77E1B25B5E00050A443 /* HrirIrc1004C.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8F4DC7761B25B5E00050A443 /* HrirIrc1004C.hpp */; };
+		8F4DC77F1B25B5E00050A443 /* HrirIrc1005C.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8F4DC7771B25B5E00050A443 /* HrirIrc1005C.hpp */; };
+		8F4DC7801B25B5E00050A443 /* HrirIrc1005C.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8F4DC7771B25B5E00050A443 /* HrirIrc1005C.hpp */; };
+		8F4DC7811B25B5E00050A443 /* HrirIrc1006C.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8F4DC7781B25B5E00050A443 /* HrirIrc1006C.hpp */; };
+		8F4DC7821B25B5E00050A443 /* HrirIrc1006C.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8F4DC7781B25B5E00050A443 /* HrirIrc1006C.hpp */; };
 		8F5837371ABBF92F003F0A79 /* Processor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8F5837361ABBF92F003F0A79 /* Processor.hpp */; };
 		8F5837381ABBF92F003F0A79 /* Processor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8F5837361ABBF92F003F0A79 /* Processor.hpp */; };
 		8F7F5BF21B13B2B1008D6985 /* Exchanger.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8F7F5BF11B13B2B1008D6985 /* Exchanger.hpp */; };
@@ -124,8 +134,8 @@
 		8F83E8191A60346F00FDDCC8 /* hoa.tools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F83E80E1A60346F00FDDCC8 /* hoa.tools.cpp */; };
 		8F83E81A1A60346F00FDDCC8 /* hoa.wider_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F83E80F1A60346F00FDDCC8 /* hoa.wider_tilde.cpp */; };
 		8F83E81B1A60346F00FDDCC8 /* hoa.wider_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F83E80F1A60346F00FDDCC8 /* hoa.wider_tilde.cpp */; };
-		8F9D78C61AAF07160091BFDF /* Hrtf.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8F9D78C51AAF07160091BFDF /* Hrtf.hpp */; };
-		8F9D78C71AAF07160091BFDF /* Hrtf.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8F9D78C51AAF07160091BFDF /* Hrtf.hpp */; };
+		8F9D78C61AAF07160091BFDF /* Hrir.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8F9D78C51AAF07160091BFDF /* Hrir.hpp */; };
+		8F9D78C71AAF07160091BFDF /* Hrir.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8F9D78C51AAF07160091BFDF /* Hrir.hpp */; };
 		8FAC0C56196985A400E09ACB /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FB02F717A7FAA9001E977D /* Accelerate.framework */; };
 		8FAD33081B19B05B002CBB4B /* hoa.exchanger_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FAD33071B19B05B002CBB4B /* hoa.exchanger_tilde.cpp */; };
 		8FAD33091B19B05B002CBB4B /* hoa.exchanger_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FAD33071B19B05B002CBB4B /* hoa.exchanger_tilde.cpp */; };
@@ -201,6 +211,11 @@
 		8F1F1BB31A5425AF0026B9E8 /* estruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = estruct.h; sourceTree = "<group>"; };
 		8F3E8ACD1AB9C286009A8EFC /* hoa.library.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.library.cpp; sourceTree = "<group>"; };
 		8F3E8ACE1AB9C286009A8EFC /* hoa.library.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hoa.library.h; sourceTree = "<group>"; };
+		8F4DC7741B25B5E00050A443 /* HrirIrc1002C.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HrirIrc1002C.hpp; sourceTree = "<group>"; };
+		8F4DC7751B25B5E00050A443 /* HrirIrc1003C.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HrirIrc1003C.hpp; sourceTree = "<group>"; };
+		8F4DC7761B25B5E00050A443 /* HrirIrc1004C.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HrirIrc1004C.hpp; sourceTree = "<group>"; };
+		8F4DC7771B25B5E00050A443 /* HrirIrc1005C.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HrirIrc1005C.hpp; sourceTree = "<group>"; };
+		8F4DC7781B25B5E00050A443 /* HrirIrc1006C.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HrirIrc1006C.hpp; sourceTree = "<group>"; };
 		8F5837361ABBF92F003F0A79 /* Processor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Processor.hpp; sourceTree = "<group>"; };
 		8F7F5BF11B13B2B1008D6985 /* Exchanger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Exchanger.hpp; sourceTree = "<group>"; };
 		8F80BF151A613B0A00692F98 /* hoa.encoder_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.encoder_tilde.cpp; sourceTree = "<group>"; };
@@ -222,7 +237,7 @@
 		8F83E80D1A60346F00FDDCC8 /* hoa.process_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.process_tilde.cpp; sourceTree = "<group>"; };
 		8F83E80E1A60346F00FDDCC8 /* hoa.tools.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.tools.cpp; sourceTree = "<group>"; };
 		8F83E80F1A60346F00FDDCC8 /* hoa.wider_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.wider_tilde.cpp; sourceTree = "<group>"; };
-		8F9D78C51AAF07160091BFDF /* Hrtf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Hrtf.hpp; sourceTree = "<group>"; };
+		8F9D78C51AAF07160091BFDF /* Hrir.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Hrir.hpp; sourceTree = "<group>"; };
 		8FAC0C91196985A400E09ACB /* Hoa.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = Hoa.pd_darwin; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FAD33071B19B05B002CBB4B /* hoa.exchanger_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.exchanger_tilde.cpp; sourceTree = "<group>"; };
 		8FC2ED851A627B4800DBD231 /* hoa.scope_gui_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hoa.scope_gui_tilde.cpp; sourceTree = "<group>"; };
@@ -414,7 +429,6 @@
 				8FFCAC281A5C0FC600E38483 /* Defs.hpp */,
 				8FFCAC291A5C0FC600E38483 /* Math.hpp */,
 				8F83E7F41A5E7CD700FDDCC8 /* Signal.hpp */,
-				8F9D78C51AAF07160091BFDF /* Hrtf.hpp */,
 				8FFCAC0D1A5C0FC600E38483 /* Harmonics.hpp */,
 				8FFCAC2B1A5C0FC600E38483 /* Planewaves.hpp */,
 				8F5837361ABBF92F003F0A79 /* Processor.hpp */,
@@ -432,6 +446,12 @@
 				8FC2ED8F1A62A0DC00DBD231 /* Source.hpp */,
 				8F7F5BF11B13B2B1008D6985 /* Exchanger.hpp */,
 				8F83E7E21A5D26BF00FDDCC8 /* Tools.hpp */,
+				8F9D78C51AAF07160091BFDF /* Hrir.hpp */,
+				8F4DC7741B25B5E00050A443 /* HrirIrc1002C.hpp */,
+				8F4DC7751B25B5E00050A443 /* HrirIrc1003C.hpp */,
+				8F4DC7761B25B5E00050A443 /* HrirIrc1004C.hpp */,
+				8F4DC7771B25B5E00050A443 /* HrirIrc1005C.hpp */,
+				8F4DC7781B25B5E00050A443 /* HrirIrc1006C.hpp */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -448,9 +468,11 @@
 				8FFCAC2F1A5C0FC600E38483 /* Decoder.hpp in Headers */,
 				8F83E7F81A5EC73100FDDCC8 /* Wider.hpp in Headers */,
 				8FFCAC671A5C0FC600E38483 /* Math.hpp in Headers */,
+				8F4DC7811B25B5E00050A443 /* HrirIrc1006C.hpp in Headers */,
 				8F5837371ABBF92F003F0A79 /* Processor.hpp in Headers */,
 				8F1F1BDB1A5425AF0026B9E8 /* ecommon.h in Headers */,
 				8FFCAC311A5C0FC600E38483 /* Encoder.hpp in Headers */,
+				8F4DC7791B25B5E00050A443 /* HrirIrc1002C.hpp in Headers */,
 				8FFCAC6B1A5C0FC600E38483 /* Planewaves.hpp in Headers */,
 				8F83E7EF1A5D820F00FDDCC8 /* Recomposer.hpp in Headers */,
 				8F1F1BEF1A5425AF0026B9E8 /* egraphics.h in Headers */,
@@ -462,15 +484,18 @@
 				8FFCAC691A5C0FC600E38483 /* Optim.hpp in Headers */,
 				8FFCAC711A5C0FC600E38483 /* Vector.hpp in Headers */,
 				8F1F1C0D1A5425AF0026B9E8 /* estruct.h in Headers */,
+				8F4DC77B1B25B5E00050A443 /* HrirIrc1003C.hpp in Headers */,
 				8F83E7EC1A5D7D9400FDDCC8 /* Projector.hpp in Headers */,
 				8F83E7E31A5D26BF00FDDCC8 /* Tools.hpp in Headers */,
 				8F1F1BD71A5425AF0026B9E8 /* eboxflag.h in Headers */,
 				8FDAB82E1AB1F4B3002D98AC /* Voronoi.hpp in Headers */,
 				8F1F1BB71A5425AF0026B9E8 /* ebox.h in Headers */,
-				8F9D78C61AAF07160091BFDF /* Hrtf.hpp in Headers */,
+				8F9D78C61AAF07160091BFDF /* Hrir.hpp in Headers */,
 				8FFCAC351A5C0FC600E38483 /* Hoa.hpp in Headers */,
+				8F4DC77F1B25B5E00050A443 /* HrirIrc1005C.hpp in Headers */,
 				8FFCAC651A5C0FC600E38483 /* Defs.hpp in Headers */,
 				8F7F5BF21B13B2B1008D6985 /* Exchanger.hpp in Headers */,
+				8F4DC77D1B25B5E00050A443 /* HrirIrc1004C.hpp in Headers */,
 				8F1F1C071A5425AF0026B9E8 /* epd_max.h in Headers */,
 				8F1F1BB51A5425AF0026B9E8 /* cicm_wrapper.h in Headers */,
 				8F83E7F21A5E022300FDDCC8 /* Scope.hpp in Headers */,
@@ -489,9 +514,11 @@
 				8FFCAC301A5C0FC600E38483 /* Decoder.hpp in Headers */,
 				8F83E7F91A5EC73100FDDCC8 /* Wider.hpp in Headers */,
 				8FFCAC681A5C0FC600E38483 /* Math.hpp in Headers */,
+				8F4DC7821B25B5E00050A443 /* HrirIrc1006C.hpp in Headers */,
 				8F5837381ABBF92F003F0A79 /* Processor.hpp in Headers */,
 				8F1F1BDC1A5425AF0026B9E8 /* ecommon.h in Headers */,
 				8FFCAC321A5C0FC600E38483 /* Encoder.hpp in Headers */,
+				8F4DC77A1B25B5E00050A443 /* HrirIrc1002C.hpp in Headers */,
 				8FFCAC6C1A5C0FC600E38483 /* Planewaves.hpp in Headers */,
 				8F83E7F01A5D820F00FDDCC8 /* Recomposer.hpp in Headers */,
 				8F1F1BF01A5425AF0026B9E8 /* egraphics.h in Headers */,
@@ -503,15 +530,18 @@
 				8FFCAC6A1A5C0FC600E38483 /* Optim.hpp in Headers */,
 				8FFCAC721A5C0FC600E38483 /* Vector.hpp in Headers */,
 				8F1F1C0E1A5425AF0026B9E8 /* estruct.h in Headers */,
+				8F4DC77C1B25B5E00050A443 /* HrirIrc1003C.hpp in Headers */,
 				8F83E7ED1A5D7D9400FDDCC8 /* Projector.hpp in Headers */,
 				8F83E7E41A5D26BF00FDDCC8 /* Tools.hpp in Headers */,
 				8F1F1BD81A5425AF0026B9E8 /* eboxflag.h in Headers */,
 				8FDAB82F1AB1F4B3002D98AC /* Voronoi.hpp in Headers */,
 				8F1F1BB81A5425AF0026B9E8 /* ebox.h in Headers */,
-				8F9D78C71AAF07160091BFDF /* Hrtf.hpp in Headers */,
+				8F9D78C71AAF07160091BFDF /* Hrir.hpp in Headers */,
 				8FFCAC361A5C0FC600E38483 /* Hoa.hpp in Headers */,
+				8F4DC7801B25B5E00050A443 /* HrirIrc1005C.hpp in Headers */,
 				8FFCAC661A5C0FC600E38483 /* Defs.hpp in Headers */,
 				8F7F5BF31B13B2B1008D6985 /* Exchanger.hpp in Headers */,
+				8F4DC77E1B25B5E00050A443 /* HrirIrc1004C.hpp in Headers */,
 				8F1F1C081A5425AF0026B9E8 /* epd_max.h in Headers */,
 				8F1F1BB61A5425AF0026B9E8 /* cicm_wrapper.h in Headers */,
 				8F83E7F31A5E022300FDDCC8 /* Scope.hpp in Headers */,

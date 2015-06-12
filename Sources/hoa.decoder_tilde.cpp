@@ -112,12 +112,7 @@ static void hoa_decoder_perform64_irregular(t_hoa_decoder *x, t_object *dsp64, t
 
 static void hoa_decoder_perform64_binaural(t_hoa_decoder *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
-    const long max = numins < 11 ? numins : 11;
-    for(long i = 0; i < max; i++)
-    {
-        Signal<t_sample>::copy(sampleframes, ins[i], x->f_ins+i*sampleframes);
-    }
-    (static_cast<Decoder<Hoa2d, t_sample>::Binaural*>(x->f_decoder))->processBlock(x->f_ins, outs);
+    (static_cast<Decoder<Hoa2d, t_sample>::Binaural*>(x->f_decoder))->processBlock((const t_sample**)ins, outs);
 }
 
 static void hoa_decoder_dsp(t_hoa_decoder *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
