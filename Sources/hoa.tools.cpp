@@ -210,7 +210,7 @@ static void *hoa_dac_new(t_symbol *s, long argc, t_atom *argv)
                 }
             }
         }
-        x->x_vec = (t_int *)malloc((x->x_n ? x->x_n : 1) * sizeof(*x->x_vec));
+        x->x_vec = (t_int *)malloc(size_t(x->x_n ? x->x_n : 1) * sizeof(*x->x_vec));
         for (i = 0; i < x->x_n; i++)
         {
             x->x_vec[i] = atom_getintarg(i, x->x_n, channels);
@@ -241,7 +241,7 @@ static void hoa_dac_dsp(t_hoa_dac *x, t_signal **sp)
 static void hoa_dac_free(t_hoa_dac *x)
 {
 #ifndef _WINDOWS
-    freebytes(x->x_vec, x->x_n * sizeof(*x->x_vec));
+    freebytes(x->x_vec, size_t(x->x_n) * sizeof(*x->x_vec));
 #else
     free(x->x_vec);
 #endif

@@ -149,9 +149,9 @@ private:
                         free(thisprocess->f_args);
                     }
                     thisprocess->f_argc = argc;
-                    thisprocess->f_args = (t_atom *)malloc(argc * sizeof(t_atom));
+                    thisprocess->f_args = (t_atom *)malloc((size_t)argc * sizeof(t_atom));
                 }
-                memcpy(thisprocess->f_args, argv, argc * sizeof(t_atom));
+                memcpy(thisprocess->f_args, argv, (size_t)argc * sizeof(t_atom));
             }
             if(nattrs && attrs)
             {
@@ -364,7 +364,7 @@ public:
         for(ulong i = 0; i < m_ins_extra.size(); i++)
         {
             if(ulong(m_ins_extra[i]->f_extra) > n)
-                n = m_ins_extra[i]->f_extra;
+                n = ulong(m_ins_extra[i]->f_extra);
         }
         return n;
     }
@@ -375,7 +375,7 @@ public:
         for(ulong i = 0; i < m_ins_extra_sig.size(); i++)
         {
             if(ulong(m_ins_extra_sig[i]->f_extra) > n)
-                n = m_ins_extra_sig[i]->f_extra;
+                n = ulong(m_ins_extra_sig[i]->f_extra);
         }
         return n;
     }
@@ -396,7 +396,7 @@ public:
         for(ulong i = 0; i < m_outs_extra.size(); i++)
         {
             if(ulong(m_outs_extra[i]->f_extra) > n)
-                n = m_outs_extra[i]->f_extra;
+                n = ulong(m_outs_extra[i]->f_extra);
         }
         return n;
     }
@@ -407,7 +407,7 @@ public:
         for(ulong i = 0; i < m_outs_extra_sig.size(); i++)
         {
             if(ulong(m_outs_extra_sig[i]->f_extra) > n)
-                n = m_outs_extra_sig[i]->f_extra;
+                n = ulong(m_outs_extra_sig[i]->f_extra);
         }
         return n;
     }
@@ -420,11 +420,11 @@ public:
         }
     }
     
-    inline void setExtraOutlet(t_outlet* outlet, int index)
+    inline void setExtraOutlet(t_outlet* outlet, ulong index)
     {
         for(ulong i = 0; i < m_outs_extra.size(); i++)
         {
-            if(m_outs_extra[i]->f_extra == index)
+            if(ulong(m_outs_extra[i]->f_extra) == index)
             {
                 m_outs_extra[i]->f_outlet = outlet;
             }
@@ -447,12 +447,12 @@ public:
         }
         for(size_t i = 0; i < m_ins_extra_sig.size(); i++)
         {
-            if(ulong(m_ins_extra_sig[i]->f_extra) > ixtra.size() || !ixtra[m_ins_extra_sig[i]->f_extra-1])
+            if(ulong(m_ins_extra_sig[i]->f_extra) > ixtra.size() || !ixtra[size_t(m_ins_extra_sig[i]->f_extra-1)])
             {
                 bug("process don't have input signal extra %i.", m_ins_extra_sig[i]->f_extra);
                 return true;
             }
-            m_ins_extra_sig[i]->f_signal = ixtra[m_ins_extra_sig[i]->f_extra-1];
+            m_ins_extra_sig[i]->f_signal = ixtra[size_t(m_ins_extra_sig[i]->f_extra-1)];
         }
         if(hasNormalSignalOutputs())
         {
@@ -468,12 +468,12 @@ public:
         }
         for(size_t i = 0; i < m_outs_extra_sig.size(); i++)
         {
-            if(ulong(m_outs_extra_sig[i]->f_extra) > oxtra.size() || !oxtra[m_outs_extra_sig[i]->f_extra-1])
+            if(ulong(m_outs_extra_sig[i]->f_extra) > oxtra.size() || !oxtra[size_t(m_outs_extra_sig[i]->f_extra-1)])
             {
                 bug("process don't have output signal extra %i.", m_outs_extra_sig[i]->f_extra);
                 return true;
             }
-            m_outs_extra_sig[i]->f_signal = oxtra[m_outs_extra_sig[i]->f_extra-1];
+            m_outs_extra_sig[i]->f_signal = oxtra[size_t(m_outs_extra_sig[i]->f_extra-1)];
         }
         return false;
     }
@@ -502,8 +502,8 @@ static void hoa_process_perform(t_hoa_process *x, t_object *dsp, float **inps, l
     pd_bang((t_pd *)x->f_switch);
     for(int i = 0; i < nouts; i++)
     {
-        memcpy(outs[i], x->f_outlets_signals[i], sampleframe * sizeof(t_sample));
-        memset(x->f_outlets_signals[i], 0, sampleframe * sizeof(t_sample));
+        memcpy(outs[i], x->f_outlets_signals[size_t(i)], size_t(sampleframe) * sizeof(t_sample));
+        memset(x->f_outlets_signals[size_t(i)], 0, size_t(sampleframe) * sizeof(t_sample));
     }
 }
 
@@ -539,11 +539,11 @@ static void hoa_process_dsp(t_hoa_process *x, t_object *dsp, short *count, doubl
     {
         for(ulong i = 0; i < x->f_instances.size(); i++)
         {
-            ins.push_back(eobj_getsignalinput(x, i));
+            ins.push_back(eobj_getsignalinput(x, long(i)));
         }
         for(ulong i = 0; i < max_sig_ins_extra; i++)
         {
-            ixtra.push_back(eobj_getsignalinput(x, i+x->f_instances.size()));
+            ixtra.push_back(eobj_getsignalinput(x, long(i+x->f_instances.size())));
         }
     }
     else
@@ -554,7 +554,7 @@ static void hoa_process_dsp(t_hoa_process *x, t_object *dsp, short *count, doubl
         }
         for(ulong i = 0; i < max_sig_ins_extra; i++)
         {
-            ixtra.push_back(eobj_getsignalinput(x, i));
+            ixtra.push_back(eobj_getsignalinput(x, long(i)));
         }
     }
     if(have_sig_outs)
@@ -668,14 +668,14 @@ static void hoa_process_target(t_hoa_process *x, t_symbol* s, int argc, t_atom* 
 
 static void hoa_process_bang(t_hoa_process *x)
 {
-    long index = eobj_getproxy(x);
+    ulong index = ulong(eobj_getproxy(x));
     if(x->f_have_ins && ulong(index) < x->f_instances.size())
     {
         x->f_instances[index]->sendBang();
     }
     else
     {
-        long extra = x->f_have_ins ? index - x->f_instances.size() + 1 : index + 1;
+        ulong extra = x->f_have_ins ? index - x->f_instances.size() + 1 : index + 1;
         if(x->f_target == _hoa_process::target_all)
         {
             for(ulong i = 0; i < x->f_instances.size(); i++)
@@ -685,21 +685,21 @@ static void hoa_process_bang(t_hoa_process *x)
         }
         else
         {
-            x->f_instances[x->f_target]->sendBang(extra);
+            x->f_instances[ulong(x->f_target)]->sendBang(extra);
         }
     }
 }
 
 static void hoa_process_float(t_hoa_process *x, float f)
 {
-    long index = eobj_getproxy(x);
+    ulong index = ulong(eobj_getproxy(x));
     if(x->f_have_ins && ulong(index) < x->f_instances.size())
     {
         x->f_instances[index]->sendFloat(f);
     }
     else
     {
-        long extra = x->f_have_ins ? index - x->f_instances.size() + 1 : index + 1;
+        ulong extra = x->f_have_ins ? index - x->f_instances.size() + 1 : index + 1;
         if(x->f_target == _hoa_process::target_all)
         {
             for(ulong i = 0; i < x->f_instances.size(); i++)
@@ -709,21 +709,21 @@ static void hoa_process_float(t_hoa_process *x, float f)
         }
         else
         {
-            x->f_instances[x->f_target]->sendFloat(extra, f);
+            x->f_instances[ulong(x->f_target)]->sendFloat(extra, f);
         }
     }
 }
 
 static void hoa_process_symbol(t_hoa_process *x, t_symbol* s)
 {
-    long index = eobj_getproxy(x);
+    ulong index = ulong(eobj_getproxy(x));
     if(x->f_have_ins && ulong(index) < x->f_instances.size())
     {
         x->f_instances[index]->sendSymbol(s);
     }
     else
     {
-        long extra = x->f_have_ins ? index - x->f_instances.size() + 1 : index + 1;
+        ulong extra = x->f_have_ins ? index - x->f_instances.size() + 1 : index + 1;
         if(x->f_target == _hoa_process::target_all)
         {
             for(ulong i = 0; i < x->f_instances.size(); i++)
@@ -733,21 +733,21 @@ static void hoa_process_symbol(t_hoa_process *x, t_symbol* s)
         }
         else
         {
-            x->f_instances[x->f_target]->sendSymbol(extra, s);
+            x->f_instances[ulong(x->f_target)]->sendSymbol(extra, s);
         }
     }
 }
 
 static void hoa_process_list(t_hoa_process *x, t_symbol* s, int argc, t_atom* argv)
 {
-    long index = eobj_getproxy(x);
+    ulong index = ulong(eobj_getproxy(x));
     if(x->f_have_ins && ulong(index) < x->f_instances.size())
     {
         x->f_instances[index]->sendList(s, argc, argv);
     }
     else
     {
-        long extra = x->f_have_ins ? index - x->f_instances.size() + 1 : index + 1;
+        ulong extra = x->f_have_ins ? index - x->f_instances.size() + 1 : index + 1;
         if(x->f_target == _hoa_process::target_all)
         {
             for(ulong i = 0; i < x->f_instances.size(); i++)
@@ -757,21 +757,21 @@ static void hoa_process_list(t_hoa_process *x, t_symbol* s, int argc, t_atom* ar
         }
         else
         {
-            x->f_instances[x->f_target]->sendList(extra, s, argc, argv);
+            x->f_instances[ulong(x->f_target)]->sendList(extra, s, argc, argv);
         }
     }
 }
 
 static void hoa_process_anything(t_hoa_process *x, t_symbol* s, int argc, t_atom* argv)
 {
-    long index = eobj_getproxy(x);
+    ulong index = ulong(eobj_getproxy(x));
     if(x->f_have_ins && ulong(index) < x->f_instances.size())
     {
         x->f_instances[index]->sendAnything(s, argc, argv);
     }
     else
     {
-        long extra = x->f_have_ins ? index - x->f_instances.size() + 1 : index + 1;
+        ulong extra = x->f_have_ins ? index - x->f_instances.size() + 1 : index + 1;
         if(x->f_target == _hoa_process::target_all)
         {
             for(ulong i = 0; i < x->f_instances.size(); i++)
@@ -781,7 +781,7 @@ static void hoa_process_anything(t_hoa_process *x, t_symbol* s, int argc, t_atom
         }
         else
         {
-            x->f_instances[x->f_target]->sendAnything(extra, s, argc, argv);
+            x->f_instances[ulong(x->f_target)]->sendAnything(extra, s, argc, argv);
         }
     }
 }
@@ -858,8 +858,8 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
                                                                                atom_getsym(argv+1),
                                                                                hoa_sym_harmonics,
                                                                                hoa_sym_2d,
-                                                                               order,
-                                                                               Harmonic<Hoa2d, t_sample>::getDegree(i),
+                                                                               long(order),
+                                                                               long(Harmonic<Hoa2d, t_sample>::getDegree(i)),
                                                                                Harmonic<Hoa2d, t_sample>::getOrder(i),
                                                                                narg, args, natr, atrs);
                         if(!x->f_instances[i])
@@ -883,8 +883,8 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
                                                                                atom_getsym(argv+1),
                                                                                hoa_sym_harmonics,
                                                                                hoa_sym_3d,
-                                                                               order,
-                                                                               Harmonic<Hoa3d, t_sample>::getDegree(i),
+                                                                               long(order),
+                                                                               long(Harmonic<Hoa3d, t_sample>::getDegree(i)),
                                                                                Harmonic<Hoa3d, t_sample>::getOrder(i),
                                                                                narg, args, natr, atrs);
                         if(!x->f_instances[i])
@@ -908,9 +908,9 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
                                                                                atom_getsym(argv+1),
                                                                                hoa_sym_planewaves,
                                                                                hoa_sym_2d,
-                                                                               argument,
-                                                                               i+1,
-                                                                               i+1,
+                                                                               long(argument),
+                                                                               long(i+1),
+                                                                               long(i+1),
                                                                                narg, args, natr, atrs);
                         if(!x->f_instances[i])
                         {
@@ -933,9 +933,9 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
                                                                                atom_getsym(argv+1),
                                                                                hoa_sym_planewaves,
                                                                                hoa_sym_3d,
-                                                                               argument,
-                                                                               i+1,
-                                                                               i+1,
+                                                                               long(argument),
+                                                                               long(i+1),
+                                                                               long(i+1),
                                                                                narg, args, natr, atrs);
                         if(!x->f_instances[i])
                         {
@@ -975,8 +975,8 @@ static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
                 }
                 
                 eobj_dspsetup(x,
-                              have_sig_ins * x->f_instances.size() + max_sig_ins_extra,
-                              have_sig_outs * x->f_instances.size() + max_sig_outs_extra);
+                              long(have_sig_ins * x->f_instances.size() + max_sig_ins_extra),
+                              long(have_sig_outs * x->f_instances.size() + max_sig_outs_extra));
                 for(ulong i = 0; i < have_sig_outs * x->f_instances.size() + max_sig_outs_extra; i++)
                 {
                     x->f_outlets_signals.push_back(new t_sample[HOA_MAXBLKSIZE]);

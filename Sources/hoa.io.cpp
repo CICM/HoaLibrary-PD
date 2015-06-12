@@ -238,7 +238,7 @@ static void *hoa_out_tilde_new(t_symbol *s, long argc, t_atom *argv)
 
 static void hoa_out_tilde_perform(t_hoa_out_tilde *x, t_object *dsp, float **inps, long ni, float **outs, long no, long sf, long f,void *up)
 {
-    Signal<t_sample>::add(sf, inps[0], x->f_signal);
+    Signal<t_sample>::add(ulong(sf), inps[0], x->f_signal);
 }
 
 static void hoa_out_tilde_dsp(t_hoa_out_tilde *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
@@ -290,12 +290,12 @@ static void *hoa_intilde_new(t_symbol *s, long argc, t_atom *argv)
 
 static void hoa_intilde_perform(t_hoa_in_tilde *x, t_object *dsp, float **ins, long ni, float **outs, long no, long sf, long f,void *up)
 {
-    memcpy(outs[0], x->f_signal, sf * sizeof(t_sample));
+    memcpy(outs[0], x->f_signal, size_t(sf) * sizeof(t_sample));
 }
 
 static void hoa_intilde_perform_zero(t_hoa_in_tilde *x, t_object *dsp, float **ins, long ni, float **outs, long no, long sf, long f,void *up)
 {
-    memset(outs[0], 0, sf * sizeof(t_sample));
+    memset(outs[0], 0, size_t(sf) * sizeof(t_sample));
 }
 
 
@@ -324,14 +324,12 @@ extern "C" void setup_hoa0x2ein_tilde(void)
 static void *hoa_thisprocess_new(t_symbol *s, long argc, t_atom *argv)
 {
     int i;
-    t_hoa_thisprocess *x =  NULL;
-
-    x = (t_hoa_thisprocess *)eobj_new(hoa_thisprocess_class);
+    t_hoa_thisprocess *x = (t_hoa_thisprocess *)eobj_new(hoa_thisprocess_class);
     if(x)
     {
         x->f_nit = 0;
         x->f_argc = atoms_get_attributes_offset(argc, argv);
-        x->f_args = (t_atom *)calloc(x->f_argc, sizeof(t_atom));
+        x->f_args = (t_atom *)calloc(size_t(x->f_argc), sizeof(t_atom));
         for(i = 0; i < x->f_argc; i++)
         {
             x->f_args[i] = argv[i];

@@ -20,20 +20,20 @@ static t_eclass *hoa_projector_class;
 
 static void *hoa_projector_new(t_symbol *s, long argc, t_atom *argv)
 {
-    int	order = 1;
-    int numberOfPlanewaves = 4;
+    ulong	order = 1;
+    ulong numberOfPlanewaves = 4;
     t_hoa_projector *x = NULL;
     x = (t_hoa_projector *)eobj_new(hoa_projector_class);
 	if (x)
 	{
 		if(atom_gettype(argv) == A_LONG)
-			order = pd_clip_minmax(atom_getlong(argv), 1, 63);
+			order = ulong(pd_clip_minmax(atom_getlong(argv), 1, 63));
         if(atom_gettype(argv+1) == A_LONG)
-			numberOfPlanewaves = pd_clip_min(atom_getlong(argv+1), order * 2 + 1);
+			numberOfPlanewaves = ulong(pd_clip_min(atom_getlong(argv+1), order * 2 + 1));
 		
 		x->f_projector = new Projector<Hoa2d, t_sample>(order, numberOfPlanewaves);
 		
-        eobj_dspsetup(x, x->f_projector->getNumberOfHarmonics(), x->f_projector->getNumberOfPlanewaves());
+        eobj_dspsetup(x, long(x->f_projector->getNumberOfHarmonics()), long(x->f_projector->getNumberOfPlanewaves()));
         
 		x->f_ins = new t_sample[x->f_projector->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
         x->f_outs = new t_sample[x->f_projector->getNumberOfPlanewaves() * HOA_MAXBLKSIZE];
@@ -46,7 +46,7 @@ static void hoa_projector_perform(t_hoa_projector *x, t_object *dsp64, t_sample 
 {
     for(long i = 0; i < numins; i++)
     {
-        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numins);
+        Signal<t_sample>::copy(ulong(sampleframes), ins[i], 1, x->f_ins+i, ulong(numins));
     }
 	for(long i = 0; i < sampleframes; i++)
     {
@@ -54,7 +54,7 @@ static void hoa_projector_perform(t_hoa_projector *x, t_object *dsp64, t_sample 
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
