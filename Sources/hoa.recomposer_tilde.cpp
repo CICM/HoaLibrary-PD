@@ -30,8 +30,8 @@ static t_eclass *hoa_recomposer_class;
 
 static void *hoa_recomposer_new(t_symbol *s, long argc, t_atom *argv)
 {
-    int	order = 1;
-    int numberOfPlanewaves = 4;
+    ulong order = 1;
+    ulong numberOfPlanewaves = 4;
     t_hoa_recomposer *x = (t_hoa_recomposer *)eobj_new(hoa_recomposer_class);
     t_binbuf *d         = binbuf_via_atoms(argc,argv);
 
@@ -40,9 +40,9 @@ static void *hoa_recomposer_new(t_symbol *s, long argc, t_atom *argv)
         x->f_mode = hoa_sym_fixe;
         x->f_ramp = 100;
 		if(argc && argv && atom_gettype(argv) == A_LONG)
-			order = pd_clip_minmax(atom_getlong(argv), 1, 63);
+			order = ulong(pd_clip_minmax(atom_getlong(argv), 1, 63));
         if(argc > 1 && argv && atom_gettype(argv+1) == A_LONG)
-			numberOfPlanewaves = pd_clip_min(atom_getlong(argv+1), order * 2 + 1);
+			numberOfPlanewaves = ulong(pd_clip_min(atom_getlong(argv+1), order * 2 + 1));
         if(argc > 2 && argv && atom_gettype(argv+2) == A_SYM)
         {
             if(atom_getsym(argv+2) == hoa_sym_free)
@@ -56,7 +56,7 @@ static void *hoa_recomposer_new(t_symbol *s, long argc, t_atom *argv)
             x->f_fixe = new Recomposer<Hoa2d, t_sample, Fixe>(order, numberOfPlanewaves);
             x->f_ins  = new t_float[x->f_fixe->getNumberOfPlanewaves() * HOA_MAXBLKSIZE];
             x->f_outs = new t_float[x->f_fixe->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
-            eobj_dspsetup(x, x->f_fixe->getNumberOfPlanewaves(), x->f_fixe->getNumberOfHarmonics());
+            eobj_dspsetup(x, long(x->f_fixe->getNumberOfPlanewaves()), long(x->f_fixe->getNumberOfHarmonics()));
         }
         else if(x->f_mode == hoa_sym_fisheye)
         {
@@ -65,7 +65,7 @@ static void *hoa_recomposer_new(t_symbol *s, long argc, t_atom *argv)
             x->f_outs       = new t_float[x->f_fisheye->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
             x->f_line.setRamp(0.1 * sys_getsr());
             x->f_line.setValue(0.f);
-            eobj_dspsetup(x, x->f_fisheye->getNumberOfPlanewaves() + 1, x->f_fisheye->getNumberOfHarmonics());
+            eobj_dspsetup(x, long(x->f_fisheye->getNumberOfPlanewaves() + 1), long(x->f_fisheye->getNumberOfHarmonics()));
         }
         else if(x->f_mode == hoa_sym_free)
         {
@@ -79,7 +79,7 @@ static void *hoa_recomposer_new(t_symbol *s, long argc, t_atom *argv)
                 x->f_lines->setRadiusDirect(i, x->f_free->getWidening(i));
                 x->f_lines->setAzimuthDirect(i, x->f_free->getAzimuth(i));
             }
-            eobj_dspsetup(x, x->f_free->getNumberOfPlanewaves(), x->f_free->getNumberOfHarmonics());
+            eobj_dspsetup(x, long(x->f_free->getNumberOfPlanewaves()), long(x->f_free->getNumberOfHarmonics()));
             x->f_lines_vector   = new float[x->f_free->getNumberOfPlanewaves() * 2];
         }
 
@@ -99,11 +99,11 @@ static void hoa_recomposer_float(t_hoa_recomposer *x, float f)
     }
 }
 
-static void hoa_recomposer_angle(t_hoa_recomposer *x, t_symbol *s, short ac, t_atom *av)
+static void hoa_recomposer_angle(t_hoa_recomposer *x, t_symbol *s, int ac, t_atom *av)
 {
     if(ac && av && x->f_mode == hoa_sym_free)
     {
-        for(int i = 0; i < (int)x->f_free->getNumberOfPlanewaves() && i < ac; i++)
+        for(ulong i = 0; i < x->f_free->getNumberOfPlanewaves() && i < ulong(ac); i++)
         {
             if(atom_gettype(av+i) == A_FLOAT)
             {
@@ -113,11 +113,11 @@ static void hoa_recomposer_angle(t_hoa_recomposer *x, t_symbol *s, short ac, t_a
     }
 }
 
-static void hoa_recomposer_wide(t_hoa_recomposer *x, t_symbol *s, short ac, t_atom *av)
+static void hoa_recomposer_wide(t_hoa_recomposer *x, t_symbol *s, int ac, t_atom *av)
 {
     if(ac && av && x->f_mode == hoa_sym_free)
     {
-        for(int i = 0; i < (int)x->f_free->getNumberOfPlanewaves() && i < ac; i++)
+        for(ulong i = 0; i < x->f_free->getNumberOfPlanewaves() && i < ulong(ac); i++)
         {
             if(atom_gettype(av+i) == A_FLOAT)
             {
@@ -131,7 +131,7 @@ static void hoa_recomposer_perform_fixe(t_hoa_recomposer *x, t_object *dsp64, fl
 {
     for(int i = 0; i < numins; i++)
     {
-        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numins);
+        Signal<t_sample>::copy(ulong(sampleframes), ins[i], 1, x->f_ins+i, ulong(numins));
     }
     for(int i = 0; i < sampleframes; i++)
     {
@@ -139,66 +139,65 @@ static void hoa_recomposer_perform_fixe(t_hoa_recomposer *x, t_object *dsp64, fl
     }
     for(int i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
 static void hoa_recomposer_perform_fisheye(t_hoa_recomposer *x, t_object *dsp64, float **ins, long numins, float **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
-    ulong numberOfPlanewaves = x->f_fisheye->getNumberOfPlanewaves();
+    const ulong numberOfPlanewaves = x->f_fisheye->getNumberOfPlanewaves();
     for(ulong i = 0; i < numberOfPlanewaves; i++)
     {
-        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numberOfPlanewaves);
+        Signal<t_sample>::copy(ulong(sampleframes), ins[i], 1, x->f_ins+i, numberOfPlanewaves);
     }
-    for(long i = 0; i < sampleframes; i++)
+    for(ulong i = 0; i < ulong(sampleframes); i++)
     {
         x->f_fisheye->setFisheye(ins[numberOfPlanewaves][i]);
-        x->f_fisheye->process(x->f_ins + numberOfPlanewaves * i, x->f_outs + numouts * i);
+        x->f_fisheye->process(x->f_ins + numberOfPlanewaves * i, x->f_outs + ulong(numouts) * i);
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
 static void hoa_recomposer_perform_fisheye_offset(t_hoa_recomposer *x, t_object *dsp64, float **ins, long numins, float **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
-    ulong numberOfPlanewaves = x->f_fisheye->getNumberOfPlanewaves();
+    const ulong numberOfPlanewaves = x->f_fisheye->getNumberOfPlanewaves();
     for(ulong i = 0; i < numberOfPlanewaves; i++)
     {
-        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numberOfPlanewaves);
+        Signal<t_sample>::copy(ulong(sampleframes), ins[i], 1, x->f_ins+i, numberOfPlanewaves);
     }
-    for(long i = 0; i < sampleframes; i++)
+    for(ulong i = 0; i < ulong(sampleframes); i++)
     {
         x->f_fisheye->setFisheye(x->f_line.process());
-        x->f_fisheye->process(x->f_ins + numberOfPlanewaves * i, x->f_outs + numouts * i);
+        x->f_fisheye->process(x->f_ins + numberOfPlanewaves * i, x->f_outs + ulong(numouts) * i);
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
 static void hoa_recomposer_perform_free(t_hoa_recomposer *x, t_object *dsp64, float **ins, long numins, float **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
-    int numberOfPlanewaves = x->f_free->getNumberOfPlanewaves();
-
-    for(long i = 0; i < numberOfPlanewaves && i < numins; i++)
+    const ulong numberOfPlanewaves = x->f_free->getNumberOfPlanewaves();
+    for(ulong i = 0; i < numberOfPlanewaves && i < ulong(numins); i++)
     {
-        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numberOfPlanewaves);
+        Signal<t_sample>::copy(ulong(sampleframes), ins[i], 1, x->f_ins+i, numberOfPlanewaves);
     }
-    for(long i = 0; i < sampleframes; i++)
+    for(ulong i = 0; i < ulong(sampleframes); i++)
     {
         x->f_lines->process(x->f_lines_vector);
-        for(long j = 0; j < numberOfPlanewaves; j++)
+        for(ulong j = 0; j < numberOfPlanewaves; j++)
             x->f_free->setWidening(j, x->f_lines_vector[j]);
-        for(long j = 0; j < numberOfPlanewaves; j++)
+        for(ulong j = 0; j < numberOfPlanewaves; j++)
             x->f_free->setAzimuth(j, x->f_lines_vector[j + numberOfPlanewaves]);
-        x->f_free->process(x->f_ins + numberOfPlanewaves * i, x->f_outs + numouts * i);
+        x->f_free->process(x->f_ins + numberOfPlanewaves * i, x->f_outs + ulong(numouts) * i);
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 

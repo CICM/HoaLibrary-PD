@@ -34,11 +34,11 @@ static void hoa_optim_perform_basic(t_hoa_optim *x, t_object *dsp64, t_sample **
 {
     for(long i = 0; i < numins; i++)
     {
-        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numins);
+        Signal<t_sample>::copy(ulong(sampleframes), ins[i], 1, x->f_ins+i, ulong(numins));
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_ins+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_ins+i, ulong(numouts), outs[i], 1);
     }
 }
 
@@ -46,7 +46,7 @@ static void hoa_optim_perform_maxRe(t_hoa_optim *x, t_object *dsp64, t_sample **
 {
 	for(long i = 0; i < numins; i++)
     {
-        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numins);
+        Signal<t_sample>::copy(ulong(sampleframes), ins[i], 1, x->f_ins+i, ulong(numins));
     }
 	for(long i = 0; i < sampleframes; i++)
     {
@@ -54,7 +54,7 @@ static void hoa_optim_perform_maxRe(t_hoa_optim *x, t_object *dsp64, t_sample **
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
@@ -62,7 +62,7 @@ static void hoa_optim_perform_inPhase(t_hoa_optim *x, t_object *dsp64, t_sample 
 {
     for(long i = 0; i < numins; i++)
     {
-        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numins);
+        Signal<t_sample>::copy(ulong(sampleframes), ins[i], 1, x->f_ins+i, ulong(numins));
     }
     for(long i = 0; i < sampleframes; i++)
     {
@@ -70,7 +70,7 @@ static void hoa_optim_perform_inPhase(t_hoa_optim *x, t_object *dsp64, t_sample 
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
@@ -110,14 +110,14 @@ static void hoa_optim_symbol(t_hoa_optim *x, t_symbol* s)
 
 static void *hoa_optim_new(t_symbol *s, long argc, t_atom *argv)
 {
-    int	order       = 1;
+    ulong order       = 1;
     t_hoa_optim *x  = (t_hoa_optim *)eobj_new(hoa_optim_class);
     if(x)
     {
         x->f_mode   = hoa_sym_inPhase;
         if(atom_gettype(argv) == A_LONG)
         {
-            order = pd_clip_minmax(atom_getlong(argv), 1, 63);
+            order = ulong(pd_clip_minmax(atom_getlong(argv), 1, 63));
         }
         if(argc > 1 && atom_gettype(argv+1) == A_SYM && atom_getsymbol(argv+1) == hoa_sym_maxRe)
         {
@@ -134,7 +134,7 @@ static void *hoa_optim_new(t_symbol *s, long argc, t_atom *argv)
             x->f_optim  = new Optim<Hoa2d, t_sample>::InPhase(order);
         }
         
-        eobj_dspsetup(x, x->f_optim->getNumberOfHarmonics(), x->f_optim->getNumberOfHarmonics());
+        eobj_dspsetup(x, long(x->f_optim->getNumberOfHarmonics()), long(x->f_optim->getNumberOfHarmonics()));
         x->f_ins = new t_sample[x->f_optim->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
         x->f_outs = new t_sample[x->f_optim->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
         
@@ -172,11 +172,11 @@ static void hoa_optim_3d_perform_basic(t_hoa_optim_3d *x, t_object *dsp64, t_sam
 {
     for(long i = 0; i < numins; i++)
     {
-        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numins);
+        Signal<t_sample>::copy(ulong(sampleframes), ins[i], 1, x->f_ins+i, ulong(numins));
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_ins+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_ins+i, ulong(numouts), outs[i], 1);
     }
 }
 
@@ -184,7 +184,7 @@ static void hoa_optim_3d_perform_maxRe(t_hoa_optim_3d *x, t_object *dsp64, t_sam
 {
     for(long i = 0; i < numins; i++)
     {
-        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numins);
+        Signal<t_sample>::copy(ulong(sampleframes), ins[i], 1, x->f_ins+i, ulong(numins));
     }
     for(long i = 0; i < sampleframes; i++)
     {
@@ -192,7 +192,7 @@ static void hoa_optim_3d_perform_maxRe(t_hoa_optim_3d *x, t_object *dsp64, t_sam
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
@@ -200,7 +200,7 @@ static void hoa_optim_3d_perform_inPhase(t_hoa_optim_3d *x, t_object *dsp64, t_s
 {
     for(long i = 0; i < numins; i++)
     {
-        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numins);
+        Signal<t_sample>::copy(ulong(sampleframes), ins[i], 1, x->f_ins+i, ulong(numins));
     }
     for(long i = 0; i < sampleframes; i++)
     {
@@ -208,7 +208,7 @@ static void hoa_optim_3d_perform_inPhase(t_hoa_optim_3d *x, t_object *dsp64, t_s
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
@@ -248,7 +248,7 @@ static void hoa_optim_3d_symbol(t_hoa_optim_3d *x, t_symbol* s)
 
 static void *hoa_optim_3d_new(t_symbol *s, long argc, t_atom *argv)
 {
-    int	order           = 1;
+    ulong order           = 1;
     t_hoa_optim_3d *x   = (t_hoa_optim_3d *)eobj_new(hoa_optim_3d_class);
     t_binbuf *d         = binbuf_via_atoms(argc,argv);
     
@@ -257,7 +257,7 @@ static void *hoa_optim_3d_new(t_symbol *s, long argc, t_atom *argv)
         x->f_mode   = hoa_sym_inPhase;
         if(atom_gettype(argv) == A_LONG)
         {
-            order = pd_clip_minmax(atom_getlong(argv), 1, 10);
+            order = ulong(pd_clip_minmax(atom_getlong(argv), 1, 10));
         }
         if(argc > 1 && atom_gettype(argv+1) == A_SYM && atom_getsymbol(argv+1) == hoa_sym_maxRe)
         {
@@ -274,7 +274,7 @@ static void *hoa_optim_3d_new(t_symbol *s, long argc, t_atom *argv)
             x->f_optim  = new Optim<Hoa3d, t_sample>::InPhase(order);
         }
         
-        eobj_dspsetup(x, x->f_optim->getNumberOfHarmonics(), x->f_optim->getNumberOfHarmonics());
+        eobj_dspsetup(x, long(x->f_optim->getNumberOfHarmonics()), long(x->f_optim->getNumberOfHarmonics()));
         x->f_ins = new t_sample[x->f_optim->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
         x->f_outs = new t_sample[x->f_optim->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
         

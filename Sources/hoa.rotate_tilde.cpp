@@ -21,17 +21,17 @@ static t_eclass *hoa_rotate_class;
 
 static void *hoa_rotate_new(t_symbol *s, long argc, t_atom *argv)
 {
-    int	order = 4;
+    ulong order = 1;
     t_hoa_rotate *x = (t_hoa_rotate *)eobj_new(hoa_rotate_class);
     
 	if (x)
 	{
 		if(atom_gettype(argv) == A_LONG)
-			order = pd_clip_minmax(atom_getlong(argv), 1, 63);
+			order = ulong(pd_clip_minmax(atom_getlong(argv), 1, 63));
 		
 		x->f_rotate = new Rotate<Hoa2d, t_sample>(order);
 		
-		eobj_dspsetup(x, x->f_rotate->getNumberOfHarmonics() + 1, x->f_rotate->getNumberOfHarmonics());
+		eobj_dspsetup(x, long(x->f_rotate->getNumberOfHarmonics() + 1), long(x->f_rotate->getNumberOfHarmonics()));
         
 		x->f_ins = new t_float[x->f_rotate->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
         x->f_outs = new t_float[x->f_rotate->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
@@ -49,16 +49,16 @@ static void hoa_rotate_perform(t_hoa_rotate *x, t_object *dsp64, t_sample **ins,
 {
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numouts);
+        Signal<t_sample>::copy(ulong(sampleframes), ins[i], 1, x->f_ins+i, ulong(numins));
     }
 	for(long i = 0; i < sampleframes; i++)
     {
         x->f_rotate->setYaw(ins[numouts][i]);
-        x->f_rotate->process(x->f_ins + numouts * i, x->f_outs + numouts * i);
+        x->f_rotate->process(x->f_ins + numins * i, x->f_outs + numouts * i);
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
@@ -66,15 +66,15 @@ static void hoa_rotate_perform_offset(t_hoa_rotate *x, t_object *dsp64, t_sample
 {
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_ins+i, numouts);
+        Signal<t_sample>::copy(ulong(sampleframes), ins[i], 1, x->f_ins+i, ulong(numins));
     }
 	for(long i = 0; i < sampleframes; i++)
     {
-        x->f_rotate->process(x->f_ins + numouts * i, x->f_outs + numouts * i);
+        x->f_rotate->process(x->f_ins + numins * i, x->f_outs + numouts * i);
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 

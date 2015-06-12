@@ -165,24 +165,24 @@ static t_pd_err hoa_map_tilde_ramp_set(t_hoa_map_tilde *x, t_object *attr, long 
 
 static void hoa_map_tilde_perform_multisources(t_hoa_map_tilde *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
-	long nsources = x->f_map->getNumberOfSources();
+	ulong nsources = x->f_map->getNumberOfSources();
     for(long i = 0; i < numins; i++)
     {
-        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_sig_ins+i, numins);
+        Signal<t_sample>::copy(ulong(sampleframes), ins[i], 1, x->f_sig_ins+i, ulong(numins));
     }
     for(long i = 0; i < sampleframes; i++)
     {
         x->f_lines->process(x->f_lines_vector);
-		for(long j = 0; j < nsources; j++)
+		for(ulong j = 0; j < nsources; j++)
 			x->f_map->setRadius(j, x->f_lines_vector[j]);
-        for(long j = 0; j < nsources; j++)
+        for(ulong j = 0; j < nsources; j++)
 			x->f_map->setAzimuth(j, x->f_lines_vector[j + nsources]);
 
         x->f_map->process(x->f_sig_ins + numins * i, x->f_sig_outs + numouts * i);
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_sig_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_sig_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
@@ -197,7 +197,7 @@ static void hoa_map_tilde_perform(t_hoa_map_tilde *x, t_object *dsp64, t_sample 
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_sig_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_sig_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
@@ -225,7 +225,7 @@ static void hoa_map_tilde_perform_in1(t_hoa_map_tilde *x, t_object *dsp64, t_sam
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_sig_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_sig_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
@@ -253,7 +253,7 @@ static void hoa_map_tilde_perform_in2(t_hoa_map_tilde *x, t_object *dsp64, t_sam
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_sig_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_sig_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
@@ -280,7 +280,7 @@ static void hoa_map_tilde_perform_in1_in2(t_hoa_map_tilde *x, t_object *dsp64, t
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_sig_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_sig_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
@@ -340,16 +340,16 @@ extern "C" void setup_hoa0x2e2d0x2emap_tilde(void)
 
 static void *hoa_map_3d_tilde_new(t_symbol *s, long argc, t_atom *argv)
 {
-    int	order = 1;
-    int numberOfSources = 1;
+    ulong order = 1;
+    ulong numberOfSources = 1;
     t_hoa_map_3d_tilde *x = (t_hoa_map_3d_tilde *)eobj_new(hoa_map_3d_tilde_class);
     t_binbuf *d           = binbuf_via_atoms(argc,argv);
     if(x && d)
     {
         if(atom_gettype(argv) == A_LONG)
-            order = pd_clip_min(atom_getlong(argv), 1);
+            order = ulong(pd_clip_min(atom_getlong(argv), 1));
         if(argc > 1 && atom_gettype(argv+1) == A_LONG)
-            numberOfSources = pd_clip_minmax(atom_getlong(argv+1), 1, 255);
+            numberOfSources = ulong(pd_clip_minmax(atom_getlong(argv+1), 1, 255));
 
         if(argc > 2 && atom_gettype(argv+2) == A_SYM)
         {
@@ -374,9 +374,9 @@ static void *hoa_map_3d_tilde_new(t_symbol *s, long argc, t_atom *argv)
         }
 
         if(x->f_map->getNumberOfSources() == 1)
-            eobj_dspsetup(x, 4, x->f_map->getNumberOfHarmonics());
+            eobj_dspsetup(x, 4, long(x->f_map->getNumberOfHarmonics()));
         else
-            eobj_dspsetup(x, x->f_map->getNumberOfSources(), x->f_map->getNumberOfHarmonics());
+            eobj_dspsetup(x, long(x->f_map->getNumberOfSources()), long(x->f_map->getNumberOfHarmonics()));
 
         if(x->f_map->getNumberOfSources() == 1)
             x->f_sig_ins    = new t_sample[4 * HOA_MAXBLKSIZE];
@@ -450,7 +450,7 @@ static void hoa_map_3d_tilde_list(t_hoa_map_3d_tilde *x, t_symbol* s, long argc,
 {
     if(argc > 2 && argv && atom_gettype(argv) == A_LONG && atom_gettype(argv+1) == A_SYM)
     {
-        int index = atom_getlong(argv);
+        ulong index = ulong(atom_getlong(argv));
         if(index < 1 || (ulong)index > x->f_map->getNumberOfSources())
             return;
 
@@ -511,7 +511,7 @@ static void hoa_map_3d_tilde_perform_in1_in2_in3(t_hoa_map_3d_tilde *x, t_object
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_sig_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_sig_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
@@ -541,7 +541,7 @@ static void hoa_map_3d_tilde_perform_in1_in2(t_hoa_map_3d_tilde *x, t_object *ds
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_sig_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_sig_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
@@ -571,7 +571,7 @@ static void hoa_map_3d_tilde_perform_in1_in3(t_hoa_map_3d_tilde *x, t_object *ds
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_sig_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_sig_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
@@ -602,7 +602,7 @@ static void hoa_map_3d_tilde_perform_in2_in3(t_hoa_map_3d_tilde *x, t_object *ds
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_sig_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_sig_outs+i, ulong(numouts), outs[i], 1);
     }
 }
  */
@@ -633,7 +633,7 @@ static void hoa_map_3d_tilde_perform_in1(t_hoa_map_3d_tilde *x, t_object *dsp64,
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_sig_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_sig_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
@@ -663,7 +663,7 @@ static void hoa_map_3d_tilde_perform_in2(t_hoa_map_3d_tilde *x, t_object *dsp64,
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_sig_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_sig_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
@@ -693,7 +693,7 @@ static void hoa_map_3d_tilde_perform_in3(t_hoa_map_3d_tilde *x, t_object *dsp64,
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_sig_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_sig_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
@@ -709,32 +709,32 @@ static void hoa_map_3d_tilde_perform(t_hoa_map_3d_tilde *x, t_object *dsp64, t_s
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_sig_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_sig_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 
 static void hoa_map_3d_tilde_perform_multisources(t_hoa_map_3d_tilde *x, t_object *dsp64, t_sample **ins, long numins, t_sample **outs, long numouts, long sampleframes, long flags, void *userparam)
 {
-    int nsources = x->f_map->getNumberOfSources();
+    ulong nsources = x->f_map->getNumberOfSources();
     for(long i = 0; i < numins; i++)
     {
-        Signal<t_sample>::copy(sampleframes, ins[i], 1, x->f_sig_ins+i, numins);
+        Signal<t_sample>::copy(ulong(sampleframes), ins[i], 1, x->f_sig_ins+i, ulong(numins));
     }
     for(long i = 0; i < sampleframes; i++)
     {
         x->f_lines->process(x->f_lines_vector);
-        for(int j = 0; j < nsources; j++)
+        for(ulong j = 0; j < nsources; j++)
             x->f_map->setRadius(j, x->f_lines_vector[j]);
-        for(int j = 0; j < nsources; j++)
+        for(ulong j = 0; j < nsources; j++)
             x->f_map->setAzimuth(j, x->f_lines_vector[j + nsources]);
-        for(int j = 0; j < nsources; j++)
+        for(ulong j = 0; j < nsources; j++)
             x->f_map->setElevation(j, x->f_lines_vector[j + nsources * 2]);
 
         x->f_map->process(x->f_sig_ins + numins * i, x->f_sig_outs + numouts * i);
     }
     for(long i = 0; i < numouts; i++)
     {
-        Signal<t_sample>::copy(sampleframes, x->f_sig_outs+i, numouts, outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_sig_outs+i, ulong(numouts), outs[i], 1);
     }
 }
 

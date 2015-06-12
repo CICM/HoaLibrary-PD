@@ -474,7 +474,7 @@ void hoa_space_mouse_down(t_hoa_space *x, t_object *patcherview, t_pt pt, long m
     {
         x->f_mode = 1;
         x->f_angle_ref = Math<float>::wrap_twopi(Math<float>::azimuth(mouse.x, mouse.y) - HOA_PI + (HOA_PI / (double)x->f_number_of_channels));
-        memcpy(x->f_channel_refs, x->f_channel_values, x->f_number_of_channels * sizeof(double));
+        memcpy(x->f_channel_refs, x->f_channel_values, size_t(x->f_number_of_channels) * sizeof(double));
     }
     else if(modifiers == EMOD_SHIFT) // shift : gain
     {
@@ -484,7 +484,7 @@ void hoa_space_mouse_down(t_hoa_space *x, t_object *patcherview, t_pt pt, long m
         x->f_value_ref  *= (x->f_minmax[1] - x->f_minmax[0]);
         x->f_value_ref  += x->f_minmax[0];
         x->f_value_ref   = pd_clip_minmax(x->f_value_ref, x->f_minmax[0], x->f_minmax[1]);
-        memcpy(x->f_channel_refs, x->f_channel_values, x->f_number_of_channels * sizeof(double));
+        memcpy(x->f_channel_refs, x->f_channel_values, size_t(x->f_number_of_channels) * sizeof(double));
     }
     else
     {
