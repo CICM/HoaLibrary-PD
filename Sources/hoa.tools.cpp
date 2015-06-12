@@ -266,7 +266,7 @@ static void *hoa_connect_new(t_symbol *s, long argc, t_atom *argv)
 static void hoa_connect_bang(t_hoa_connect *x)
 {
     int i, j, index = 0;
-    int x1, x2, y1, y2;
+    int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
     int nx1, nx2, ny1, ny2;
     t_gobj *y = NULL;
     t_gobj *list[512];

@@ -1023,7 +1023,7 @@ void hoa_map_infos(t_hoa_map *x)
         j++;
     }
     outlet_list(x->f_out_infos, &s_list, numberOfGroups+2, avIndex);
-    free(avIndex);
+    delete [] avIndex;
 
     for(Source::group_iterator it = x->f_manager->getFirstGroup() ; it != x->f_manager->getLastGroup(); it ++)
     {
@@ -1040,7 +1040,7 @@ void hoa_map_infos(t_hoa_map *x)
             j ++;
         }
         outlet_list(x->f_out_infos, &s_list, it->second->getNumberOfSources()+3, avSource);
-        free(avSource);
+        delete [] avSource;
     }
 
 
