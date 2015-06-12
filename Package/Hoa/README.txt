@@ -1,65 +1,42 @@
-------------------------------------------------------------------------------------------
-HoaLibrary by Julien Colafrancesco, Pierre Guillot & Eliott Paris at CICM / Université Paris 8 - 2012-2013
-------------------------------------------------------------------------------------------
+## [HOA](http://www.mshparisnord.fr/hoalibrary/ "Hoa Library") for Pure Data
 
-The HoaLibrary (high order ambisonics library) is a high order ambisonic processing set of externals and patches for Pure Data, Max, Faust and VST. It allows to synthesize, transform and modulate sound fields and has been elaborated to facilitate the use of circular and spherical harmonics and the routing in the ambisonic domain for musicians and composers.
+### Compatibilty :
 
-------------------------------------------------------------------------------------------
+The lastest release has been tested [Pure Data Vanilla](http://msp.ucsd.edu/software.html "PD-Vanilla") (0.46.6 - 32/64 bits) & [Pure Data Extended](https://puredata.info/ "PD-Extended") (0.43.4) on Linux, Mac Os, Windows .
 
-The hoa.library in under the GNU Public License. If you'd like to avoid the restrictions of the GPL and use the HoaLibrary for a closed-source product, you contact the CICM.
+### Installation :  
 
-http://cicm.mshparisnord.org/
+With Pure Data Vanilla, copy the <em>Hoa</em> folder in your package folder and add <em>hoa</em> in the PD's statup window if you use the default package folder\*, otherwise add <em>Hoa/hoa</em>.  
+With Pure Data Extended, copy the <em>Hoa</em> folder in your package folder and add <em>-lib externals/"system"/pd-extended/hoa</em> in the statup falgs if you use the default package folder\*, otherwise add <em>-lib Hoa/externals/"system"/pd-extended/hoa</em> with <em>"system"</em> replaced by <em>Linux</em>, <em>MacOs</em> or <em>Windows</em>.  
 
-------------------------------------------------------------------------------------------
-Pure data (HoaLibrary beta v2.1) :
-------------------------------------------------------------------------------------------
+\* The default package folder are generally <em>/usr/local/lib/pd-externals</em> on Linux, <em>/Library/Pd</em>  on Mac Os and <em>C:\Program Files\Common Files\Pd</em>  on Windows.  
 
-This version is compatible with Pure Data and Pure Data Extented.
+__Important__ : The Hoa library needs the [Cream library](https://github.com/CICM/CreamLibrary "Cream") to work properly.
 
-Installation:
+### Documentation :
 
-Copy the "Hoa" folder in your Pure Data "package" folder and add "hoa" in startup preferences. 
-You can also copy the "Hoa" folder in another folder than the default package folder, then you have to add this base folder in the path preferences (for example : "/Users/Pierre/GitHub/HoaLibrary-PD/Package" and add "Hoa/hoa" in the startup preferences. 
+Helps and tutorials are availables in the <em>Hoa</em> folder of the <em>help browser</em>.
  
-For PD-Extented or Linux 32 bits, replace the hoa external (.pd_linux, .pd_darwin or .dll) with the one that matchs to your system and your PD distribution from the externals folder. 
+### Compilation : 
 
-For PD-Extented use the startup flags "-lib hoa" (or "-lib Hoa/hoa" if you use another folder than the default ones). 
+	./autogen.sh (if needed)
+	./configure or ./configure --with-pdextended
+	make
+	make install (optional)
 
-In the help menu of Pure Data, the Hoa folder constains informations, helps and tutorials.
+XCode, CodeBlock and Visual Studio projects are also available.
 
-Uninstall:
-Remove the "Hoa" folder and the startup flag .
+### Dependencies : 
 
-Important:
-You need to install the Cream library, if you want that the Hoa library to work properly.
+[Hoa Library](https://github.com/CICM/HoaLibrary-Light "Hoa Library") & the [Cicm Wrapper](https://github.com/CICM/CicmWrapper "Cicm Wrapper").
 
-------------------------------------------------------------------------------------------
+### Authors :
 
-------------------------------------------------------------------------------------------
-Pure data (HoaLibrary beta v2.0) :
-------------------------------------------------------------------------------------------
+Pierre Guillot  
+Eliott Paris  
+Thomas Le Meur  
+Julien Colafrancesco
 
-This version is compatible with Pure Data 0.45.4 (32 bit) and higher. The library is also compatible with Pure Data Extented.
+### Licence : 
 
-Installation:
-
-Copy the "HoaLibrary" folder in your Pure Data "package" folder and add "hoa.library" in startup preferences. You can also copy the "HoaLibrary" folder in another folder than the default package folder, then you have to add this folder in the path preferences and add "HoaLibrary/hoa.library" in the startup preferences. For PD-Extented, use the startup flags "-lib hoa.library" or "-lib HoaLibrary/hoa.library". In the help menu of Pure Data, the HoaLibrary folder constains informations, helps and tutorials.
-
-Uninstall:
-Remove the "HoaLibrary" folder and the startup flag from your "package" folder.
-
-Important:
-You need to install the Cream library, if you want that the Hoa library to work properly.
-
-------------------------------------------------------------------------------------------
-
-Feedback are welcome.
-
- - cicm.mshparisnord@gmail.com
- - jcolafrancesco@gmail.com
- - guillotpierre6@gmail.com
- - eliottparis@gmail.com
-
- => http://www.mshparisnord.fr/hoalibrary/en/
-
-------------------------------------------------------------------------------------------
+The HOA Library in under the <a title="GNU" href="http://www.gnu.org/copyleft/gpl.html" target="_blank">GNU Public License</a>. If you'd like to avoid the restrictions of the GPL and use Hoa Library for a closed-source product, you contact the <a title="CICM" href="http://cicm.mshparisnord.org/" target="_blank">CICM</a>.
