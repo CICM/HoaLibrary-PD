@@ -553,9 +553,9 @@ void hoa_space_output(t_hoa_space *x)
     for(int i = 0; i < x->f_number_of_channels; i++)
         atom_setfloat(argv+i, x->f_channel_values[i]);
     
-    outlet_list((t_outlet *)x->f_out, &s_list, x->f_number_of_channels, argv);
+    outlet_list((t_outlet *)x->f_out, &s_list, int(x->f_number_of_channels), argv);
     if(ebox_getsender((t_ebox *) x))
-        pd_list(ebox_getsender((t_ebox *) x), &s_list, x->f_number_of_channels, argv);
+        pd_list(ebox_getsender((t_ebox *) x), &s_list, int(x->f_number_of_channels), argv);
 }
 
 t_pd_err channels_set(t_hoa_space *x, t_object *attr, long argc, t_atom *argv)

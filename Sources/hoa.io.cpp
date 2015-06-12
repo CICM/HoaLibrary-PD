@@ -358,11 +358,11 @@ static void hoa_thisprocess_bang(t_hoa_thisprocess *x)
     for(int i = 0; i < x->f_n_attrs; i++)
     {
         sprintf(attr_char, "%s", x->f_attr_name[i]->s_name+1);
-        outlet_anything(x->f_out_attrs, gensym(attr_char), x->f_attr_size[i], x->f_attr_vals[i]);
+        outlet_anything(x->f_out_attrs, gensym(attr_char), int(x->f_attr_size[i]), x->f_attr_vals[i]);
     }
 
     if(x->f_argc && x->f_args)
-        outlet_list(x->f_out_args, &s_list, x->f_argc, x->f_args);
+        outlet_list(x->f_out_args, &s_list, int(x->f_argc), x->f_args);
     if(x->f_nit)
     {
         outlet_list(x->f_out_hoa_mode,  &s_list, 2, x->f_hoa_mode);

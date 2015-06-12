@@ -129,7 +129,7 @@ static void hoa_map_tilde_list(t_hoa_map_tilde *x, t_symbol* s, long argc, t_ato
 {
     if(argc > 2 && argv && atom_gettype(argv) == A_LONG && atom_gettype(argv+1) == A_SYM)
     {
-        int index = atom_getlong(argv);
+        long index = atom_getlong(argv);
         if(index < 1 || (ulong)index > x->f_map->getNumberOfSources())
             return;
 

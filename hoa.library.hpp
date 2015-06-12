@@ -20,6 +20,9 @@ extern "C"
 #define HOA_CONTRAST_DARKER     0.14f
 #define HOA_DISPLAY_NPOINTS     180
 
+extern "C" void Hoa_setup(void);
+extern "C" void hoa_setup(void);
+
 extern void hoa_initclass(t_eclass* c);
 
 extern "C" void setup_hoa0x2econnect(void);

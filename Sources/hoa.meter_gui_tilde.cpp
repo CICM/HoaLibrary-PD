@@ -382,7 +382,8 @@ static void draw_leds(t_hoa_meter *x, t_object *view, t_rect *rect)
             else
                 egraphics_rotate(g, angle);
 
-            for(float j = 12.f, dB = -39.f; j > 0; j--, dB += 3.)
+            float j = 12.f, dB = -39.f;
+            while(j > 0)
             {
                 float radius    = (j + 4.) * height;
                 if(x->f_meter->getPlanewaveEnergy(i) > dB)
@@ -407,6 +408,7 @@ static void draw_leds(t_hoa_meter *x, t_object *view, t_rect *rect)
                     egraphics_arc(g, 0., 0., radius,  width, 3.f * width);
                     egraphics_stroke(g);
                 }
+                j--; dB += 3.;
             }
             if(x->f_meter->getPlanewaveOverLed(i))
             {

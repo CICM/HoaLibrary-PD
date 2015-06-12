@@ -213,7 +213,7 @@ static void *hoa_dac_new(t_symbol *s, long argc, t_atom *argv)
         x->x_vec = (t_int *)malloc(size_t(x->x_n ? x->x_n : 1) * sizeof(*x->x_vec));
         for (i = 0; i < x->x_n; i++)
         {
-            x->x_vec[i] = atom_getintarg(i, x->x_n, channels);
+            x->x_vec[i] = atom_getintarg(i, int(x->x_n), channels);
         }
     }
     
@@ -229,7 +229,7 @@ static void hoa_dac_dsp(t_hoa_dac *x, t_signal **sp)
     t_signal **sp2;
     for (i = x->x_n, ip = x->x_vec, sp2 = sp; i--; ip++, sp2++)
     {
-        int ch = *ip - 1;
+        int ch = int(*ip - 1);
         if ((*sp2)->s_n != DEFDACBLKSIZE)
             error("hoa.dac~: bad vector size");
         else if (ch >= 0 && ch < sys_get_outchannels())
@@ -273,6 +273,10 @@ static void hoa_connect_bang(t_hoa_connect *x)
     t_outconnect *oc;
     t_glist *cnv;
     t_symbol* name;
+    for(i = 0; i < 512; i++)
+    {
+        list[i] = NULL;
+    }
     for(y = eobj_getcanvas(x)->gl_list; y; y = y->g_next)
     {
         if(strncmp(eobj_getclassname(y)->s_name, "hoa.", 4) == 0 && glist_isselected(eobj_getcanvas(x), y))

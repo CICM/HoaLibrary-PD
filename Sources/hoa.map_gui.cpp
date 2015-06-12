@@ -87,11 +87,11 @@ void*     hoa_map_new(t_symbol *s, int argc, t_atom *argv);
 
 /*Initialisation par l'utilisateur*/
 void      hoa_map_clearAll(t_hoa_map *x);
-void      hoa_map_set(t_hoa_map *x, t_symbol *s, short ac, t_atom *av);
-void      hoa_map_group(t_hoa_map *x, t_symbol *s, short ac, t_atom *av);
-void      hoa_map_source(t_hoa_map *x, t_symbol *s, short ac, t_atom *av);
-t_pd_err  hoa_map_zoom(t_hoa_map *x, t_object *attr, long argc, t_atom *argv);
-t_pd_err  hoa_map_view(t_hoa_map *x, t_object *attr, long argc, t_atom *argv);
+void      hoa_map_set(t_hoa_map *x, t_symbol *s, int ac, t_atom *av);
+void      hoa_map_group(t_hoa_map *x, t_symbol *s, int ac, t_atom *av);
+void      hoa_map_source(t_hoa_map *x, t_symbol *s, int ac, t_atom *av);
+t_pd_err  hoa_map_zoom(t_hoa_map *x, t_object *attr, int argc, t_atom *argv);
+t_pd_err  hoa_map_view(t_hoa_map *x, t_object *attr, int argc, t_atom *argv);
 t_pd_err  hoa_map_notify(t_hoa_map *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
 /*Sorties*/
@@ -109,19 +109,19 @@ void      hoa_map_drawRectSelection(t_hoa_map *x,  t_object *view, t_rect *rect)
 /*Souris et clavier*/
 t_symbol* hoa_map_stringFormat(const char *s);
 void      hoa_map_preset(t_hoa_map *x, t_binbuf *b);
-void      hoa_map_sourcesPreset(t_hoa_map *x, t_symbol *s, short ac, t_atom *av);
+void      hoa_map_sourcesPreset(t_hoa_map *x, t_symbol *s, int ac, t_atom *av);
 void      hoa_map_mouseup(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifiers);
 void      hoa_map_mousedown(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifiers);
 void      hoa_map_mousedrag(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifiers);
 void      hoa_map_mousemove(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifiers);
-void      hoa_map_interpolate(t_hoa_map *x, short ac, t_atom *av, short ac2, t_atom* av2, t_atom theta);
+void      hoa_map_interpolate(t_hoa_map *x, int ac, t_atom *av, short ac2, t_atom* av2, t_atom theta);
 void      hoa_map_mousewheel(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifiers, double x_inc, double y_inc);
 
 /*Others*/
 void      hoa_map_oksize(t_hoa_map *x, t_rect *newrect);
 void      hoa_map_isElementSelected(t_hoa_map *x, t_pt pt);
 void      hoa_map_sendBindedMapUpdate(t_hoa_map *x, long flags);
-t_pd_err  hoa_map_bindnameSet(t_hoa_map *x, void *attr, long argc, t_atom *argv);
+t_pd_err  hoa_map_bindnameSet(t_hoa_map *x, void *attr, int argc, t_atom *argv);
 void      hoa_map_linkmapAddWithBindingName(t_hoa_map *x, t_symbol* binding_name);
 void      hoa_map_linkmapRemoveWithBindingName(t_hoa_map *x, t_symbol* binding_name);
 void      hoa_map_getDrawParams(t_hoa_map *x, t_object *patcherview, t_edrawparams *params);
@@ -221,20 +221,10 @@ extern "C" void setup_hoa0x2emap(void)
 
 void *hoa_map_new(t_symbol *s, int argc, t_atom *argv)
 {
-	t_hoa_map *x =  NULL;
-	t_binbuf *d;
-	ulong flags;
-
-	if (!(d = binbuf_via_atoms(argc,argv)))
-		return NULL;
-
-    x = (t_hoa_map *)eobj_new(hoa_map_class);
+	t_hoa_map *x = (t_hoa_map *)eobj_new(hoa_map_class);
+    t_binbuf *d = binbuf_via_atoms(argc,argv);
     if (x)
     {
-        flags = 0
-        | EBOX_GROWLINK
-        ;
-
         x->f_manager      = new Source::Manager(1. / (double)MIN_ZOOM - 5.);
         x->f_self_manager = x->f_manager;
 
@@ -249,7 +239,7 @@ void *hoa_map_new(t_symbol *s, int argc, t_atom *argv)
 		x->f_listmap = NULL;
 		x->f_output_enabled = 1;
 
-		ebox_new((t_ebox *)x, flags);
+		ebox_new((t_ebox *)x, 0 | EBOX_GROWLINK);
 
         ebox_attrprocess_viabinbuf(x, d);
 
@@ -399,7 +389,7 @@ void hoa_map_linkmapRemoveWithBindingName(t_hoa_map *x, t_symbol* binding_name)
 	}
 }
 
-t_pd_err hoa_map_bindnameSet(t_hoa_map *x, void *attr, long argc, t_atom *argv)
+t_pd_err hoa_map_bindnameSet(t_hoa_map *x, void *attr, int argc, t_atom *argv)
 {
 	if (argc && argv && atom_gettype(argv) == A_SYM)
 	{
@@ -575,7 +565,7 @@ void hoa_map_clearAll(t_hoa_map *x)
 	hoa_map_sendBindedMapUpdate(x, BMAP_REDRAW | BMAP_OUTPUT | BMAP_NOTIFY);
 }
 
-void hoa_map_set(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
+void hoa_map_set(t_hoa_map *x, t_symbol *s, int ac, t_atom *av)
 {
 	x->f_output_enabled = 0;
 	if (ac && av && atom_gettype(av) == A_SYM)
@@ -590,9 +580,9 @@ void hoa_map_set(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
 	x->f_output_enabled = 1;
 }
 
-void hoa_map_source(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
+void hoa_map_source(t_hoa_map *x, t_symbol *s, int ac, t_atom *av)
 {
-    int index;
+    long index;
     if(ac && av && atom_gettype(av)==A_LONG && atom_getlong(av) >= 1 && atom_gettype(av+1) == A_SYM)
     {
 		t_symbol* param = atom_getsym(av+1);
@@ -600,7 +590,7 @@ void hoa_map_source(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
 		int causeOutput = 1;
         if (index > 0)
         {
-            Source* tmp = x->f_manager->newSource(index);
+            Source* tmp = x->f_manager->newSource(ulong(index));
 
             if(param == hoa_sym_polar || param == hoa_sym_pol)
             {
@@ -630,7 +620,7 @@ void hoa_map_source(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
                 tmp->setHeight(atom_getfloat(av+2));
             else if(param == hoa_sym_remove)
             {
-                x->f_manager->removeSource(index);
+                x->f_manager->removeSource(ulong(index));
                 t_atom av2[3];
                 atom_setlong(av2, index);
                 atom_setsym(av2+1, hoa_sym_mute);
@@ -702,11 +692,11 @@ void hoa_map_source(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
     }
 }
 
-void hoa_map_group(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
+void hoa_map_group(t_hoa_map *x, t_symbol *s, int ac, t_atom *av)
 {
     if(ac && av && atom_gettype(av) == A_LONG && atom_getlong(av) >= 1 && atom_gettype(av+1) == A_SYM)
     {
-        ulong index = atom_getlong(av);
+        ulong index = ulong(atom_getlong(av));
 		t_symbol* param = atom_getsym(av+1);
 		int causeOutput = 1;
 		if (index > 0)
@@ -723,7 +713,7 @@ void hoa_map_group(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
             {
                 for(int i = 2; i < ac; i++)
                 {
-                    ulong ind = atom_getlong(av+i);
+                    ulong ind = ulong(atom_getlong(av+i));
                     if (ind > 0)
                     {
                         Source* src = x->f_manager->newSource(ind);
@@ -857,7 +847,7 @@ void hoa_map_group(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
     }
 }
 
-t_pd_err hoa_map_zoom(t_hoa_map *x, t_object *attr, long argc, t_atom *argv)
+t_pd_err hoa_map_zoom(t_hoa_map *x, t_object *attr, int argc, t_atom *argv)
 {
     if(argc >= 1 && argv && atom_gettype(argv) == A_FLOAT)
     {
@@ -871,7 +861,7 @@ t_pd_err hoa_map_zoom(t_hoa_map *x, t_object *attr, long argc, t_atom *argv)
     return 0;
 }
 
-t_pd_err hoa_map_view(t_hoa_map *x, t_object *attr, long argc, t_atom *argv)
+t_pd_err hoa_map_view(t_hoa_map *x, t_object *attr, int argc, t_atom *argv)
 {
     post("oui");
     return 0;
@@ -994,7 +984,7 @@ void hoa_map_infos(t_hoa_map *x)
         atom_setlong(avIndex+j+2, it->first);
         j ++;
     }
-    outlet_list(x->f_out_infos, 0L, numberOfSource+2, avIndex);
+    outlet_list(x->f_out_infos, 0L, int(numberOfSource+2), avIndex);
     delete [] avIndex;
 
     atom_setsym(avMute, hoa_sym_source);
@@ -1022,7 +1012,7 @@ void hoa_map_infos(t_hoa_map *x)
         atom_setlong(avIndex+j+2, it->first);
         j++;
     }
-    outlet_list(x->f_out_infos, &s_list, numberOfGroups+2, avIndex);
+    outlet_list(x->f_out_infos, &s_list, int(numberOfGroups+2), avIndex);
     delete [] avIndex;
 
     for(Source::group_iterator it = x->f_manager->getFirstGroup() ; it != x->f_manager->getLastGroup(); it ++)
@@ -1039,7 +1029,7 @@ void hoa_map_infos(t_hoa_map *x)
             atom_setlong(avSource+3+j, ti->first);
             j ++;
         }
-        outlet_list(x->f_out_infos, &s_list, it->second->getNumberOfSources()+3, avSource);
+        outlet_list(x->f_out_infos, &s_list, int(it->second->getNumberOfSources()+3), avSource);
         delete [] avSource;
     }
 
@@ -1073,7 +1063,6 @@ void hoa_map_paint(t_hoa_map *x, t_object *view)
 void hoa_map_drawBackground(t_hoa_map *x,  t_object *view, t_rect *rect)
 {
     t_elayer *g = ebox_start_layer((t_ebox *)x, hoa_sym_background_layer, rect->width, rect->height);
-
     t_rgba black = rgba_addContrast(x->f_color_bg, -0.14);
 	if (g)
     {
@@ -1107,7 +1096,8 @@ void hoa_map_drawBackground(t_hoa_map *x,  t_object *view, t_rect *rect)
             ecart *= 8;
 
         ecart = (int)ecart;
-		for(double i = 0; i < rect->width / 2.; i += ecart)
+        double i = 0;
+		while(i < rect->width / 2.)
         {
             egraphics_set_line_width(g, 2);
             egraphics_set_color_rgba(g, &x->f_color_bg);
@@ -1138,6 +1128,7 @@ void hoa_map_drawBackground(t_hoa_map *x,  t_object *view, t_rect *rect)
             egraphics_move_to(g, rect->width / 2. + i, 0.);
             egraphics_line_to(g, rect->width / 2. + i, rect->width);
             egraphics_stroke(g);
+            i += ecart;
         }
 
 		ebox_end_layer((t_ebox *)x, hoa_sym_background_layer);
@@ -2031,15 +2022,15 @@ void hoa_map_preset(t_hoa_map *x, t_binbuf *d)
     }
 }
 
-void hoa_map_sourcesPreset(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
+void hoa_map_sourcesPreset(t_hoa_map *x, t_symbol *s, int ac, t_atom *av)
 {
-    int index;
-    int nsources;
+    ulong index;
+    ulong nsources;
     if(ac && av)
     {
         x->f_manager->clear();
-        short i = 0;
-        while(i < ac)
+        ulong i = 0;
+        while(i < ulong(ac))
         {
             if(atom_gettype(av+i) == A_SYM && atom_getsym(av+i) == hoa_sym_source
                && atom_gettype(av+i+1) == A_FLOAT
@@ -2047,7 +2038,7 @@ void hoa_map_sourcesPreset(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
                && atom_gettype(av+i+3) == A_FLOAT
                && atom_gettype(av+i+4) == A_FLOAT)
             {
-                index = atom_getlong(av+i+1);
+                index = ulong(atom_getlong(av+i+1));
                 Source* tmp = x->f_manager->newSource(index);
                 tmp->setCoordinatesCartesian(atom_getfloat(av+i+2), atom_getfloat(av+i+3), atom_getfloat(av+i+4));
 
@@ -2073,8 +2064,8 @@ void hoa_map_sourcesPreset(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
                && atom_gettype(av+i+1) == A_FLOAT
                && atom_gettype(av+i+2) == A_FLOAT)
             {
-                index = atom_getlong(av+i+1);
-                nsources = atom_getlong(av+i+2);
+                index = ulong(atom_getlong(av+i+1));
+                nsources = ulong(atom_getlong(av+i+2));
 
                 bool newGroupCreated = false;
                 Source::Group* tmp = x->f_manager->getGroup(index);
@@ -2084,24 +2075,24 @@ void hoa_map_sourcesPreset(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
                     newGroupCreated = true;
                 }
 
-                for(int j = 0; j < nsources; j++)
+                for(ulong j = 0; j < nsources; j++)
                 {
-                    if(ac > i+3+j && atom_gettype(av+i+3+j) == A_FLOAT)
+                    if(ulong(ac) > i+3+j && atom_gettype(av+i+3+j) == A_FLOAT)
                     {
-                        Source* src = x->f_manager->getSource(atom_getlong(av+i+3+j));
+                        Source* src = x->f_manager->getSource(ulong(atom_getlong(av+i+3+j)));
                         if (src)
                             tmp->addSource(src);
                     }
                 }
 
-                if(ac > i+6+nsources
+                if(ulong(ac) > i+6+nsources
                    && atom_gettype(av+i+3+nsources) == A_FLOAT
                    && atom_gettype(av+i+4+nsources) == A_FLOAT
                    && atom_gettype(av+i+5+nsources) == A_FLOAT
                    && atom_gettype(av+i+6+nsources) == A_FLOAT)
                     tmp->setColor(atom_getfloat(av+i+3+nsources), atom_getfloat(av+i+4+nsources), atom_getfloat(av+i+5+nsources), atom_getfloat(av+i+6+nsources));
 
-                if(ac > i+7+nsources && atom_gettype(av+i+7+nsources) == A_SYM && atom_getsym(av+i+7+nsources) != hoa_sym_null)
+                if(ulong(ac) > i+7+nsources && atom_gettype(av+i+7+nsources) == A_SYM && atom_getsym(av+i+7+nsources) != hoa_sym_null)
                     tmp->setDescription(hoa_map_stringFormat(atom_getsym(av+i+7+nsources)->s_name)->s_name);
                 else
                     tmp->setDescription("");
@@ -2128,18 +2119,18 @@ void hoa_map_sourcesPreset(t_hoa_map *x, t_symbol *s, short ac, t_atom *av)
     hoa_map_sendBindedMapUpdate(x, BMAP_REDRAW | BMAP_OUTPUT | BMAP_NOTIFY);
 }
 
-void hoa_map_interpolate(t_hoa_map *x, short ac, t_atom *av, short ac2, t_atom* av2, t_atom ratio)
+void hoa_map_interpolate(t_hoa_map *x, int ac, t_atom *av, short ac2, t_atom* av2, t_atom ratio)
 {
-    int index;
+    ulong index;
+    ulong nsources;
     float exist2;
-    int nsources;
     float theta = atom_getfloat(&ratio);
 
     if(ac && av)
     {
         x->f_manager->clear();
-        short i = 0;
-        while(i < ac)
+        ulong i = 0;
+        while(i < ulong(ac))
         {
             if(atom_gettype(av+i) == A_SYM && atom_getsym(av+i) == hoa_sym_source
                && atom_gettype(av+i+1) == A_FLOAT
@@ -2147,7 +2138,7 @@ void hoa_map_interpolate(t_hoa_map *x, short ac, t_atom *av, short ac2, t_atom* 
                && atom_gettype(av+i+3) == A_FLOAT
                && atom_gettype(av+i+4) == A_FLOAT)
             {
-                index = atom_getlong(av+i+1);
+                index = ulong(atom_getlong(av+i+1));
                 exist2 = 0;
                 Source* tmp = x->f_manager->newSource(index);
                 for(int j = 0; j < ac2; j++)
@@ -2159,7 +2150,7 @@ void hoa_map_interpolate(t_hoa_map *x, short ac, t_atom *av, short ac2, t_atom* 
                            && atom_gettype(av2+j+2) == A_FLOAT
                            && atom_gettype(av2+j+3) == A_FLOAT
                            && atom_gettype(av2+j+4) == A_FLOAT
-                           && index == atom_getlong(av2+(ulong)j+1))
+                           && index == ulong(atom_getlong(av2+(ulong)j+1)))
                         {
                             exist2 = 1;
                             float abscissa = atom_getfloat(av+i+2) * (1.f - theta) + atom_getfloat(av2+j+2) * theta;
@@ -2195,8 +2186,8 @@ void hoa_map_interpolate(t_hoa_map *x, short ac, t_atom *av, short ac2, t_atom* 
                && atom_gettype(av+i+1) == A_FLOAT
                && atom_gettype(av+i+2) == A_FLOAT)
             {
-                index = atom_getlong(av+i+1);
-                nsources = atom_getlong(av+i+2);
+                index = ulong(atom_getlong(av+i+1));
+                nsources = ulong(atom_getlong(av+i+2));
 
                 bool newGroupCreated = false;
                 Source::Group* tmp = x->f_manager->getGroup(index);
@@ -2206,23 +2197,23 @@ void hoa_map_interpolate(t_hoa_map *x, short ac, t_atom *av, short ac2, t_atom* 
                     newGroupCreated = true;
                 }
 
-                for(int j = 0; j < nsources; j++)
+                for(ulong j = 0; j < nsources; j++)
                 {
-                    if(ac > i+3+j && atom_gettype(av+i+3+j) == A_FLOAT)
+                    if(ulong(ac) > i+3+j && atom_gettype(av+i+3+j) == A_FLOAT)
                     {
-                        Source* src = x->f_manager->getSource(atom_getlong(av+i+3+j));
+                        Source* src = x->f_manager->getSource(ulong(atom_getlong(av+i+3+j)));
                         if (src)
                             tmp->addSource(src);
                     }
                 }
 
-                if(ac > i+6+nsources && atom_gettype(av+i+3+nsources) == A_FLOAT
+                if(ulong(ac) > i+6+nsources && atom_gettype(av+i+3+nsources) == A_FLOAT
                    && atom_gettype(av+i+4+nsources) == A_FLOAT
                    && atom_gettype(av+i+5+nsources) == A_FLOAT
                    && atom_gettype(av+i+6+nsources) == A_FLOAT)
                     tmp->setColor(atom_getfloat(av+i+3+nsources), atom_getfloat(av+i+4+nsources), atom_getfloat(av+i+5+nsources), atom_getfloat(av+i+6+nsources));
 
-                if(ac > i+7+nsources && atom_gettype(av+i+7+nsources) == A_SYM && atom_getsym(av+i+7+nsources) != hoa_sym_null)
+                if(ulong(ac) > i+7+nsources && atom_gettype(av+i+7+nsources) == A_SYM && atom_getsym(av+i+7+nsources) != hoa_sym_null)
                     tmp->setDescription(hoa_map_stringFormat(atom_getsym(av+i+7+nsources)->s_name)->s_name);
                 else
                     tmp->setDescription("");
