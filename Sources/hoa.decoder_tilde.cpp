@@ -32,7 +32,7 @@ typedef struct _hoa_decoder_3d
 
 static t_eclass *hoa_decoder_3d_class;
 
-static void *hoa_decoder_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_decoder_new(t_symbol *s, int argc, t_atom *argv)
 {
     ulong order = 1;
     ulong arg   = 4;
@@ -142,7 +142,7 @@ static void hoa_decoder_dsp(t_hoa_decoder *x, t_object *dsp64, short *count, dou
     }
 }
 
-static t_pd_err hoa_decoder_angles_set(t_hoa_decoder *x, void *attr, long argc, t_atom *argv)
+static t_pd_err hoa_decoder_angles_set(t_hoa_decoder *x, void *attr, int argc, t_atom *argv)
 {
     if(argc && argv)
     {
@@ -177,7 +177,7 @@ static t_pd_err hoa_decoder_angles_get(t_hoa_decoder *x, void *attr, long* argc,
     return 0;
 }
 
-static t_pd_err hoa_decoder_offset_set(t_hoa_decoder *x, void *attr, long argc, t_atom *argv)
+static t_pd_err hoa_decoder_offset_set(t_hoa_decoder *x, void *attr, int argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_FLOAT)
     {
@@ -204,7 +204,7 @@ static t_pd_err hoa_decoder_offset_get(t_hoa_decoder *x, void *attr, long* argc,
     return 0;
 }
 
-static t_pd_err hoa_decoder_crop_set(t_hoa_decoder *x, void *attr, long argc, t_atom *argv)
+static t_pd_err hoa_decoder_crop_set(t_hoa_decoder *x, void *attr, int argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_FLOAT)
     {
@@ -282,7 +282,7 @@ extern "C" void setup_hoa0x2e2d0x2edecoder_tilde(void)
     hoa_decoder_class = c;
 }
 
-static void *hoa_decoder_3d_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_decoder_3d_new(t_symbol *s, int argc, t_atom *argv)
 {
     ulong order = 1;
     t_symbol* mode = gensym("regular");
@@ -365,7 +365,7 @@ static void hoa_decoder_3d_dsp(t_hoa_decoder *x, t_object *dsp64, short *count, 
     }
 }
 
-static t_pd_err hoa_decoder_3d_angles_set(t_hoa_decoder_3d *x, void *attr, long argc, t_atom *argv)
+static t_pd_err hoa_decoder_3d_angles_set(t_hoa_decoder_3d *x, void *attr, int argc, t_atom *argv)
 {
     if(argc && argv)
     {
@@ -412,7 +412,7 @@ static t_pd_err hoa_decoder_3d_angles_get(t_hoa_decoder_3d *x, void *attr, long 
     return 0;
 }
 
-static t_pd_err hoa_decoder_3d_offset_set(t_hoa_decoder_3d *x, void *attr, long argc, t_atom *argv)
+static t_pd_err hoa_decoder_3d_offset_set(t_hoa_decoder_3d *x, void *attr, int argc, t_atom *argv)
 {
     if(argc && argv)
     {
@@ -454,7 +454,7 @@ static t_pd_err hoa_decoder_3d_offset_get(t_hoa_decoder_3d *x, void *attr, long 
     return 0;
 }
 
-static t_pd_err hoa_decoder_3d_crop_set(t_hoa_decoder_3d *x, void *attr, long argc, t_atom *argv)
+static t_pd_err hoa_decoder_3d_crop_set(t_hoa_decoder_3d *x, void *attr, int argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_FLOAT)
     {

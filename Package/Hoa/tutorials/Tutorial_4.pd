@@ -174,14 +174,23 @@
 0 0 1 0.8 @velocitycolor 1 0 0 0.8;
 #X obj 734 612 hoa.2d.decoder~ 3 irregular 5 @angles 0 30 110 250 330
 , f 21;
-#X text 3 133 This wave model has wavefronts whose are infinite parralel
+#X text 3 563 In the Ambisonics model \, we assume that the loudspeakers
+generate planewaves and the microphones record planewaves. This approximation
+allows to use the recordings to generate harmonics and to use the planewaves
+signals after a decoding as the signals of the loudspeakers. Nevertheless
+\, this approach brings artefacts because the underlying models of
+the planewaves and the harmonics don't match exactly with the reality.
+To make up the distorsions of the sound field \, it is common to optimize
+the sound field (cf optim) and/or to change the decoding method depending
+on the loudspeakers arrangement (cf decoder)., f 59;
+#X text 3 53 In Ambisonics \, the planewave is the wave model which
+underlies the projection and the decomposition of the sound field.
+;
+#X text 3 133 This wave model has wavefronts whose are infinite parallel
 plane. In practice such waves do not exist but in acoustic when the
 source of the wave is far away the wavefront is considered as a plane.
 , f 59;
-#X text 3 53 In Ambisonics \, the planewave is the wave model wich
-underlies the projection and the decomposition of the sound field.
-;
-#X text 3 272 One of the main advantage of this model lies in its interoperabilty
+#X text 3 272 One of the main advantage of this model lies in its interoperability
 with the harmonics model. Indeed \, a sound field represented by set
 of harmonics can also be represented by a set of planewaves without
 loss of informations. This allows to permute the representation of
@@ -192,15 +201,6 @@ the planewave domain and come back to harmonics domain. The only limitation
 is the angular direction of the planewaves and their number. There
 must be at least as many plane waves as there are harmonics and the
 planewaves must be "equally spaced" (cf decoder).;
-#X text 3 563 In the Ambisonics model \, we assume that the loudspeakers
-generate planewaves and the microphones record planewaves. This approximation
-allows to use the recordings to generate harmonics and to use the planewaves
-signals after a decoding as the signals of the loudspeakers. Nevertheless
-\, this approach brings artefacts because the underlying models of
-the planewaves and the harmonics don't match exactly with the reality.
-To make up the distorsions of the sound field \, it is common to optimize
-the sound field (cf optim) and/or to change the decoding method depending
-on the loudspeakers arrangement (cf decoder)., f 59;
 #X connect 0 0 2 0;
 #X connect 1 0 0 0;
 #X connect 5 0 4 0;

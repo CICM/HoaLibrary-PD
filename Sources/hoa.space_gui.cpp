@@ -38,7 +38,7 @@ void *hoa_space_new(t_symbol *s, int argc, t_atom *argv);
 void hoa_space_free(t_hoa_space *x);
 void hoa_space_assist(t_hoa_space *x, void *b, long m, long a, char *s);
 void hoa_space_preset(t_hoa_space *x, t_binbuf *b);
-void hoa_space_list(t_hoa_space *x, t_symbol *s, long ac, t_atom *av);
+void hoa_space_list(t_hoa_space *x, t_symbol *s, int ac, t_atom *av);
 void hoa_space_output(t_hoa_space *x);
 
 t_pd_err hoa_space_notify(t_hoa_space *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
@@ -54,10 +54,8 @@ void draw_background(t_hoa_space *x, t_object *view, t_rect *rect);
 void draw_space(t_hoa_space *x,  t_object *view, t_rect *rect);
 void draw_points(t_hoa_space *x, t_object *view, t_rect *rect);
 
-t_pd_err channels_set(t_hoa_space *x, t_object *attr, long argc, t_atom *argv);
-t_pd_err minmax_set(t_hoa_space *x, t_object *attr, long argc, t_atom *argv);
-
-void hoa_space_deprecated(t_hoa_space* x, t_symbol *s, long ac, t_atom* av);
+t_pd_err channels_set(t_hoa_space *x, t_object *attr, int argc, t_atom *argv);
+t_pd_err minmax_set(t_hoa_space *x, t_object *attr, int argc, t_atom *argv);
 
 extern "C" void setup_hoa0x2e2d0x2espace(void)
 {
@@ -78,11 +76,6 @@ extern "C" void setup_hoa0x2e2d0x2espace(void)
 	eclass_addmethod(c, (method)hoa_space_mouse_drag,      "mousedrag",      A_CANT, 0);
     eclass_addmethod(c, (method)hoa_space_preset,          "preset",         A_CANT, 0);
     eclass_addmethod(c, (method)hoa_space_list,            "list",           A_GIMME, 0);
-    
-    eclass_addmethod(c, (method)hoa_space_deprecated,      "bordercolor",    A_GIMME, 0);
-    eclass_addmethod(c, (method)hoa_space_deprecated,      "circolor",       A_GIMME, 0);
-    eclass_addmethod(c, (method)hoa_space_deprecated,      "miccolor",       A_GIMME, 0);
-    eclass_addmethod(c, (method)hoa_space_deprecated,      "harmocolor",     A_GIMME, 0);
     
     CLASS_ATTR_INVISIBLE            (c, "fontname", 1);
     CLASS_ATTR_INVISIBLE            (c, "fontweight", 1);
@@ -138,54 +131,6 @@ extern "C" void setup_hoa0x2e2d0x2espace(void)
     hoa_space_class = c;
 }
 
-void hoa_space_deprecated(t_hoa_space* x, t_symbol *s, long ac, t_atom* av)
-{
-    t_atom* argv;
-    long argc;
-    if(s && s == gensym("bordercolor") && ac && av)
-    {
-        object_attr_setvalueof((t_object *)x, gensym("bdcolor"), ac, av);
-        object_error(x, "%s attribute @bordercolor is deprecated, please use @bdcolor.", eobj_getclassname(x)->s_name);
-    }
-    else if(s && s == gensym("miccolor") && ac && av)
-    {
-        object_attr_setvalueof((t_object *)x, gensym("ptcolor"), ac, av);
-        object_error(x, "%s attribute @miccolor is deprecated, please use @ptcolor.", eobj_getclassname(x)->s_name);
-    }
-    else if(s && s == gensym("harmocolor") && ac && av)
-    {
-        object_attr_setvalueof((t_object *)x, gensym("spcolor"), ac, av);
-        object_error(x, "%s attribute @harmocolor is deprecated, please use @spcolor.", eobj_getclassname(x)->s_name);
-    }
-
-    atoms_get_attribute(ac, av, gensym("@bordercolor"), &argc, &argv);
-    if(argc && argv)
-    {
-        object_attr_setvalueof((t_object *)x, gensym("bdcolor"), argc, argv);
-        object_error(x, "%s attribute @bordercolor is deprecated, please use @bdcolor.", eobj_getclassname(x)->s_name);
-        argc = 0;free(argv);argv = NULL;
-    }
-    atoms_get_attribute(ac, av, gensym("@miccolor"), &argc, &argv);
-    if(argc && argv)
-    {
-        object_attr_setvalueof((t_object *)x, gensym("ptcolor"), argc, argv);
-        object_error(x, "%s attribute @miccolor is deprecated, please use @ptcolor.", eobj_getclassname(x)->s_name);
-        argc = 0;free(argv);argv = NULL;
-    }
-    atoms_get_attribute(ac, av, gensym("@harmocolor"), &argc, &argv);
-    if(argc && argv)
-    {
-        object_attr_setvalueof((t_object *)x, gensym("spcolor"), ac, av);
-        object_error(x, "%s attribute @harmocolor is deprecated, please use @spcolor.", eobj_getclassname(x)->s_name);
-        argc = 0;free(argv);argv = NULL;
-    }
-    
-    if((s && s == gensym("circolor")) || atoms_has_attribute(ac, av, gensym("@circolor")))
-    {
-        object_error(x, "%s attribute @circolor is deprecated.", eobj_getclassname(x)->s_name);
-    }
-}
-
 void *hoa_space_new(t_symbol *s, int argc, t_atom *argv)
 {
     t_hoa_space *x = NULL;
@@ -207,15 +152,13 @@ void *hoa_space_new(t_symbol *s, int argc, t_atom *argv)
     ;
     ebox_new((t_ebox *)x, flags);
     
-    hoa_space_deprecated(x, NULL, argc, argv);
-    
     ebox_attrprocess_viabinbuf(x, d);
     ebox_ready((t_ebox *)x);
 
     return (x);
 }
 
-void hoa_space_list(t_hoa_space *x, t_symbol *s, long ac, t_atom *av)
+void hoa_space_list(t_hoa_space *x, t_symbol *s, int ac, t_atom *av)
 {
     if(ac && av)
     {
@@ -558,7 +501,7 @@ void hoa_space_output(t_hoa_space *x)
         pd_list(ebox_getsender((t_ebox *) x), &s_list, int(x->f_number_of_channels), argv);
 }
 
-t_pd_err channels_set(t_hoa_space *x, t_object *attr, long argc, t_atom *argv)
+t_pd_err channels_set(t_hoa_space *x, t_object *attr, int argc, t_atom *argv)
 {
     long numberOfChannels;
     if (argc && argv && atom_gettype(argv) == A_LONG)
@@ -579,7 +522,7 @@ t_pd_err channels_set(t_hoa_space *x, t_object *attr, long argc, t_atom *argv)
 	return 0;
 }
 
-t_pd_err minmax_set(t_hoa_space *x, t_object *attr, long argc, t_atom *argv)
+t_pd_err minmax_set(t_hoa_space *x, t_object *attr, int argc, t_atom *argv)
 {
     double min, max;
     if(argc && argv)

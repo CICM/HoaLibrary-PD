@@ -74,7 +74,7 @@ static t_pd_err channels_get(t_hoa_meter *x, void *attr, long *argc, t_atom **ar
     return 0;
 }
 
-static t_pd_err channels_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
+static t_pd_err channels_set(t_hoa_meter *x, void *attr, int argc, t_atom *argv)
 {
     if(argc && argv)
     {
@@ -123,7 +123,7 @@ static t_pd_err angles_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv
     return 0;
 }
 
-static t_pd_err angles_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
+static t_pd_err angles_set(t_hoa_meter *x, void *attr, int argc, t_atom *argv)
 {
     if(argc && argv)
     {
@@ -163,7 +163,7 @@ static t_pd_err offset_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv
     return 0;
 }
 
-static t_pd_err offset_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
+static t_pd_err offset_set(t_hoa_meter *x, void *attr, int argc, t_atom *argv)
 {
     if(argc && argv && atom_gettype(argv) == A_FLOAT)
     {
@@ -180,7 +180,7 @@ static t_pd_err offset_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
     return 0;
 }
 
-static t_pd_err vectors_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
+static t_pd_err vectors_set(t_hoa_meter *x, void *attr, int argc, t_atom *argv)
 {
     if(argc && argv)
     {
@@ -213,7 +213,7 @@ static t_pd_err vectors_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
 }
 
 
-static t_pd_err rotation_set(t_hoa_meter *x, void *attr, long argc, t_atom *argv)
+static t_pd_err rotation_set(t_hoa_meter *x, void *attr, int argc, t_atom *argv)
 {
     if(argc && argv)
     {
@@ -768,7 +768,7 @@ static t_pd_err channels_3d_get(t_hoa_meter_3d *x, void *attr, long *argc, t_ato
     return 0;
 }
 
-static t_pd_err channels_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
+static t_pd_err channels_3d_set(t_hoa_meter_3d *x, void *attr, int argc, t_atom *argv)
 {
     if(argc && argv)
     {
@@ -818,7 +818,7 @@ static t_pd_err angles_3d_get(t_hoa_meter_3d *x, void *attr, long *argc, t_atom 
     return 0;
 }
 
-static t_pd_err angles_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
+static t_pd_err angles_3d_set(t_hoa_meter_3d *x, void *attr, int argc, t_atom *argv)
 {
     if(argc && argv)
     {
@@ -869,7 +869,7 @@ static t_pd_err offset_3d_get(t_hoa_meter_3d *x, void *attr, long *argc, t_atom 
     return 0;
 }
 
-static t_pd_err offset_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
+static t_pd_err offset_3d_set(t_hoa_meter_3d *x, void *attr, int argc, t_atom *argv)
 {
     if(argc && argv)
     {
@@ -905,7 +905,7 @@ static t_pd_err offset_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *
     return 0;
 }
 
-static t_pd_err vectors_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
+static t_pd_err vectors_3d_set(t_hoa_meter_3d *x, void *attr, int argc, t_atom *argv)
 {
     if(argc && argv)
     {
@@ -937,7 +937,7 @@ static t_pd_err vectors_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom 
     return 0;
 }
 
-static t_pd_err rotation_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
+static t_pd_err rotation_3d_set(t_hoa_meter_3d *x, void *attr, int argc, t_atom *argv)
 {
     if(argc && argv)
     {
@@ -964,7 +964,7 @@ static t_pd_err rotation_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom
     return 0;
 }
 
-static t_pd_err view_3d_set(t_hoa_meter_3d *x, void *attr, long argc, t_atom *argv)
+static t_pd_err view_3d_set(t_hoa_meter_3d *x, void *attr, int argc, t_atom *argv)
 {
     t_symbol* view = x->f_view;
     if(argc && argv)
@@ -1413,7 +1413,7 @@ static void *hoa_meter_3d_new(t_symbol *s, int argc, t_atom *argv)
         ebox_new((t_ebox *)x, flags);
 
         t_atom *av;
-        long    ac;
+        int    ac;
 
         binbuf_get_attribute(d, gensym("@size"), &ac, &av);
         if(ac && av)

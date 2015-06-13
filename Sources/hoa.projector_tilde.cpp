@@ -18,7 +18,7 @@ typedef struct _hoa_projector
 
 static t_eclass *hoa_projector_class;
 
-static void *hoa_projector_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_projector_new(t_symbol *s, int argc, t_atom *argv)
 {
     ulong	order = 1;
     ulong numberOfPlanewaves = 4;

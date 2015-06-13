@@ -121,7 +121,7 @@ static long hoa_scope_oksize(t_hoa_scope *x, t_rect *newrect)
 	return 0;
 }
 
-static t_pd_err hoa_scope_set_order(t_hoa_scope *x, t_object *attr, long ac, t_atom *av)
+static t_pd_err hoa_scope_set_order(t_hoa_scope *x, t_object *attr, int ac, t_atom *av)
 {
     ulong order;
 	if (ac && av && atom_gettype(av) == A_LONG)
@@ -146,7 +146,7 @@ static t_pd_err hoa_scope_set_order(t_hoa_scope *x, t_object *attr, long ac, t_a
 	return 0;
 }
 
-static t_pd_err hoa_scope_set_view(t_hoa_scope *x, t_object *attr, long argc, t_atom *argv)
+static t_pd_err hoa_scope_set_view(t_hoa_scope *x, t_object *attr, int argc, t_atom *argv)
 {
     if (argc && argv && atom_gettype(argv) == A_LONG)
     {
@@ -463,7 +463,7 @@ static long hoa_scope_3d_oksize(t_hoa_scope_3d *x, t_rect *newrect)
     return 0;
 }
 
-static t_pd_err hoa_scope_3d_set_order(t_hoa_scope_3d *x, t_object *attr, long ac, t_atom *av)
+static t_pd_err hoa_scope_3d_set_order(t_hoa_scope_3d *x, t_object *attr, int ac, t_atom *av)
 {
     ulong order;
     if (ac && av && atom_gettype(av) == A_LONG)
@@ -488,7 +488,7 @@ static t_pd_err hoa_scope_3d_set_order(t_hoa_scope_3d *x, t_object *attr, long a
     return 0;
 }
 
-static t_pd_err hoa_scope_3d_set_view(t_hoa_scope_3d *x, t_object *attr, long argc, t_atom *argv)
+static t_pd_err hoa_scope_3d_set_view(t_hoa_scope_3d *x, t_object *attr, int argc, t_atom *argv)
 {
     if (argc && argv && atom_gettype(argv) == A_LONG)
     {

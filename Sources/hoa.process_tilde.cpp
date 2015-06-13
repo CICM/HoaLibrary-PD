@@ -8,57 +8,6 @@
 #include "../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 using namespace hoa;
 
-typedef struct _hoa_in
-{
-    t_eobj  f_obj;
-    int     f_extra;
-} t_hoa_in;
-
-typedef struct _hoa_out
-{
-    t_eobj      f_obj;
-    t_outlet *f_outlet;
-    int         f_extra;
-} t_hoa_out;
-
-typedef struct _hoa_in_tilde
-{
-    t_edspobj   f_obj;
-    t_sample*   f_signal;
-    int         f_extra;
-} t_hoa_in_tilde;
-
-typedef struct _hoa_out_tilde
-{
-    t_edspobj   f_obj;
-    t_sample*   f_signal;
-    int         f_extra;
-} t_hoa_out_tilde;
-
-typedef struct _hoa_thisprocess
-{
-    t_eobj      j_box;
-    char        f_nit;
-
-    t_outlet*   f_out_hoa_args;
-    t_outlet*   f_out_hoa_mode;
-	t_outlet*   f_out_args;
-    t_outlet*   f_out_attrs;
-    t_outlet*   f_out_mute;
-
-    t_atom      f_hoa_args[3];
-    t_atom      f_hoa_mode[2];
-
-    t_atom*     f_args;
-    long        f_argc;
-
-    long        f_n_attrs;
-    t_symbol**  f_attr_name;
-    t_atom*     f_attr_vals[64];
-    long        f_attr_size[64];
-    double      f_time;
-} t_hoa_thisprocess;
-
 class ProcessInstance
 {
     t_canvas*                   m_canvas;
@@ -136,7 +85,7 @@ private:
         }
     }
     
-    static void thisprocess_init(t_hoa_thisprocess* thisprocess, long argc, t_atom* argv, long nattrs, t_atom* attrs)
+    static void thisprocess_init(t_hoa_thisprocess* thisprocess, int argc, t_atom* argv, int nattrs, t_atom* attrs)
     {
         if(thisprocess)
         {
@@ -813,7 +762,7 @@ static void hoa_process_free(t_hoa_process *x)
     canvas_resume_dsp(state);
 }
 
-static void *hoa_process_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_process_new(t_symbol *s, int argc, t_atom *argv)
 {
     if(argc < 2 || atom_gettype(argv) != A_LONG || atom_gettype(argv+1) != A_SYM)
     {

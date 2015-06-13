@@ -8,68 +8,14 @@
 #include "../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 using namespace hoa;
 
-typedef struct _hoa_out
-{
-    t_eobj  f_obj;
-    t_outlet *f_outlet;
-    int    f_extra;
-} t_hoa_out;
-
-static t_eclass *hoa_out_class;
-
-typedef struct _hoa_in
-{
-    t_eobj  f_obj;
-    int    f_extra;
-} t_hoa_in;
-
 static t_eclass *hoa_in_class;
-
-typedef struct _hoa_out_tilde
-{
-    t_edspobj   f_obj;
-    t_sample*   f_signal;
-    int         f_extra;
-} t_hoa_out_tilde;
-
+static t_eclass *hoa_in_tilde_class;
+static t_eclass *hoa_out_class;
 static t_eclass *hoa_out_tilde_class;
-
-typedef struct _hoa_in_tilde
-{
-    t_edspobj   f_obj;
-    t_sample*   f_signal;
-    int         f_extra;
-} t_hoa_in_tilde;
-
 static t_eclass *hoa_intilde_class;
-
-typedef struct _hoa_thisprocess
-{
-    t_eobj      j_box;
-    char        f_nit;
-
-    t_outlet*   f_out_hoa_args;
-    t_outlet*   f_out_hoa_mode;
-    t_outlet*   f_out_args;
-    t_outlet*   f_out_attrs;
-    t_outlet*   f_out_mute;
-
-    t_atom      f_hoa_args[3];
-    t_atom      f_hoa_mode[2];
-
-    t_atom*     f_args;
-    long        f_argc;
-
-    long        f_n_attrs;
-    t_symbol**  f_attr_name;
-    t_atom*     f_attr_vals[64];
-    long        f_attr_size[64];
-    double      f_time;
-} t_hoa_thisprocess;
-
 static t_eclass *hoa_thisprocess_class;
 
-static void *hoa_out_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_out_new(t_symbol *s, int argc, t_atom *argv)
 {
     t_hoa_out *x = NULL;
 
@@ -140,7 +86,7 @@ extern "C" void setup_hoa0x2eout(void)
     hoa_out_class = c;
 }
 
-static void *hoa_in_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_in_new(t_symbol *s, int argc, t_atom *argv)
 {
     t_hoa_in *x = NULL;
 
@@ -211,7 +157,7 @@ extern "C" void setup_hoa0x2ein(void)
     hoa_in_class = c;
 }
 
-static void *hoa_out_tilde_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_out_tilde_new(t_symbol *s, int argc, t_atom *argv)
 {
     t_hoa_out_tilde *x = NULL;
 
@@ -263,7 +209,7 @@ extern "C" void setup_hoa0x2eout_tilde(void)
 
 }
 
-static void *hoa_intilde_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_intilde_new(t_symbol *s, int argc, t_atom *argv)
 {
     t_hoa_in_tilde *x = NULL;
 
@@ -321,7 +267,7 @@ extern "C" void setup_hoa0x2ein_tilde(void)
 
 }
 
-static void *hoa_thisprocess_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_thisprocess_new(t_symbol *s, int argc, t_atom *argv)
 {
     int i;
     t_hoa_thisprocess *x = (t_hoa_thisprocess *)eobj_new(hoa_thisprocess_class);

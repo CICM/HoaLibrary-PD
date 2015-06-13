@@ -28,7 +28,7 @@ typedef struct _hoa_recomposer
 
 static t_eclass *hoa_recomposer_class;
 
-static void *hoa_recomposer_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_recomposer_new(t_symbol *s, int argc, t_atom *argv)
 {
     ulong order = 1;
     ulong numberOfPlanewaves = 4;
@@ -243,7 +243,7 @@ static void hoa_recomposer_free(t_hoa_recomposer *x)
 	delete [] x->f_outs;
 }
 
-static t_pd_err ramp_set(t_hoa_recomposer *x, t_object *attr, long argc, t_atom *argv)
+static t_pd_err ramp_set(t_hoa_recomposer *x, t_object *attr, int argc, t_atom *argv)
 {
     if(argc && argv)
     {

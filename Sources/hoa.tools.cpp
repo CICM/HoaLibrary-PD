@@ -151,7 +151,7 @@ extern "C" void setup_hoa0x2epi_tilde(void)
     hoa_pi_tilde_class = c;
 }
 
-static void *hoa_dac_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_dac_new(t_symbol *s, int argc, t_atom *argv)
 {
     int i, j;
     int min, max;
@@ -258,7 +258,7 @@ extern "C" void setup_hoa0x2edac_tilde(void)
     hoa_dac_class = c;
 }
 
-static void *hoa_connect_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_connect_new(t_symbol *s, int argc, t_atom *argv)
 {
     return (t_hoa_connect *)eobj_new(hoa_connect_class);
 }

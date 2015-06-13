@@ -20,6 +20,57 @@ extern "C"
 #define HOA_CONTRAST_DARKER     0.14f
 #define HOA_DISPLAY_NPOINTS     180
 
+typedef struct _hoa_in
+{
+    t_eobj  f_obj;
+    int     f_extra;
+} t_hoa_in;
+
+typedef struct _hoa_out
+{
+    t_eobj      f_obj;
+    t_outlet *f_outlet;
+    int         f_extra;
+} t_hoa_out;
+
+typedef struct _hoa_in_tilde
+{
+    t_edspobj   f_obj;
+    t_sample*   f_signal;
+    int         f_extra;
+} t_hoa_in_tilde;
+
+typedef struct _hoa_out_tilde
+{
+    t_edspobj   f_obj;
+    t_sample*   f_signal;
+    int         f_extra;
+} t_hoa_out_tilde;
+
+typedef struct _hoa_thisprocess
+{
+    t_eobj      j_box;
+    char        f_nit;
+    
+    t_outlet*   f_out_hoa_args;
+    t_outlet*   f_out_hoa_mode;
+    t_outlet*   f_out_args;
+    t_outlet*   f_out_attrs;
+    t_outlet*   f_out_mute;
+    
+    t_atom      f_hoa_args[3];
+    t_atom      f_hoa_mode[2];
+    
+    t_atom*     f_args;
+    int         f_argc;
+    
+    int         f_n_attrs;
+    t_symbol**  f_attr_name;
+    t_atom*     f_attr_vals[64];
+    int         f_attr_size[64];
+    double      f_time;
+} t_hoa_thisprocess;
+
 extern "C" void Hoa_setup(void);
 extern "C" void hoa_setup(void);
 

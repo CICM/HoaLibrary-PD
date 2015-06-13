@@ -36,7 +36,7 @@ typedef struct _hoa_map_3d_tilde
 
 static t_eclass *hoa_map_3d_tilde_class;
 
-static void *hoa_map_tilde_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_map_tilde_new(t_symbol *s, int argc, t_atom *argv)
 {
     ulong order = 1;
     ulong numberOfSources = 1;
@@ -125,7 +125,7 @@ static void hoa_map_tilde_float(t_hoa_map_tilde *x, float f)
     }
 }
 
-static void hoa_map_tilde_list(t_hoa_map_tilde *x, t_symbol* s, long argc, t_atom* argv)
+static void hoa_map_tilde_list(t_hoa_map_tilde *x, t_symbol* s, int argc, t_atom* argv)
 {
     if(argc > 2 && argv && atom_gettype(argv) == A_LONG && atom_gettype(argv+1) == A_SYM)
     {
@@ -150,7 +150,7 @@ static void hoa_map_tilde_list(t_hoa_map_tilde *x, t_symbol* s, long argc, t_ato
     }
 }
 
-static t_pd_err hoa_map_tilde_ramp_set(t_hoa_map_tilde *x, t_object *attr, long argc, t_atom *argv)
+static t_pd_err hoa_map_tilde_ramp_set(t_hoa_map_tilde *x, t_object *attr, int argc, t_atom *argv)
 {
     if(argc && argv)
     {
@@ -338,7 +338,7 @@ extern "C" void setup_hoa0x2e2d0x2emap_tilde(void)
     hoa_map_tilde_class = c;
 }
 
-static void *hoa_map_3d_tilde_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_map_3d_tilde_new(t_symbol *s, int argc, t_atom *argv)
 {
     ulong order = 1;
     ulong numberOfSources = 1;
@@ -446,7 +446,7 @@ static void hoa_map_3d_tilde_float(t_hoa_map_3d_tilde *x, float f)
     }
 }
 
-static void hoa_map_3d_tilde_list(t_hoa_map_3d_tilde *x, t_symbol* s, long argc, t_atom* argv)
+static void hoa_map_3d_tilde_list(t_hoa_map_3d_tilde *x, t_symbol* s, int argc, t_atom* argv)
 {
     if(argc > 2 && argv && atom_gettype(argv) == A_LONG && atom_gettype(argv+1) == A_SYM)
     {
@@ -473,7 +473,7 @@ static void hoa_map_3d_tilde_list(t_hoa_map_3d_tilde *x, t_symbol* s, long argc,
     }
 }
 
-static t_pd_err hoa_map_3d_tilde_ramp_set(t_hoa_map_3d_tilde *x, t_object *attr, long argc, t_atom *argv)
+static t_pd_err hoa_map_3d_tilde_ramp_set(t_hoa_map_3d_tilde *x, t_object *attr, int argc, t_atom *argv)
 {
     if(argc && argv)
     {

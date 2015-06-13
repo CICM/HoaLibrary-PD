@@ -869,7 +869,7 @@ t_pd_err hoa_map_view(t_hoa_map *x, t_object *attr, int argc, t_atom *argv)
 
 t_pd_err hoa_map_notify(t_hoa_map *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
-    if (msg == gensym("attr_modified"))
+    if(msg == hoa_sym_attr_modified)
     {
         if(s == gensym("bgcolor"))
         {

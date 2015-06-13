@@ -19,7 +19,7 @@ typedef struct _hoa_rotate
 
 static t_eclass *hoa_rotate_class;
 
-static void *hoa_rotate_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_rotate_new(t_symbol *s, int argc, t_atom *argv)
 {
     ulong order = 1;
     t_hoa_rotate *x = (t_hoa_rotate *)eobj_new(hoa_rotate_class);

@@ -26,7 +26,7 @@ typedef struct _hoa_encoder_3d
 
 static t_eclass *hoa_encoder_3d_class;
 
-static void *hoa_encoder_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_encoder_new(t_symbol *s, int argc, t_atom *argv)
 {
 	ulong order = 1;
     t_hoa_encoder *x = (t_hoa_encoder *)eobj_new(hoa_encoder_class);
@@ -105,7 +105,7 @@ extern "C" void setup_hoa0x2e2d0x2eencoder_tilde(void)
     hoa_encoder_class = c;
 }
 
-static void *hoa_encoder_3d_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_encoder_3d_new(t_symbol *s, int argc, t_atom *argv)
 {
     ulong order = 1;
     t_hoa_encoder_3d *x = (t_hoa_encoder_3d *)eobj_new(hoa_encoder_3d_class);

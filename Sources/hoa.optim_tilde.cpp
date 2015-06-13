@@ -108,7 +108,7 @@ static void hoa_optim_symbol(t_hoa_optim *x, t_symbol* s)
     }
 }
 
-static void *hoa_optim_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_optim_new(t_symbol *s, int argc, t_atom *argv)
 {
     ulong order       = 1;
     t_hoa_optim *x  = (t_hoa_optim *)eobj_new(hoa_optim_class);
@@ -246,7 +246,7 @@ static void hoa_optim_3d_symbol(t_hoa_optim_3d *x, t_symbol* s)
     }
 }
 
-static void *hoa_optim_3d_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_optim_3d_new(t_symbol *s, int argc, t_atom *argv)
 {
     ulong order           = 1;
     t_hoa_optim_3d *x   = (t_hoa_optim_3d *)eobj_new(hoa_optim_3d_class);

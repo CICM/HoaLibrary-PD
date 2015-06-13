@@ -28,7 +28,7 @@ typedef struct _hoa_wider_3d
 
 static t_eclass *hoa_wider_3d_class;
 
-static void *hoa_wider_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_wider_new(t_symbol *s, int argc, t_atom *argv)
 {
     ulong	order = 1;
     t_hoa_wider *x = (t_hoa_wider *)eobj_new(hoa_wider_class);
@@ -47,7 +47,7 @@ static void *hoa_wider_new(t_symbol *s, long argc, t_atom *argv)
 	return (x);
 }
 
-static void *hoa_wider_3d_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_wider_3d_new(t_symbol *s, int argc, t_atom *argv)
 {
     ulong	order = 1;
     t_hoa_wider_3d *x = (t_hoa_wider_3d *)eobj_new(hoa_wider_3d_class);

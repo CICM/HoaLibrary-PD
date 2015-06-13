@@ -28,7 +28,7 @@ typedef struct _hoa_exchanger_3d
 
 static t_eclass *hoa_exchanger_3d_class;
 
-static void *hoa_exchanger_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_exchanger_new(t_symbol *s, int argc, t_atom *argv)
 {
 	ulong order = 1;
     t_hoa_exchanger *x = (t_hoa_exchanger *)eobj_new(hoa_exchanger_class);
@@ -91,7 +91,7 @@ extern "C" void setup_hoa0x2e2d0x2eexchanger_tilde(void)
     hoa_exchanger_class = c;
 }
 
-static void *hoa_exchanger_3d_new(t_symbol *s, long argc, t_atom *argv)
+static void *hoa_exchanger_3d_new(t_symbol *s, int argc, t_atom *argv)
 {
     ulong order = 1;
     Exchanger<Hoa3d, t_sample>::Normalization   norm = Exchanger<Hoa3d, t_sample>::SN3D;
