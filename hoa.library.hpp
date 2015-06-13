@@ -192,6 +192,7 @@ static t_symbol* hoa_sym_directivities				= gensym("directivities");
 // Paint
 static t_symbol* hoa_sym_rect 						= gensym("rect");
 static t_symbol* hoa_sym_bgcolor 					= gensym("bgcolor");
+static t_symbol* hoa_sym_size                       = gensym("size");
 static t_symbol* hoa_sym_bdcolor 					= gensym("bdcolor");
 
 // Map

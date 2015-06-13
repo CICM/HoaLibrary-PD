@@ -50,6 +50,9 @@ typedef struct  _hoa_scope_3d
 
     double                  f_center;
     double                  f_radius;
+    static const ulong      f_row1 = 30;
+    static const ulong      f_row2 = 20;
+    static const ulong      f_row3 = 10;
 } t_hoa_scope_3d;
 
 static t_eclass *hoa_scope_3d_class;
@@ -284,7 +287,6 @@ static void hoa_scope_paint(t_hoa_scope *x, t_object *view)
 
 static void *hoa_scope_new(t_symbol *s, int argc, t_atom *argv)
 {
-    long flags;
     t_hoa_scope *x  = (t_hoa_scope *)eobj_new(hoa_scope_class);
     t_binbuf *d     = binbuf_via_atoms(argc, argv);
 
@@ -297,12 +299,7 @@ static void *hoa_scope_new(t_symbol *s, int argc, t_atom *argv)
         x->f_signals    = new t_sample[x->f_scope->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
 
         eobj_dspsetup(x, long(x->f_scope->getNumberOfHarmonics()), 0);
-
-        flags = 0
-        | EBOX_IGNORELOCKCLICK
-        | EBOX_GROWLINK
-        ;
-        ebox_new((t_ebox *)x, flags);
+        ebox_new((t_ebox *)x, 0 | EBOX_IGNORELOCKCLICK | EBOX_GROWLINK);
 
         x->f_clock = clock_new(x,(t_method)hoa_scope_tick);
         x->f_startclock = 0;
@@ -443,6 +440,35 @@ static t_pd_err hoa_scope_3d_notify(t_hoa_scope_3d *x, t_symbol *s, t_symbol *ms
         {
             ebox_invalidate_layer((t_ebox *)x, hoa_sym_harmonics_layer);
         }
+        else if(s == hoa_sym_size)
+        {
+            ulong nrow;
+            t_rect rect;
+            ebox_get_rect_for_view((t_ebox *)x, &rect);
+            if(rect.width >= 200)
+            {
+                nrow = _hoa_scope_3d::f_row1;
+            }
+            else if(rect.width >= 100)
+            {
+                nrow = _hoa_scope_3d::f_row2;
+            }
+            else
+            {
+                nrow = _hoa_scope_3d::f_row3;
+            }
+            if(x->f_scope->getNumberOfRows() != nrow)
+            {
+                int dspState = canvas_suspend_dsp();
+                ulong order = x->f_scope->getDecompositionOrder();
+                delete x->f_scope;
+                x->f_scope      =  new Scope<Hoa3d, t_sample>(ulong(x->f_order), nrow, nrow * 2);
+
+                eobj_resize_inputs((t_ebox *)x, long(x->f_scope->getNumberOfHarmonics()));
+                canvas_update_dsp();
+                canvas_resume_dsp(dspState);
+            }
+        }
         ebox_redraw((t_ebox *)x);
     }
     return 0;
@@ -473,9 +499,25 @@ static t_pd_err hoa_scope_3d_set_order(t_hoa_scope_3d *x, t_object *attr, int ac
         {
             int dspState = canvas_suspend_dsp();
 
+            ulong nrow;
+            t_rect rect;
+            ebox_get_rect_for_view((t_ebox *)x, &rect);
+            if(rect.width >= 200)
+            {
+                nrow = _hoa_scope_3d::f_row1;
+            }
+            else if(rect.width >= 100)
+            {
+                nrow = _hoa_scope_3d::f_row2;
+            }
+            else
+            {
+                nrow = _hoa_scope_3d::f_row3;
+            }
+            
             delete x->f_scope;
             delete [] x->f_signals;
-            x->f_scope      =  new Scope<Hoa3d, t_sample>(order, HOA_DISPLAY_NPOINTS * 0.25, HOA_DISPLAY_NPOINTS * 0.5);
+            x->f_scope      =  new Scope<Hoa3d, t_sample>(order, nrow, nrow * 2);
             x->f_order      = long(x->f_scope->getDecompositionOrder());
             x->f_signals    = new t_float[x->f_scope->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
 
@@ -695,7 +737,6 @@ static void hoa_scope_3d_paint(t_hoa_scope_3d *x, t_object *view)
 
 static void *hoa_scope_3d_new(t_symbol *s, int argc, t_atom *argv)
 {
-    long flags;
     t_hoa_scope_3d *x = (t_hoa_scope_3d *)eobj_new(hoa_scope_3d_class);
     t_binbuf *d       = binbuf_via_atoms(argc, argv);
 
@@ -703,17 +744,12 @@ static void *hoa_scope_3d_new(t_symbol *s, int argc, t_atom *argv)
     {
         x->f_order      = 1;
         x->f_startclock = 0;
-        x->f_scope      = new Scope<Hoa3d, t_sample>(ulong(x->f_order), HOA_DISPLAY_NPOINTS * 0.125, HOA_DISPLAY_NPOINTS * 0.25);
+        x->f_scope      = new Scope<Hoa3d, t_sample>(ulong(x->f_order), _hoa_scope_3d::f_row1, _hoa_scope_3d::f_row1 * 2);
         x->f_order      = long(x->f_scope->getDecompositionOrder());
         x->f_signals    = new t_sample[x->f_scope->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
 
         eobj_dspsetup(x, long(x->f_scope->getNumberOfHarmonics()), 0);
-
-        flags = 0
-        | EBOX_IGNORELOCKCLICK
-        | EBOX_GROWLINK
-        ;
-        ebox_new((t_ebox *)x, flags);
+        ebox_new((t_ebox *)x, 0 | EBOX_IGNORELOCKCLICK | EBOX_GROWLINK);
 
         x->f_clock = clock_new(x,(t_method)hoa_scope_3d_tick);
         x->f_startclock = 0;
@@ -729,10 +765,16 @@ static void *hoa_scope_3d_new(t_symbol *s, int argc, t_atom *argv)
 
 static void hoa_scope_3d_free(t_hoa_scope_3d *x)
 {
-    ebox_free((t_ebox *)x);
     clock_free(x->f_clock);
-    delete x->f_scope;
-    delete [] x->f_signals;
+    ebox_free((t_ebox *)x);
+    if(x->f_scope)
+    {
+        delete x->f_scope;
+    }
+    if(x->f_signals)
+    {
+        delete [] x->f_signals;
+    }
 }
 
 extern "C" void setup_hoa0x2e3d0x2escope_tilde(void)
