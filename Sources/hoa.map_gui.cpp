@@ -1398,7 +1398,7 @@ void hoa_map_mousedown(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
 
     hoa_map_isElementSelected(x, pt);
 
-    if(modifiers == EMOD_CMD) // popup (right-click)
+    if(modifiers == EMOD_CMD || modifiers == EMOD_RIGHT) // popup (right-click)
     {
         t_pt pos = eobj_get_mouse_global_position(x);
 
