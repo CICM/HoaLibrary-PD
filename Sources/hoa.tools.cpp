@@ -240,11 +240,7 @@ static void hoa_dac_dsp(t_hoa_dac *x, t_signal **sp)
 
 static void hoa_dac_free(t_hoa_dac *x)
 {
-#ifndef _WINDOWS
-    freebytes(x->x_vec, size_t(x->x_n) * sizeof(*x->x_vec));
-#else
     free(x->x_vec);
-#endif
 }
 
 extern "C" void setup_hoa0x2edac_tilde(void)

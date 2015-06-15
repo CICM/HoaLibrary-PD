@@ -77,7 +77,7 @@ static void hoa_scope_tick(t_hoa_scope *x)
 
 	ebox_invalidate_layer((t_ebox *)x, hoa_sym_harmonics_layer);
 	ebox_redraw((t_ebox *)x);
-	if(sys_getdspstate())
+	if(canvas_dspstate)
 		clock_delay(x->f_clock, x->f_interval);
 }
 
@@ -428,7 +428,7 @@ static void hoa_scope_3d_tick(t_hoa_scope_3d *x)
 
     ebox_invalidate_layer((t_ebox *)x, hoa_sym_harmonics_layer);
     ebox_redraw((t_ebox *)x);
-    if(sys_getdspstate())
+    if(canvas_dspstate)
         clock_delay(x->f_clock, x->f_interval);
 }
 

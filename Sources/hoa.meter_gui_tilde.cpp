@@ -273,12 +273,13 @@ static void hoa_meter_tick(t_hoa_meter *x)
     ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
     ebox_redraw((t_ebox *)x);
 
-    if (sys_getdspstate())
+    if (canvas_dspstate)
         clock_delay(x->f_clock, x->f_interval);
 }
 
 static void hoa_meter_dsp(t_hoa_meter *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
 {
+    post("%ld", (long)x);
     x->f_meter->setVectorSize(ulong(maxvectorsize));
     object_method(dsp, gensym("dsp_add"), x, (method)hoa_meter_perform, 0, NULL);
     x->f_startclock = 1;
@@ -1042,7 +1043,7 @@ static void hoa_meter_3d_tick(t_hoa_meter_3d *x)
     ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
     ebox_redraw((t_ebox *)x);
 
-    if (sys_getdspstate())
+    if (canvas_dspstate)
         clock_delay(x->f_clock, x->f_interval);
 }
 
