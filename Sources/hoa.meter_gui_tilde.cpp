@@ -58,7 +58,7 @@ static void hoa_meter_oksize(t_hoa_meter *x, t_rect *newrect)
     newrect->height = pd_clip_min(newrect->height, 20.);
 }
 
-static t_pd_err channels_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv)
+static t_pd_err channels_get(t_hoa_meter *x, void *attr, int* argc, t_atom **argv)
 {
     argc[0] = 1;
     argv[0] = (t_atom *)malloc(sizeof(t_atom));
@@ -104,7 +104,7 @@ static t_pd_err channels_set(t_hoa_meter *x, void *attr, int argc, t_atom *argv)
     return 0;
 }
 
-static t_pd_err angles_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv)
+static t_pd_err angles_get(t_hoa_meter *x, void *attr, int* argc, t_atom **argv)
 {
     argc[0] = long(x->f_meter->getNumberOfPlanewaves());
     argv[0] = (t_atom *)malloc(sizeof(t_atom) * x->f_meter->getNumberOfPlanewaves());
@@ -147,7 +147,7 @@ static t_pd_err angles_set(t_hoa_meter *x, void *attr, int argc, t_atom *argv)
     return 0;
 }
 
-static t_pd_err offset_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv)
+static t_pd_err offset_get(t_hoa_meter *x, void *attr, int* argc, t_atom **argv)
 {
     argc[0] = 1;
     argv[0] = (t_atom *)malloc(sizeof(t_atom));
@@ -555,8 +555,8 @@ extern "C" void setup_hoa0x2e2d0x2emeter_tilde(void)
     class_addcreator((t_newmethod)hoa_meter_new, gensym("hoa.meter~"), A_GIMME, 0);
 
     eclass_dspinit(c);
-    eclass_init(c, 0);
-    hoa_initclass(c);
+    eclass_guiinit(c, 0);
+    
     eclass_addmethod(c, (method) hoa_meter_dsp,             "dsp",           A_CANT, 0);
     eclass_addmethod(c, (method) hoa_meter_paint,           "paint",		 A_CANT, 0);
     eclass_addmethod(c, (method) hoa_meter_getdrawparams,   "getdrawparams", A_CANT, 0);
@@ -673,7 +673,7 @@ extern "C" void setup_hoa0x2e2d0x2emeter_tilde(void)
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "velocitycolor", 0, "1. 0. 0. 0.8");
     CLASS_ATTR_STYLE                (c, "velocitycolor", 1, "color");
 
-    eclass_register(CLASS_BOX, c);
+    
     hoa_meter_class = c;
 }
 
@@ -752,7 +752,7 @@ static void hoa_meter_3d_oksize(t_hoa_meter_3d *x, t_rect *newrect)
     x->f_box.b_rect_last = *newrect;
 }
 
-static t_pd_err channels_3d_get(t_hoa_meter_3d *x, void *attr, long *argc, t_atom **argv)
+static t_pd_err channels_3d_get(t_hoa_meter_3d *x, void *attr, int* argc, t_atom **argv)
 {
     argc[0] = 1;
     argv[0] = (t_atom *)malloc(sizeof(t_atom));
@@ -798,7 +798,7 @@ static t_pd_err channels_3d_set(t_hoa_meter_3d *x, void *attr, int argc, t_atom 
     return 0;
 }
 
-static t_pd_err angles_3d_get(t_hoa_meter_3d *x, void *attr, long *argc, t_atom **argv)
+static t_pd_err angles_3d_get(t_hoa_meter_3d *x, void *attr, int* argc, t_atom **argv)
 {
     argc[0] = long(x->f_meter->getNumberOfPlanewaves()) * 2;
     argv[0] = (t_atom *)malloc(sizeof(t_atom) * x->f_meter->getNumberOfPlanewaves() * 2);
@@ -851,7 +851,7 @@ static t_pd_err angles_3d_set(t_hoa_meter_3d *x, void *attr, int argc, t_atom *a
     return 0;
 }
 
-static t_pd_err offset_3d_get(t_hoa_meter_3d *x, void *attr, long *argc, t_atom **argv)
+static t_pd_err offset_3d_get(t_hoa_meter_3d *x, void *attr, int* argc, t_atom **argv)
 {
     argc[0] = 3;
     argv[0] = (t_atom *)malloc(3 * sizeof(t_atom));
@@ -1469,8 +1469,8 @@ extern "C" void setup_hoa0x2e3d0x2emeter_tilde(void)
     c = eclass_new("hoa.3d.meter~", (method)hoa_meter_3d_new, (method)hoa_meter_3d_free, (short)sizeof(t_hoa_meter_3d), 0L, A_GIMME, 0);
 
     eclass_dspinit(c);
-    eclass_init(c, 0);
-    hoa_initclass(c);
+    eclass_guiinit(c, 0);
+    
     eclass_addmethod(c, (method) hoa_meter_3d_dsp,             "dsp",           A_CANT, 0);
     eclass_addmethod(c, (method) hoa_meter_3d_paint,           "paint",         A_CANT, 0);
     eclass_addmethod(c, (method) hoa_meter_3d_getdrawparams,   "getdrawparams", A_CANT, 0);
@@ -1596,7 +1596,6 @@ extern "C" void setup_hoa0x2e3d0x2emeter_tilde(void)
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "velocitycolor", 0, "1. 0. 0. 0.8");
     CLASS_ATTR_STYLE                (c, "velocitycolor", 1, "color");
 
-    eclass_register(CLASS_BOX, c);
     hoa_meter_3d_class = c;
 }
 

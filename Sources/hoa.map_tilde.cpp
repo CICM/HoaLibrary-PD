@@ -322,7 +322,7 @@ extern "C" void setup_hoa0x2e2d0x2emap_tilde(void)
     class_addcreator((t_newmethod)hoa_map_tilde_new, gensym("hoa.map~"), A_GIMME, 0);
 
     eclass_dspinit(c);
-    hoa_initclass(c);
+    
     eclass_addmethod(c, (method)hoa_map_tilde_dsp,          "dsp",      A_CANT, 0);
     eclass_addmethod(c, (method)hoa_map_tilde_list,         "list",     A_GIMME, 0);
     eclass_addmethod(c, (method)hoa_map_tilde_float,        "float",    A_FLOAT, 0);
@@ -334,7 +334,7 @@ extern "C" void setup_hoa0x2e2d0x2emap_tilde(void)
     CLASS_ATTR_ACCESSORS		(c, "ramp", NULL, hoa_map_tilde_ramp_set);
     CLASS_ATTR_SAVE				(c, "ramp", 1);
 
-    eclass_register(CLASS_OBJ, c);
+    
     hoa_map_tilde_class = c;
 }
 
@@ -784,7 +784,7 @@ extern "C" void setup_hoa0x2e3d0x2emap_tilde(void)
     c = eclass_new("hoa.3d.map~", (method)hoa_map_3d_tilde_new, (method)hoa_map_3d_tilde_free, (short)sizeof(t_hoa_map_3d_tilde), CLASS_NOINLET, A_GIMME, 0);
 
     eclass_dspinit(c);
-    hoa_initclass(c);
+    
     eclass_addmethod(c, (method)hoa_map_3d_tilde_dsp,          "dsp",      A_CANT, 0);
     eclass_addmethod(c, (method)hoa_map_3d_tilde_list,         "list",     A_GIMME, 0);
     eclass_addmethod(c, (method)hoa_map_3d_tilde_float,        "float",    A_FLOAT, 0);
@@ -796,6 +796,6 @@ extern "C" void setup_hoa0x2e3d0x2emap_tilde(void)
     CLASS_ATTR_ACCESSORS		(c, "ramp", NULL, hoa_map_3d_tilde_ramp_set);
     CLASS_ATTR_SAVE				(c, "ramp", 1);
 
-    eclass_register(CLASS_OBJ, c);
+    
     hoa_map_3d_tilde_class = c;
 }

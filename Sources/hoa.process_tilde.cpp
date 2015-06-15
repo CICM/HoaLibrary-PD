@@ -985,7 +985,7 @@ extern "C" void setup_hoa0x2eprocess_tilde(void)
     class_addcreator((t_newmethod)hoa_process_new, gensym("hoa.3d.process~"), A_GIMME, 0);
 
     eclass_dspinit(c);
-    hoa_initclass(c);
+    
     eclass_addmethod(c, (method)hoa_process_dsp,        "dsp",      A_CANT, 0);
     eclass_addmethod(c, (method)hoa_process_click,      "click",    A_NULL, 0);
     eclass_addmethod(c, (method)hoa_process_open,       "open",     A_GIMME, 0);
@@ -997,7 +997,7 @@ extern "C" void setup_hoa0x2eprocess_tilde(void)
     eclass_addmethod(c, (method)hoa_process_list,       "list",     A_GIMME, 0);
     eclass_addmethod(c, (method)hoa_process_anything,   "anything", A_GIMME, 0);
 
-    eclass_register(CLASS_OBJ, c);
+    
     hoa_process_class = c;
 }
 

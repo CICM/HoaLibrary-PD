@@ -158,7 +158,7 @@ static t_pd_err hoa_decoder_angles_set(t_hoa_decoder *x, void *attr, int argc, t
     return 0;
 }
 
-static t_pd_err hoa_decoder_angles_get(t_hoa_decoder *x, void *attr, long* argc, t_atom **argv)
+static t_pd_err hoa_decoder_angles_get(t_hoa_decoder *x, void *attr, int* argc, t_atom **argv)
 {
     *argc = long(x->f_decoder->getNumberOfPlanewaves());
     *argv = (t_atom *)malloc(size_t(*argc) * sizeof(t_atom));
@@ -188,7 +188,7 @@ static t_pd_err hoa_decoder_offset_set(t_hoa_decoder *x, void *attr, int argc, t
     return 0;
 }
 
-static t_pd_err hoa_decoder_offset_get(t_hoa_decoder *x, void *attr, long* argc, t_atom **argv)
+static t_pd_err hoa_decoder_offset_get(t_hoa_decoder *x, void *attr, int* argc, t_atom **argv)
 {
     *argc = 1;
     *argv = (t_atom *)malloc(size_t(*argc) * sizeof(t_atom));
@@ -218,7 +218,7 @@ static t_pd_err hoa_decoder_crop_set(t_hoa_decoder *x, void *attr, int argc, t_a
     return 0;
 }
 
-static t_pd_err hoa_decoder_crop_get(t_hoa_decoder *x, void *attr, long* argc, t_atom **argv)
+static t_pd_err hoa_decoder_crop_get(t_hoa_decoder *x, void *attr, int* argc, t_atom **argv)
 {
     *argc = 1;
     *argv = (t_atom *)malloc(size_t(*argc) * sizeof(t_atom));
@@ -257,7 +257,7 @@ extern "C" void setup_hoa0x2e2d0x2edecoder_tilde(void)
     class_addcreator((t_newmethod)hoa_decoder_new, gensym("hoa.decoder~"), A_GIMME, 0);
 
     eclass_dspinit(c);
-    hoa_initclass(c);
+    
     eclass_addmethod(c, (method)hoa_decoder_dsp,           "dsp",          A_CANT,  0);
 
     CLASS_ATTR_DOUBLE_VARSIZE	(c, "angles",0, t_hoa_decoder, f_attrs, f_attrs, HOA_MAX_PLANEWAVES);
@@ -278,7 +278,7 @@ extern "C" void setup_hoa0x2e2d0x2edecoder_tilde(void)
     CLASS_ATTR_LABEL            (c, "crop", 0, "Crop of the Responses");
     CLASS_ATTR_SAVE             (c, "crop", 0);
 
-    eclass_register(CLASS_OBJ, c);
+    
     hoa_decoder_class = c;
 }
 
@@ -392,9 +392,9 @@ static t_pd_err hoa_decoder_3d_angles_set(t_hoa_decoder_3d *x, void *attr, int a
     return 0;
 }
 
-static t_pd_err hoa_decoder_3d_angles_get(t_hoa_decoder_3d *x, void *attr, long *argc, t_atom **argv)
+static t_pd_err hoa_decoder_3d_angles_get(t_hoa_decoder_3d *x, void *attr, int* argc, t_atom **argv)
 {
-    *argc = long(x->f_decoder->getNumberOfPlanewaves() * 2);
+    *argc = int(x->f_decoder->getNumberOfPlanewaves() * 2);
     *argv = (t_atom *)malloc(size_t(*argc) * sizeof(t_atom));
     if(*argc && *argv)
     {
@@ -436,7 +436,7 @@ static t_pd_err hoa_decoder_3d_offset_set(t_hoa_decoder_3d *x, void *attr, int a
     return 0;
 }
 
-static t_pd_err hoa_decoder_3d_offset_get(t_hoa_decoder_3d *x, void *attr, long *argc, t_atom **argv)
+static t_pd_err hoa_decoder_3d_offset_get(t_hoa_decoder_3d *x, void *attr, int* argc, t_atom **argv)
 {
     *argc = 3;
     *argv = (t_atom *)malloc(size_t(*argc) * sizeof(t_atom));
@@ -468,7 +468,7 @@ static t_pd_err hoa_decoder_3d_crop_set(t_hoa_decoder_3d *x, void *attr, int arg
     return 0;
 }
 
-static t_pd_err hoa_decoder_3d_crop_get(t_hoa_decoder_3d *x, void *attr, long* argc, t_atom **argv)
+static t_pd_err hoa_decoder_3d_crop_get(t_hoa_decoder_3d *x, void *attr, int* argc, t_atom **argv)
 {
     *argc = 1;
     *argv = (t_atom *)malloc(size_t(*argc) * sizeof(t_atom));
@@ -501,12 +501,9 @@ static void hoa_decoder_3d_free(t_hoa_decoder_3d *x)
 
 extern "C" void setup_hoa0x2e3d0x2edecoder_tilde(void)
 {
-    t_eclass* c;
-
-    c = eclass_new("hoa.3d.decoder~", (method)hoa_decoder_3d_new, (method)hoa_decoder_3d_free, (short)sizeof(t_hoa_decoder_3d), 0L, A_GIMME, 0);
-
+    t_eclass* c = eclass_new("hoa.3d.decoder~", (method)hoa_decoder_3d_new, (method)hoa_decoder_3d_free, (short)sizeof(t_hoa_decoder_3d), 0L, A_GIMME, 0);
+    
     eclass_dspinit(c);
-    hoa_initclass(c);
     eclass_addmethod(c, (method)hoa_decoder_3d_dsp,           "dsp",          A_CANT,  0);
 
     CLASS_ATTR_DOUBLE_VARSIZE	(c, "angles",0, t_hoa_decoder_3d, f_attrs, f_attrs, HOA_MAX_PLANEWAVES*2);
@@ -527,7 +524,6 @@ extern "C" void setup_hoa0x2e3d0x2edecoder_tilde(void)
     CLASS_ATTR_LABEL            (c, "crop", 0, "Crop of the Responses");
     CLASS_ATTR_SAVE             (c, "crop", 0);
 
-    eclass_register(CLASS_OBJ, c);
     hoa_decoder_3d_class = c;
 }
 

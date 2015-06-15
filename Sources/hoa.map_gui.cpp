@@ -139,7 +139,7 @@ extern "C" void setup_hoa0x2emap(void)
     class_addcreator((t_newmethod)hoa_map_new, gensym("hoa.2d.map"), A_GIMME, 0);
     class_addcreator((t_newmethod)hoa_map_new, gensym("hoa.3d.map"), A_GIMME, 0);
 
-    eclass_init(c, 0);
+    eclass_guiinit(c, 0);
 
 	eclass_addmethod(c, (method) hoa_map_paint,         "paint",          A_CANT,  0);
 	eclass_addmethod(c, (method) hoa_map_getDrawParams, "getDrawParams",  A_CANT,  0);
@@ -213,7 +213,7 @@ extern "C" void setup_hoa0x2emap(void)
     CLASS_ATTR_SAVE					(c, "mapname", 1);
     CLASS_ATTR_ORDER				(c, "mapname", 0, "1");
 
-    eclass_register(CLASS_BOX, c);
+    
 	hoa_map_class = c;
 
     hoa_sym_sources_preset = gensym("sources_preset");
@@ -1400,7 +1400,7 @@ void hoa_map_mousedown(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
 
     if(modifiers == EMOD_CMD || modifiers == EMOD_RIGHT) // popup (right-click)
     {
-        t_pt pos = eobj_get_mouse_global_position(x);
+        t_pt pos = {10, 10}; //TODO //eobj_get_mouse_global_position(x);
 
         if(x->f_selected_group)
         {
@@ -1413,7 +1413,7 @@ void hoa_map_mousedown(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
             epopupmenu_additem(popup, 3, "Mute group", 0, 0);
             if (x->f_selected_group->getSubMute())
                 epopupmenu_additem(popup, 4, "Unmute group", 0, 0);
-            epopupmenu_popup(popup, pos, 0);
+            epopupmenu_popup(popup, pos);
         }
         else if(x->f_selected_source)
         {
@@ -1426,7 +1426,7 @@ void hoa_map_mousedown(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
                 epopupmenu_additem(popup, 2, "Unmute source", 0, 0);
             else
                 epopupmenu_additem(popup, 2, "Mute source", 0, 0);
-            epopupmenu_popup(popup, pos, 0);
+            epopupmenu_popup(popup, pos);
         }
         else
         {
@@ -1436,7 +1436,7 @@ void hoa_map_mousedown(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
             epopupmenu_addseperator(popup);
             epopupmenu_additem(popup, 1, "Add source", 0, 0);
             epopupmenu_additem(popup, 2, "Clear all", 0, 0);
-            epopupmenu_popup(popup, pos, 0);
+            epopupmenu_popup(popup, pos);
         }
     }
 
@@ -1978,47 +1978,47 @@ t_symbol* hoa_map_stringFormat(const char *s)
 
 void hoa_map_preset(t_hoa_map *x, t_binbuf *d)
 {
-    binbuf_addv(d, "s", hoa_sym_sources_preset);
+    binbuf_addv(d, (char *)"s", hoa_sym_sources_preset);
     for(Source::source_iterator it = x->f_manager->getFirstSource(); it != x->f_manager->getLastSource(); it++)
     {
-        binbuf_addv(d, "sffff", hoa_sym_source, (float)it->first,
+        binbuf_addv(d, (char *)"sffff", hoa_sym_source, (float)it->first,
                     (float)it->second->getAbscissa(),
                     (float)it->second->getOrdinate(),
                     (float)it->second->getHeight());
 
-        binbuf_addv(d, "fffff", (float)it->second->getMute(),
+        binbuf_addv(d, (char *)"fffff", (float)it->second->getMute(),
                     (float)it->second->getColor()[0],
                     (float)it->second->getColor()[1],
                     (float)it->second->getColor()[2],
                     (float)it->second->getColor()[3]);
 
         if(it->second->getDescription().size())
-            binbuf_addv(d, "s", hoa_map_stringFormat(it->second->getDescription().c_str()));
+            binbuf_addv(d, (char *)"s", hoa_map_stringFormat(it->second->getDescription().c_str()));
         else
-            binbuf_addv(d, "s", hoa_sym_null);
+            binbuf_addv(d, (char *)"s", hoa_sym_null);
     }
 
     for(Source::group_iterator it = x->f_manager->getFirstGroup(); it != x->f_manager->getLastGroup(); it++)
     {
-        binbuf_addv(d, "sf", hoa_sym_group, (float)it->first);
-        binbuf_addv(d, "f", (float)it->second->getNumberOfSources());
+        binbuf_addv(d, (char *)"sf", hoa_sym_group, (float)it->first);
+        binbuf_addv(d, (char *)"f", (float)it->second->getNumberOfSources());
 
         map<ulong, Source*>& sourcesOfGroup = it->second->getSources();
         for(Source::source_iterator ti = sourcesOfGroup.begin() ; ti != sourcesOfGroup.end() ; ti++)
         {
-            binbuf_addv(d, "f", (float)ti->first);
+            binbuf_addv(d, (char *)"f", (float)ti->first);
         }
 
-        binbuf_addv(d, "ffff",
+        binbuf_addv(d, (char *)"ffff",
                     (float)it->second->getColor()[0],
                     (float)it->second->getColor()[1],
                     (float)it->second->getColor()[2],
                     (float)it->second->getColor()[3]);
 
         if(it->second->getDescription().size())
-            binbuf_addv(d, "s", hoa_map_stringFormat(it->second->getDescription().c_str()));
+            binbuf_addv(d, (char *)"s", hoa_map_stringFormat(it->second->getDescription().c_str()));
         else
-            binbuf_addv(d, "s", hoa_sym_null);
+            binbuf_addv(d, (char *)"s", hoa_sym_null);
     }
 }
 

@@ -63,8 +63,8 @@ extern "C" void setup_hoa0x2e2d0x2espace(void)
     c = eclass_new("hoa.2d.space", (method)hoa_space_new, (method)hoa_space_free, sizeof(t_hoa_space), 0L, A_GIMME, 0);
     class_addcreator((t_newmethod)hoa_space_new, gensym("hoa.space"), A_GIMME, 0);
     
-    eclass_init(c, 0);
-    hoa_initclass(c);
+    eclass_guiinit(c, 0);
+    
     eclass_addmethod(c, (method)hoa_space_assist,          "assist",         A_CANT,	0);
 	eclass_addmethod(c, (method)hoa_space_paint,           "paint",          A_CANT,	0);
 	eclass_addmethod(c, (method)hoa_space_notify,          "notify",         A_CANT, 0);
@@ -127,7 +127,7 @@ extern "C" void setup_hoa0x2e2d0x2espace(void)
     CLASS_ATTR_ORDER                (c, "ptcolor", 0, "4");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT	(c, "ptcolor", 0, "0. 0. 0. 1.");
     
-    eclass_register(CLASS_BOX, c);
+    
     hoa_space_class = c;
 }
 
@@ -559,10 +559,10 @@ t_pd_err minmax_set(t_hoa_space *x, t_object *attr, int argc, t_atom *argv)
 
 void hoa_space_preset(t_hoa_space *x, t_binbuf *b)
 {
-    binbuf_addv(b, "s", gensym("list"));
+    binbuf_addv(b, (char *)"s", gensym("list"));
     for(int i = 0; i < x->f_number_of_channels; i++)
     {
-        binbuf_addv(b, "f", (float)x->f_channel_values[i]);
+        binbuf_addv(b, (char *)"f", (float)x->f_channel_values[i]);
     }
 }
 
