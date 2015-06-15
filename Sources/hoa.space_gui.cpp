@@ -125,7 +125,7 @@ extern "C" void setup_hoa0x2e2d0x2espace(void)
     CLASS_ATTR_ORDER                (c, "ptcolor", 0, "4");
 	CLASS_ATTR_DEFAULT_SAVE_PAINT	(c, "ptcolor", 0, "0. 0. 0. 1.");
     
-    
+    eclass_register(CLASS_BOX, c);
     hoa_space_class = c;
 }
 

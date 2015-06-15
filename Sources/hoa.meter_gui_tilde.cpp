@@ -555,8 +555,8 @@ extern "C" void setup_hoa0x2e2d0x2emeter_tilde(void)
     c = eclass_new("hoa.2d.meter~", (method)hoa_meter_new, (method)hoa_meter_free, (short)sizeof(t_hoa_meter), CLASS_NOINLET, A_GIMME, 0);
     class_addcreator((t_newmethod)hoa_meter_new, gensym("hoa.meter~"), A_GIMME, 0);
 
-    eclass_dspinit(c);
     eclass_guiinit(c, 0);
+    eclass_dspinit(c);
     
     eclass_addmethod(c, (method) hoa_meter_dsp,             "dsp",           A_CANT, 0);
     eclass_addmethod(c, (method) hoa_meter_paint,           "paint",		 A_CANT, 0);
@@ -674,7 +674,7 @@ extern "C" void setup_hoa0x2e2d0x2emeter_tilde(void)
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "velocitycolor", 0, "1. 0. 0. 0.8");
     CLASS_ATTR_STYLE                (c, "velocitycolor", 1, "color");
 
-    
+    eclass_register(CLASS_BOX, c);
     hoa_meter_class = c;
 }
 
@@ -1469,8 +1469,8 @@ extern "C" void setup_hoa0x2e3d0x2emeter_tilde(void)
 
     c = eclass_new("hoa.3d.meter~", (method)hoa_meter_3d_new, (method)hoa_meter_3d_free, (short)sizeof(t_hoa_meter_3d), 0L, A_GIMME, 0);
 
-    eclass_dspinit(c);
     eclass_guiinit(c, 0);
+    eclass_dspinit(c);
     
     eclass_addmethod(c, (method) hoa_meter_3d_dsp,             "dsp",           A_CANT, 0);
     eclass_addmethod(c, (method) hoa_meter_3d_paint,           "paint",         A_CANT, 0);
@@ -1597,6 +1597,7 @@ extern "C" void setup_hoa0x2e3d0x2emeter_tilde(void)
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "velocitycolor", 0, "1. 0. 0. 0.8");
     CLASS_ATTR_STYLE                (c, "velocitycolor", 1, "color");
 
+    eclass_register(CLASS_BOX, c);
     hoa_meter_3d_class = c;
 }
 

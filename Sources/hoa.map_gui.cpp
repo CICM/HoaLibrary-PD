@@ -213,7 +213,7 @@ extern "C" void setup_hoa0x2emap(void)
     CLASS_ATTR_SAVE					(c, "mapname", 1);
     CLASS_ATTR_ORDER				(c, "mapname", 0, "1");
 
-    
+    eclass_register(CLASS_BOX, c);
 	hoa_map_class = c;
 
     hoa_sym_sources_preset = gensym("sources_preset");

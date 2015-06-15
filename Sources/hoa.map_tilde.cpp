@@ -334,7 +334,7 @@ extern "C" void setup_hoa0x2e2d0x2emap_tilde(void)
     CLASS_ATTR_ACCESSORS		(c, "ramp", NULL, hoa_map_tilde_ramp_set);
     CLASS_ATTR_SAVE				(c, "ramp", 1);
 
-    
+    eclass_register(CLASS_OBJ, c);
     hoa_map_tilde_class = c;
 }
 
@@ -796,6 +796,6 @@ extern "C" void setup_hoa0x2e3d0x2emap_tilde(void)
     CLASS_ATTR_ACCESSORS		(c, "ramp", NULL, hoa_map_3d_tilde_ramp_set);
     CLASS_ATTR_SAVE				(c, "ramp", 1);
 
-    
+    eclass_register(CLASS_OBJ, c);
     hoa_map_3d_tilde_class = c;
 }

@@ -320,8 +320,8 @@ extern "C" void setup_hoa0x2e2d0x2escope_tilde(void)
     c = eclass_new("hoa.2d.scope~", (method)hoa_scope_new, (method)hoa_scope_free, (short)sizeof(t_hoa_scope), 0L, A_GIMME, 0);
     class_addcreator((t_newmethod)hoa_scope_new, gensym("hoa.scope~"), A_GIMME, 0);
 
-    eclass_dspinit(c);
     eclass_guiinit(c, 0);
+    eclass_dspinit(c);
     
     eclass_addmethod(c, (method)hoa_scope_dsp,			"dsp",          A_CANT, 0);
     eclass_addmethod(c, (method)hoa_scope_paint,		"paint",		A_CANT,	0);
@@ -397,7 +397,7 @@ extern "C" void setup_hoa0x2e2d0x2escope_tilde(void)
     CLASS_ATTR_ORDER                (c, "nhcolor", 0, "4");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "nhcolor", 0, "0. 0. 1. 1.");
 
-    
+    eclass_register(CLASS_BOX, c);
     hoa_scope_class = c;
 }
 
@@ -782,8 +782,8 @@ extern "C" void setup_hoa0x2e3d0x2escope_tilde(void)
 
     c = eclass_new("hoa.3d.scope~", (method)hoa_scope_3d_new, (method)hoa_scope_3d_free, (short)sizeof(t_hoa_scope_3d), 0L, A_GIMME, 0);
 
-    eclass_dspinit(c);
     eclass_guiinit(c, 0);
+    eclass_dspinit(c);
     
     eclass_addmethod(c, (method)hoa_scope_3d_dsp,			"dsp",          A_CANT, 0);
     eclass_addmethod(c, (method)hoa_scope_3d_paint,         "paint",		A_CANT,	0);
@@ -859,7 +859,7 @@ extern "C" void setup_hoa0x2e3d0x2escope_tilde(void)
     CLASS_ATTR_ORDER                (c, "nhcolor", 0, "4");
     CLASS_ATTR_DEFAULT_SAVE_PAINT   (c, "nhcolor", 0, "0. 0. 1. 1.");
 
-    
+    eclass_register(CLASS_BOX, c);
     hoa_scope_3d_class = c;
 }
 

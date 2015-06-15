@@ -76,7 +76,7 @@ extern "C" void setup_hoa0x2epi(void)
     eclass_addmethod(c, (method)pi_bang,     "bang",      A_CANT, 0);
     eclass_addmethod(c, (method)pi_float,    "float",      A_FLOAT, 0);
     
-    
+    eclass_register(CLASS_OBJ, c);
     pi_class = c;
 }
 
@@ -147,7 +147,7 @@ extern "C" void setup_hoa0x2epi_tilde(void)
     eclass_addmethod(c, (method)hoa_pi_tilde_float,    "float",    A_FLOAT, 0);
     eclass_addmethod(c, (method)hoa_pi_tilde_dsp,      "dsp",      A_CANT, 0);
     
-    
+    eclass_register(CLASS_OBJ, c);
     hoa_pi_tilde_class = c;
 }
 
@@ -369,7 +369,7 @@ extern "C" void setup_hoa0x2econnect(void)
     
     eclass_addmethod(c, (method)hoa_connect_bang,          "bang",             A_CANT, 0);
     
-    
+    eclass_register(CLASS_OBJ, c);
     hoa_connect_class = c;
 }
 

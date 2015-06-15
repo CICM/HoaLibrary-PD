@@ -276,6 +276,7 @@ extern "C" void setup_hoa0x2e2d0x2edecoder_tilde(void)
     CLASS_ATTR_LABEL            (c, "crop", 0, "Crop of the Responses");
     CLASS_ATTR_SAVE             (c, "crop", 0);
 
+    eclass_register(CLASS_OBJ, c);
     hoa_decoder_class = c;
 }
 
@@ -521,6 +522,7 @@ extern "C" void setup_hoa0x2e3d0x2edecoder_tilde(void)
     CLASS_ATTR_LABEL            (c, "crop", 0, "Crop of the Responses");
     CLASS_ATTR_SAVE             (c, "crop", 0);
 
+    eclass_register(CLASS_OBJ, c);
     hoa_decoder_3d_class = c;
 }
 

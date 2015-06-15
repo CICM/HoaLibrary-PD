@@ -164,7 +164,7 @@ extern "C" void setup_hoa0x2e2d0x2eoptim_tilde(void)
     eclass_addmethod(c, (method)hoa_optim_dsp,      "dsp",      A_CANT, 0);
     eclass_addmethod(c, (method)hoa_optim_symbol,   "symbol",	A_SYM,  0);
     
-    
+    eclass_register(CLASS_OBJ, c);
     hoa_optim_class = c;
 }
 
@@ -302,7 +302,7 @@ extern "C" void setup_hoa0x2e3d0x2eoptim_tilde(void)
     eclass_addmethod(c, (method)hoa_optim_3d_dsp,    "dsp",		A_CANT, 0);
     eclass_addmethod(c, (method)hoa_optim_3d_symbol, "symbol",  A_SYM,  0);
     
-    
+    eclass_register(CLASS_OBJ, c);
     hoa_optim_3d_class = c;
 }
 

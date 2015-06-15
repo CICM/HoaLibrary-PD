@@ -279,7 +279,7 @@ extern "C" void setup_hoa0x2e2d0x2erecomposer_tilde(void)
     CLASS_ATTR_DEFAULT          (c,"ramp", 0, "20");
     CLASS_ATTR_SAVE             (c,"ramp", 1);
 
-    
+    eclass_register(CLASS_OBJ, c);
     hoa_recomposer_class = c;
 }
 

@@ -82,7 +82,7 @@ extern "C" void setup_hoa0x2eout(void)
     eclass_addmethod(c, (method)hoa_out_list,       "list",     A_GIMME, 0);
     eclass_addmethod(c, (method)hoa_out_anything,   "anything", A_GIMME, 0);
 
-    
+    eclass_register(CLASS_OBJ, c);
     hoa_out_class = c;
 }
 
@@ -153,7 +153,7 @@ extern "C" void setup_hoa0x2ein(void)
     eclass_addmethod(c, (method)hoa_in_list,       "list",     A_GIMME, 0);
     eclass_addmethod(c, (method)hoa_in_anything,   "anything", A_GIMME, 0);
 
-    
+    eclass_register(CLASS_OBJ, c);
     hoa_in_class = c;
 }
 
@@ -204,7 +204,7 @@ extern "C" void setup_hoa0x2eout_tilde(void)
     eclass_dspinit(c);
     eclass_addmethod(c, (method)hoa_out_tilde_dsp, "dsp", A_CANT, 0);
 
-    
+    eclass_register(CLASS_OBJ, c);
     hoa_out_tilde_class = c;
 
 }
@@ -262,7 +262,7 @@ extern "C" void setup_hoa0x2ein_tilde(void)
     eclass_dspinit(c);
     eclass_addmethod(c, (method)hoa_intilde_dsp, "dsp", A_CANT, 0);
 
-    
+    eclass_register(CLASS_OBJ, c);
     hoa_intilde_class = c;
 
 }
@@ -352,7 +352,7 @@ extern "C" void setup_hoa0x2ethisprocess_tilde(void)
     eclass_addmethod(c, (method)hoa_thisprocess_bang,       "bang",     A_CANT, 0);
     eclass_addmethod(c, (method)hoa_thisprocess_click,      "click",    A_CANT, 0);
 
-    
+    eclass_register(CLASS_OBJ, c);
     hoa_thisprocess_class = c;
 }
 

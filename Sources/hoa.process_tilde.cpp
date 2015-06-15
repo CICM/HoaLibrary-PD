@@ -997,7 +997,7 @@ extern "C" void setup_hoa0x2eprocess_tilde(void)
     eclass_addmethod(c, (method)hoa_process_list,       "list",     A_GIMME, 0);
     eclass_addmethod(c, (method)hoa_process_anything,   "anything", A_GIMME, 0);
 
-    
+    eclass_register(CLASS_OBJ, c);
     hoa_process_class = c;
 }
 

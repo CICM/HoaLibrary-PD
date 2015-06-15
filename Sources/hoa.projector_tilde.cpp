@@ -83,5 +83,6 @@ extern "C" void setup_hoa0x2e2d0x2eprojector_tilde(void)
     
     eclass_addmethod(c, (method)hoa_projector_dsp,     "dsp",      A_CANT, 0);
     
+    eclass_register(CLASS_OBJ, c);
     hoa_projector_class = c;
 }
