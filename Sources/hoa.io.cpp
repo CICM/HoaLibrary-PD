@@ -9,10 +9,9 @@
 using namespace hoa;
 
 static t_eclass *hoa_in_class;
-static t_eclass *hoa_in_tilde_class;
 static t_eclass *hoa_out_class;
-static t_eclass *hoa_out_tilde_class;
 static t_eclass *hoa_intilde_class;
+static t_eclass *hoa_outtilde_class;
 static t_eclass *hoa_thisprocess_class;
 
 static void *hoa_out_new(t_symbol *s, int argc, t_atom *argv)
@@ -161,7 +160,7 @@ static void *hoa_out_tilde_new(t_symbol *s, int argc, t_atom *argv)
 {
     t_hoa_out_tilde *x = NULL;
 
-    x = (t_hoa_out_tilde *)eobj_new(hoa_out_tilde_class);
+    x = (t_hoa_out_tilde *)eobj_new(hoa_outtilde_class);
 	if(x)
 	{
         eobj_dspsetup(x, 0, 0);
@@ -205,7 +204,7 @@ extern "C" void setup_hoa0x2eout_tilde(void)
     eclass_addmethod(c, (method)hoa_out_tilde_dsp, "dsp", A_CANT, 0);
 
     eclass_register(CLASS_OBJ, c);
-    hoa_out_tilde_class = c;
+    hoa_outtilde_class = c;
 
 }
 
