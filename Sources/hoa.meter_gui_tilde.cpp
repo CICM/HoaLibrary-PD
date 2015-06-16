@@ -1037,7 +1037,7 @@ static void hoa_meter_3d_tick(t_hoa_meter_3d *x)
     else if(x->f_vector_type == hoa_sym_energy)
         x->f_vector->processEnergy(x->f_signals, x->f_vector_coords + 3);
 
-    x->f_meter->tick(ulong(1000 / x->f_interval));
+    x->f_meter->tick(ulong((1000.f / (float)x->f_interval)));
     ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
     ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
     ebox_redraw((t_ebox *)x);
