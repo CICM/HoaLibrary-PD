@@ -343,7 +343,7 @@ static void hoa_connect_bang(t_hoa_connect *x)
             oc = obj_connect((t_object *)list[i], j, (t_object *)list[i+1], j);
             if(glist_isvisible(eobj_getcanvas(x)))
             {
-                sys_vgui(".x%lx.c create line %d %d %d %d -width %d -fill black -tags [list l%lx cord]\n",
+                sys_vgui((char *)".x%lx.c create line %d %d %d %d -width %d -fill black -tags [list l%lx cord]\n",
                          glist_getcanvas(eobj_getcanvas(x)), 0, 0, 0, 0,
                          (obj_issignaloutlet((t_object *)list[i], j) ? 2 : 1),
                          oc);
