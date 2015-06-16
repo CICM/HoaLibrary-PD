@@ -279,7 +279,6 @@ static void hoa_meter_tick(t_hoa_meter *x)
 
 static void hoa_meter_dsp(t_hoa_meter *x, t_object *dsp, short *count, double samplerate, long maxvectorsize, long flags)
 {
-    post("%ld", (long)x);
     x->f_meter->setVectorSize(ulong(maxvectorsize));
     object_method(dsp, gensym("dsp_add"), x, (method)hoa_meter_perform, 0, NULL);
     x->f_startclock = 1;
