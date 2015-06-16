@@ -76,10 +76,8 @@ static void *hoa_decoder_new(t_symbol *s, int argc, t_atom *argv)
         }
 
         eobj_dspsetup(x, long(x->f_decoder->getNumberOfHarmonics()), long(x->f_decoder->getNumberOfPlanewaves()));
-        x->f_ins = new t_sample[x->f_decoder->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
-        x->f_outs= new t_sample[x->f_decoder->getNumberOfPlanewaves() * HOA_MAXBLKSIZE];
-        memset(x->f_ins, 0, x->f_decoder->getNumberOfHarmonics() * HOA_MAXBLKSIZE * sizeof(t_sample));
-        memset(x->f_outs, 0, x->f_decoder->getNumberOfPlanewaves() * HOA_MAXBLKSIZE * sizeof(t_sample));
+        x->f_ins = Signal<t_sample>::alloc(x->f_decoder->getNumberOfHarmonics() * HOA_MAXBLKSIZE);
+        x->f_outs= Signal<t_sample>::alloc(x->f_decoder->getNumberOfPlanewaves() * HOA_MAXBLKSIZE);
         ebox_attrprocess_viabinbuf(x, d);
 
         return x;
@@ -245,8 +243,8 @@ static void hoa_decoder_free(t_hoa_decoder *x)
 {
     eobj_dspfree(x);
 	delete x->f_decoder;
-    delete [] x->f_ins;
-    delete [] x->f_outs;
+    Signal<t_sample>::free(x->f_ins);
+    Signal<t_sample>::free(x->f_outs);
 }
 
 extern "C" void setup_hoa0x2e2d0x2edecoder_tilde(void)
@@ -317,12 +315,10 @@ static void *hoa_decoder_3d_new(t_symbol *s, int argc, t_atom *argv)
         }
 
         eobj_dspsetup(x, long(x->f_decoder->getNumberOfHarmonics()), long(x->f_decoder->getNumberOfPlanewaves()));
-        x->f_ins = new t_sample[x->f_decoder->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
-        x->f_outs= new t_sample[x->f_decoder->getNumberOfPlanewaves() * HOA_MAXBLKSIZE];
-        memset(x->f_ins, 0, x->f_decoder->getNumberOfHarmonics() * HOA_MAXBLKSIZE * sizeof(t_sample));
-        memset(x->f_outs, 0, x->f_decoder->getNumberOfPlanewaves() * HOA_MAXBLKSIZE * sizeof(t_sample));
+        x->f_ins = Signal<t_sample>::alloc(x->f_decoder->getNumberOfHarmonics() * HOA_MAXBLKSIZE);
+        x->f_outs= Signal<t_sample>::alloc(x->f_decoder->getNumberOfPlanewaves() * HOA_MAXBLKSIZE);
         ebox_attrprocess_viabinbuf(x, d);
-
+        
         return x;
     }
 
@@ -337,7 +333,7 @@ static void hoa_decoder_3d_perform_regular(t_hoa_decoder_3d *x, t_object *dsp64,
     }
     for(long i = 0; i < sampleframes; i++)
     {
-        x->f_decoder->process(x->f_ins + numins * i, x->f_outs + numouts * i);
+        (static_cast<Decoder<Hoa3d, t_sample>::Regular*>(x->f_decoder))->process(x->f_ins + numins * i, x->f_outs + numouts * i);
     }
     for(long i = 0; i < numouts; i++)
     {
@@ -350,7 +346,7 @@ static void hoa_decoder_3d_perform_binaural(t_hoa_decoder_3d *x, t_object *dsp64
     (static_cast<Decoder<Hoa3d, t_sample>::Binaural*>(x->f_decoder))->processBlock((const t_sample**)ins, outs);
 }
 
-static void hoa_decoder_3d_dsp(t_hoa_decoder *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
+static void hoa_decoder_3d_dsp(t_hoa_decoder_3d *x, t_object *dsp64, short *count, double samplerate, long maxvectorsize, long flags)
 {
     x->f_decoder->computeRendering(ulong(maxvectorsize));
     if(x->f_mode == gensym("binaural"))
@@ -493,8 +489,8 @@ static void hoa_decoder_3d_free(t_hoa_decoder_3d *x)
 {
     eobj_dspfree(x);
     delete x->f_decoder;
-    delete [] x->f_ins;
-    delete [] x->f_outs;
+    Signal<t_sample>::free(x->f_ins);
+    Signal<t_sample>::free(x->f_outs);
 }
 
 extern "C" void setup_hoa0x2e3d0x2edecoder_tilde(void)
