@@ -203,7 +203,6 @@ t_pd_err hoa_space_notify(t_hoa_space *x, t_symbol *s, t_symbol *msg, void *send
 		{
 			ebox_invalidate_layer((t_ebox *)x, hoa_sym_points_layer);
 		}
-		ebox_redraw((t_ebox *)x);
 	}
 	return 0;
 }
