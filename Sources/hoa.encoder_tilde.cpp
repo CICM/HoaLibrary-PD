@@ -49,28 +49,28 @@ static void hoa_encoder_float(t_hoa_encoder *x, float f)
     x->f_encoder->setAzimuth(f);
 }
 
-static void hoa_encoder_perform(t_hoa_encoder *x, t_object *dsp, t_sample **ins, long nins, t_sample **outs, long numouts, long sampleframes, long f,void *up)
+static void hoa_encoder_perform(t_hoa_encoder *x, t_object *dsp, t_sample **ins, long nins, t_sample **outs, long nouts, long sampleframes, long flag,void *up)
 {
     for(long i = 0; i < sampleframes; i++)
     {
         x->f_encoder->setAzimuth(ins[1][i]);
-        x->f_encoder->process(ins[0]+i, x->f_signals + numouts * i);
+        x->f_encoder->process(ins[0]+i, x->f_signals + nouts * i);
     }
-    for(long i = 0; i < numouts; i++)
+    for(long i = 0; i < nouts; i++)
     {
-        Signal<t_sample>::copy(ulong(sampleframes), x->f_signals+i, ulong(numouts), outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_signals+i, ulong(nouts), outs[i], 1);
     }
 }
 
-static void hoa_encoder_perform_offset(t_hoa_encoder *x, t_object *dsp, t_sample **ins, long nins, t_sample **outs, long numouts, long sampleframes, long f,void *up)
+static void hoa_encoder_perform_offset(t_hoa_encoder *x, t_object *dsp, t_sample **ins, long nins, t_sample **outs, long nouts, long sampleframes, long flag,void *up)
 {
     for(long i = 0; i < sampleframes; i++)
     {
-        x->f_encoder->process(ins[0]+i, x->f_signals + numouts * i);
+        x->f_encoder->process(ins[0]+i, x->f_signals + nouts * i);
     }
-    for(long i = 0; i < numouts; i++)
+    for(long i = 0; i < nouts; i++)
     {
-        Signal<t_sample>::copy(ulong(sampleframes), x->f_signals+i, ulong(numouts), outs[i], 1);
+        Signal<t_sample>::copy(ulong(sampleframes), x->f_signals+i, ulong(nouts), outs[i], 1);
     }
 }
 
@@ -97,7 +97,6 @@ extern "C" void setup_hoa0x2e2d0x2eencoder_tilde(void)
     class_addcreator((t_newmethod)hoa_encoder_new, gensym("hoa.encoder~"), A_GIMME, 0);
     
     eclass_dspinit(c);
-    hoa_initclass(c);
     eclass_addmethod(c, (method)hoa_encoder_dsp,     "dsp",		A_CANT, 0);
     eclass_addmethod(c, (method)hoa_encoder_float,   "float",   A_FLOAT, 0);
     
@@ -208,7 +207,7 @@ extern "C" void setup_hoa0x2e3d0x2eencoder_tilde(void)
     c = eclass_new("hoa.3d.encoder~",(method)hoa_encoder_3d_new,(method)hoa_encoder_3d_free,sizeof(t_hoa_encoder_3d), CLASS_NOINLET, A_GIMME, 0);
     
     eclass_dspinit(c);
-    hoa_initclass(c);
+    
     eclass_addmethod(c, (method)hoa_encoder_3d_dsp,     "dsp",		A_CANT, 0);
     eclass_addmethod(c, (method)hoa_encoder_3d_float,   "float",   A_FLOAT, 0);
     

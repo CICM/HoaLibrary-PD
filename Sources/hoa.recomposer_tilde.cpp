@@ -265,7 +265,7 @@ extern "C" void setup_hoa0x2e2d0x2erecomposer_tilde(void)
     class_addcreator((t_newmethod)hoa_recomposer_new, gensym("hoa.recomposer~"), A_GIMME, 0);
 
     eclass_dspinit(c);
-    hoa_initclass(c);
+    
     eclass_addmethod(c, (method)hoa_recomposer_dsp,     "dsp",      A_CANT, 0);
     eclass_addmethod(c, (method)hoa_recomposer_angle,   "angle",    A_GIMME,0);
     eclass_addmethod(c, (method)hoa_recomposer_wide,    "wide",     A_GIMME,0);

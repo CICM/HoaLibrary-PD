@@ -74,8 +74,6 @@ typedef struct _hoa_thisprocess
 extern "C" void Hoa_setup(void);
 extern "C" void hoa_setup(void);
 
-extern void hoa_initclass(t_eclass* c);
-
 extern "C" void setup_hoa0x2econnect(void);
 extern "C" void setup_hoa0x2edac_tilde(void);
 extern "C" void setup_hoa0x2ein(void);

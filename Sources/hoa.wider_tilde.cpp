@@ -181,7 +181,7 @@ extern "C" void setup_hoa0x2e2d0x2ewider_tilde(void)
     class_addcreator((t_newmethod)hoa_wider_new, gensym("hoa.wider~"), A_GIMME, 0);
     
     eclass_dspinit(c);
-    hoa_initclass(c);;
+    ;
     eclass_addmethod(c, (method)hoa_wider_dsp,       "dsp",      A_CANT, 0);
     eclass_addmethod(c, (method)hoa_wider_float,    "float",    A_FLOAT, 0);
     
@@ -195,7 +195,7 @@ extern "C" void setup_hoa0x2e3d0x2ewider_tilde(void)
     c = eclass_new("hoa.3d.wider~", (method)hoa_wider_3d_new, (method)hoa_wider_3d_free, (short)sizeof(t_hoa_wider_3d), 0, A_GIMME, 0);
     
     eclass_dspinit(c);
-    hoa_initclass(c);;
+    ;
     eclass_addmethod(c, (method)hoa_wider_3d_dsp,       "dsp",      A_CANT, 0);
     eclass_addmethod(c, (method)hoa_wider_3d_float,    "float",    A_FLOAT, 0);
     

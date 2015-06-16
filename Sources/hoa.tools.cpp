@@ -72,7 +72,7 @@ extern "C" void setup_hoa0x2epi(void)
     t_eclass* c;
     c = eclass_new("hoa.pi", (method)pi_new,(method)NULL, sizeof(t_hoa_pi), 0L, A_GIMME, 0);
     
-    hoa_initclass(c);
+    
     eclass_addmethod(c, (method)pi_bang,     "bang",      A_CANT, 0);
     eclass_addmethod(c, (method)pi_float,    "float",      A_FLOAT, 0);
     
@@ -142,7 +142,7 @@ extern "C" void setup_hoa0x2epi_tilde(void)
     c = eclass_new("hoa.pi~", (method)hoa_pi_tilde_new, (method)NULL, sizeof(t_hoa_pi_tilde), CLASS_NOINLET, A_GIMME, 0);
     
     eclass_dspinit(c);
-    hoa_initclass(c);
+    
     
     eclass_addmethod(c, (method)hoa_pi_tilde_float,    "float",    A_FLOAT, 0);
     eclass_addmethod(c, (method)hoa_pi_tilde_dsp,      "dsp",      A_CANT, 0);
@@ -240,11 +240,7 @@ static void hoa_dac_dsp(t_hoa_dac *x, t_signal **sp)
 
 static void hoa_dac_free(t_hoa_dac *x)
 {
-#ifndef _WINDOWS
-    freebytes(x->x_vec, size_t(x->x_n) * sizeof(*x->x_vec));
-#else
     free(x->x_vec);
-#endif
 }
 
 extern "C" void setup_hoa0x2edac_tilde(void)
@@ -252,7 +248,7 @@ extern "C" void setup_hoa0x2edac_tilde(void)
     t_class* c;
     c = class_new(gensym("hoa.dac~"), (t_newmethod)hoa_dac_new, (t_method)hoa_dac_free, (short)sizeof(t_hoa_dac), 0, A_GIMME, 0);
     
-    hoa_initclass((t_eclass *)c);
+    class_sethelpsymbol((t_class *)c, gensym("helps/hoa.dac~"));
     CLASS_MAINSIGNALIN(c, t_hoa_dac, x_f);
     class_addmethod(c, (t_method)hoa_dac_dsp, gensym("dsp"), A_CANT, 0);
     hoa_dac_class = c;
@@ -347,7 +343,7 @@ static void hoa_connect_bang(t_hoa_connect *x)
             oc = obj_connect((t_object *)list[i], j, (t_object *)list[i+1], j);
             if(glist_isvisible(eobj_getcanvas(x)))
             {
-                sys_vgui(".x%lx.c create line %d %d %d %d -width %d -fill black -tags [list l%lx cord]\n",
+                sys_vgui((char *)".x%lx.c create line %d %d %d %d -width %d -fill black -tags [list l%lx cord]\n",
                          glist_getcanvas(eobj_getcanvas(x)), 0, 0, 0, 0,
                          (obj_issignaloutlet((t_object *)list[i], j) ? 2 : 1),
                          oc);
@@ -370,7 +366,7 @@ extern "C" void setup_hoa0x2econnect(void)
     
     c = eclass_new("hoa.connect", (method)hoa_connect_new, (method)hoa_connect_free, (short)sizeof(t_hoa_connect), 0, A_GIMME, 0);
     
-    hoa_initclass(c);
+    
     eclass_addmethod(c, (method)hoa_connect_bang,          "bang",             A_CANT, 0);
     
     eclass_register(CLASS_OBJ, c);

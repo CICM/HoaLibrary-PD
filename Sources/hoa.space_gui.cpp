@@ -36,7 +36,6 @@ static t_eclass *hoa_space_class;
 
 void *hoa_space_new(t_symbol *s, int argc, t_atom *argv);
 void hoa_space_free(t_hoa_space *x);
-void hoa_space_assist(t_hoa_space *x, void *b, long m, long a, char *s);
 void hoa_space_preset(t_hoa_space *x, t_binbuf *b);
 void hoa_space_list(t_hoa_space *x, t_symbol *s, int ac, t_atom *av);
 void hoa_space_output(t_hoa_space *x);
@@ -63,9 +62,8 @@ extern "C" void setup_hoa0x2e2d0x2espace(void)
     c = eclass_new("hoa.2d.space", (method)hoa_space_new, (method)hoa_space_free, sizeof(t_hoa_space), 0L, A_GIMME, 0);
     class_addcreator((t_newmethod)hoa_space_new, gensym("hoa.space"), A_GIMME, 0);
     
-    eclass_init(c, 0);
-    hoa_initclass(c);
-    eclass_addmethod(c, (method)hoa_space_assist,          "assist",         A_CANT,	0);
+    eclass_guiinit(c, 0);
+    
 	eclass_addmethod(c, (method)hoa_space_paint,           "paint",          A_CANT,	0);
 	eclass_addmethod(c, (method)hoa_space_notify,          "notify",         A_CANT, 0);
     eclass_addmethod(c, (method)hoa_space_output,          "bang",           A_CANT, 0);
@@ -185,18 +183,6 @@ void hoa_space_free(t_hoa_space *x)
     delete [] x->f_channel_radius;
 }
 
-void hoa_space_assist(t_hoa_space *x, void *b, long m, long a, char *s)
-{
-	if (m == ASSIST_INLET)
-	{
-		sprintf(s,"(anything) Behavior and appearance");
-	}
-	else
-	{
-        sprintf(s,"(list) Channels coefficients");
-	}
-}
-
 t_pd_err hoa_space_notify(t_hoa_space *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
 	t_symbol *name;
@@ -217,7 +203,6 @@ t_pd_err hoa_space_notify(t_hoa_space *x, t_symbol *s, t_symbol *msg, void *send
 		{
 			ebox_invalidate_layer((t_ebox *)x, hoa_sym_points_layer);
 		}
-		ebox_redraw((t_ebox *)x);
 	}
 	return 0;
 }
@@ -559,10 +544,10 @@ t_pd_err minmax_set(t_hoa_space *x, t_object *attr, int argc, t_atom *argv)
 
 void hoa_space_preset(t_hoa_space *x, t_binbuf *b)
 {
-    binbuf_addv(b, "s", gensym("list"));
+    binbuf_addv(b, (char *)"s", gensym("list"));
     for(int i = 0; i < x->f_number_of_channels; i++)
     {
-        binbuf_addv(b, "f", (float)x->f_channel_values[i]);
+        binbuf_addv(b, (char *)"f", (float)x->f_channel_values[i]);
     }
 }
 

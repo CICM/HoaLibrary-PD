@@ -77,7 +77,7 @@ static void hoa_scope_tick(t_hoa_scope *x)
 
 	ebox_invalidate_layer((t_ebox *)x, hoa_sym_harmonics_layer);
 	ebox_redraw((t_ebox *)x);
-	if(sys_getdspstate())
+	if(canvas_dspstate)
 		clock_delay(x->f_clock, x->f_interval);
 }
 
@@ -320,9 +320,9 @@ extern "C" void setup_hoa0x2e2d0x2escope_tilde(void)
     c = eclass_new("hoa.2d.scope~", (method)hoa_scope_new, (method)hoa_scope_free, (short)sizeof(t_hoa_scope), 0L, A_GIMME, 0);
     class_addcreator((t_newmethod)hoa_scope_new, gensym("hoa.scope~"), A_GIMME, 0);
 
+    eclass_guiinit(c, 0);
     eclass_dspinit(c);
-    eclass_init(c, 0);
-    hoa_initclass(c);
+    
     eclass_addmethod(c, (method)hoa_scope_dsp,			"dsp",          A_CANT, 0);
     eclass_addmethod(c, (method)hoa_scope_paint,		"paint",		A_CANT,	0);
     eclass_addmethod(c, (method)hoa_scope_notify,		"notify",		A_CANT, 0);
@@ -428,7 +428,7 @@ static void hoa_scope_3d_tick(t_hoa_scope_3d *x)
 
     ebox_invalidate_layer((t_ebox *)x, hoa_sym_harmonics_layer);
     ebox_redraw((t_ebox *)x);
-    if(sys_getdspstate())
+    if(canvas_dspstate)
         clock_delay(x->f_clock, x->f_interval);
 }
 
@@ -460,7 +460,6 @@ static t_pd_err hoa_scope_3d_notify(t_hoa_scope_3d *x, t_symbol *s, t_symbol *ms
             if(x->f_scope->getNumberOfRows() != nrow)
             {
                 int dspState = canvas_suspend_dsp();
-                ulong order = x->f_scope->getDecompositionOrder();
                 delete x->f_scope;
                 x->f_scope      =  new Scope<Hoa3d, t_sample>(ulong(x->f_order), nrow, nrow * 2);
 
@@ -783,9 +782,9 @@ extern "C" void setup_hoa0x2e3d0x2escope_tilde(void)
 
     c = eclass_new("hoa.3d.scope~", (method)hoa_scope_3d_new, (method)hoa_scope_3d_free, (short)sizeof(t_hoa_scope_3d), 0L, A_GIMME, 0);
 
+    eclass_guiinit(c, 0);
     eclass_dspinit(c);
-    eclass_init(c, 0);
-    hoa_initclass(c);
+    
     eclass_addmethod(c, (method)hoa_scope_3d_dsp,			"dsp",          A_CANT, 0);
     eclass_addmethod(c, (method)hoa_scope_3d_paint,         "paint",		A_CANT,	0);
     eclass_addmethod(c, (method)hoa_scope_3d_notify,		"notify",		A_CANT, 0);

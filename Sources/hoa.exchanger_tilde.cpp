@@ -84,7 +84,7 @@ extern "C" void setup_hoa0x2e2d0x2eexchanger_tilde(void)
     class_addcreator((t_newmethod)hoa_exchanger_new, gensym("hoa.exchanger~"), A_GIMME, 0);
     
     eclass_dspinit(c);
-    hoa_initclass(c);
+    
     eclass_addmethod(c, (method)hoa_exchanger_dsp,     "dsp",		A_CANT, 0);
     
     eclass_register(CLASS_OBJ, c);
@@ -212,7 +212,7 @@ extern "C" void setup_hoa0x2e3d0x2eexchanger_tilde(void)
     c = eclass_new("hoa.3d.exchanger~",(method)hoa_exchanger_3d_new,(method)hoa_exchanger_3d_free,sizeof(t_hoa_exchanger_3d), CLASS_NOINLET, A_GIMME, 0);
     
     eclass_dspinit(c);
-    hoa_initclass(c);
+    
     eclass_addmethod(c, (method)hoa_exchanger_3d_dsp,     "dsp",		A_CANT, 0);
     
     eclass_register(CLASS_OBJ, c);

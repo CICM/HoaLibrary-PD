@@ -5,7 +5,7 @@ AC_INIT([Hoa], 2.2-git, musique@univ-paris8.fr,[Hoa],[https://github.com/CICM/Ho
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR(config)
 AC_CONFIG_FILES([Sources/Makefile])
-AC_CONFIG_FILES([ThirdParty/CicmWrapper/Makefile  ThirdParty/CicmWrapper/Sources/Makefile  ThirdParty/CicmWrapper/Sources/ebox/Makefile ThirdParty/CicmWrapper/Sources/eclass/Makefile ThirdParty/CicmWrapper/Sources/ecommon/Makefile ThirdParty/CicmWrapper/Sources/egraphics/Makefile ThirdParty/CicmWrapper/Sources/eobj/Makefile ThirdParty/CicmWrapper/Sources/epopup/Makefile])
+AC_CONFIG_FILES([ThirdParty/CicmWrapper/Makefile  ThirdParty/CicmWrapper/Sources/Makefile])
 AC_CONFIG_FILES([Package/Hoa/Makefile Package/Hoa/helps/Makefile Package/Hoa/media/Makefile Package/Hoa/misc/Makefile Package/Hoa/patchers/Makefile Package/Hoa/tutorials/Makefile])
 
 AC_ARG_WITH([pdextended], [AS_HELP_STRING([--with-pdextended], [use PD-Extended instead of PD-Vanilla])], [], [with_pdextended=no])

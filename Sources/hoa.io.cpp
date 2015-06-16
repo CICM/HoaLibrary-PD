@@ -9,10 +9,9 @@
 using namespace hoa;
 
 static t_eclass *hoa_in_class;
-static t_eclass *hoa_in_tilde_class;
 static t_eclass *hoa_out_class;
-static t_eclass *hoa_out_tilde_class;
 static t_eclass *hoa_intilde_class;
+static t_eclass *hoa_outtilde_class;
 static t_eclass *hoa_thisprocess_class;
 
 static void *hoa_out_new(t_symbol *s, int argc, t_atom *argv)
@@ -75,7 +74,7 @@ extern "C" void setup_hoa0x2eout(void)
     t_eclass* c;
     c = eclass_new("hoa.out", (method)hoa_out_new, (method)eobj_free, (short)sizeof(t_hoa_out), CLASS_NOINLET, A_GIMME, 0);
 
-    hoa_initclass(c);
+    
     eclass_addmethod(c, (method)hoa_out_bang,       "bang",     A_CANT,  0);
     eclass_addmethod(c, (method)hoa_out_float,      "float",    A_FLOAT, 0);
     eclass_addmethod(c, (method)hoa_out_symbol,     "symbol",   A_SYMBOL,0);
@@ -145,7 +144,7 @@ extern "C" void setup_hoa0x2ein(void)
     t_eclass* c;
     c = eclass_new("hoa.in", (method)hoa_in_new, (method)hoa_in_free, (short)sizeof(t_hoa_in), CLASS_NOINLET, A_GIMME, 0);
 
-    hoa_initclass(c);
+    
     class_sethelpsymbol((t_class *)c, gensym("help/hoa.io"));
     eclass_addmethod(c, (method)hoa_in_bang,       "bang",     A_CANT,  0);
     eclass_addmethod(c, (method)hoa_in_float,      "float",    A_FLOAT, 0);
@@ -161,7 +160,7 @@ static void *hoa_out_tilde_new(t_symbol *s, int argc, t_atom *argv)
 {
     t_hoa_out_tilde *x = NULL;
 
-    x = (t_hoa_out_tilde *)eobj_new(hoa_out_tilde_class);
+    x = (t_hoa_out_tilde *)eobj_new(hoa_outtilde_class);
 	if(x)
 	{
         eobj_dspsetup(x, 0, 0);
@@ -200,12 +199,12 @@ extern "C" void setup_hoa0x2eout_tilde(void)
     t_eclass* c;
     c = eclass_new("hoa.out~", (method)hoa_out_tilde_new, (method)eobj_dspfree, (short)sizeof(t_hoa_out_tilde), 0, A_GIMME, 0);
 
-    hoa_initclass(c);
+    
     eclass_dspinit(c);
     eclass_addmethod(c, (method)hoa_out_tilde_dsp, "dsp", A_CANT, 0);
 
     eclass_register(CLASS_OBJ, c);
-    hoa_out_tilde_class = c;
+    hoa_outtilde_class = c;
 
 }
 
@@ -258,7 +257,7 @@ extern "C" void setup_hoa0x2ein_tilde(void)
     t_eclass* c;
     c = eclass_new("hoa.in~", (method)hoa_intilde_new, (method)eobj_dspfree, (short)sizeof(t_hoa_in_tilde), CLASS_NOINLET, A_GIMME, 0);
 
-    hoa_initclass(c);
+    
     eclass_dspinit(c);
     eclass_addmethod(c, (method)hoa_intilde_dsp, "dsp", A_CANT, 0);
 
@@ -348,7 +347,7 @@ extern "C" void setup_hoa0x2ethisprocess_tilde(void)
     t_eclass* c;
     c = eclass_new("hoa.thisprocess~", (method)hoa_thisprocess_new, (method)hoa_thisprocess_free, (short)sizeof(t_hoa_thisprocess), 0, A_GIMME, 0);
 
-    hoa_initclass(c);
+    
     eclass_addmethod(c, (method)hoa_thisprocess_bang,       "bang",     A_CANT, 0);
     eclass_addmethod(c, (method)hoa_thisprocess_click,      "click",    A_CANT, 0);
 

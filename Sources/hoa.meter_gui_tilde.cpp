@@ -58,7 +58,7 @@ static void hoa_meter_oksize(t_hoa_meter *x, t_rect *newrect)
     newrect->height = pd_clip_min(newrect->height, 20.);
 }
 
-static t_pd_err channels_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv)
+static t_pd_err channels_get(t_hoa_meter *x, void *attr, int* argc, t_atom **argv)
 {
     argc[0] = 1;
     argv[0] = (t_atom *)malloc(sizeof(t_atom));
@@ -104,7 +104,7 @@ static t_pd_err channels_set(t_hoa_meter *x, void *attr, int argc, t_atom *argv)
     return 0;
 }
 
-static t_pd_err angles_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv)
+static t_pd_err angles_get(t_hoa_meter *x, void *attr, int* argc, t_atom **argv)
 {
     argc[0] = long(x->f_meter->getNumberOfPlanewaves());
     argv[0] = (t_atom *)malloc(sizeof(t_atom) * x->f_meter->getNumberOfPlanewaves());
@@ -147,7 +147,7 @@ static t_pd_err angles_set(t_hoa_meter *x, void *attr, int argc, t_atom *argv)
     return 0;
 }
 
-static t_pd_err offset_get(t_hoa_meter *x, void *attr, long *argc, t_atom **argv)
+static t_pd_err offset_get(t_hoa_meter *x, void *attr, int* argc, t_atom **argv)
 {
     argc[0] = 1;
     argv[0] = (t_atom *)malloc(sizeof(t_atom));
@@ -273,7 +273,7 @@ static void hoa_meter_tick(t_hoa_meter *x)
     ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
     ebox_redraw((t_ebox *)x);
 
-    if (sys_getdspstate())
+    if (canvas_dspstate)
         clock_delay(x->f_clock, x->f_interval);
 }
 
@@ -554,9 +554,9 @@ extern "C" void setup_hoa0x2e2d0x2emeter_tilde(void)
     c = eclass_new("hoa.2d.meter~", (method)hoa_meter_new, (method)hoa_meter_free, (short)sizeof(t_hoa_meter), CLASS_NOINLET, A_GIMME, 0);
     class_addcreator((t_newmethod)hoa_meter_new, gensym("hoa.meter~"), A_GIMME, 0);
 
+    eclass_guiinit(c, 0);
     eclass_dspinit(c);
-    eclass_init(c, 0);
-    hoa_initclass(c);
+
     eclass_addmethod(c, (method) hoa_meter_dsp,             "dsp",           A_CANT, 0);
     eclass_addmethod(c, (method) hoa_meter_paint,           "paint",		 A_CANT, 0);
     eclass_addmethod(c, (method) hoa_meter_getdrawparams,   "getdrawparams", A_CANT, 0);
@@ -752,7 +752,7 @@ static void hoa_meter_3d_oksize(t_hoa_meter_3d *x, t_rect *newrect)
     x->f_box.b_rect_last = *newrect;
 }
 
-static t_pd_err channels_3d_get(t_hoa_meter_3d *x, void *attr, long *argc, t_atom **argv)
+static t_pd_err channels_3d_get(t_hoa_meter_3d *x, void *attr, int* argc, t_atom **argv)
 {
     argc[0] = 1;
     argv[0] = (t_atom *)malloc(sizeof(t_atom));
@@ -798,7 +798,7 @@ static t_pd_err channels_3d_set(t_hoa_meter_3d *x, void *attr, int argc, t_atom 
     return 0;
 }
 
-static t_pd_err angles_3d_get(t_hoa_meter_3d *x, void *attr, long *argc, t_atom **argv)
+static t_pd_err angles_3d_get(t_hoa_meter_3d *x, void *attr, int* argc, t_atom **argv)
 {
     argc[0] = long(x->f_meter->getNumberOfPlanewaves()) * 2;
     argv[0] = (t_atom *)malloc(sizeof(t_atom) * x->f_meter->getNumberOfPlanewaves() * 2);
@@ -851,7 +851,7 @@ static t_pd_err angles_3d_set(t_hoa_meter_3d *x, void *attr, int argc, t_atom *a
     return 0;
 }
 
-static t_pd_err offset_3d_get(t_hoa_meter_3d *x, void *attr, long *argc, t_atom **argv)
+static t_pd_err offset_3d_get(t_hoa_meter_3d *x, void *attr, int* argc, t_atom **argv)
 {
     argc[0] = 3;
     argv[0] = (t_atom *)malloc(3 * sizeof(t_atom));
@@ -1037,12 +1037,12 @@ static void hoa_meter_3d_tick(t_hoa_meter_3d *x)
     else if(x->f_vector_type == hoa_sym_energy)
         x->f_vector->processEnergy(x->f_signals, x->f_vector_coords + 3);
 
-    x->f_meter->tick(ulong(1000 / x->f_interval));
+    x->f_meter->tick(ulong((1000.f / (float)x->f_interval)));
     ebox_invalidate_layer((t_ebox *)x, hoa_sym_leds_layer);
     ebox_invalidate_layer((t_ebox *)x, hoa_sym_vector_layer);
     ebox_redraw((t_ebox *)x);
 
-    if (sys_getdspstate())
+    if (canvas_dspstate)
         clock_delay(x->f_clock, x->f_interval);
 }
 
@@ -1168,7 +1168,7 @@ static void draw_3d_leds(t_hoa_meter_3d *x, t_object *view, t_rect *rect)
                 float angle1 = Math<double>::azimuth(path[0].x, path[0].y);
                 float radius1= Math<double>::radius(path[0].x, path[0].y);
                 egraphics_move_to(g, path[0].x * width, path[0].y * width);
-                for(uint j = 1; j < path.size(); j++)
+                for(ulong j = 1; j < path.size(); j++)
                 {
                     const float angle2 = Math<double>::azimuth(path[j].x, path[j].y);
                     const float radius2= Math<double>::radius(path[j].x, path[j].y);
@@ -1229,7 +1229,7 @@ static void draw_3d_leds(t_hoa_meter_3d *x, t_object *view, t_rect *rect)
                     float angle1 = Math<double>::azimuth(path[0].x, path[0].y);
                     float radius1= Math<double>::radius(path[0].x, path[0].y);
                     egraphics_move_to(g, path[0].x * width, path[0].y * width);
-                    for(uint j = 1; j < path.size(); j++)
+                    for(ulong j = 1; j < path.size(); j++)
                     {
                         const float angle2 = Math<double>::azimuth(path[j].x, path[j].y);
                         const float radius2= Math<double>::radius(path[j].x, path[j].y);
@@ -1468,9 +1468,9 @@ extern "C" void setup_hoa0x2e3d0x2emeter_tilde(void)
 
     c = eclass_new("hoa.3d.meter~", (method)hoa_meter_3d_new, (method)hoa_meter_3d_free, (short)sizeof(t_hoa_meter_3d), 0L, A_GIMME, 0);
 
+    eclass_guiinit(c, 0);
     eclass_dspinit(c);
-    eclass_init(c, 0);
-    hoa_initclass(c);
+
     eclass_addmethod(c, (method) hoa_meter_3d_dsp,             "dsp",           A_CANT, 0);
     eclass_addmethod(c, (method) hoa_meter_3d_paint,           "paint",         A_CANT, 0);
     eclass_addmethod(c, (method) hoa_meter_3d_getdrawparams,   "getdrawparams", A_CANT, 0);
