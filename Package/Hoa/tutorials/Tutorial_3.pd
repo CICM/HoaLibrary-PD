@@ -178,7 +178,7 @@ azimuth θ for the circular harmonics or the azimuth θ and the elevation
 order m. For the circular harmonics \, each degree l includes 2 harmonics
 wich orders are m = -l and m = l (the degree 0 has 1 harmonic with
 the order 0). For the spherical harmonics \, each degree l has 2l+1
-harmonics witch the orders go from -l to l. In fact \, the circular
+harmonics which the orders go from -l to l. In fact \, the circular
 harmonics are particular cases of the spherical harmonics.;
 #X connect 0 0 2 0;
 #X connect 1 0 0 0;

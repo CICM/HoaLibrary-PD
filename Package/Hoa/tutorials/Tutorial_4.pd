@@ -195,12 +195,12 @@ with the harmonics model. Indeed \, a sound field represented by set
 of harmonics can also be represented by a set of planewaves without
 loss of informations. This allows to permute the representation of
 the sound field indefinitely from a representation in the harmonics
-domain to a representation in the planewaves representation. Thus \,
-you can decode or project a sound field in the harmonics domain to
-the planewave domain and come back to harmonics domain. The only limitation
-is the angular direction of the planewaves and their number. There
-must be at least as many plane waves as there are harmonics and the
-planewaves must be "equally spaced" (cf decoder).;
+domain to a representation in the planewaves. Thus \, you can decode
+or project a sound field in the harmonics domain to the planewave domain
+and come back to harmonics domain. The only limitation is the angular
+direction of the planewaves and their number. There must be at least
+as many plane waves as there are harmonics and the planewaves must
+be "equally spaced" (cf decoder).;
 #X connect 0 0 2 0;
 #X connect 1 0 0 0;
 #X connect 5 0 4 0;
