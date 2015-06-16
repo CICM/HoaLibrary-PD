@@ -556,7 +556,7 @@ extern "C" void setup_hoa0x2e2d0x2emeter_tilde(void)
 
     eclass_guiinit(c, 0);
     eclass_dspinit(c);
-    
+
     eclass_addmethod(c, (method) hoa_meter_dsp,             "dsp",           A_CANT, 0);
     eclass_addmethod(c, (method) hoa_meter_paint,           "paint",		 A_CANT, 0);
     eclass_addmethod(c, (method) hoa_meter_getdrawparams,   "getdrawparams", A_CANT, 0);
@@ -1168,7 +1168,7 @@ static void draw_3d_leds(t_hoa_meter_3d *x, t_object *view, t_rect *rect)
                 float angle1 = Math<double>::azimuth(path[0].x, path[0].y);
                 float radius1= Math<double>::radius(path[0].x, path[0].y);
                 egraphics_move_to(g, path[0].x * width, path[0].y * width);
-                for(uint j = 1; j < path.size(); j++)
+                for(ulong j = 1; j < path.size(); j++)
                 {
                     const float angle2 = Math<double>::azimuth(path[j].x, path[j].y);
                     const float radius2= Math<double>::radius(path[j].x, path[j].y);
@@ -1229,7 +1229,7 @@ static void draw_3d_leds(t_hoa_meter_3d *x, t_object *view, t_rect *rect)
                     float angle1 = Math<double>::azimuth(path[0].x, path[0].y);
                     float radius1= Math<double>::radius(path[0].x, path[0].y);
                     egraphics_move_to(g, path[0].x * width, path[0].y * width);
-                    for(uint j = 1; j < path.size(); j++)
+                    for(ulong j = 1; j < path.size(); j++)
                     {
                         const float angle2 = Math<double>::azimuth(path[j].x, path[j].y);
                         const float radius2= Math<double>::radius(path[j].x, path[j].y);
@@ -1470,7 +1470,7 @@ extern "C" void setup_hoa0x2e3d0x2emeter_tilde(void)
 
     eclass_guiinit(c, 0);
     eclass_dspinit(c);
-    
+
     eclass_addmethod(c, (method) hoa_meter_3d_dsp,             "dsp",           A_CANT, 0);
     eclass_addmethod(c, (method) hoa_meter_3d_paint,           "paint",         A_CANT, 0);
     eclass_addmethod(c, (method) hoa_meter_3d_getdrawparams,   "getdrawparams", A_CANT, 0);
