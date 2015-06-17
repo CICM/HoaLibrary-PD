@@ -263,7 +263,6 @@ Exemple : "source 1 color 1 0.2 0.6 1;
 1;
 #X text 168 68 Output general;
 #X text 172 83 informations;
-#X obj 588 477 c.prepend set;
 #X msg 588 509 polar 1.01801 2.0884 0;
 #X obj 531 447 route mute;
 #X obj 531 509 c.toggle @size 15 15 @fontname "Helvetica" @fontweight
@@ -271,21 +270,18 @@ Exemple : "source 1 color 1 0.2 0.6 1;
 @presetname "(null)" @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
 1 @crcolor 0.5 0.5 0.5 1;
 #X text 600 321 Route group by index;
-#X obj 592 215 c.prepend set;
 #X msg 592 247 polar 1.22229 2.08092 0;
 #X obj 535 185 route mute;
 #X obj 535 247 c.toggle @size 15 15 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
 @presetname "(null)" @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
 1 @crcolor 0.5 0.5 0.5 1;
-#X obj 617 125 c.prepend set;
 #X msg 617 157 polar 1.8561 0.595592 0;
 #X obj 560 95 route mute;
 #X obj 560 157 c.toggle @size 15 15 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
 @presetname "(null)" @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5
 1 @crcolor 0.5 0.5 0.5 1;
-#X obj 613 376 c.prepend set;
 #X msg 613 408 polar 1.15395 2.72225 0;
 #X obj 556 346 route mute;
 #X obj 556 408 c.toggle @size 15 15 @fontname "Helvetica" @fontweight
@@ -310,36 +306,40 @@ Exemple : "source 1 color 1 0.2 0.6 1;
 #X obj 535 58 route 1 2;
 #X obj 531 319 route 1 2;
 #X msg 180 102 getinfo;
-#X connect 2 0 38 0;
-#X connect 4 0 39 0;
-#X connect 5 0 34 0;
+#X obj 588 477 c.prepend set;
+#X obj 592 215 c.prepend set;
+#X obj 617 125 c.prepend set;
+#X obj 613 376 c.prepend set;
+#X connect 2 0 34 0;
+#X connect 4 0 35 0;
+#X connect 5 0 30 0;
 #X connect 6 0 0 0;
 #X connect 6 1 1 0;
 #X connect 6 2 5 0;
 #X connect 7 0 6 0;
 #X connect 10 0 6 0;
 #X connect 11 1 10 0;
-#X connect 14 0 15 0;
-#X connect 16 0 17 0;
-#X connect 16 1 14 0;
+#X connect 15 0 16 0;
+#X connect 15 1 37 0;
 #X connect 19 0 20 0;
-#X connect 21 0 22 0;
-#X connect 21 1 19 0;
-#X connect 23 0 24 0;
+#X connect 19 1 38 0;
+#X connect 22 0 23 0;
+#X connect 22 1 39 0;
 #X connect 25 0 26 0;
-#X connect 25 1 23 0;
-#X connect 27 0 28 0;
-#X connect 29 0 30 0;
-#X connect 29 1 27 0;
-#X connect 34 0 33 0;
-#X connect 34 1 32 0;
-#X connect 36 0 37 0;
-#X connect 37 0 35 0;
-#X connect 38 0 21 0;
-#X connect 38 1 25 0;
-#X connect 39 0 16 0;
-#X connect 39 1 29 0;
-#X connect 40 0 6 0;
+#X connect 25 1 40 0;
+#X connect 30 0 29 0;
+#X connect 30 1 28 0;
+#X connect 32 0 33 0;
+#X connect 33 0 31 0;
+#X connect 34 0 19 0;
+#X connect 34 1 22 0;
+#X connect 35 0 15 0;
+#X connect 35 1 25 0;
+#X connect 36 0 6 0;
+#X connect 37 0 14 0;
+#X connect 38 0 18 0;
+#X connect 39 0 21 0;
+#X connect 40 0 24 0;
 #X restore 603 362 pd outputs;
 #X obj 400 566 c.preset @size 103 41 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
@@ -464,9 +464,7 @@ source 1 -0.966667 2.06667 0 0 0.2 0.2 0.2 1 Rachelle source 2 -1.03333
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
 @presetname "(null)" @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7
 1 @view "xz" @outputmode "polar" @zoom 0.35 @mapname "cicm";
-#X obj 336 471 c.prepend set;
 #X msg 336 499 polar 2.18354 2.9071 -0.307217;
-#X obj 336 169 c.prepend view;
 #X obj 336 137 c.menu @size 40 17 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
 @presetname "(null)" @hover 0 @items "xy" "xz" "yz" @states 0 0 0 @bgcolor
@@ -493,12 +491,10 @@ source 1 -0.966667 2.06667 0 0 0.2 0.2 0.2 1 Rachelle source 2 -1.03333
 #X text 283 313 >;
 #X text 293 313 x;
 #X text 156 176 y;
-#X obj 627 174 c.prepend view;
 #X obj 627 142 c.menu @size 40 17 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
 @presetname "(null)" @hover 0 @items "xy" "xz" "yz" @states 0 0 0 @bgcolor
 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 48 170 c.prepend view;
 #X obj 48 138 c.menu @size 40 17 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
 @presetname "(null)" @hover 0 @items "xy" "xz" "yz" @states 0 0 0 @bgcolor
@@ -521,35 +517,39 @@ Thus \, sources and groups position \, description and colors modifications
 will affect all linked hoa.map objects., f 124;
 #X obj 796 23 c.loadmess 1;
 #X obj 796 43 pipe 200;
-#X obj 48 471 c.prepend set;
 #X msg 48 499 polar 1.70854 4.14386 1.54433;
 #X obj 336 446 route 2;
 #X obj 48 446 route 1;
-#X obj 627 471 c.prepend set;
 #X msg 627 499 polar 1.4001 4.62394 -0.122748;
 #X obj 627 446 route 3;
 #X text 16 59 Change the coordinate system to change the point of view
 and interact differently with sources and groups.;
-#X connect 0 0 39 0;
-#X connect 1 0 38 0;
-#X connect 2 0 3 0;
-#X connect 4 0 1 0;
-#X connect 5 1 4 0;
-#X connect 6 0 42 0;
-#X connect 25 0 6 0;
-#X connect 26 1 25 0;
-#X connect 27 0 0 0;
-#X connect 28 1 27 0;
-#X connect 30 0 28 0;
-#X connect 31 0 5 0;
-#X connect 32 0 26 0;
-#X connect 34 0 35 0;
-#X connect 35 0 29 0;
-#X connect 36 0 37 0;
+#X obj 336 471 c.prepend set;
+#X obj 336 169 c.prepend view;
+#X obj 627 174 c.prepend view;
+#X obj 48 170 c.prepend view;
+#X obj 48 471 c.prepend set;
+#X obj 627 471 c.prepend set;
+#X connect 0 0 34 0;
+#X connect 1 0 33 0;
+#X connect 3 1 39 0;
+#X connect 4 0 36 0;
+#X connect 23 1 40 0;
+#X connect 24 1 41 0;
+#X connect 26 0 24 0;
+#X connect 27 0 3 0;
+#X connect 28 0 23 0;
+#X connect 30 0 31 0;
+#X connect 31 0 25 0;
+#X connect 33 0 38 0;
+#X connect 34 0 42 0;
+#X connect 36 0 43 0;
 #X connect 38 0 2 0;
-#X connect 39 0 36 0;
-#X connect 40 0 41 0;
-#X connect 42 0 40 0;
+#X connect 39 0 1 0;
+#X connect 40 0 4 0;
+#X connect 41 0 0 0;
+#X connect 42 0 32 0;
+#X connect 43 0 35 0;
 #X restore 367 360 pd 3D;
 #X obj 53 592 hoa.dac~ 1 2 -----------------------------------;
 #X obj 53 512 hoa.process~ 3 hoa.fx.freeverb~ harmonics ------;
@@ -566,6 +566,7 @@ sources \, change coordinates \, add description and create groups.
 a "free" zone then select "Add source" in the popup menu. To remove
 source \, idem and select "Remove source".;
 #X obj 53 552 hoa.decoder~ 3 binaural ------------------------;
+#X obj 597 479 c.prepend;
 #X connect 1 0 10 0;
 #X connect 2 0 1 0;
 #X connect 6 0 5 0;

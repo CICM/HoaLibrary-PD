@@ -879,6 +879,7 @@ t_pd_err hoa_map_notify(t_hoa_map *x, t_symbol *s, t_symbol *msg, void *sender, 
         {
             ebox_invalidate_layer((t_ebox *)x, hoa_sym_sources_layer);
             ebox_invalidate_layer((t_ebox *)x, hoa_sym_groups_layer);
+            ebox_redraw((t_ebox *)x);
         }
         else if(s == gensym("zoom"))
         {
@@ -886,7 +887,6 @@ t_pd_err hoa_map_notify(t_hoa_map *x, t_symbol *s, t_symbol *msg, void *sender, 
             ebox_invalidate_layer((t_ebox *)x, hoa_sym_sources_layer);
             ebox_invalidate_layer((t_ebox *)x, hoa_sym_groups_layer);
         }
-        ebox_redraw((t_ebox *)x);
     }
 
 	return ebox_notify((t_ebox *)x, s, msg, sender, data);
@@ -1400,7 +1400,13 @@ void hoa_map_mousedown(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
 
     if(modifiers == EMOD_CMD || modifiers == EMOD_RIGHT) // popup (right-click)
     {
-        t_pt pos = {10, 10}; //TODO //eobj_get_mouse_global_position(x);
+        t_pt pos = {10, 10};
+        t_canvas* cnv = eobj_getcanvas(x);
+        if(cnv)
+        {
+            pos.x = cnv->gl_screenx1 + x->j_box.b_rect.x + pt.x;
+            pos.y = cnv->gl_screeny1 + x->j_box.b_rect.y + pt.y + 55.;
+        }
 
         if(x->f_selected_group)
         {
