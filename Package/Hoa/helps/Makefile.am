@@ -40,5 +40,6 @@ hoa.3d.meter~-help.pd \
 hoa.syn.ringmod~-help.pd \
 hoa.3d.optim~-help.pd \
 hoa.thisprocess~-help.pd \
-hoa.3d.exchanger~-help.pd
+hoa.3d.exchanger~-help.pd \
+hoa.2d.exchanger~-help.pd
 

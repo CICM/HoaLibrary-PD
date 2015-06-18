@@ -9,3 +9,4 @@ hoa.2d.rotate~-help.pd hoa.2d.rotate~ An ambisonic sound field rotation.;
 hoa.2d.scope~-help.pd hoa.2d.scope~ An ambisonic harmonics visualizer.;
 hoa.2d.space-help.pd hoa.2d.space A GUI to design plane waves domain.;
 hoa.2d.wider~-help.pd hoa.2d.wider~ An ambisonic fractional orders simulator.;
+hoa.2d.exchanger~-help.pd hoa.2d.exchanger~ An ambisonic standards exchanger.;

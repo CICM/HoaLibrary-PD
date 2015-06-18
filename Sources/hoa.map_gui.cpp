@@ -185,6 +185,7 @@ extern "C" void setup_hoa0x2emap(void)
 	CLASS_ATTR_DEFAULT				(c, "view", 0,  "xy");
     CLASS_ATTR_SAVE					(c, "view", 1);
     CLASS_ATTR_ORDER				(c, "view", 0, "1");
+    CLASS_ATTR_PAINT                (c, "view", 0);
 
 	CLASS_ATTR_SYMBOL               (c, "outputmode", 0, t_hoa_map, f_output_mode);
 	CLASS_ATTR_LABEL                (c, "outputmode", 0, "Output Mode");
@@ -1168,7 +1169,7 @@ void hoa_map_drawSources(t_hoa_map *x,  t_object *view, t_rect *rect)
                 sourceDisplayPos.x = (it->second->getOrdinate() * x->f_zoom_factor + 1.) * ctr.x;
                 sourceDisplayPos.y = (-it->second->getHeight() * x->f_zoom_factor + 1.) * ctr.y;
             }
-
+            //post("%f : (%f %f %f)", float(it->second->getElevation()), float(it->second->getAbscissa()), float(it->second->getOrdinate()), float(it->second->getHeight()));
             sourceColor.red = it->second->getColor()[0];
             sourceColor.green = it->second->getColor()[1];
             sourceColor.blue = it->second->getColor()[2];

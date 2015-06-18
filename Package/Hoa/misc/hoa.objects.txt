@@ -11,6 +11,7 @@ hoa.2d.rotate~-help.pd hoa.2d.rotate~ An ambisonic sound field rotation.;
 hoa.2d.scope~-help.pd hoa.2d.scope~ An ambisonic harmonics visualizer.;
 hoa.2d.space-help.pd hoa.2d.space A GUI to design plane waves domain.;
 hoa.2d.wider~-help.pd hoa.2d.wider~ An ambisonic fractional orders simulator.;
+hoa.2d.exchanger~-help.pd hoa.2d.exchanger~ An ambisonic standards exchanger.;
 hoa.3d.decoder~-help.pd hoa.3d.decoder~ An ambisonic decoder.;
 hoa.3d.encoder~-help.pd hoa.3d.encoder~ An ambisonic encoder.;
 hoa.3d.map-help.pd hoa.3d.map A GUI to spatialize sources on a map.;

@@ -31,13 +31,61 @@ static t_eclass *hoa_exchanger_3d_class;
 static void *hoa_exchanger_new(t_symbol *s, int argc, t_atom *argv)
 {
 	ulong order = 1;
+    Exchanger<Hoa2d, t_sample>::Normalization   norm = Exchanger<Hoa2d, t_sample>::SN2D;
+    Exchanger<Hoa2d, t_sample>::Numbering       numb = Exchanger<Hoa2d, t_sample>::ACN;
     t_hoa_exchanger *x = (t_hoa_exchanger *)eobj_new(hoa_exchanger_class);
 	if (x)
 	{
         if(atom_gettype(argv) == A_LONG)
             order = ulong(pd_clip_minmax(atom_getlong(argv), 1, 63));
+        for(int i = 1; i < 3; i++)
+        {
+            if(argc > i && atom_gettype(argv+i) == A_SYM)
+            {
+                if(atom_getsym(argv+i) == gensym("toMaxN"))
+                {
+                    norm = Exchanger<Hoa2d, t_sample>::toMaxN;
+                }
+                else if(atom_getsym(argv+i) == gensym("fromMaxN"))
+                {
+                    norm = Exchanger<Hoa2d, t_sample>::fromMaxN;
+                }
+                else if(atom_getsym(argv+i) == gensym("toFurseMalham"))
+                {
+                    numb = Exchanger<Hoa2d, t_sample>::toFurseMalham;
+                }
+                else if(atom_getsym(argv+i) == gensym("toSID"))
+                {
+                    numb = Exchanger<Hoa2d, t_sample>::toSID;
+                }
+                else if(atom_getsym(argv+i) == gensym("fromFurseMalham"))
+                {
+                    numb = Exchanger<Hoa2d, t_sample>::fromFurseMalham;
+                }
+                else if(atom_getsym(argv+i) == gensym("fromSID"))
+                {
+                    numb = Exchanger<Hoa2d, t_sample>::fromSID;
+                }
+                else if(atom_getsym(argv+i) == gensym("toBFormat"))
+                {
+                    norm = Exchanger<Hoa2d, t_sample>::toMaxN;
+                    numb = Exchanger<Hoa2d, t_sample>::toFurseMalham;
+                }
+                else if(atom_getsym(argv+i) == gensym("fromBFormat"))
+                {
+                    norm = Exchanger<Hoa2d, t_sample>::fromMaxN;
+                    numb = Exchanger<Hoa2d, t_sample>::fromFurseMalham;
+                }
+                else
+                {
+                    pd_error(x, "hoa.exchanger : %s wrong symbol.", atom_getsym(argv+1)->s_name);
+                }
+            }
+        }
         
         x->f_exchanger = new Exchanger<Hoa2d, t_sample>(order);
+        x->f_exchanger->setNormalization(norm);
+        x->f_exchanger->setNumbering(numb);
         eobj_dspsetup(x, long(x->f_exchanger->getNumberOfHarmonics()), long(x->f_exchanger->getNumberOfHarmonics()));
         
         x->f_ins = new t_sample[x->f_exchanger->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
