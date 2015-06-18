@@ -1,6 +1,5 @@
 #N canvas 314 100 755 575 10;
 #X obj 286 15 hoa.in extra 1;
-#X obj 15 10 c.loadmess;
 #X obj 15 91 hoa.thisprocess~ This is a jazz example @artist Albert
 Ayler @album My name is Albert Ayler @song Summertime;
 #X obj 253 155 c.prepend set;
@@ -35,27 +34,27 @@ retreive it.;
 #X msg 324 466 done;
 #X msg 507 216 done;
 #X text 9 270 Send a bang to output.;
-#X obj 20 297 c.bang @size 17 17 @fontname Helvetica @fontweight normal
-@fontslant roman @fontsize 11 @receive (null) @send (null) @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
-#X text 86 10 Load bang;
-#X connect 1 0 2 0;
-#X connect 2 2 3 0;
-#X connect 2 3 5 0;
-#X connect 3 0 4 0;
+#X obj 20 297 c.bang @size 17 17 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @bacolor 0 0 0 1;
+#X obj 15 10 loadbang;
+#X connect 1 2 2 0;
+#X connect 1 3 4 0;
+#X connect 2 0 3 0;
+#X connect 4 0 5 0;
+#X connect 4 1 9 0;
+#X connect 4 2 10 0;
+#X connect 4 3 11 0;
 #X connect 5 0 6 0;
-#X connect 5 1 10 0;
-#X connect 5 2 11 0;
-#X connect 5 3 12 0;
-#X connect 6 0 7 0;
+#X connect 9 0 7 0;
 #X connect 10 0 8 0;
-#X connect 11 0 9 0;
-#X connect 12 0 30 0;
-#X connect 17 0 28 0;
-#X connect 18 0 19 0;
-#X connect 20 0 29 0;
-#X connect 24 0 18 0;
-#X connect 24 1 20 0;
-#X connect 25 2 17 0;
-#X connect 25 3 24 0;
-#X connect 32 0 25 0;
+#X connect 11 0 29 0;
+#X connect 16 0 27 0;
+#X connect 17 0 18 0;
+#X connect 19 0 28 0;
+#X connect 23 0 17 0;
+#X connect 23 1 19 0;
+#X connect 24 2 16 0;
+#X connect 24 3 23 0;
+#X connect 31 0 24 0;
+#X connect 32 0 1 0;

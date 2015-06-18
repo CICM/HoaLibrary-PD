@@ -1,6 +1,6 @@
 #N canvas 212 82 888 666 10;
 #X obj 15 17 c.canvasinfos;
-#X obj 26 18 c.loadmess;
+#X obj 26 18 loadbang;
 #X obj 201 605 hoa.help.pub;
 #X obj 6 7 hoa.tuto.header;
 #X text 14 296 Number of harmonics;
@@ -36,7 +36,7 @@
 1;
 #X obj 379 29 s norder;
 #X obj 462 28 s nharmo;
-#X msg 219 522 0 -1 1 -2 2 -3 3 -4 4 -5 5 -6 6 -7 7;
+#X msg 219 522 0 -1 1 -2 2 -3 3;
 #N canvas 0 50 450 300 hoaNumbering 0;
 #X obj 95 63 until;
 #X obj 95 34 t f b, f 7;
@@ -76,7 +76,7 @@
 @presetname "(null)" @min 1 @max "(null)" @minmax 1 "(null)" @decimal
 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
 1;
-#X msg 19 522 0 1 1 2 2 3 3 4 4 5 5 6 6 7 7;
+#X msg 19 522 0 1 1 2 2 3 3;
 #N canvas 0 50 450 300 hoaNumbering 0;
 #X obj 95 63 until;
 #X obj 95 34 t f b, f 7;
@@ -112,7 +112,7 @@
 @presetname "(null)" @min 1 @max "(null)" @minmax 1 "(null)" @decimal
 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
 1;
-#X msg 497 270 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15;
+#X msg 497 270 0 1 2 3 4 5 6 7;
 #N canvas 0 50 450 300 hoaNumbering 0;
 #X obj 95 133 until;
 #X obj 95 34 t f b, f 7;
@@ -125,7 +125,6 @@
 #X obj 95 9 inlet;
 #X obj 95 261 outlet;
 #X obj 95 65 * 2;
-#X obj 95 97 + 1;
 #X connect 0 0 3 0;
 #X connect 1 0 10 0;
 #X connect 1 1 6 0;
@@ -139,11 +138,10 @@
 #X connect 6 0 3 1;
 #X connect 7 0 4 0;
 #X connect 8 0 1 0;
-#X connect 10 0 11 0;
-#X connect 11 0 0 0;
+#X connect 10 0 0 0;
 #X restore 497 225 pd hoaNumbering;
 #X text 491 296 ACN of the harmonics;
-#X msg 499 522 W Y X V U Q P ? ? ? ? ? ? ? ? ?;
+#X msg 499 522 W Y X V U Q P;
 #N canvas 0 50 449 312 hoaNumbering 0;
 #X obj 95 133 until;
 #X obj 95 34 t f b, f 7;
@@ -155,7 +153,6 @@
 #X obj 95 9 inlet;
 #X obj 95 281 outlet;
 #X obj 95 65 * 2;
-#X obj 95 97 + 1;
 #X obj 174 133 symbol W;
 #X obj 95 213 symbol Y;
 #X obj 126 213 symbol X;
@@ -170,33 +167,32 @@
 #X connect 0 0 3 0;
 #X connect 1 0 9 0;
 #X connect 1 1 6 0;
-#X connect 1 1 11 0;
+#X connect 1 1 10 0;
 #X connect 2 0 3 1;
 #X connect 3 0 2 0;
-#X connect 3 0 18 0;
+#X connect 3 0 17 0;
 #X connect 4 0 5 0;
 #X connect 4 0 8 0;
 #X connect 5 0 4 0;
 #X connect 6 0 3 1;
 #X connect 7 0 1 0;
-#X connect 9 0 10 0;
-#X connect 10 0 0 0;
-#X connect 11 0 4 0;
+#X connect 9 0 0 0;
+#X connect 10 0 4 0;
+#X connect 11 0 5 0;
 #X connect 12 0 5 0;
 #X connect 13 0 5 0;
 #X connect 14 0 5 0;
 #X connect 15 0 5 0;
 #X connect 16 0 5 0;
-#X connect 17 0 5 0;
-#X connect 18 0 12 0;
-#X connect 18 1 13 0;
-#X connect 18 2 14 0;
-#X connect 18 3 15 0;
-#X connect 18 4 16 0;
-#X connect 18 5 17 0;
-#X connect 18 6 19 0;
-#X connect 19 0 20 0;
-#X connect 20 0 5 0;
+#X connect 17 0 11 0;
+#X connect 17 1 12 0;
+#X connect 17 2 13 0;
+#X connect 17 3 14 0;
+#X connect 17 4 15 0;
+#X connect 17 5 16 0;
+#X connect 17 6 18 0;
+#X connect 18 0 19 0;
+#X connect 19 0 5 0;
 #X restore 499 477 pd hoaNumbering;
 #X obj 499 442 c.number @size 53 17 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "norder" @send "(null)"

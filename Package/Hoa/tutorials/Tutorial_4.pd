@@ -1,6 +1,6 @@
 #N canvas 123 23 966 819 10;
 #X obj 22 9 c.canvasinfos;
-#X obj 21 5 c.loadmess;
+#X obj 21 5 loadbang;
 #X obj 4 4 hoa.tuto.header;
 #X obj 417 4 hoa.help.pub;
 #X obj 467 119 c.blackboard @size 397 93 @fontname "Helvetica" @fontweight
@@ -20,7 +20,7 @@
 #X obj 221 409 + 10;
 #X obj 161 493 c.prepend oval;
 #X obj 189 356 + 20;
-#X obj 377 9 c.loadmess;
+#X obj 377 9 loadbang;
 #X msg 388 186 width 20 \, color rgb 0.5 0.5 0.5;
 #X msg 360 208 width 14 \, color rgb 0.4 0.4 0.4;
 #X msg 401 336 width 10 \, color rgb 0.3 0.3 0.3;
@@ -123,7 +123,7 @@
 #X obj 76 49 phasor~ 0.1;
 #X obj 76 76 *~;
 #X obj 126 72 hoa.pi 2;
-#X obj 198 73 c.loadmess;
+#X obj 198 73 loadbang;
 #X obj 78 110 outlet~;
 #X connect 0 0 1 0;
 #X connect 1 0 4 0;
@@ -148,7 +148,7 @@
 #X obj 76 49 phasor~ 0.1;
 #X obj 76 76 *~;
 #X obj 126 72 hoa.pi 2;
-#X obj 198 73 c.loadmess;
+#X obj 198 73 loadbang;
 #X obj 78 110 outlet~;
 #X connect 0 0 1 0;
 #X connect 1 0 4 0;

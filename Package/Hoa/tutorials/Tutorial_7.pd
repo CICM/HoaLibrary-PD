@@ -1,6 +1,6 @@
 #N canvas 57 82 949 729 10;
 #X obj 20 11 c.canvasinfos;
-#X obj 19 7 c.loadmess;
+#X obj 19 7 loadbang;
 #X obj 2 6 hoa.tuto.header;
 #X obj 415 6 hoa.help.pub;
 #X text 2 156 Overall \, the decoding operation for one loudspeaker
@@ -45,7 +45,7 @@ of a dirac in the direction of the loudspeaker :, f 61;
 #X obj 100 150 sig~;
 #X obj 100 192 outlet~;
 #X obj 127 100 + 1;
-#X obj 100 21 c.loadmess;
+#X obj 100 21 loadbang;
 #X obj 100 77 t b f;
 #X obj 100 54 f 2;
 #X text 131 55 Order 2;

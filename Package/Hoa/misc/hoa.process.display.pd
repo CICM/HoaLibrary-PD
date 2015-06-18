@@ -1,8 +1,7 @@
 #N canvas 80 195 644 454 10;
-#X obj 128 353 c.blackboard @size 295 57 @fontname Helvetica @fontweight
-normal @fontslant roman @fontsize 11 @receive (null) @send (null) @chalkmode
-1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
-#X obj 26 9 c.loadmess;
+#X obj 128 353 c.blackboard @size 295 57 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@chalkmode 1 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
 #X obj 26 60 hoa.thisprocess~, f 86;
 #N canvas 778 159 450 300 hoa.mode.sel 0;
 #X obj 85 62 unpack s s;
@@ -49,25 +48,26 @@ of the \, text 10 30 planewave is \$2;
 #X msg 26 222 text 10 20 The order of decomposition is \$1 the degree
 of the \, text 10 30 harmonics is \$2 and the order of the harmonics
 is \$3., f 64;
-#X connect 1 0 2 0;
+#X obj 26 9 loadbang;
+#X connect 1 0 8 0;
+#X connect 1 0 10 0;
+#X connect 1 1 2 0;
+#X connect 2 0 3 0;
 #X connect 2 0 9 0;
 #X connect 2 0 11 0;
-#X connect 2 1 3 0;
 #X connect 3 0 4 0;
-#X connect 3 0 10 0;
-#X connect 3 0 12 0;
-#X connect 4 0 5 0;
-#X connect 4 1 6 0;
-#X connect 4 2 7 0;
-#X connect 4 3 8 0;
+#X connect 3 1 5 0;
+#X connect 3 2 6 0;
+#X connect 3 3 7 0;
+#X connect 4 0 0 0;
 #X connect 5 0 0 0;
 #X connect 6 0 0 0;
 #X connect 7 0 0 0;
-#X connect 8 0 0 0;
-#X connect 9 0 14 0;
-#X connect 10 0 9 1;
-#X connect 11 0 13 0;
-#X connect 12 0 11 1;
+#X connect 8 0 13 0;
+#X connect 9 0 8 1;
+#X connect 10 0 12 0;
+#X connect 11 0 10 1;
+#X connect 12 0 0 0;
 #X connect 13 0 0 0;
-#X connect 14 0 0 0;
+#X connect 14 0 1 0;
 #X coords 0 -1 1 1 300 62 2 125 350;

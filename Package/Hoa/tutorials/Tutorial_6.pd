@@ -1,6 +1,6 @@
 #N canvas 8 23 1440 722 10;
 #X obj 21 11 c.canvasinfos;
-#X obj 20 7 c.loadmess;
+#X obj 20 7 loadbang;
 #X obj 3 6 hoa.tuto.header;
 #X obj 546 6 hoa.help.pub;
 #X obj 11 467 hoa.2d.scope~ @size 225 225 @fontname "Helvetica" @fontweight
@@ -143,7 +143,7 @@ by, f 54;
 #X obj 195 49 inlet;
 #X obj 195 71 /, f 7;
 #X obj 234 47 hoa.pi 2;
-#X obj 234 26 c.loadmess;
+#X obj 234 26 loadbang;
 #X obj 195 137 *, f 7;
 #X obj 195 93 + 0.25;
 #X obj 195 116 wrap;

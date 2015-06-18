@@ -8,7 +8,7 @@ normal @fontslant roman @fontsize 11 @receive (null) @send (null) @order
 7 @view 0 @gain 5 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
 #X obj 23 10 c.canvasinfos;
-#X obj 22 6 c.loadmess;
+#X obj 22 6 loadbang;
 #X obj 3 3 hoa.tuto.header;
 #X obj 305 595 hoa.help.pub;
 #X obj 223 103 c.loadmess 1;

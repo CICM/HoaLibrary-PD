@@ -19,7 +19,7 @@
 #X obj 239 413 <= 0;
 #X obj 101 24 c.patcherargs partializer 80 200;
 #X obj 101 52 unpack s f f;
-#X obj 74 -36 c.loadmess;
+#X obj 74 -36 loadbang;
 #X obj 27 73 bang;
 #X obj 108 468 outlet~;
 #X text 240 75 Envelope;
@@ -90,7 +90,7 @@
 #X obj 239 413 <= 0;
 #X obj 101 24 c.patcherargs partializer 80 200;
 #X obj 101 52 unpack s f f;
-#X obj 74 -36 c.loadmess;
+#X obj 74 -36 loadbang;
 #X obj 27 73 bang;
 #X obj 108 468 outlet~;
 #X text 240 75 Envelope;
@@ -161,7 +161,7 @@
 #X obj 239 413 <= 0;
 #X obj 101 24 c.patcherargs partializer 80 200;
 #X obj 101 52 unpack s f f;
-#X obj 74 -36 c.loadmess;
+#X obj 74 -36 loadbang;
 #X obj 27 73 bang;
 #X obj 108 468 outlet~;
 #X text 240 75 Envelope;
@@ -232,7 +232,7 @@
 #X obj 239 413 <= 0;
 #X obj 101 24 c.patcherargs partializer 80 200;
 #X obj 101 52 unpack s f f;
-#X obj 74 -36 c.loadmess;
+#X obj 74 -36 loadbang;
 #X obj 27 73 bang;
 #X obj 108 468 outlet~;
 #X text 240 75 Envelope;
@@ -303,7 +303,7 @@
 #X obj 239 413 <= 0;
 #X obj 101 24 c.patcherargs partializer 80 200;
 #X obj 101 52 unpack s f f;
-#X obj 74 -36 c.loadmess;
+#X obj 74 -36 loadbang;
 #X obj 27 73 bang;
 #X obj 108 468 outlet~;
 #X text 240 75 Envelope;
@@ -374,7 +374,7 @@
 #X obj 239 413 <= 0;
 #X obj 101 24 c.patcherargs partializer 80 200;
 #X obj 101 52 unpack s f f;
-#X obj 74 -36 c.loadmess;
+#X obj 74 -36 loadbang;
 #X obj 27 73 bang;
 #X obj 108 468 outlet~;
 #X text 240 75 Envelope;
@@ -445,7 +445,7 @@
 #X obj 239 413 <= 0;
 #X obj 101 24 c.patcherargs partializer 80 200;
 #X obj 101 52 unpack s f f;
-#X obj 74 -36 c.loadmess;
+#X obj 74 -36 loadbang;
 #X obj 27 73 bang;
 #X obj 108 468 outlet~;
 #X text 240 75 Envelope;
@@ -516,7 +516,7 @@
 #X obj 239 413 <= 0;
 #X obj 101 24 c.patcherargs partializer 80 200;
 #X obj 101 52 unpack s f f;
-#X obj 74 -36 c.loadmess;
+#X obj 74 -36 loadbang;
 #X obj 27 73 bang;
 #X obj 108 468 outlet~;
 #X text 240 75 Envelope;
@@ -587,7 +587,7 @@
 #X obj 239 413 <= 0;
 #X obj 101 24 c.patcherargs partializer 80 200;
 #X obj 101 52 unpack s f f;
-#X obj 74 -36 c.loadmess;
+#X obj 74 -36 loadbang;
 #X obj 27 73 bang;
 #X obj 108 468 outlet~;
 #X text 240 75 Envelope;
@@ -658,7 +658,7 @@
 #X obj 239 413 <= 0;
 #X obj 101 24 c.patcherargs partializer 80 200;
 #X obj 101 52 unpack s f f;
-#X obj 74 -36 c.loadmess;
+#X obj 74 -36 loadbang;
 #X obj 27 73 bang;
 #X obj 108 468 outlet~;
 #X text 240 75 Envelope;

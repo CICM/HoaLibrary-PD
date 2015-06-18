@@ -414,7 +414,7 @@
 #X obj 686 101 random 3000;
 #X obj 54 413 hip~;
 #X obj 71 445 outlet~;
-#X obj 308 27 c.loadmess;
+#X obj 308 27 loadbang;
 #X connect 0 0 11 0;
 #X connect 1 0 10 0;
 #X connect 2 0 25 0;

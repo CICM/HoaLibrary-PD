@@ -1,6 +1,6 @@
 #N canvas 69 27 1084 736 10;
 #X obj 22 9 c.canvasinfos;
-#X obj 21 5 c.loadmess;
+#X obj 21 5 loadbang;
 #X obj 4 4 hoa.tuto.header;
 #X obj 20 649 hoa.help.pub;
 #X obj 471 127 hoa.2d.scope~ @size 225 225 @fontname "Helvetica" @fontweight
@@ -134,7 +134,6 @@ informations., f 60;
 #X msg 681 424 min \$1;
 #X obj 688 423 * -1;
 #X text 759 405 Degree of the harmonics;
-#X obj 734 625 c.prepend view;
 #X obj 734 651 s tuto3scope;
 #X obj 734 576 c.number @size 53 17 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
@@ -180,6 +179,7 @@ wich orders are m = -l and m = l (the degree 0 has 1 harmonic with
 the order 0). For the spherical harmonics \, each degree l has 2l+1
 harmonics which the orders go from -l to l. In fact \, the circular
 harmonics are particular cases of the spherical harmonics.;
+#X msg 734 624 view \$1 \$2 \$3;
 #X connect 0 0 2 0;
 #X connect 1 0 0 0;
 #X connect 5 0 6 0;
@@ -284,8 +284,8 @@ harmonics are particular cases of the spherical harmonics.;
 #X connect 31 0 22 0;
 #X connect 32 0 22 0;
 #X connect 33 0 32 0;
-#X connect 35 0 36 0;
-#X connect 37 0 41 0;
-#X connect 38 0 41 1;
-#X connect 39 0 41 2;
-#X connect 41 0 35 0;
+#X connect 36 0 40 0;
+#X connect 37 0 40 1;
+#X connect 38 0 40 2;
+#X connect 40 0 51 0;
+#X connect 51 0 35 0;

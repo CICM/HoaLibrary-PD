@@ -1,6 +1,6 @@
 #N canvas 163 23 799 740 10;
 #X obj 22 7 c.canvasinfos;
-#X obj 21 3 c.loadmess;
+#X obj 21 3 loadbang;
 #X obj 4 2 hoa.tuto.header;
 #X obj 417 2 hoa.help.pub;
 #X obj 439 59 c.blackboard @size 320 320 @fontname "Helvetica" @fontweight
@@ -8,7 +8,7 @@
 @chalkmode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
 #N canvas 0 50 635 265 subscript 0;
 #X obj 142 243 outlet;
-#X obj 154 46 c.loadmess;
+#X obj 154 46 loadbang;
 #X msg 143 85 clear \, fill 0 \, width 3 \, color rgb 0 0 0 \, oval
 7 7 315 315 \, width 1 \, line 161 161 52 52 \, line 161 161 52 271
 \, line 161 161 271 52 \, line 161 161 271 271 \, color rgb 0 1 0 \,
@@ -25,7 +25,7 @@ line 70 54 81 53 \, color rgb 0 0 0 \, text 140 61 FRONT \, text 144
 @chalkmode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
 #N canvas 729 414 635 265 subscript 0;
 #X obj 142 243 outlet;
-#X obj 154 46 c.loadmess;
+#X obj 154 46 loadbang;
 #X msg 149 85 clear \, fill 0 \, width 3 \, color rgb 0 0 0 \, oval
 7 7 315 315 \, width 1 \, line 7 161 315 161 \, color rgb 0 1 0 \,
 fill 1 \, oval 157 157 166 166 \, line 161 161 120 161 \, line 120

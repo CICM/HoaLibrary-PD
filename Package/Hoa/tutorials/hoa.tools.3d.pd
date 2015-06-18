@@ -1,6 +1,6 @@
 #N canvas 379 86 888 663 10;
 #X obj 12 14 c.canvasinfos;
-#X obj 23 15 c.loadmess;
+#X obj 23 15 loadbang;
 #X obj 198 602 hoa.help.pub;
 #X obj 3 4 hoa.tuto.header;
 #X text 11 293 Number of harmonics;
@@ -133,8 +133,9 @@
 #X obj 174 133 f 0;
 #X obj 95 9 inlet;
 #X obj 95 261 outlet;
-#X obj 95 65 + 1;
-#X obj 95 97 pow 2;
+#X obj 95 55 + 1;
+#X obj 95 77 pow 2;
+#X obj 95 99 - 1;
 #X connect 0 0 3 0;
 #X connect 1 0 10 0;
 #X connect 1 1 6 0;
@@ -149,7 +150,8 @@
 #X connect 7 0 4 0;
 #X connect 8 0 1 0;
 #X connect 10 0 11 0;
-#X connect 11 0 0 0;
+#X connect 11 0 12 0;
+#X connect 12 0 0 0;
 #X restore 494 222 pd hoaNumbering;
 #X text 488 293 ACN of the harmonics;
 #X msg 496 519 W Y Z X V T R S U Q O M K L N P;
