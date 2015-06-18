@@ -40,8 +40,8 @@ static void *hoa_wider_new(t_symbol *s, int argc, t_atom *argv)
 		x->f_wider = new Wider<Hoa2d, t_sample>(order);
         eobj_dspsetup(x, long(x->f_wider->getNumberOfHarmonics() + 1), long(x->f_wider->getNumberOfHarmonics()));
         
-		x->f_ins = new t_sample[x->f_wider->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
-        x->f_outs = new t_sample[x->f_wider->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
+		x->f_ins = Signal<t_sample>::alloc(x->f_wider->getNumberOfHarmonics() * HOA_MAXBLKSIZE);
+        x->f_outs = Signal<t_sample>::alloc(x->f_wider->getNumberOfHarmonics() * HOA_MAXBLKSIZE);
 	}
     
 	return (x);
@@ -59,8 +59,8 @@ static void *hoa_wider_3d_new(t_symbol *s, int argc, t_atom *argv)
         x->f_wider = new Wider<Hoa3d, t_sample>(order);
         eobj_dspsetup(x, long(x->f_wider->getNumberOfHarmonics() + 1), long(x->f_wider->getNumberOfHarmonics()));
         
-        x->f_ins = new t_sample[x->f_wider->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
-        x->f_outs = new t_sample[x->f_wider->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
+        x->f_ins = Signal<t_sample>::alloc(x->f_wider->getNumberOfHarmonics() * HOA_MAXBLKSIZE);
+        x->f_outs = Signal<t_sample>::alloc(x->f_wider->getNumberOfHarmonics() * HOA_MAXBLKSIZE);
     }
     
     return (x);
@@ -162,16 +162,16 @@ static void hoa_wider_free(t_hoa_wider *x)
 {
     eobj_dspfree(x);
 	delete x->f_wider;
-    delete [] x->f_ins;
-    delete [] x->f_outs;
+    Signal<t_sample>::free(x->f_ins);
+    Signal<t_sample>::free(x->f_outs);
 }
 
 static void hoa_wider_3d_free(t_hoa_wider_3d *x)
 {
     eobj_dspfree(x);
     delete x->f_wider;
-    delete [] x->f_ins;
-    delete [] x->f_outs;
+    Signal<t_sample>::free(x->f_ins);
+    Signal<t_sample>::free(x->f_outs);
 }
 
 extern "C" void setup_hoa0x2e2d0x2ewider_tilde(void)

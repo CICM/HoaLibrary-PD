@@ -509,7 +509,7 @@ static void hoa_meter_free(t_hoa_meter *x)
     clock_free(x->f_clock);
     delete x->f_meter;
     delete x->f_vector;
-    delete [] x->f_signals;
+    Signal<t_sample>::free(x->f_signals);
 }
 
 static void *hoa_meter_new(t_symbol *s, int argc, t_atom *argv)
@@ -523,7 +523,7 @@ static void *hoa_meter_new(t_symbol *s, int argc, t_atom *argv)
         x->f_ramp = 0;
         x->f_meter  = new Meter<Hoa2d, t_sample>(4);
         x->f_vector = new Vector<Hoa2d, t_sample>(4);
-        x->f_signals = new t_sample[HOA_MAX_PLANEWAVES * HOA_MAXBLKSIZE];
+        x->f_signals = Signal<t_sample>::alloc(HOA_MAX_PLANEWAVES * HOA_MAXBLKSIZE);
         x->f_meter->computeRendering();
         x->f_vector->computeRendering();
 
@@ -1384,7 +1384,7 @@ static void hoa_meter_3d_free(t_hoa_meter_3d *x)
     clock_free(x->f_clock);
     delete x->f_meter;
     delete x->f_vector;
-    delete [] x->f_signals;
+    Signal<t_sample>::free(x->f_signals);
 }
 
 static void *hoa_meter_3d_new(t_symbol *s, int argc, t_atom *argv)
@@ -1398,7 +1398,7 @@ static void *hoa_meter_3d_new(t_symbol *s, int argc, t_atom *argv)
         x->f_ramp = 0;
         x->f_meter  = new Meter<Hoa3d, t_sample>(4);
         x->f_vector = new Vector<Hoa3d, t_sample>(4);
-        x->f_signals = new t_float[HOA_MAX_PLANEWAVES * HOA_MAXBLKSIZE];
+        x->f_signals = Signal<t_sample>::alloc(HOA_MAX_PLANEWAVES * HOA_MAXBLKSIZE);
 
         x->f_meter->computeRendering();
         x->f_vector->computeRendering();

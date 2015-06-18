@@ -33,8 +33,8 @@ static void *hoa_rotate_new(t_symbol *s, int argc, t_atom *argv)
 		
 		eobj_dspsetup(x, long(x->f_rotate->getNumberOfHarmonics() + 1), long(x->f_rotate->getNumberOfHarmonics()));
         
-		x->f_ins = new t_float[x->f_rotate->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
-        x->f_outs = new t_float[x->f_rotate->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
+		x->f_ins = Signal<t_sample>::alloc(x->f_rotate->getNumberOfHarmonics() * HOA_MAXBLKSIZE);
+        x->f_outs = Signal<t_sample>::alloc(x->f_rotate->getNumberOfHarmonics() * HOA_MAXBLKSIZE);
 	}
     
 	return (x);
@@ -90,8 +90,8 @@ static void hoa_rotate_free(t_hoa_rotate *x)
 {
 	eobj_dspfree(x);
 	delete x->f_rotate;
-    delete [] x->f_ins;
-	delete [] x->f_outs;
+    Signal<t_sample>::free(x->f_ins);
+	Signal<t_sample>::free(x->f_outs);
 }
 
 extern "C" void setup_hoa0x2e2d0x2erotate_tilde(void)

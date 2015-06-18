@@ -88,8 +88,8 @@ static void *hoa_exchanger_new(t_symbol *s, int argc, t_atom *argv)
         x->f_exchanger->setNumbering(numb);
         eobj_dspsetup(x, long(x->f_exchanger->getNumberOfHarmonics()), long(x->f_exchanger->getNumberOfHarmonics()));
         
-        x->f_ins = new t_sample[x->f_exchanger->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
-        x->f_outs = new t_sample[x->f_exchanger->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
+        x->f_ins = Signal<t_sample>::alloc(x->f_exchanger->getNumberOfHarmonics() * HOA_MAXBLKSIZE);
+        x->f_outs = Signal<t_sample>::alloc(x->f_exchanger->getNumberOfHarmonics() * HOA_MAXBLKSIZE);
         return x;
 	}
 	return NULL;
@@ -121,8 +121,8 @@ static void hoa_exchanger_free(t_hoa_exchanger *x)
 {
 	eobj_dspfree(x);
 	delete x->f_exchanger;
-    delete [] x->f_ins;
-    delete [] x->f_outs;
+    Signal<t_sample>::free(x->f_ins);
+    Signal<t_sample>::free(x->f_outs);
 }
 
 extern "C" void setup_hoa0x2e2d0x2eexchanger_tilde(void)
@@ -216,13 +216,11 @@ static void *hoa_exchanger_3d_new(t_symbol *s, int argc, t_atom *argv)
         x->f_exchanger->setNumbering(numb);
         eobj_dspsetup(x, long(x->f_exchanger->getNumberOfHarmonics()), long(x->f_exchanger->getNumberOfHarmonics()));
         
-        x->f_ins = new t_sample[x->f_exchanger->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
-        x->f_outs = new t_sample[x->f_exchanger->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
+        x->f_ins = Signal<t_sample>::alloc(x->f_exchanger->getNumberOfHarmonics() * HOA_MAXBLKSIZE);
+        x->f_outs = Signal<t_sample>::alloc(x->f_exchanger->getNumberOfHarmonics() * HOA_MAXBLKSIZE);
     }
     return x;
 }
-
-int zizi = 4;
 
 static void hoa_exchanger_3d_perform(t_hoa_exchanger_3d *x, t_object *dsp, float **ins, long numins, float **outs, long numouts, long sampleframes, long f,void *up)
 {
@@ -250,8 +248,8 @@ static void hoa_exchanger_3d_free(t_hoa_exchanger_3d *x)
 {
     eobj_dspfree(x);
     delete x->f_exchanger;
-    delete [] x->f_ins;
-    delete [] x->f_outs;
+    Signal<t_sample>::free(x->f_ins);
+    Signal<t_sample>::free(x->f_outs);
 }
 
 extern "C" void setup_hoa0x2e3d0x2eexchanger_tilde(void)

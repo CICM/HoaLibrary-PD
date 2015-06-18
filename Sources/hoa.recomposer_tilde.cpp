@@ -54,15 +54,15 @@ static void *hoa_recomposer_new(t_symbol *s, int argc, t_atom *argv)
         if(x->f_mode == hoa_sym_fixe)
         {
             x->f_fixe = new Recomposer<Hoa2d, t_sample, Fixe>(order, numberOfPlanewaves);
-            x->f_ins  = new t_float[x->f_fixe->getNumberOfPlanewaves() * HOA_MAXBLKSIZE];
-            x->f_outs = new t_float[x->f_fixe->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
+            x->f_ins  = Signal<t_sample>::alloc(x->f_fixe->getNumberOfPlanewaves() * HOA_MAXBLKSIZE);
+            x->f_outs = Signal<t_sample>::alloc(x->f_fixe->getNumberOfHarmonics() * HOA_MAXBLKSIZE);
             eobj_dspsetup(x, long(x->f_fixe->getNumberOfPlanewaves()), long(x->f_fixe->getNumberOfHarmonics()));
         }
         else if(x->f_mode == hoa_sym_fisheye)
         {
             x->f_fisheye    = new Recomposer<Hoa2d, t_sample, Fisheye>(order, numberOfPlanewaves);
-            x->f_ins        = new t_float[x->f_fisheye->getNumberOfPlanewaves() * HOA_MAXBLKSIZE];
-            x->f_outs       = new t_float[x->f_fisheye->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
+            x->f_ins        = Signal<t_sample>::alloc(x->f_fisheye->getNumberOfPlanewaves() * HOA_MAXBLKSIZE);
+            x->f_outs       = Signal<t_sample>::alloc(x->f_fisheye->getNumberOfHarmonics() * HOA_MAXBLKSIZE);
             x->f_line.setRamp(0.1 * sys_getsr());
             x->f_line.setValue(0.f);
             eobj_dspsetup(x, long(x->f_fisheye->getNumberOfPlanewaves() + 1), long(x->f_fisheye->getNumberOfHarmonics()));
@@ -71,8 +71,8 @@ static void *hoa_recomposer_new(t_symbol *s, int argc, t_atom *argv)
         {
             x->f_free       = new Recomposer<Hoa2d, t_sample, Free>(order, numberOfPlanewaves);
             x->f_lines      = new PolarLines<Hoa2d,t_sample>(x->f_free->getNumberOfPlanewaves());
-            x->f_ins        = new t_float[x->f_free->getNumberOfPlanewaves() * HOA_MAXBLKSIZE];
-            x->f_outs       = new t_float[x->f_free->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
+            x->f_ins        = Signal<t_sample>::alloc(x->f_free->getNumberOfPlanewaves() * HOA_MAXBLKSIZE);
+            x->f_outs       = Signal<t_sample>::alloc(x->f_free->getNumberOfHarmonics() * HOA_MAXBLKSIZE);
             x->f_lines->setRamp(0.1 * sys_getsr());
             for(ulong i = 0; i < x->f_free->getNumberOfPlanewaves(); i++)
             {
@@ -80,7 +80,7 @@ static void *hoa_recomposer_new(t_symbol *s, int argc, t_atom *argv)
                 x->f_lines->setAzimuthDirect(i, x->f_free->getAzimuth(i));
             }
             eobj_dspsetup(x, long(x->f_free->getNumberOfPlanewaves()), long(x->f_free->getNumberOfHarmonics()));
-            x->f_lines_vector   = new float[x->f_free->getNumberOfPlanewaves() * 2];
+            x->f_lines_vector   = Signal<t_sample>::alloc(x->f_free->getNumberOfPlanewaves() * 2);
         }
 
         ebox_attrprocess_viabinbuf(x, d);
@@ -237,10 +237,10 @@ static void hoa_recomposer_free(t_hoa_recomposer *x)
     {
         delete x->f_free;
         delete x->f_lines;
-        delete [] x->f_lines_vector;
+         Signal<t_sample>::free(x->f_lines_vector);
     }
-    delete [] x->f_ins;
-	delete [] x->f_outs;
+    Signal<t_sample>::free(x->f_ins);
+	Signal<t_sample>::free(x->f_outs);
 }
 
 static t_pd_err ramp_set(t_hoa_recomposer *x, t_object *attr, int argc, t_atom *argv)

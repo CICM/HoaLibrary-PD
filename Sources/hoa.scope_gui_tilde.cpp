@@ -93,7 +93,7 @@ static void hoa_scope_free(t_hoa_scope *x)
     clock_free(x->f_clock);
 
     delete x->f_scope;
-    delete [] x->f_signals;
+    Signal<t_sample>::free(x->f_signals);
 }
 
 static t_pd_err hoa_scope_notify(t_hoa_scope *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
@@ -135,10 +135,10 @@ static t_pd_err hoa_scope_set_order(t_hoa_scope *x, t_object *attr, int ac, t_at
             int dspState = canvas_suspend_dsp();
 
             delete x->f_scope;
-            delete [] x->f_signals;
+            Signal<t_sample>::free(x->f_signals);
             x->f_scope      = new Scope<Hoa2d, t_sample>(order, HOA_DISPLAY_NPOINTS);
             x->f_order      = long(x->f_scope->getDecompositionOrder());
-            x->f_signals    = new t_sample[x->f_scope->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
+            x->f_signals    = Signal<t_sample>::alloc(x->f_scope->getNumberOfHarmonics() * HOA_MAXBLKSIZE);
 
             eobj_resize_inputs((t_ebox *)x, long(x->f_scope->getNumberOfHarmonics()));
             canvas_update_dsp();
@@ -296,7 +296,7 @@ static void *hoa_scope_new(t_symbol *s, int argc, t_atom *argv)
         x->f_startclock = 0;
         x->f_scope      = new Scope<Hoa2d, t_sample>(ulong(x->f_order), HOA_DISPLAY_NPOINTS);
         x->f_order      = long(x->f_scope->getDecompositionOrder());
-        x->f_signals    = new t_sample[x->f_scope->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
+        x->f_signals    = Signal<t_sample>::alloc(x->f_scope->getNumberOfHarmonics() * HOA_MAXBLKSIZE);
 
         eobj_dspsetup(x, long(x->f_scope->getNumberOfHarmonics()), 0);
         ebox_new((t_ebox *)x, 0 | EBOX_IGNORELOCKCLICK | EBOX_GROWLINK);
@@ -515,10 +515,10 @@ static t_pd_err hoa_scope_3d_set_order(t_hoa_scope_3d *x, t_object *attr, int ac
             }
             
             delete x->f_scope;
-            delete [] x->f_signals;
+            Signal<t_sample>::free(x->f_signals);
             x->f_scope      =  new Scope<Hoa3d, t_sample>(order, nrow, nrow * 2);
             x->f_order      = long(x->f_scope->getDecompositionOrder());
-            x->f_signals    = new t_float[x->f_scope->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
+            x->f_signals    = Signal<t_sample>::alloc(x->f_scope->getNumberOfHarmonics() * HOA_MAXBLKSIZE);
 
             eobj_resize_inputs((t_ebox *)x, long(x->f_scope->getNumberOfHarmonics()));
             canvas_update_dsp();
@@ -745,7 +745,7 @@ static void *hoa_scope_3d_new(t_symbol *s, int argc, t_atom *argv)
         x->f_startclock = 0;
         x->f_scope      = new Scope<Hoa3d, t_sample>(ulong(x->f_order), _hoa_scope_3d::f_row1, _hoa_scope_3d::f_row1 * 2);
         x->f_order      = long(x->f_scope->getDecompositionOrder());
-        x->f_signals    = new t_sample[x->f_scope->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
+        x->f_signals    = Signal<t_sample>::alloc(x->f_scope->getNumberOfHarmonics() * HOA_MAXBLKSIZE);
 
         eobj_dspsetup(x, long(x->f_scope->getNumberOfHarmonics()), 0);
         ebox_new((t_ebox *)x, 0 | EBOX_IGNORELOCKCLICK | EBOX_GROWLINK);
@@ -772,7 +772,7 @@ static void hoa_scope_3d_free(t_hoa_scope_3d *x)
     }
     if(x->f_signals)
     {
-        delete [] x->f_signals;
+        Signal<t_sample>::free(x->f_signals);
     }
 }
 

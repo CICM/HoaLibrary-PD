@@ -742,7 +742,7 @@ static void hoa_process_free(t_hoa_process *x)
     {
         if(x->f_outlets_signals[i])
         {
-            delete [] x->f_outlets_signals[i];
+            Signal<t_sample>::free(x->f_outlets_signals[i]);
         }
     }
     x->f_outlets_signals.clear();
@@ -928,7 +928,7 @@ static void *hoa_process_new(t_symbol *s, int argc, t_atom *argv)
                               long(have_sig_outs * x->f_instances.size() + max_sig_outs_extra));
                 for(ulong i = 0; i < have_sig_outs * x->f_instances.size() + max_sig_outs_extra; i++)
                 {
-                    x->f_outlets_signals.push_back(new t_sample[HOA_MAXBLKSIZE]);
+                    x->f_outlets_signals.push_back(Signal<t_sample>::alloc(HOA_MAXBLKSIZE));
                 }
                 
                 if(have_ctl_ins && !have_sig_ins)

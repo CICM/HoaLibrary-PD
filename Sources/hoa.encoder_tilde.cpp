@@ -38,7 +38,7 @@ static void *hoa_encoder_new(t_symbol *s, int argc, t_atom *argv)
         x->f_encoder = new Encoder<Hoa2d, t_sample>::Basic(order);
         eobj_dspsetup(x, 2, long(x->f_encoder->getNumberOfHarmonics()));
         
-        x->f_signals =  new t_sample[x->f_encoder->getNumberOfHarmonics() * 8192];
+        x->f_signals =  Signal<t_sample>::alloc(x->f_encoder->getNumberOfHarmonics() * 8192);
         return x;
 	}
 	return NULL;
@@ -87,7 +87,7 @@ static void hoa_encoder_free(t_hoa_encoder *x)
 {
 	eobj_dspfree(x);
 	delete x->f_encoder;
-    delete [] x->f_signals;
+    Signal<t_sample>::free(x->f_signals);
 }
 
 extern "C" void setup_hoa0x2e2d0x2eencoder_tilde(void)
@@ -116,7 +116,7 @@ static void *hoa_encoder_3d_new(t_symbol *s, int argc, t_atom *argv)
         x->f_encoder = new Encoder<Hoa3d, t_sample>::Basic(order);
         eobj_dspsetup(x, 3, long(x->f_encoder->getNumberOfHarmonics()));
         
-        x->f_signals =  new t_sample[x->f_encoder->getNumberOfHarmonics() * 8192];
+        x->f_signals =  Signal<t_sample>::alloc(x->f_encoder->getNumberOfHarmonics() * 8192);
     }
     return x;
 }
@@ -198,7 +198,7 @@ static void hoa_encoder_3d_free(t_hoa_encoder_3d *x)
 {
     eobj_dspfree(x);
     delete x->f_encoder;
-    delete [] x->f_signals;
+    Signal<t_sample>::free(x->f_signals);
 }
 
 extern "C" void setup_hoa0x2e3d0x2eencoder_tilde(void)

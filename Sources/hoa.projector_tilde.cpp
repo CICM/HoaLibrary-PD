@@ -35,8 +35,8 @@ static void *hoa_projector_new(t_symbol *s, int argc, t_atom *argv)
 		
         eobj_dspsetup(x, long(x->f_projector->getNumberOfHarmonics()), long(x->f_projector->getNumberOfPlanewaves()));
         
-		x->f_ins = new t_sample[x->f_projector->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
-        x->f_outs = new t_sample[x->f_projector->getNumberOfPlanewaves() * HOA_MAXBLKSIZE];
+		x->f_ins = Signal<t_sample>::alloc(x->f_projector->getNumberOfHarmonics() * HOA_MAXBLKSIZE);
+        x->f_outs = Signal<t_sample>::alloc(x->f_projector->getNumberOfPlanewaves() * HOA_MAXBLKSIZE);
 	}
     
 	return (x);
@@ -67,8 +67,8 @@ static void hoa_projector_free(t_hoa_projector *x)
 {
 	eobj_dspfree(x);
 	delete x->f_projector;
-    delete [] x->f_ins;
-	delete [] x->f_outs;
+    Signal<t_sample>::free(x->f_ins);
+	Signal<t_sample>::free(x->f_outs);
 }
 
 

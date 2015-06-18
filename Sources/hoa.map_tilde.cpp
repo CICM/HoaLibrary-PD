@@ -77,12 +77,12 @@ static void *hoa_map_tilde_new(t_symbol *s, int argc, t_atom *argv)
             eobj_dspsetup(x, long(x->f_map->getNumberOfSources()), long(x->f_map->getNumberOfHarmonics()));
 
         if(x->f_map->getNumberOfSources() == 1)
-            x->f_sig_ins    = new t_sample[3 * HOA_MAXBLKSIZE];
+            x->f_sig_ins    = Signal<t_sample>::alloc(3 * HOA_MAXBLKSIZE);
         else
-            x->f_sig_ins    = new t_sample[x->f_map->getNumberOfSources() * HOA_MAXBLKSIZE];
+            x->f_sig_ins    = Signal<t_sample>::alloc(x->f_map->getNumberOfSources() * HOA_MAXBLKSIZE);
 
-        x->f_sig_outs       = new t_sample[x->f_map->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
-        x->f_lines_vector   = new t_sample[x->f_map->getNumberOfSources() * 2];
+        x->f_sig_outs       = Signal<t_sample>::alloc(x->f_map->getNumberOfHarmonics() * HOA_MAXBLKSIZE);
+        x->f_lines_vector   = Signal<t_sample>::alloc(x->f_map->getNumberOfSources() * 2);
 
         ebox_attrprocess_viabinbuf(x, d);
 
@@ -309,9 +309,9 @@ static void hoa_map_tilde_free(t_hoa_map_tilde *x)
 	eobj_dspfree(x);
 	delete x->f_lines;
 	delete x->f_map;
-    delete [] x->f_sig_ins;
-    delete [] x->f_sig_outs;
-	delete [] x->f_lines_vector;
+    Signal<t_sample>::free(x->f_sig_ins);
+    Signal<t_sample>::free(x->f_sig_outs);
+	Signal<t_sample>::free(x->f_lines_vector);
 }
 
 extern "C" void setup_hoa0x2e2d0x2emap_tilde(void)
@@ -379,12 +379,12 @@ static void *hoa_map_3d_tilde_new(t_symbol *s, int argc, t_atom *argv)
             eobj_dspsetup(x, long(x->f_map->getNumberOfSources()), long(x->f_map->getNumberOfHarmonics()));
 
         if(x->f_map->getNumberOfSources() == 1)
-            x->f_sig_ins    = new t_sample[4 * HOA_MAXBLKSIZE];
+            x->f_sig_ins    = Signal<t_sample>::alloc(4 * HOA_MAXBLKSIZE);
         else
-            x->f_sig_ins    = new t_sample[x->f_map->getNumberOfSources() * HOA_MAXBLKSIZE];
+            x->f_sig_ins    = Signal<t_sample>::alloc(x->f_map->getNumberOfSources() * HOA_MAXBLKSIZE);
 
-        x->f_sig_outs       = new t_sample[x->f_map->getNumberOfHarmonics() * HOA_MAXBLKSIZE];
-        x->f_lines_vector   = new t_sample[x->f_map->getNumberOfSources() * 3];
+        x->f_sig_outs       = Signal<t_sample>::alloc(x->f_map->getNumberOfHarmonics() * HOA_MAXBLKSIZE);
+        x->f_lines_vector   = Signal<t_sample>::alloc(x->f_map->getNumberOfSources() * 3);
 
         ebox_attrprocess_viabinbuf(x, d);
 
@@ -772,9 +772,9 @@ static void hoa_map_3d_tilde_free(t_hoa_map_3d_tilde *x)
     eobj_dspfree(x);
     delete x->f_lines;
     delete x->f_map;
-    delete [] x->f_sig_ins;
-    delete [] x->f_sig_outs;
-    delete [] x->f_lines_vector;
+    Signal<t_sample>::free(x->f_sig_ins);
+    Signal<t_sample>::free(x->f_sig_outs);
+    Signal<t_sample>::free(x->f_lines_vector);
 }
 
 extern "C" void setup_hoa0x2e3d0x2emap_tilde(void)
