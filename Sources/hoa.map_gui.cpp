@@ -126,10 +126,10 @@ void      hoa_map_linkmapAddWithBindingName(t_hoa_map *x, t_symbol* binding_name
 void      hoa_map_linkmapRemoveWithBindingName(t_hoa_map *x, t_symbol* binding_name);
 void      hoa_map_getDrawParams(t_hoa_map *x, t_object *patcherview, t_edrawparams *params);
 
-t_symbol* hoa_sym_sources_preset;
-t_symbol* hoa_sym_view_xy = gensym("xy");
-t_symbol* hoa_sym_view_xz = gensym("xz");
-t_symbol* hoa_sym_view_yz = gensym("yz");
+static t_symbol* hoa_sym_sources_preset;
+static t_symbol* hoa_sym_view_xy = gensym("xy");
+static t_symbol* hoa_sym_view_xz = gensym("xz");
+static t_symbol* hoa_sym_view_yz = gensym("yz");
 
 extern "C" void setup_hoa0x2emap(void)
 {
@@ -859,12 +859,6 @@ t_pd_err hoa_map_zoom(t_hoa_map *x, t_object *attr, int argc, t_atom *argv)
     ebox_invalidate_layer((t_ebox *)x, hoa_sym_background_layer);
     ebox_invalidate_layer((t_ebox *)x, hoa_sym_sources_layer);
     ebox_invalidate_layer((t_ebox *)x, hoa_sym_groups_layer);
-    return 0;
-}
-
-t_pd_err hoa_map_view(t_hoa_map *x, t_object *attr, int argc, t_atom *argv)
-{
-    post("oui");
     return 0;
 }
 
