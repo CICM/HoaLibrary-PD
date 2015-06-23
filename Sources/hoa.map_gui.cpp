@@ -755,11 +755,48 @@ void hoa_map_group(t_hoa_map *x, t_symbol *s, int ac, t_atom *av)
             }
             else if(param == hoa_sym_relradius)
             {
-                tmp->setRelativeRadius(atom_getfloat(av+2));
+                tmp->setRelativeRadius(atom_getfloat(av+2) + tmp->getRadius());
             }
             else if(param == hoa_sym_relazimuth)
             {
-                tmp->setRelativeAzimuth(atom_getfloat(av+2));
+                if(x->f_coord_view == hoa_sym_view_xy)
+                {
+                    tmp->setRelativeAzimuth(atom_getfloat(av+2) + tmp->getAzimuth());
+                }
+                else if(x->f_coord_view == hoa_sym_view_xz)
+                {
+                    t_pt source_display;
+                    double source_radius, source_azimuth, aAngleOffset = atom_getfloat(av+2);
+                    map<ulong, Source*>& sourcesOfGroup = tmp->getSources();
+                    for(Source::source_iterator it = sourcesOfGroup.begin() ; it != sourcesOfGroup.end() ; it ++)
+                    {
+                        source_display.x = it->second->getAbscissa();
+                        source_display.y = it->second->getHeight();
+                        source_radius = Math<float>::radius(source_display.x, source_display.y);
+                        source_azimuth = Math<float>::azimuth(source_display.x, source_display.y);
+                        source_azimuth += aAngleOffset;
+
+                        it->second->setAbscissa(Math<float>::abscissa(source_radius, source_azimuth));
+                        it->second->setHeight(Math<float>::ordinate(source_radius, source_azimuth));
+                    }
+                }
+                else
+                {
+                    t_pt source_display;
+                    double source_radius, source_azimuth, aAngleOffset = atom_getfloat(av+2);
+                    map<ulong, Source*>& sourcesOfGroup = tmp->getSources();
+                    for(Source::source_iterator it = sourcesOfGroup.begin() ; it != sourcesOfGroup.end() ; it ++)
+                    {
+                        source_display.x = it->second->getOrdinate();
+                        source_display.y = it->second->getHeight();
+                        source_radius = Math<float>::radius(source_display.x, source_display.y);
+                        source_azimuth = Math<float>::azimuth(source_display.x, source_display.y);
+                        source_azimuth += aAngleOffset;
+
+                        it->second->setOrdinate(Math<float>::abscissa(source_radius, source_azimuth));
+                        it->second->setHeight(Math<float>::ordinate(source_radius, source_azimuth));
+                    }
+                }
             }
             else if(param == hoa_sym_relelevation)
             {
@@ -1583,7 +1620,7 @@ void hoa_map_mousedrag(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
 
 	if (x->f_selected_source)
     {
-        if(modifiers == EMOD_SHIFT)
+        if((modifiers & EMOD_SHIFT) && !(modifiers & EMOD_CTRL))
         {
             if(x->f_coord_view == hoa_sym_view_xy)
             {
@@ -1608,12 +1645,12 @@ void hoa_map_mousedrag(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
 
             causeOutput = causeRedraw = causeNotify = 1;
         }
-        else if(modifiers == EMOD_ALT)
+        else if(modifiers & EMOD_ALT)
         {
             x->f_selected_source->setRadius(Math<float>::radius(cursor.x, cursor.y));
             causeOutput = causeRedraw = causeNotify = 1;
         }
-        else if(modifiers == EMOD_CTRL)
+        else if((modifiers & EMOD_CTRL) && !(modifiers & EMOD_SHIFT))
         {
             if (x->f_coord_view == hoa_sym_view_xy || x->f_coord_view == hoa_sym_view_xz)
                 x->f_selected_source->setAbscissa(cursor.x);
@@ -1621,7 +1658,7 @@ void hoa_map_mousedrag(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
                 x->f_selected_source->setOrdinate(cursor.x);
             causeOutput = causeRedraw = causeNotify = 1;
         }
-        else if(modifiers == EMOD_CTRL+EMOD_SHIFT)
+        else if((modifiers & EMOD_CTRL) && (modifiers & EMOD_SHIFT))
         {
             if (x->f_coord_view == hoa_sym_view_xy)
                 x->f_selected_source->setOrdinate(cursor.y);
@@ -1648,7 +1685,7 @@ void hoa_map_mousedrag(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
     }
     else if (x->f_selected_group)
     {
-        if(modifiers == EMOD_SHIFT)
+        if((modifiers & EMOD_SHIFT) && !(modifiers & EMOD_ALT) && !(modifiers & EMOD_CTRL))
         {
             if(x->f_coord_view == hoa_sym_view_xy)
             {
@@ -1702,12 +1739,12 @@ void hoa_map_mousedrag(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
             }
             causeOutput = causeRedraw = causeNotify = 1;
         }
-        else if(modifiers == EMOD_ALT)
+        else if((modifiers & EMOD_ALT) && !(modifiers & EMOD_SHIFT))
         {
             x->f_selected_group->setRelativeRadius(Math<float>::radius(cursor.x, cursor.y));
             causeOutput = causeRedraw = causeNotify = 1;
         }
-        else if(modifiers == EMOD_ALT+EMOD_SHIFT)
+        else if((modifiers & EMOD_ALT) && (modifiers & EMOD_SHIFT))
         {
             if(x->f_coord_view == hoa_sym_view_xy)
             {
@@ -1768,7 +1805,7 @@ void hoa_map_mousedrag(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
             }
             causeOutput = causeRedraw = causeNotify = 1;
         }
-        else if(modifiers == EMOD_CTRL)
+        else if((modifiers & EMOD_CTRL) && !(modifiers & EMOD_SHIFT))
         {
             if (x->f_coord_view == hoa_sym_view_xy || x->f_coord_view == hoa_sym_view_xz)
                 x->f_selected_group->setAbscissa(cursor.x);
@@ -1776,7 +1813,7 @@ void hoa_map_mousedrag(t_hoa_map *x, t_object *patcherview, t_pt pt, long modifi
                 x->f_selected_group->setOrdinate(cursor.x);
             causeOutput = causeRedraw = causeNotify = 1;
         }
-        else if(modifiers == EMOD_CTRL+EMOD_SHIFT)
+        else if((modifiers & EMOD_CTRL) && (modifiers & EMOD_SHIFT))
         {
             if (x->f_coord_view == hoa_sym_view_xy)
                 x->f_selected_group->setOrdinate(cursor.y);
