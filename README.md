@@ -23,7 +23,7 @@ Helps and tutorials are availables in the <em>Hoa</em> folder of the <em>help br
 ### Compilation : 
 
 	./autogen.sh (if needed)
-	./configure or ./configure --with-pdextended
+	./configure (useful options --with-pd=</path/to/pd>)
 	make
 	make install (optional)
 
