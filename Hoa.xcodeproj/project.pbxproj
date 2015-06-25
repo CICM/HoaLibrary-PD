@@ -680,7 +680,7 @@
 					"values>",
 					"/usr/local/include/voro++",
 				);
-				"HEADER_SEARCH_PATHS[arch=*]" = "";
+				"HEADER_SEARCH_PATHS[arch=*]" = "/Applications/Pd-0.46-6.app/Contents/Resources/src/";
 				INSTALL_PATH = $SRCROOT/Package/Hoa;
 				LIBRARY_SEARCH_PATHS = "";
 				LLVM_LTO = YES;
@@ -717,7 +717,7 @@
 					"values>",
 					"/usr/local/include/voro++",
 				);
-				"HEADER_SEARCH_PATHS[arch=*]" = "";
+				"HEADER_SEARCH_PATHS[arch=*]" = "/Applications/Pd-extended.app/Contents/Resources/include/pdextended/";
 				INSTALL_PATH = "$SRCROOT/Package/Hoa/externals/MacOs/pd-extended";
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
