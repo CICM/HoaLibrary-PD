@@ -9,7 +9,8 @@ The lastest release has been tested [Pure Data Vanilla](http://msp.ucsd.edu/soft
 ### Installation :  
 
 With Pure Data Vanilla, copy the <em>Hoa</em> folder in your package folder and add <em>hoa</em> in the PD's statup window if you use the default package folder\*, otherwise add <em>Hoa/hoa</em>.  
-With Pure Data Extended, copy the <em>Hoa</em> folder in your package folder and add <em>-lib externals/"system"/pd-extended/hoa</em> in the statup falgs if you use the default package folder\*, otherwise add <em>-lib Hoa/externals/"system"/pd-extended/hoa</em> with <em>"system"</em> replaced by <em>Linux</em>, <em>MacOs</em> or <em>Windows</em>.  
+
+With Pure Data Extended, copy the <em>Hoa</em> folder in your package folder and add <em>-lib externals/Hoa</em> in the statup falgs if you use the default package folder\*, otherwise add <em>-lib Hoa/Hoa</em>.  
 
 \* The default package folder are generally <em>/usr/local/lib/pd-externals</em> on Linux, <em>/Library/Pd</em>  on Mac Os and <em>C:\Program Files\Common Files\Pd</em>  on Windows.  
 
