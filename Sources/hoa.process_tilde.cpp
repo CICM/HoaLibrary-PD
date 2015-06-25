@@ -190,10 +190,6 @@ public:
         m_outs_extra.clear();
         m_outs_sig.clear();
         m_outs_extra_sig.clear();
-        if(m_canvas)
-        {
-            canvas_free(m_canvas);
-        }
     }
     
     inline void show() const noexcept
@@ -755,7 +751,7 @@ static void hoa_process_free(t_hoa_process *x)
     }
     if(x->f_global && x->f_switch)
     {
-        //canvas_free(x->f_global);
+        canvas_free(x->f_global);
     }
     x->f_instances.clear();
     eobj_dspfree(x);
