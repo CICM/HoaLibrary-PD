@@ -15,7 +15,7 @@ static void *hoa_new(t_symbol *s)
     t_eobj *x = (t_eobj *)eobj_new(cream_class);
     if(x)
     {
-        logpost(x, 3, "HOA Library by Julien Colafrancesco, Pierre Guillot, Eliott Paris & Thomas Le Meur\n© 2013 - 2015  CICM | Paris 8 University\nVersion %s (%s) for PureData %i.%i\n",hoaversion, __DATE__, PD_MAJOR_VERSION, PD_MINOR_VERSION);
+        logpost(x, 3, "HOA Library by Julien Colafrancesco, Pierre Guillot, Eliott Paris & Thomas Le Meur\n© 2013 - 2015  CICM | Paris 8 University\nVersion %s (%s) for Pure Data %i.%i\n",hoaversion, __DATE__, PD_MAJOR_VERSION, PD_MINOR_VERSION);
     }
     return (x);
 }
@@ -28,7 +28,7 @@ extern "C" void hoa_setup(void)
     t_eobj* obj = (t_eobj *)hoa_new(NULL);
     if(!obj)
     {
-        verbose(3, "HOA Library by Julien Colafrancesco, Pierre Guillot, Eliott Paris & Thomas Le Meur\n© 2013 - 2015  CICM | Paris 8 University\nVersion %s (%s) for PureData %i.%i\n",hoaversion, __DATE__, PD_MAJOR_VERSION, PD_MINOR_VERSION);
+        verbose(3, "HOA Library by Julien Colafrancesco, Pierre Guillot, Eliott Paris & Thomas Le Meur\n© 2013 - 2015  CICM | Paris 8 University\nVersion %s (%s) for Pure Data %i.%i\n",hoaversion, __DATE__, PD_MAJOR_VERSION, PD_MINOR_VERSION);
         eobj_free(obj);
     }
 
