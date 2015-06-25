@@ -1,5 +1,7 @@
 ## [HOA](http://www.mshparisnord.fr/hoalibrary/ "Hoa Library") for Pure Data
 
+![CaptureHoaPD](http://www.mshparisnord.fr/hoalibrary/wp-content/uploads/2015/06/CaptureHoaPD.png)
+
 ### Compatibilty :
 
 The lastest release has been tested [Pure Data Vanilla](http://msp.ucsd.edu/software.html "PD-Vanilla") (0.46.6 - 32/64 bits) & [Pure Data Extended](https://puredata.info/ "PD-Extended") (0.43.4) on Linux, Mac Os, Windows .
