@@ -190,10 +190,6 @@ public:
         m_outs_extra.clear();
         m_outs_sig.clear();
         m_outs_extra_sig.clear();
-        if(m_canvas)
-        {
-            canvas_free(m_canvas);
-        }
     }
     
     inline void show() const noexcept
@@ -755,7 +751,7 @@ static void hoa_process_free(t_hoa_process *x)
     }
     if(x->f_global && x->f_switch)
     {
-        //canvas_free(x->f_global);
+        canvas_free(x->f_global);
     }
     x->f_instances.clear();
     eobj_dspfree(x);
@@ -775,11 +771,10 @@ static void *hoa_process_new(t_symbol *s, int argc, t_atom *argv)
         x->f_global = NULL;
         x->f_switch = NULL;
         x->f_target = _hoa_process::target_all;
-        t_pd *was = s__X.s_thing;
         x->f_global = canvas_new(NULL, gensym(""), 0, NULL);
-        s__X.s_thing = was;
         if(x->f_global)
         {
+            pd_popsym((t_pd *)x->f_global);
             canvas_vis(x->f_global, 0);
             t_atom av[3];
             atom_setlong(av, 10); atom_setlong(av+1, 10);atom_setsym(av+2, gensym("switch~"));

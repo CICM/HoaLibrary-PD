@@ -1,5 +1,7 @@
 ## [HOA](http://www.mshparisnord.fr/hoalibrary/ "Hoa Library") for Pure Data
 
+![CaptureHoaPD](http://www.mshparisnord.fr/hoalibrary/wp-content/uploads/2015/06/CaptureHoaPD.png)
+
 ### Compatibilty :
 
 The lastest release has been tested [Pure Data Vanilla](http://msp.ucsd.edu/software.html "PD-Vanilla") (0.46.6 - 32/64 bits) & [Pure Data Extended](https://puredata.info/ "PD-Extended") (0.43.4) on Linux, Mac Os, Windows .
@@ -7,7 +9,8 @@ The lastest release has been tested [Pure Data Vanilla](http://msp.ucsd.edu/soft
 ### Installation :  
 
 With Pure Data Vanilla, copy the <em>Hoa</em> folder in your package folder and add <em>hoa</em> in the PD's statup window if you use the default package folder\*, otherwise add <em>Hoa/hoa</em>.  
-With Pure Data Extended, copy the <em>Hoa</em> folder in your package folder and add <em>-lib externals/"system"/pd-extended/hoa</em> in the statup falgs if you use the default package folder\*, otherwise add <em>-lib Hoa/externals/"system"/pd-extended/hoa</em> with <em>"system"</em> replaced by <em>Linux</em>, <em>MacOs</em> or <em>Windows</em>.  
+
+With Pure Data Extended, copy the <em>Hoa</em> folder in your package folder and add <em>-lib externals/Hoa</em> in the statup falgs if you use the default package folder\*, otherwise add <em>-lib Hoa/Hoa</em>.  
 
 \* The default package folder are generally <em>/usr/local/lib/pd-externals</em> on Linux, <em>/Library/Pd</em>  on Mac Os and <em>C:\Program Files\Common Files\Pd</em>  on Windows.  
 
@@ -20,7 +23,7 @@ Helps and tutorials are availables in the <em>Hoa</em> folder of the <em>help br
 ### Compilation : 
 
 	./autogen.sh (if needed)
-	./configure or ./configure --with-pdextended
+	./configure (useful options --with-pd=</path/to/pd>)
 	make
 	make install (optional)
 
