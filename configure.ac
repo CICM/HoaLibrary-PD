@@ -8,9 +8,6 @@ AC_CONFIG_FILES([Sources/Makefile])
 AC_CONFIG_FILES([ThirdParty/CicmWrapper/Makefile  ThirdParty/CicmWrapper/Sources/Makefile])
 AC_CONFIG_FILES([Package/Hoa/Makefile Package/Hoa/helps/Makefile Package/Hoa/media/Makefile Package/Hoa/misc/Makefile Package/Hoa/patchers/Makefile Package/Hoa/tutorials/Makefile])
 
-AC_ARG_WITH([pdextended], [AS_HELP_STRING([--with-pdextended], [use PD-Extended instead of PD-Vanilla])], [], [with_pdextended=no])
-AS_IF([test "x$with_pdextended" != xno],  AC_DEFINE(PD_EXTENDED,[],[Use PD-Extended]), [])
-
 AX_FAT_BINARY()
 
 AC_SUBST(PD_CPPFLAGS)
