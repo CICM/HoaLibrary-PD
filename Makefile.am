@@ -30,18 +30,18 @@ SUBDIRS= Sources
 SUBDIRS+= ThirdParty/CicmWrapper
 SUBDIRS+= Package/Hoa
 
-$(abs_builddir)/.libs/hoa.@EXTENSION@: hoa.la
+$(abs_builddir)/.libs/Hoa.@EXTENSION@: Hoa.la
 
-$(top_builddir)/hoa.@EXTENSION@: $(abs_builddir)/.libs/hoa.@EXTENSION@ 
-		rm -f $@ && cd $(top_builddir) && test -e $< && $(LN_S) $< hoa.@EXTENSION@ || true
+$(top_builddir)/Hoa.@EXTENSION@: $(abs_builddir)/.libs/Hoa.@EXTENSION@ 
+		rm -f $@ && cd $(top_builddir) && test -e $< && $(LN_S) $< Hoa.@EXTENSION@ || true
 
 .PHONY: clean-conveniencelink help
 
 clean-conveniencelink:
-	test -L $(top_builddir)/hoa.@EXTENSION@ && rm -f $(top_builddir)/hoa.@EXTENSION@ || true
+	test -L $(top_builddir)/Hoa.@EXTENSION@ && rm -f $(top_builddir)/Hoa.@EXTENSION@ || true
 
 
-all-local:: $(top_builddir)/hoa.@EXTENSION@ help
+all-local:: $(top_builddir)/Hoa.@EXTENSION@ help
 
 clean-local:: clean-conveniencelink
 	
