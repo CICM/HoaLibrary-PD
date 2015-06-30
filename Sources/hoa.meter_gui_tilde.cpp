@@ -8,6 +8,13 @@
 #include "../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
 using namespace hoa;
 
+#ifdef _MSC_VER
+static double round(double val)
+{
+	return floor(val + 0.5);
+}
+#endif
+
 typedef struct  _hoa_meter
 {
 	t_edspbox               f_box;

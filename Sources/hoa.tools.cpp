@@ -6,10 +6,14 @@
 
 #include "../hoa.library.hpp"
 #include "../ThirdParty/HoaLibrary/Sources/Hoa.hpp"
+
 using namespace hoa;
 
 #define DEFDACBLKSIZE 64
-EXTERN t_sample *sys_soundout;
+extern "C"
+{
+	EXTERN t_sample* sys_soundout;
+}
 
 typedef struct _hoa_pi
 {	
