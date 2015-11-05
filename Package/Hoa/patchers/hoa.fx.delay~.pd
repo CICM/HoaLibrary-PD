@@ -29,7 +29,7 @@
 #X obj 92 261 outlet;
 #X obj 153 261 outlet;
 #X obj 155 232 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 256.501 256;
+-262144 -1 -1 256.504 256;
 #X obj 73 109 metro 5;
 #X connect 0 0 11 0;
 #X connect 1 0 2 0;
@@ -70,13 +70,13 @@ lines.;
 #X text 77 197 factor;
 #X text 73 187 instance;
 #X obj 74 167 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0.0666667 256;
+-262144 -1 -1 0 256;
 #X obj 5 167 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 15 256;
+-262144 -1 -1 0 256;
 #X text 4 187 number of;
 #X text 1 197 instances;
 #X obj 486 130 delwrite~ \$0-hoa.delay 5000;
-#X obj 5 39 hoa.thisprocess~ @delay 1000;
+#X obj 5 39 hoa.thisprocess~ @delay 1000, f 34;
 #X obj 170 149 route delay;
 #X obj 354 167 list split;
 #X obj 308 96 route float list;

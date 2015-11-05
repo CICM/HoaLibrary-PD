@@ -38,7 +38,6 @@ XCode, CodeBlock and Visual Studio projects are also available.
 Pierre Guillot  
 Eliott Paris  
 Thomas Le Meur  
-Julien Colafrancesco
 
 ### Licence : 
 
