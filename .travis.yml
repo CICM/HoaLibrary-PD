@@ -15,6 +15,7 @@ matrix:
     compiler: gcc
     install:
       - sudo apt-get install -y gcc-multilib
+      - sudo apt-get install -y g++-multilib
       - sudo apt-get install -y libc6-dev-i386
     script:
       - mkdir build
