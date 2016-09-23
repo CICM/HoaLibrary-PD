@@ -4,3 +4,6 @@
 [submodule "hoa.library"]
 	path = hoa.library
 	url = https://pierreguillot@github.com/CICM/HoaLibrary-Light.git
+[submodule "pd"]
+	path = pd
+	url = https://pierreguillot@github.com/pure-data/pure-data.git
