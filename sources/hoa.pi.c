@@ -15,12 +15,27 @@ typedef struct _hoa_pi
 
 static t_class *hoa_pi_class;
 
-static void *hoa_pi_new(t_symbol *s, t_float f)
+static void *hoa_pi_new(t_symbol *s, int argc, t_atom* argv)
 {
     t_hoa_pi *x = (t_hoa_pi *)pd_new(hoa_pi_class);
     if(x)
     {
-        x->p_value  = (t_float)3.14159265358979323846264338327950288 * f;
+        x->p_value = (t_float)3.14159265358979323846264338327950288;
+        if(argc && argv)
+        {
+            if(argv[0].a_type == A_FLOAT)
+            {
+                x->p_value *= atom_getfloat(argv);
+            }
+            else
+            {
+                pd_error(x, "hoa.pi: bad argument.");
+            }
+            if(argc > 1)
+            {
+                pd_error(x, "hoa.pi: extra arguments ignored.");
+            }
+        }
         x->p_outlet = outlet_new((t_object *)x, &s_float);
     }
 	return(x);
@@ -40,7 +55,7 @@ static void hoa_pi_float(t_hoa_pi *x, t_float f)
 void setup_hoa0x2epi(void)
 {
     t_class* c = class_new(gensym("hoa.pi"), (t_newmethod)hoa_pi_new, (t_method)NULL,
-                           sizeof(t_hoa_pi), CLASS_DEFAULT, A_FLOAT, 0);
+                           sizeof(t_hoa_pi), CLASS_DEFAULT, A_GIMME, 0);
     if(c)
     {
         class_addbang(c, (t_method)hoa_pi_bang);

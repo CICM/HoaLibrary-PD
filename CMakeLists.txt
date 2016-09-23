@@ -15,7 +15,9 @@ source_group(hoa.library FILES ${hoa_library_src})
 include_directories(${PROJECT_SOURCE_DIR}/hoa.library/Sources/)
 
 add_pd_external(hoa.pi_project hoa.pi ${PROJECT_SOURCE_DIR}/sources/hoa.pi)
+add_pd_external(hoa.dac_tilde_project hoa.dac~ ${PROJECT_SOURCE_DIR}/sources/hoa.dac_tilde)
 
 file(GLOB hoa_externals
-	${PROJECT_SOURCE_DIR}/sources/hoa.pi)
+${PROJECT_SOURCE_DIR}/sources/hoa.pi
+${PROJECT_SOURCE_DIR}/sources/hoa.dac_tilde)
 #add_external(spam spam "${SPAM_SRC}")

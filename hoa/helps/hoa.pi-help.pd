@@ -1,30 +1,30 @@
 #N canvas 223 294 381 263 10;
 #X declare -path ..;
 #X obj 46 125 hoa.pi 0.25;
-#X obj 150 124 hoa.pi 0.5;
-#X obj 236 125 hoa.pi 1;
 #X text 6 34 hoa.pi is for people that never remember more than 4 decimals
 or want to initialize a good Pi number.;
 #X obj 12 204 declare -path ..;
 #X obj 150 95 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0 256;
+-262144 -1 -1 1.03 256;
 #X obj 236 95 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 46 155 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 2.24208e-44 256;
+-262144 -1 -1 0.785398 256;
 #X obj 150 155 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0 256;
+-262144 -1 -1 3.23584 256;
 #X obj 236 155 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0 256;
+-262144 -1 -1 3.14159 256;
 #X obj 46 97 loadbang;
 #X obj 12 227 hoa.credits;
 #X obj 10 11 cnv 15 200 20 empty empty hoa.pi 4 10 0 14 -233017 -66577
 0;
 #X obj 92 227 hoa-help;
-#X connect 0 0 7 0;
-#X connect 1 0 8 0;
-#X connect 2 0 9 0;
-#X connect 5 0 1 0;
-#X connect 6 0 2 0;
-#X connect 10 0 0 0;
+#X obj 236 125 hoa.pi;
+#X obj 150 124 hoa.pi;
+#X connect 0 0 5 0;
+#X connect 3 0 13 0;
+#X connect 4 0 12 0;
+#X connect 8 0 0 0;
+#X connect 12 0 7 0;
+#X connect 13 0 6 0;
 #X coords 0 263 1 262 100 60 0;
