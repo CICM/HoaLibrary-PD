@@ -1,6 +1,3 @@
-[submodule "ThirdParty/CicmWrapper"]
-	path = ThirdParty/CicmWrapper
-	url = https://pierreguillot@github.com/CICM/CicmWrapper.git
 [submodule "ThirdParty/HoaLibrary"]
 	path = ThirdParty/HoaLibrary
 	url = https://pierreguillot@github.com/CICM/HoaLibrary-Light.git
