@@ -1,0 +1,38 @@
+
+configuration: Release
+os: Visual Studio 2015
+platform: x86
+
+install:
+    - git submodule update --init --recursive
+
+build_script:
+  - mkdir build
+  - cd build
+  - cmake .. -G "Visual Studio 14 2015"
+  - cmake --build . -- /verbosity:minimal /p:Configuration=Release
+  - cd ..\
+
+after_build:
+  - del /F /S /Q /A %APPVEYOR_BUILD_FOLDER%\*.pdb
+  - del /F /S /Q /A %APPVEYOR_BUILD_FOLDER%\*.ilk
+  - xcopy %APPVEYOR_BUILD_FOLDER%\sources %APPVEYOR_BUILD_FOLDER%\hoa\sources /i
+  - copy %APPVEYOR_BUILD_FOLDER%\README.md %APPVEYOR_BUILD_FOLDER%\hoa\readme.txt
+  - copy %APPVEYOR_BUILD_FOLDER%\LICENSE %APPVEYOR_BUILD_FOLDER%\hoa\license.txt
+  - 7z a %APPVEYOR_BUILD_FOLDER%\hoa-%APPVEYOR_REPO_TAG_NAME%-(Windows-i386-32)(Sources)-externals.zip %APPVEYOR_BUILD_FOLDER%\hoa\
+
+artifacts:
+  - path: '*.zip'
+
+deploy:
+  provider: GitHub
+  auth_token:
+    secure: hFOC0oRou0A7cFLF/0b5hyXE/lXyb1oa2dg6LdSyT5Je70m0DQAJ5cKa4cUbvfWe
+  artifacts: /.*\.zip/
+  on:
+    appveyor_repo_tag: true
+
+notifications:
+
+  - provider: Email
+    on_build_status_changed: false
