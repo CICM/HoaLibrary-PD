@@ -16,8 +16,8 @@
 #X obj 19 239 declare -path ..;
 #X obj 19 262 hoa.credits;
 #X obj 99 262 hoa-help;
-#X obj 10 9 cnv 15 200 20 empty empty hoa.pi 4 10 0 14 -233017 -66577
-0;
+#X obj 10 9 cnv 15 200 20 empty empty hoa.connect 4 10 0 14 -233017
+-66577 0;
 #X connect 1 0 0 0;
 #X connect 2 0 3 0;
 #X connect 3 0 1 0;
