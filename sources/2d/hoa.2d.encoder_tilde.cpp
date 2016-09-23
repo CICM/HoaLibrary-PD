@@ -4,7 +4,10 @@
 // WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 */
 
+extern "C"
+{
 #include "../hoa.pd.h"
+}
 #include <Hoa.hpp>
 
 typedef struct _hoa_2d_encoder
