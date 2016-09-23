@@ -8,17 +8,18 @@
 
 void hoa_processor_init(void* obj, size_t nins, size_t nouts)
 {
+    size_t i;
     t_hoa_processor* x = (t_hoa_processor*)obj;
     x->f_nins      = nins;
     x->f_inputs    = (t_sample **)getbytes(x->f_nins * sizeof(t_sample*));
     x->f_nouts     = nouts;
     x->f_outputs   = (t_sample **)getbytes(x->f_nouts * sizeof(t_sample*));
     
-    for(size_t i = 0; i < nins - 1; ++i)
+    for(i = 0; i < nins - 1; ++i)
     {
         signalinlet_new((t_object *)obj, 0);
     }
-    for(size_t i = 0; i < nouts; ++i)
+    for(i = 0; i < nouts; ++i)
     {
         outlet_new((t_object *)x, &s_signal);
     }
