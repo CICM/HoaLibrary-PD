@@ -1,0 +1,18 @@
+#N canvas 186 414 334 308 10;
+#X declare -path ..;
+#X text 9 39 hoa.dac~ facilitates the routing of large array of loudspeakers.
+;
+#X text 11 111 Channels 1 to 8 :;
+#X text 11 151 Channels 16 to 1 :;
+#X obj 12 211 hoa.dac~ 9:16 10 22 6:1 ------------------;
+#X text 11 191 Channels 9 to 16 \, 10 \, 22 and 6 to 1 :;
+#X text 11 71 Channels 1 2 :;
+#X obj 12 171 hoa.dac~ 16:1 ----------------------------;
+#X obj 12 131 hoa.dac~ 1:8 -----------------------------;
+#X obj 12 91 hoa.dac~ 1 2 -----------------------------;
+#X obj 10 14 cnv 15 200 20 empty empty hoa.dac~ 4 10 0 14 -233017 -66577
+0;
+#X obj 12 247 declare -path ..;
+#X obj 12 270 hoa.credits;
+#X obj 92 270 hoa-help;
+#X coords 0 308 1 307 100 60 0;
