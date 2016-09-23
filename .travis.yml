@@ -1,0 +1,90 @@
+language: c
+dist: trusty
+sudo: required
+
+notifications:
+  email: false
+git:
+  submodules: true
+  depth: 3
+
+matrix:
+  include:
+
+  - os: linux
+    compiler: gcc
+    install:
+      - sudo apt-get install -y gcc-multilib
+      - sudo apt-get install -y libc6-dev-i386
+    script:
+      - mkdir build
+      - cd build
+      - cmake .. -DCMAKE_C_FLAGS=-m32
+      - cmake --build . --config Release
+      - cd ..
+    after_success:
+      - cp LICENSE hoa/license.txt
+      - cp README.md hoa/readme.txt
+      - cp -r sources/ hoa/sources/
+      - zip -r hoa-$TRAVIS_COMMIT-"("Linux-i386-32")""("Sources")"-externals.zip hoa
+      - ls
+    before_deploy:
+      - mv hoa-$TRAVIS_COMMIT-"("Linux-i386-32")""("Sources")"-externals.zip hoa-$TRAVIS_TAG-"("Linux-i386-32")""("Sources")"-externals.zip
+    deploy:
+      provider: releases
+      skip_cleanup: true
+      api_key:
+        secure: OvuuxKFL/kVKsQU7xVJ09PHAAgmlPqCh+GLib/nCfUQKVZ87De0UGoC95mHUHs7C+xkRVEIcL7uZZYhF5bMlIGdqPUjD1aPs2rLKr6aI9U7em7OH/+8eGLKUmIrST3d4/20iaAbSsaOwI5TElYv3w/rDoaIDznXLE0qhXUODajNG6KiXJybq7aUVXw9jfeSeMChBEQkP170qzEaNqJQ6Fu4CVT6jy1F5Bu806AJajvPwNnRTh44P6X/ESxyaohzTPQAPVMov/Qk9FFqf4yslC8up6bqLB//AzMJPgmEhYpOuuy5j0F7+duav5Lh0BWvB/8PDte4EhGzkci9RCZ4wpKHoUZd0BEHkwl39lSuMOCgTVj94zUnNu3Zos5nDxgyuY54RB+qq4bx0yQHpqISFReQqqAV7ZC5Cs65CFUjzSGYMRsKItq3Oqsk9EQO39pziMLFZsnhc/IDEK+cgnOmm1diqQWDknemLCUrcnQRul+7IchQuay1I0Zu26Z1jJ4u0Zf1tOa1vOIPP1iMgOghVrWyRWcanBUjfJTqsykkh+oWyvECnTwmcCUPW/e5hQwAflCC8EKIqy2BSmpEYJm7AfoV9k3qZs36xz9LyTsNcOCxVL+vZWRwyPAMkyVkpJ9Je3tFsMDf2EeyxrQTRTctZlvppzd0ISobObnJ88vPJX/4=
+      file: hoa-$TRAVIS_TAG-(Linux-i386-32)(Sources)-externals.zip
+      on:
+        tags: true
+
+  - os: linux
+    compiler: gcc
+    script:
+      - mkdir build
+      - cd build
+      - cmake .. -DCMAKE_C_FLAGS=-m64
+      - cmake --build . --config Release
+      - cd ..
+    after_success:
+      - cp LICENSE hoa/license.txt
+      - cp README.md hoa/readme.txt
+      - cp -r src/ hoa/sources/
+      - zip -r hoa-$TRAVIS_COMMIT-"("Linux-amd64-64")""("Sources")"-externals.zip hoa
+      - ls
+    before_deploy:
+      - mv hoa-$TRAVIS_COMMIT-"("Linux-amd64-64")""("Sources")"-externals.zip hoa-$TRAVIS_TAG-"("Linux-amd64-64")""("Sources")"-externals.zip
+    deploy:
+      provider: releases
+      skip_cleanup: true
+      api_key:
+        secure: OvuuxKFL/kVKsQU7xVJ09PHAAgmlPqCh+GLib/nCfUQKVZ87De0UGoC95mHUHs7C+xkRVEIcL7uZZYhF5bMlIGdqPUjD1aPs2rLKr6aI9U7em7OH/+8eGLKUmIrST3d4/20iaAbSsaOwI5TElYv3w/rDoaIDznXLE0qhXUODajNG6KiXJybq7aUVXw9jfeSeMChBEQkP170qzEaNqJQ6Fu4CVT6jy1F5Bu806AJajvPwNnRTh44P6X/ESxyaohzTPQAPVMov/Qk9FFqf4yslC8up6bqLB//AzMJPgmEhYpOuuy5j0F7+duav5Lh0BWvB/8PDte4EhGzkci9RCZ4wpKHoUZd0BEHkwl39lSuMOCgTVj94zUnNu3Zos5nDxgyuY54RB+qq4bx0yQHpqISFReQqqAV7ZC5Cs65CFUjzSGYMRsKItq3Oqsk9EQO39pziMLFZsnhc/IDEK+cgnOmm1diqQWDknemLCUrcnQRul+7IchQuay1I0Zu26Z1jJ4u0Zf1tOa1vOIPP1iMgOghVrWyRWcanBUjfJTqsykkh+oWyvECnTwmcCUPW/e5hQwAflCC8EKIqy2BSmpEYJm7AfoV9k3qZs36xz9LyTsNcOCxVL+vZWRwyPAMkyVkpJ9Je3tFsMDf2EeyxrQTRTctZlvppzd0ISobObnJ88vPJX/4=
+      file: hoa-$TRAVIS_TAG-(Linux-amd64-64)(Sources)-externals.zip
+      on:
+        tags: true
+
+  - os: osx
+    compiler: gcc
+    script:
+      - mkdir build
+      - cd build
+      - cmake .. "-DCMAKE_OSX_ARCHITECTURES=i386;x86_64"
+      - cmake --build . --config Release
+      - cd ..
+    after_success:
+      - cp LICENSE hoa/license.txt
+      - cp README.md hoa/readme.txt
+      - cp -r src/ hoa/sources/
+      - zip -r hoa-$TRAVIS_COMMIT-"("Darwin-i386-32")""("Darwin-x86_64-32")""("Sources")"-externals.zip hoa
+      - ls
+    before_deploy:
+      - cp hoa-$TRAVIS_COMMIT-"("Darwin-i386-32")""("Darwin-x86_64-32")""("Sources")"-externals.zip hoa-$TRAVIS_TAG-"("Darwin-i386-32")""("Darwin-x86_64-32")""("Sources")"-externals.zip
+    deploy:
+      provider: releases
+      skip_cleanup: true
+      api_key:
+        secure: OvuuxKFL/kVKsQU7xVJ09PHAAgmlPqCh+GLib/nCfUQKVZ87De0UGoC95mHUHs7C+xkRVEIcL7uZZYhF5bMlIGdqPUjD1aPs2rLKr6aI9U7em7OH/+8eGLKUmIrST3d4/20iaAbSsaOwI5TElYv3w/rDoaIDznXLE0qhXUODajNG6KiXJybq7aUVXw9jfeSeMChBEQkP170qzEaNqJQ6Fu4CVT6jy1F5Bu806AJajvPwNnRTh44P6X/ESxyaohzTPQAPVMov/Qk9FFqf4yslC8up6bqLB//AzMJPgmEhYpOuuy5j0F7+duav5Lh0BWvB/8PDte4EhGzkci9RCZ4wpKHoUZd0BEHkwl39lSuMOCgTVj94zUnNu3Zos5nDxgyuY54RB+qq4bx0yQHpqISFReQqqAV7ZC5Cs65CFUjzSGYMRsKItq3Oqsk9EQO39pziMLFZsnhc/IDEK+cgnOmm1diqQWDknemLCUrcnQRul+7IchQuay1I0Zu26Z1jJ4u0Zf1tOa1vOIPP1iMgOghVrWyRWcanBUjfJTqsykkh+oWyvECnTwmcCUPW/e5hQwAflCC8EKIqy2BSmpEYJm7AfoV9k3qZs36xz9LyTsNcOCxVL+vZWRwyPAMkyVkpJ9Je3tFsMDf2EeyxrQTRTctZlvppzd0ISobObnJ88vPJX/4=
+      file: hoa-$TRAVIS_TAG-(Darwin-i386-32)(Darwin-x86_64-32)(Sources)-externals.zip
+      on:
+        tags: true
