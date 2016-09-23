@@ -19,7 +19,7 @@ matrix:
     script:
       - mkdir build
       - cd build
-      - cmake .. -DCMAKE_C_FLAGS=-m32
+      - cmake .. -DCMAKE_C_FLAGS=-m32 -DCMAKE_CXX_FLAGS=-m32
       - cmake --build . --config Release
       - cd ..
     after_success:
@@ -44,7 +44,7 @@ matrix:
     script:
       - mkdir build
       - cd build
-      - cmake .. -DCMAKE_C_FLAGS=-m64
+      - cmake .. -DCMAKE_C_FLAGS=-m64 -DCMAKE_CXX_FLAGS=-m64
       - cmake --build . --config Release
       - cd ..
     after_success:
