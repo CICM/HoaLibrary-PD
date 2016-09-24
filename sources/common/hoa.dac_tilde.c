@@ -112,7 +112,7 @@ static void hoa_dac_free(t_hoa_dac *x)
     freebytes(x->x_vec, x->x_n * sizeof(t_atom));
 }
 
-void setup_hoa0x2edac_tilde(void)
+extern void setup_hoa0x2edac_tilde(void)
 {
     t_class* c = class_new(gensym("hoa.dac~"), (t_newmethod)hoa_dac_new, (t_method)hoa_dac_free,
                            (size_t)sizeof(t_hoa_dac), CLASS_DEFAULT, A_GIMME, 0);

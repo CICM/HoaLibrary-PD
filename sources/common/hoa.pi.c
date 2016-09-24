@@ -57,7 +57,7 @@ static void hoa_pi_float(t_hoa_pi *x, t_float f)
 	hoa_pi_bang(x);
 }
 
-void setup_hoa0x2epi(void)
+extern void setup_hoa0x2epi(void)
 {
     t_class* c = class_new(gensym("hoa.pi"), (t_newmethod)hoa_pi_new, (t_method)NULL,
                            sizeof(t_hoa_pi), CLASS_DEFAULT, A_GIMME, 0);

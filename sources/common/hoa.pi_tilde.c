@@ -88,7 +88,7 @@ static void hoa_pi_tilde_dsp(t_hoa_pi_tilde *x, t_signal **sp)
     }
 }
 
-void setup_hoa0x2epi_tilde(void)
+extern void setup_hoa0x2epi_tilde(void)
 {
     t_class* c  = class_new(gensym("hoa.pi~"), (t_newmethod)hoa_pi_tilde_new, (t_method)NULL,
                            sizeof(t_hoa_pi_tilde), CLASS_DEFAULT, A_GIMME, 0);
