@@ -42,4 +42,18 @@ typedef struct _hoa_out
     t_outlet*   f_outlet;
 } t_hoa_out;
 
+typedef struct _hoa_in_tilde
+{
+    t_object    f_obj;
+    int         f_extra;
+    t_sample*   f_signal;
+} t_hoa_in_tilde;
+
+typedef struct _hoa_out_tilde
+{
+    t_object    f_obj;
+    int         f_extra;
+    t_sample*   f_signal;
+} t_hoa_out_tilde;
+
 #endif //HOA_2D_PD_INCLUDE
