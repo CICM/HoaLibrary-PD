@@ -8,7 +8,7 @@
 #X obj 407 185 line~;
 #X msg 407 165 \$1 20;
 #X obj 126 497 hoa.2d.meter~ @size 202 202 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "à$"
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "ï¿½$"
 @channels 16 @angles 0 22.5 45 67.5 90 112.5 135 157.5 180 202.5 225
 247.5 270 292.5 315 337.5 @offset 0 @rotation "anti-clockwise" @vectors
 "energy" @interval 50 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7
@@ -17,11 +17,11 @@
 0 0 1 0.8 @velocitycolor 1 0 0 0.8;
 #X text 468 148 between 0 and 1;
 #X text 468 136 Widen value;
-#X obj 407 142 c.number @size 53 17 @fontname "Helvetica" @fontweight
+#X obj 407 142 nbx @size 53 17 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
 @presetname "(null)" @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor
 0.7 0.7 0.7 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 309 152 c.number @size 53 17 @fontname "Helvetica" @fontweight
+#X obj 309 152 nbx @size 53 17 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
 @presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
 @decimal 6 @bgcolor 0.7 0.7 0.7 1 @bdcolor 0.5 0.5 0.5 1 @textcolor

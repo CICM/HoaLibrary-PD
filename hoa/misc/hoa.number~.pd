@@ -1,0 +1,20 @@
+#N canvas 619 271 450 300 10;
+#X obj 100 100 nbx 5 14 -1e+37 1e+37 0 0 \$0-dummy-s \$0-dummy-r empty
+0 -8 0 10 -262144 -1 -1 2.51063 256;
+#X obj 100 47 inlet~;
+#X obj 100 79 snapshot~;
+#X obj 164 12 bang~;
+#X obj 164 35 f 0;
+#X obj 197 35 + 1;
+#X obj 164 79 f 0;
+#X obj 164 57 sel 30;
+#X connect 1 0 2 0;
+#X connect 2 0 0 0;
+#X connect 3 0 4 0;
+#X connect 4 0 7 0;
+#X connect 5 0 4 1;
+#X connect 6 0 4 1;
+#X connect 7 0 6 0;
+#X connect 7 0 2 0;
+#X connect 7 1 5 0;
+#X coords 0 -1 1 1 54 14 2 100 100;

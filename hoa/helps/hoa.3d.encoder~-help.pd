@@ -19,14 +19,14 @@ depending on a given order \, an azimuth and an elevation.;
 #X obj 129 106 hoa.soundcoat;
 #X obj 129 544 hoa.3d.decoder~ 3 regular 20 -------------------;
 #X obj 129 582 hoa.dac~ 1:20 ----------------------------------;
-#X obj 344 156 c.number~ @size 53 17 @fontname "Helvetica" @fontweight
+#X obj 344 156 nbx~ @size 53 17 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
 @interval 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @textcolor 0 0 0 1;
 #X obj 271 128 hoa.pi~ 2;
 #X text 344 128 azimuth;
 #X text 494 132 elevation;
-#X obj 498 162 c.number~ @size 53 17 @fontname "Helvetica" @fontweight
+#X obj 498 162 nbx~ @size 53 17 @fontname "Helvetica" @fontweight
 "normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
 @interval 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
 0.5 1 @textcolor 0 0 0 1;
