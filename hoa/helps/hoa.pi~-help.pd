@@ -1,0 +1,31 @@
+#N canvas 387 303 605 277 10;
+#X msg 463 133 \; pd dsp 1;
+#X msg 463 168 \; pd dsp 0;
+#X obj 152 141 hoa.pi~ 0.5;
+#X obj 238 142 hoa.pi~ 2;
+#X obj 238 110 phasor~ 0.1;
+#X text 8 51 hoa.pi~ is for people that never remember more than 4
+decimals or want to initialize a good Pi number.;
+#X obj 265 199 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 172 241 print~;
+#X obj 48 142 hoa.pi~;
+#X obj 104 184 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 62 241 print~;
+#X obj 48 100 phasor~ 0.1;
+#X obj 395 199 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 302 241 print~;
+#X text 374 120 control the;
+#X text 374 130 phase.;
+#X text 374 110 Inlet;
+#X connect 2 0 7 0;
+#X connect 3 0 13 0;
+#X connect 4 0 3 0;
+#X connect 6 0 7 0;
+#X connect 8 0 10 0;
+#X connect 9 0 10 0;
+#X connect 11 0 8 0;
+#X connect 12 0 13 0;
+#X coords 0 277 1 276 100 60 0;

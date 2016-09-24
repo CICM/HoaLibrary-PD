@@ -5,11 +5,12 @@
  */
 
 #include <m_pd.h>
+#include <math.h>
 
 typedef struct _hoa_pi
 {	
 	t_object    p_obj;
-	double      p_value;
+	t_float     p_value;
     t_outlet   *p_outlet;
 } t_hoa_pi;
 
@@ -20,7 +21,7 @@ static void *hoa_pi_new(t_symbol *s, int argc, t_atom* argv)
     t_hoa_pi *x = (t_hoa_pi *)pd_new(hoa_pi_class);
     if(x)
     {
-        x->p_value = (t_float)3.14159265358979323846264338327950288;
+        x->p_value = (t_float)M_PI;
         if(argc && argv)
         {
             if(argv[0].a_type == A_FLOAT)
@@ -48,7 +49,7 @@ static void hoa_pi_bang(t_hoa_pi *x)
 
 static void hoa_pi_float(t_hoa_pi *x, t_float f)
 {
-	x->p_value = (t_float)3.14159265358979323846264338327950288 * f;
+	x->p_value = (t_float)M_PI * f;
 	hoa_pi_bang(x);
 }
 

@@ -22,6 +22,7 @@ set(hoa_pd_sources ${hoa_pd_path}/hoa.pd.h ${hoa_pd_path}/hoa.pd.c)
 
 # Common Part
 add_pd_external(hoa.pi hoa.pi ${hoa_pd_path}/common/hoa.pi.c)
+add_pd_external(hoa.pi_tilde hoa.pi~ ${hoa_pd_path}/common/hoa.pi_tilde.c)
 add_pd_external(hoa.dac_tilde hoa.dac~ ${hoa_pd_path}/common/hoa.dac_tilde.c)
 add_pd_external(hoa.connect hoa.connect ${hoa_pd_path}/common/hoa.connect.c)
 
