@@ -26,12 +26,13 @@ static t_symbol* hoa_sym_maxre;
 static t_symbol* hoa_sym_inPhase;
 static t_symbol* hoa_sym_inphase;
 
-static void *hoa_3d_optim_new(t_float f, t_symbol* s)
+static void *hoa_3d_optim_new(t_symbol* s, int argc, t_atom* argv)
 {
     t_hoa_3d_optim *x = (t_hoa_3d_optim *)pd_new(hoa_3d_optim_class);
     if(x)
     {
-        const size_t order = hoa_processor_clip_order(x, (size_t)f);
+        const size_t order = hoa_processor_clip_order(x, (size_t)atom_getfloatarg(0, argc, argv));
+        s = atom_getsymbolarg(1, argc, argv);
         if(s == hoa_sym_basic)
         {
             x->f_processor = new hoa::OptimBasic<hoa::Hoa3d, t_sample>(order);
@@ -90,7 +91,7 @@ static void hoa_3d_optim_dsp(t_hoa_3d_optim *x, t_signal **sp)
 extern "C" void setup_hoa0x2e3d0x2eoptim_tilde(void)
 {
     t_class *c = class_new(gensym("hoa.3d.optim~"), (t_newmethod)hoa_3d_optim_new, (t_method)hoa_3d_optim_free,
-                           (size_t)sizeof(t_hoa_3d_optim), CLASS_DEFAULT, A_FLOAT, A_DEFSYM, 0);
+                           (size_t)sizeof(t_hoa_3d_optim), CLASS_DEFAULT, A_GIMME, 0); // A_FLOAT A_SYMBOL not supported
     if(c)
     {
         CLASS_MAINSIGNALIN(c, t_hoa_3d_optim, f_f);
