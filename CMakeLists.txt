@@ -32,6 +32,8 @@ file(GLOB hoa_pd_2d_optim_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/2d/hoa.
 add_pd_external(hoa.2d.optim_tilde hoa.2d.optim~ "${hoa_pd_2d_optim_tilde_sources}")
 file(GLOB hoa_pd_2d_wider_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/2d/hoa.2d.wider_tilde.cpp)
 add_pd_external(hoa.2d.wider_tilde hoa.2d.wider~ "${hoa_pd_2d_wider_tilde_sources}")
+file(GLOB hoa_pd_2d_decoder_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/2d/hoa.2d.decoder_tilde.cpp)
+add_pd_external(hoa.2d.decoder_tilde hoa.2d.decoder~ "${hoa_pd_2d_decoder_tilde_sources}")
 file(GLOB hoa_pd_2d_rotate_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/2d/hoa.2d.rotate_tilde.cpp)
 add_pd_external(hoa.2d.rotate_tilde hoa.2d.rotate~ "${hoa_pd_2d_rotate_tilde_sources}")
 

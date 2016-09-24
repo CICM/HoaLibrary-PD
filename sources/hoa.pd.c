@@ -10,7 +10,8 @@ size_t hoa_processor_clip_order(void* obj, size_t order)
 {
     if(order < 1)
     {
-        pd_error(obj, "hoa.object: bas order of decomposition %i, expect at least 1.", (int)order);
+        pd_error(obj, "%s: bad order of decomposition.", class_getname(*(t_pd *)obj));
+        pd_error(obj, "%s: receive %i but expect at least 1.", class_getname(*(t_pd *)obj), (int)order);
         return 1;
     }
     return order;
