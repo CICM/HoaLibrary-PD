@@ -45,7 +45,7 @@ void hoa_processor_init(void* obj, size_t nins, size_t nouts)
                 Organisation: CICM - Université Paris 8 - Labex Arts H2H\n\
                 Authors:\n \
                 2012: Pierre Guillot, Eliott Paris & Julien Colafrancesco\n\
-                2012-2015: Pierre Guillot & Eliott Paris\n\
+                2012-2016: Pierre Guillot & Eliott Paris\n\
                 2015: Pierre Guillot & Eliott Paris & Thomas Le Meur (Light version)\n\
                 2016: Pierre Guillot & Eliott Paris (Light version)\n\
                 Pure Data implementation:\n\
