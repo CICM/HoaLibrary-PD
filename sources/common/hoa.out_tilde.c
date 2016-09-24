@@ -11,7 +11,7 @@ static t_symbol*    hoa_sym_extra;
 
 static void *hoa_out_tilde_new(t_symbol *s, int argc, t_atom *argv)
 {
-    t_hoa_out_tilde *x = (t_hoa_out_tilde *)pd_new(hoa_out_tilde_class);
+    t_hoa_io_tilde *x = (t_hoa_io_tilde *)pd_new(hoa_out_tilde_class);
 	if(x)
 	{
         x->f_extra = 0;
@@ -37,7 +37,7 @@ static void *hoa_out_tilde_new(t_symbol *s, int argc, t_atom *argv)
 	return x;
 }
 
-static void hoa_out_tilde_dsp(t_hoa_out_tilde *x, t_signal **sp)
+static void hoa_out_tilde_dsp(t_hoa_io_tilde *x, t_signal **sp)
 {
     if(x->f_signal)
     {
@@ -48,7 +48,7 @@ static void hoa_out_tilde_dsp(t_hoa_out_tilde *x, t_signal **sp)
 extern void setup_hoa0x2eout_tilde(void)
 {
     t_class* c = class_new(gensym("hoa.out~"), (t_newmethod)hoa_out_tilde_new, (t_method)NULL,
-                            (size_t)sizeof(t_hoa_out_tilde), CLASS_DEFAULT, A_GIMME, 0);
+                            (size_t)sizeof(t_hoa_io_tilde), CLASS_DEFAULT, A_GIMME, 0);
 
     if(c)
     {

@@ -86,7 +86,8 @@ static void *hoa_thisprocess_new(t_symbol *s, int argc, t_atom *argv)
 
 static void hoa_thisprocess_bang(t_hoa_thisprocess *x)
 {
-    for(int i = 0; i < x->f_nattrs; i++)
+    int i;
+    for(i = 0; i < x->f_nattrs; i++)
     {
         outlet_anything(x->f_out_attrs, x->f_attrs[i].name, (int)(x->f_attrs[i].size), x->f_attrs[i].values);
     }

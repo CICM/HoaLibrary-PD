@@ -11,7 +11,7 @@ static t_symbol*    hoa_sym_extra;
 
 static void *hoa_in_tilde_new(t_symbol *s, int argc, t_atom *argv)
 {
-    t_hoa_in_tilde *x = (t_hoa_in_tilde *)pd_new(hoa_in_tilde_class);
+    t_hoa_io_tilde *x = (t_hoa_io_tilde *)pd_new(hoa_in_tilde_class);
     if(x)
     {
         x->f_extra = 0;
@@ -38,7 +38,7 @@ static void *hoa_in_tilde_new(t_symbol *s, int argc, t_atom *argv)
     return x;
 }
 
-static void hoa_in_tilde_dsp(t_hoa_in_tilde *x, t_signal **sp)
+static void hoa_in_tilde_dsp(t_hoa_io_tilde *x, t_signal **sp)
 {
     if(x->f_signal)
     {
@@ -53,7 +53,7 @@ static void hoa_in_tilde_dsp(t_hoa_in_tilde *x, t_signal **sp)
 extern void setup_hoa0x2ein_tilde(void)
 {
     t_class* c = class_new(gensym("hoa.in~"), (t_newmethod)hoa_in_tilde_new, (t_method)NULL,
-                           (size_t)sizeof(t_hoa_in_tilde), CLASS_NOINLET, A_GIMME, 0);
+                           (size_t)sizeof(t_hoa_io_tilde), CLASS_NOINLET, A_GIMME, 0);
 
     if(c)
     {

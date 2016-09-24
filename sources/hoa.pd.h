@@ -33,6 +33,7 @@ typedef struct _hoa_in
 {
     t_object    f_obj;
     int         f_extra;
+    struct _hoa_in* f_next;
 } t_hoa_in;
 
 typedef struct _hoa_out
@@ -40,21 +41,20 @@ typedef struct _hoa_out
     t_object    f_obj;
     int         f_extra;
     t_outlet*   f_outlet;
+    struct _hoa_out* f_next;
 } t_hoa_out;
 
-typedef struct _hoa_in_tilde
+typedef struct _hoa_io_tilde
 {
     t_object    f_obj;
     int         f_extra;
     t_sample*   f_signal;
-} t_hoa_in_tilde;
+    struct _hoa_io_tilde* f_next;
+} t_hoa_io_tilde;
 
-typedef struct _hoa_out_tilde
-{
-    t_object    f_obj;
-    int         f_extra;
-    t_sample*   f_signal;
-} t_hoa_out_tilde;
+
+
+
 
 typedef struct _hoa_attr
 {
@@ -82,6 +82,7 @@ typedef struct _hoa_thisprocess
     t_hoa_attr* f_attrs;
     
     double      f_time;
+    struct _hoa_thisprocess* f_next;
 } t_hoa_thisprocess;
 
 #endif //HOA_2D_PD_INCLUDE
