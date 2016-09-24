@@ -35,8 +35,14 @@ file(GLOB hoa_pd_2d_wider_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/2d/hoa.
 add_pd_external(hoa.2d.wider_tilde hoa.2d.wider~ "${hoa_pd_2d_wider_tilde_sources}")
 file(GLOB hoa_pd_2d_decoder_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/2d/hoa.2d.decoder_tilde.cpp)
 add_pd_external(hoa.2d.decoder_tilde hoa.2d.decoder~ "${hoa_pd_2d_decoder_tilde_sources}")
+#file(GLOB hoa_pd_2d_map_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/2d/hoa.2d.map_tilde.cpp)
+#add_pd_external(hoa.2d.map_tilde hoa.2d.map~ "${hoa_pd_2d_map_tilde_sources}")
 file(GLOB hoa_pd_2d_rotate_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/2d/hoa.2d.rotate_tilde.cpp)
 add_pd_external(hoa.2d.rotate_tilde hoa.2d.rotate~ "${hoa_pd_2d_rotate_tilde_sources}")
+file(GLOB hoa_pd_2d_projector_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/2d/hoa.2d.projector_tilde.cpp)
+add_pd_external(hoa.2d.projector_tilde hoa.2d.projector~ "${hoa_pd_2d_projector_tilde_sources}")
+file(GLOB hoa_pd_2d_recomposer_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/2d/hoa.2d.recomposer_tilde.cpp)
+add_pd_external(hoa.2d.recomposer_tilde hoa.2d.recomposer~ "${hoa_pd_2d_recomposer_tilde_sources}")
 
 # 3D Part
 file(GLOB hoa_pd_3d_encoder_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/3d/hoa.3d.encoder_tilde.cpp)

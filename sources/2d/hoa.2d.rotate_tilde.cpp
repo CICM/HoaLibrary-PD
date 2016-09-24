@@ -21,7 +21,7 @@ typedef struct _hoa_2d_rotate
 
 static t_class *hoa_2d_rotate_class;
 
-static void *hoa_2d_rotate_new(t_float f, t_symbol* s)
+static void *hoa_2d_rotate_new(t_float f)
 {
     t_hoa_2d_rotate *x = (t_hoa_2d_rotate *)pd_new(hoa_2d_rotate_class);
     if(x)
@@ -70,12 +70,12 @@ static void hoa_2d_rotate_dsp(t_hoa_2d_rotate *x, t_signal **sp)
 extern "C" void setup_hoa0x2e2d0x2erotate_tilde(void)
 {
     t_class *c = class_new(gensym("hoa.2d.rotate~"), (t_newmethod)hoa_2d_rotate_new, (t_method)hoa_2d_rotate_free,
-                           (size_t)sizeof(t_hoa_2d_rotate), CLASS_DEFAULT, A_FLOAT, A_DEFSYM, 0);
+                           (size_t)sizeof(t_hoa_2d_rotate), CLASS_DEFAULT, A_FLOAT, 0);
     if(c)
     {
         CLASS_MAINSIGNALIN(c, t_hoa_2d_rotate, f_f);
         class_addmethod(c, (t_method)hoa_2d_rotate_dsp, gensym("dsp"), A_CANT, 0);
-        class_addcreator((t_newmethod)hoa_2d_rotate_new, gensym("hoa.rotate~"), A_FLOAT, A_DEFSYM, 0);
+        class_addcreator((t_newmethod)hoa_2d_rotate_new, gensym("hoa.rotate~"), A_FLOAT, 0);
         class_sethelpsymbol(c, gensym("helps/hoa.2d.rotate~"));
     }
     hoa_2d_rotate_class = c;
