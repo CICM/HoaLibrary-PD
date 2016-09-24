@@ -56,4 +56,32 @@ typedef struct _hoa_out_tilde
     t_sample*   f_signal;
 } t_hoa_out_tilde;
 
+typedef struct _hoa_attr
+{
+    t_symbol*   name;
+    size_t      size;
+    t_atom*     values;
+} t_hoa_attr;
+
+typedef struct _hoa_thisprocess
+{
+    t_object    f_obj;
+    
+    t_outlet*   f_out_hoa_args;
+    t_outlet*   f_out_hoa_mode;
+    t_outlet*   f_out_args;
+    t_outlet*   f_out_attrs;
+    
+    t_atom      f_hoa_args[3];
+    t_atom      f_hoa_mode[2];
+    
+    t_atom*     f_args;
+    size_t      f_argc;
+    
+    size_t      f_nattrs;
+    t_hoa_attr* f_attrs;
+    
+    double      f_time;
+} t_hoa_thisprocess;
+
 #endif //HOA_2D_PD_INCLUDE
