@@ -1,31 +1,25 @@
-#N canvas 387 303 605 277 10;
-#X msg 463 133 \; pd dsp 1;
-#X msg 463 168 \; pd dsp 0;
-#X obj 152 141 hoa.pi~ 0.5;
-#X obj 238 142 hoa.pi~ 2;
-#X obj 238 110 phasor~ 0.1;
-#X text 8 51 hoa.pi~ is for people that never remember more than 4
+#N canvas 147 97 379 291 10;
+#X declare -path ..;
+#X msg 264 176 \; pd dsp 1;
+#X msg 264 211 \; pd dsp 0;
+#X obj 102 135 hoa.pi~ 0.5;
+#X obj 188 136 hoa.pi~ 2;
+#X obj 188 113 phasor~ 0.1;
+#X text 8 55 hoa.pi~ is for people that never remember more than 4
 decimals or want to initialize a good Pi number.;
-#X obj 265 199 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X obj 172 241 print~;
-#X obj 48 142 hoa.pi~;
-#X obj 104 184 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X obj 62 241 print~;
-#X obj 48 100 phasor~ 0.1;
-#X obj 395 199 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X obj 302 241 print~;
-#X text 374 120 control the;
-#X text 374 130 phase.;
-#X text 374 110 Inlet;
-#X connect 2 0 7 0;
-#X connect 3 0 13 0;
+#X obj 18 136 hoa.pi~;
+#X obj 18 113 phasor~ 0.1;
+#X obj 10 25 cnv 15 200 20 empty empty hoa.pi~ 4 10 0 14 -233017 -66577
+0;
+#X obj 11 203 declare -path ..;
+#X obj 11 226 hoa.credits;
+#X obj 91 226 hoa-help;
+#X obj 18 158 ../misc/hoa.number~;
+#X obj 102 158 ../misc/hoa.number~;
+#X obj 188 158 ../misc/hoa.number~;
+#X connect 2 0 13 0;
+#X connect 3 0 14 0;
 #X connect 4 0 3 0;
-#X connect 6 0 7 0;
-#X connect 8 0 10 0;
-#X connect 9 0 10 0;
-#X connect 11 0 8 0;
-#X connect 12 0 13 0;
-#X coords 0 277 1 276 100 60 0;
+#X connect 6 0 12 0;
+#X connect 7 0 6 0;
+#X coords 0 291 1 290 100 60 0;

@@ -1,41 +1,11 @@
-#N canvas 212 82 888 666 10;
-#X obj 15 17 c.canvasinfos;
-#X obj 26 18 loadbang;
-#X obj 201 605 hoa.help.pub;
-#X obj 6 7 hoa.tuto.header;
+#N canvas 34 105 888 666 10;
+#X declare -path ..;
 #X text 14 296 Number of harmonics;
-#X obj 19 190 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "norder" @send "(null)"
-@presetname "(null)" @min 1 @max "(null)" @minmax 1 "(null)" @decimal
-0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
-1;
-#X obj 19 270 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
-@decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
 #X obj 19 217 * 2;
 #X obj 19 243 + 1;
-#X obj 199 190 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "nharmo" @send "(null)"
-@presetname "(null)" @min 3 @max "(null)" @minmax 3 "(null)" @decimal
-0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
-1;
-#X obj 199 270 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
-@decimal 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
 #X text 194 166 Number of harmonics;
 #X obj 199 217 - 1;
 #X obj 199 243 / 2;
-#X obj 219 442 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "norder" @send "(null)"
-@presetname "(null)" @min 1 @max "(null)" @minmax 1 "(null)" @decimal
-0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
-1;
-#X obj 379 29 s norder;
-#X obj 462 28 s nharmo;
 #X msg 219 522 0 -1 1 -2 2 -3 3;
 #N canvas 0 50 450 300 hoaNumbering 0;
 #X obj 95 63 until;
@@ -69,13 +39,6 @@
 #X connect 12 0 8 0;
 #X connect 12 1 9 1;
 #X restore 219 477 pd hoaNumbering;
-#X obj 379 8 c.loadmess 7;
-#X obj 462 7 c.loadmess 15;
-#X obj 19 442 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "norder" @send "(null)"
-@presetname "(null)" @min 1 @max "(null)" @minmax 1 "(null)" @decimal
-0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
-1;
 #X msg 19 522 0 1 1 2 2 3 3;
 #N canvas 0 50 450 300 hoaNumbering 0;
 #X obj 95 63 until;
@@ -107,11 +70,6 @@
 #X connect 11 0 8 0;
 #X connect 11 1 8 1;
 #X restore 19 477 pd hoaNumbering;
-#X obj 497 190 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "norder" @send "(null)"
-@presetname "(null)" @min 1 @max "(null)" @minmax 1 "(null)" @decimal
-0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
-1;
 #X msg 497 270 0 1 2 3 4 5 6 7;
 #N canvas 0 50 450 300 hoaNumbering 0;
 #X obj 95 133 until;
@@ -194,11 +152,6 @@
 #X connect 18 0 19 0;
 #X connect 19 0 5 0;
 #X restore 499 477 pd hoaNumbering;
-#X obj 499 442 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "norder" @send "(null)"
-@presetname "(null)" @min 1 @max "(null)" @minmax 1 "(null)" @decimal
-0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
-1;
 #X text 8 53 A set of tools to understand the numbering of the harmonics
 channels in 2d.;
 #X text 493 548 Letter codes of the harmonics;
@@ -220,21 +173,48 @@ to the ACN even if the use of the degrees and the orders is preferred:
 ;
 #X text 486 359 The letter codes of the harmonics are not in the alphabetic
 order:;
-#X connect 0 0 3 0;
-#X connect 1 0 0 0;
-#X connect 5 0 7 0;
-#X connect 7 0 8 0;
-#X connect 8 0 6 0;
-#X connect 9 0 12 0;
-#X connect 12 0 13 0;
-#X connect 13 0 10 0;
-#X connect 14 0 18 0;
-#X connect 18 0 17 0;
-#X connect 19 0 15 0;
-#X connect 20 0 16 0;
-#X connect 21 0 23 0;
-#X connect 23 0 22 0;
-#X connect 24 0 26 0;
-#X connect 26 0 25 0;
-#X connect 29 0 28 0;
-#X connect 30 0 29 0;
+#X obj 19 190 nbx 5 14 -1e+37 1e+37 0 0 empty \$0-order empty 0 -8
+0 10 -262144 -1 -1 7 256;
+#X obj 199 190 nbx 5 14 -1e+37 1e+37 0 0 empty \$0-nhamo empty 0 -8
+0 10 -262144 -1 -1 15 256;
+#X obj 497 190 nbx 5 14 -1e+37 1e+37 0 0 empty \$0-order empty 0 -8
+0 10 -262144 -1 -1 7 256;
+#X obj 19 270 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 15 256;
+#X obj 199 270 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 7 256;
+#X obj 19 442 nbx 5 14 -1e+37 1e+37 0 0 empty \$0-order empty 0 -8
+0 10 -262144 -1 -1 7 256;
+#X obj 219 442 nbx 5 14 -1e+37 1e+37 0 0 empty \$0-order empty 0 -8
+0 10 -262144 -1 -1 7 256;
+#X obj 499 442 nbx 5 14 -1e+37 1e+37 0 0 empty \$0-order empty 0 -8
+0 10 -262144 -1 -1 7 256;
+#X obj 379 49 s \$0-order;
+#X obj 462 48 s \$0-nhamo;
+#X obj 462 7 loadbang;
+#X msg 462 29 15;
+#X obj 379 8 loadbang;
+#X msg 379 30 7;
+#X obj 20 594 declare -path ..;
+#X obj 20 617 hoa.credits;
+#X obj 100 617 hoa-help;
+#X obj 10 11 cnv 15 200 20 empty empty hoa.2d.tools 4 10 0 14 -233017
+-66577 0;
+#X connect 1 0 2 0;
+#X connect 2 0 32 0;
+#X connect 4 0 5 0;
+#X connect 5 0 33 0;
+#X connect 7 0 6 0;
+#X connect 9 0 8 0;
+#X connect 11 0 10 0;
+#X connect 14 0 13 0;
+#X connect 29 0 1 0;
+#X connect 30 0 4 0;
+#X connect 31 0 11 0;
+#X connect 34 0 9 0;
+#X connect 35 0 7 0;
+#X connect 36 0 14 0;
+#X connect 39 0 40 0;
+#X connect 40 0 38 0;
+#X connect 41 0 42 0;
+#X connect 42 0 37 0;
