@@ -26,6 +26,9 @@ add_pd_external(hoa.pi_tilde hoa.pi~ ${hoa_pd_path}/common/hoa.pi_tilde.c)
 add_pd_external(hoa.dac_tilde hoa.dac~ ${hoa_pd_path}/common/hoa.dac_tilde.c)
 add_pd_external(hoa.connect hoa.connect ${hoa_pd_path}/common/hoa.connect.c)
 
+add_pd_external(hoa.in hoa.in ${hoa_pd_path}/common/hoa.in.c)
+add_pd_external(hoa.out hoa.out ${hoa_pd_path}/common/hoa.out.c)
+
 # 2D Part
 file(GLOB hoa_pd_2d_encoder_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/2d/hoa.2d.encoder_tilde.cpp)
 add_pd_external(hoa.2d.encoder_tilde hoa.2d.encoder~ "${hoa_pd_2d_encoder_tilde_sources}")

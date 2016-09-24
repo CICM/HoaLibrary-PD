@@ -29,4 +29,17 @@ void hoa_processor_init(void* obj, size_t nins, size_t nouts);
 void hoa_processor_clear(void* obj);
 void hoa_processor_prepare(void* obj, t_hoa_processor_perfm m, t_signal **sp);
 
+typedef struct _hoa_in
+{
+    t_object    f_obj;
+    int         f_extra;
+} t_hoa_in;
+
+typedef struct _hoa_out
+{
+    t_object    f_obj;
+    int         f_extra;
+    t_outlet*   f_outlet;
+} t_hoa_out;
+
 #endif //HOA_2D_PD_INCLUDE
