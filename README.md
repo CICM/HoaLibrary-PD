@@ -19,8 +19,8 @@ __Important__ : The Hoa library needs the [Cream library](https://github.com/CIC
 ### Documentation :
 
 Helps and tutorials are availables in the <em>Hoa</em> folder of the <em>help browser</em>.
- 
-### Compilation : 
+
+### Compilation :
 
 	./autogen.sh (if needed)
 	./configure (useful options --with-pd=</path/to/pd>)
@@ -29,16 +29,21 @@ Helps and tutorials are availables in the <em>Hoa</em> folder of the <em>help br
 
 XCode, CodeBlock and Visual Studio projects are also available.
 
-### Dependencies : 
+### Dependencies :
 
 [Hoa Library](https://github.com/CICM/HoaLibrary-Light "Hoa Library") & the [Cicm Wrapper](https://github.com/CICM/CicmWrapper "Cicm Wrapper").
 
 ### Authors :
 
-Pierre Guillot  
-Eliott Paris  
-Thomas Le Meur  
+##### HOA Libary :
+- 2012: Pierre Guillot, Eliott Paris & Julien Colafrancesco
+- 2012-2015: Pierre Guillot & Eliott Paris
+- 2015: Pierre Guillot & Eliott Paris & Thomas Le Meur (Light version)
+- 2016: Pierre Guillot & Eliott Paris (Light version)
 
-### Licence : 
+##### Pure Data implementation :
+- 2013-2015: Pierre Guillot & Eliott Paris & Thomas Le Meur
+
+### Licence :
 
 The HOA Library in under the <a title="GNU" href="http://www.gnu.org/copyleft/gpl.html" target="_blank">GNU Public License</a>. If you'd like to avoid the restrictions of the GPL and use Hoa Library for a closed-source product, you contact the <a title="CICM" href="http://cicm.mshparisnord.org/" target="_blank">CICM</a>.
