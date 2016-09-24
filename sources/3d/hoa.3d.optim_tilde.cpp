@@ -34,15 +34,15 @@ static void *hoa_3d_optim_new(t_float f, t_symbol* s)
         const size_t order = (size_t)(f) < 1 ? 1 : (size_t)(f);
         if(s == hoa_sym_basic)
         {
-            x->f_processor = new hoa::Optim<hoa::Hoa3d, t_sample>::Basic(order);
+            x->f_processor = new hoa::OptimBasic<hoa::Hoa3d, t_sample>(order);
         }
         else if(s == hoa_sym_maxRe || s == hoa_sym_maxre)
         {
-            x->f_processor = new hoa::Optim<hoa::Hoa3d, t_sample>::MaxRe(order);
+            x->f_processor = new hoa::OptimMaxRe<hoa::Hoa3d, t_sample>(order);
         }
         else
         {
-            x->f_processor  = new hoa::Optim<hoa::Hoa3d, t_sample>::InPhase(order);
+            x->f_processor  = new hoa::OptimInPhase<hoa::Hoa3d, t_sample>(order);
             if(s != hoa_sym_inPhase || s == hoa_sym_inphase)
             {
                 pd_error(x, "hoa.3d.optim: bad argument.");
