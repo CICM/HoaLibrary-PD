@@ -45,6 +45,8 @@ file(GLOB hoa_pd_3d_optim_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/3d/hoa.
 add_pd_external(hoa.3d.optim_tilde hoa.3d.optim~ "${hoa_pd_3d_optim_tilde_sources}")
 file(GLOB hoa_pd_3d_wider_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/3d/hoa.3d.wider_tilde.cpp)
 add_pd_external(hoa.3d.wider_tilde hoa.3d.wider~ "${hoa_pd_3d_wider_tilde_sources}")
+file(GLOB hoa_pd_3d_decoder_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/3d/hoa.3d.decoder_tilde.cpp)
+add_pd_external(hoa.3d.decoder_tilde hoa.3d.decoder~ "${hoa_pd_3d_decoder_tilde_sources}")
 
 message(STATUS ${CMAKE_C_FLAGS})
 message(STATUS ${CMAKE_CXX_FLAGS})
