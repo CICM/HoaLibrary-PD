@@ -26,7 +26,7 @@ static void *hoa_2d_wider_new(t_float f, t_symbol* s)
     t_hoa_2d_wider *x = (t_hoa_2d_wider *)pd_new(hoa_2d_wider_class);
     if(x)
     {
-        const size_t order = (size_t)(f) < 1 ? 1 : (size_t)(f);
+        const size_t order = hoa_processor_clip_order(x, (size_t)f);
         x->f_processor = new hoa::Wider<hoa::Hoa2d, t_sample>(order);
         x->f_ins   = new t_sample[x->f_processor->getNumberOfHarmonics() * 81092];
         x->f_outs   = new t_sample[x->f_processor->getNumberOfHarmonics() * 81092];

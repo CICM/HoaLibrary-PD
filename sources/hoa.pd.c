@@ -6,6 +6,16 @@
 
 #include "hoa.pd.h"
 
+size_t hoa_processor_clip_order(void* obj, size_t order)
+{
+    if(order < 1)
+    {
+        pd_error(obj, "hoa.object: bas order of decomposition %i, expect at least 1.", (int)order);
+        return 1;
+    }
+    return order;
+}
+
 void hoa_processor_init(void* obj, size_t nins, size_t nouts)
 {
     size_t i;

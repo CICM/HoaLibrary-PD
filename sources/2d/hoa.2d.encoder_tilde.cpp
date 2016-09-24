@@ -14,7 +14,7 @@ typedef struct _hoa_2d_encoder
 {
     t_hoa_processor  f_obj;
     float               f_f;
-    hoa::Encoder<hoa::Hoa2d, t_sample>::Basic* f_processor;
+    hoa::EncoderBasic<hoa::Hoa2d, t_sample>* f_processor;
     t_sample* f_signals;
 } t_hoa_2d_encoder;
 
@@ -25,8 +25,8 @@ static void *hoa_2d_encoder_new(t_float f)
     t_hoa_2d_encoder *x = (t_hoa_2d_encoder *)pd_new(hoa_2d_encoder_class);
 	if(x)
 	{
-        const size_t order = (size_t)(f) < 1 ? 1 : (size_t)(f);
-        x->f_processor = new hoa::Encoder<hoa::Hoa2d, t_sample>::Basic(order);
+        const size_t order = hoa_processor_clip_order(x, (size_t)f);
+        x->f_processor = new hoa::EncoderBasic<hoa::Hoa2d, t_sample>(order);
         x->f_signals   = new t_sample[x->f_processor->getNumberOfHarmonics() * 81092];
         hoa_processor_init(x, 2, x->f_processor->getNumberOfHarmonics());
 	}

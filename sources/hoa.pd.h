@@ -24,6 +24,7 @@ typedef struct _hoa_processor
     t_hoa_processor_perfm f_method;
 } t_hoa_processor;
 
+size_t hoa_processor_clip_order(void* obj, size_t order);
 void hoa_processor_init(void* obj, size_t nins, size_t nouts);
 void hoa_processor_clear(void* obj);
 void hoa_processor_prepare(void* obj, t_hoa_processor_perfm m, t_signal **sp);

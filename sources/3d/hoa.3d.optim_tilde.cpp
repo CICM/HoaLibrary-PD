@@ -31,7 +31,7 @@ static void *hoa_3d_optim_new(t_float f, t_symbol* s)
     t_hoa_3d_optim *x = (t_hoa_3d_optim *)pd_new(hoa_3d_optim_class);
     if(x)
     {
-        const size_t order = (size_t)(f) < 1 ? 1 : (size_t)(f);
+        const size_t order = hoa_processor_clip_order(x, (size_t)f);
         if(s == hoa_sym_basic)
         {
             x->f_processor = new hoa::OptimBasic<hoa::Hoa3d, t_sample>(order);
