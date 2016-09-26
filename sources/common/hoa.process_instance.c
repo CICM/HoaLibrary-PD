@@ -5,6 +5,7 @@
 */
 
 #include "../hoa.pd.h"
+#include <string.h>
 #include <g_canvas.h>
 #include <m_imp.h>
 
@@ -20,21 +21,7 @@ static t_symbol* hoa_sym_hoa_out_tilde;
 static t_symbol* hoa_sym_harmonics;
 static t_symbol* hoa_sym_planewaves;
 
-typedef struct _hoa_process_instance
-{
-    t_canvas*           f_canvas;
-    t_hoa_thisprocess*  f_thisprocesses;
-    t_hoa_in*           f_ins;
-    t_hoa_in*           f_ins_extra;
-    t_hoa_io_tilde*     f_ins_sig;
-    t_hoa_io_tilde*     f_ins_extra_sig;
-    t_hoa_out*          f_outs;
-    t_hoa_out*          f_outs_extra;
-    t_hoa_io_tilde*     f_outs_sig;
-    t_hoa_io_tilde*     f_outs_extra_sig;
-} t_hoa_process_instance;
-
-extern void hoa_process_instance_setup()
+void hoa_process_instance_setup(void)
 {
     hoa_sym_canvas          = gensym("canvas");
     hoa_sym_obj             = gensym("obj");
@@ -49,25 +36,6 @@ extern void hoa_process_instance_setup()
     hoa_sym_planewaves      = gensym("planewaves");
 }
 
-static void hoa_process_instance_get_thisprocesses(t_hoa_process_instance* x, t_canvas* cnv)
-{
-    t_gobj *y;
-    t_symbol const* name;
-    for(y = cnv->gl_list; y; y = y->g_next)
-    {
-        name = y->g_pd->c_name;
-        if(name == hoa_sym_canvas)
-        {
-            hoa_process_instance_get_thisprocesses(x, (t_canvas *)y);
-        }
-        else if(name == hoa_sym_hoa_thisprocess)
-        {
-            ((t_hoa_thisprocess*)y)->f_next = x->f_thisprocesses;
-            x->f_thisprocesses = (t_hoa_thisprocess*)y;
-        }
-    }
-}
-
 static void hoa_process_instance_get_hoas(t_hoa_process_instance* x, t_canvas* cnv)
 {
     t_gobj *y;
@@ -79,38 +47,17 @@ static void hoa_process_instance_get_hoas(t_hoa_process_instance* x, t_canvas* c
         {
             hoa_process_instance_get_hoas(x, (t_canvas *)y);
         }
-        else if(name == hoa_sym_hoa_thisprocess)
-        {
-            ((t_hoa_thisprocess*)y)->f_next = x->f_thisprocesses;
-            x->f_thisprocesses = (t_hoa_thisprocess*)y;
-        }
         else if(name == hoa_sym_hoa_in)
         {
             t_hoa_in* inlet = (t_hoa_in *)y;
-            if(inlet->f_extra)
-            {
-                inlet->f_next = x->f_ins_extra;
-                x->f_ins_extra = inlet;
-            }
-            else
-            {
-                inlet->f_next = x->f_ins;
-                x->f_ins = inlet;
-            }
+            inlet->f_next = x->f_ins;
+            x->f_ins = inlet;
         }
         else if(name == hoa_sym_hoa_out)
         {
             t_hoa_out* outlet = (t_hoa_out *)y;
-            if(outlet->f_extra)
-            {
-                outlet->f_next = x->f_outs_extra;
-                x->f_outs_extra = outlet;
-            }
-            else
-            {
-                outlet->f_next = x->f_outs;
-                x->f_outs = outlet;
-            }
+            outlet->f_next = x->f_outs;
+            x->f_outs = outlet;
         }
         else if(name == hoa_sym_hoa_in_tilde)
         {
@@ -143,231 +90,144 @@ static void hoa_process_instance_get_hoas(t_hoa_process_instance* x, t_canvas* c
     }
 }
 
-/*
-static void thisprocess_init(t_hoa_thisprocess* thisprocess, int argc, t_atom* argv, int nattrs, t_atom* attrs)
-{
-    if(thisprocess)
-    {
-        if(argc > 0 && argv)
-        {
-            if(thisprocess->f_argc < argc)
-            {
-                if(!thisprocess->f_argc && !thisprocess->f_args)
-                {
-                    free(thisprocess->f_args);
-                }
-                thisprocess->f_argc = argc;
-                thisprocess->f_args = (t_atom *)malloc((size_t)argc * sizeof(t_atom));
-            }
-            memcpy(thisprocess->f_args, argv, (size_t)argc * sizeof(t_atom));
-        }
-        if(nattrs && attrs)
-        {
-            for(int i = 0; i < thisprocess->f_n_attrs; i++)
-            {
-                if(atoms_has_attribute(nattrs, attrs, thisprocess->f_attr_name[i]))
-                {
-                    free(thisprocess->f_attr_vals[i]);
-                    thisprocess->f_attr_size[i] = 0;
-                    atoms_get_attribute(nattrs, attrs, thisprocess->f_attr_name[i],
-                                        &thisprocess->f_attr_size[i],
-                                        &thisprocess->f_attr_vals[i]);
-                }
-            }
-        }
-        thisprocess->f_nit = 1;
-    }
-}
- */
-
-extern void hoa_process_instance_init(t_hoa_process_instance* x, t_canvas* parent,
-                t_symbol* name, t_symbol* domain, t_symbol* dimension,
-                long ac1, long ac2, long ac3,
-                long argc, t_atom* argv,
-                long nattr, t_atom* attrs)
+char hoa_process_instance_init(t_hoa_process_instance* x, t_canvas* parent, t_symbol* name, size_t argc, t_atom* argv)
 {
     t_gobj* z;
-    t_atom av[6];
-    t_binbuf* b;
-    
-    int natom;
-    t_atom* vec;
-    
-    SETFLOAT(av, 1);
-    SETFLOAT(av+1, 1);
-    SETSYMBOL(av+2, name);
-    SETFLOAT(av+3, ac1);
-    SETFLOAT(av+4, ac2);
-    SETFLOAT(av+5, ac3);
-    
+    t_atom* av;
     x->f_canvas = NULL;
-    pd_typedmess((t_pd *)parent, hoa_sym_obj, domain == hoa_sym_harmonics ? 6 : 5, av);
-    
-    for(z = parent->gl_list; z; z = z->g_next)
+    av = (t_atom *)getbytes((argc + 3) * sizeof(t_atom));
+    if(av)
     {
-        if(z->g_pd->c_name == hoa_sym_canvas)
-        {
-            b = ((t_canvas *)z)->gl_obj.te_binbuf;
-            if(b)
-            {
-                natom   = binbuf_getnatom(b);
-                vec     = binbuf_getvec(b);
-                if(natom > (domain == hoa_sym_harmonics ? 3 : 2) && vec)
-                {
-                    if(atom_getsymbol(vec) == name && atom_getfloat(vec+1) == (t_float)ac1 && atom_getfloat(vec+2) == (t_float)ac2 && (domain == hoa_sym_planewaves || atom_getfloat(vec+3) == (t_float)ac3))
-                    {
-                        x->f_canvas = (t_canvas *)z;
-                    }
-                }
-            }
+        SETFLOAT(av, 10);
+        SETFLOAT(av+1, 10);
+        SETSYMBOL(av+2, name);
+        memcpy(av+3, argv, (size_t)argc * sizeof(t_atom));
+        pd_typedmess((t_pd *)parent, hoa_sym_obj, (int)(argc + 3), av);
+        for(z = parent->gl_list; z->g_next; z = z->g_next) {
         }
+        if(z && z->g_pd->c_name == hoa_sym_canvas)
+        {
+            x->f_canvas = (t_canvas *)z;
+            canvas_loadbang(x->f_canvas);
+            
+            hoa_process_instance_get_hoas(x, x->f_canvas);
+            freebytes(av, (argc + 3) * sizeof(t_atom));
+            return 1;
+        }
+        freebytes(av, (argc + 3) * sizeof(t_atom));
     }
     
+    return 0;
+}
+
+
+
+
+
+
+void hoa_process_instance_show(t_hoa_process_instance* x)
+{
     if(x->f_canvas)
     {
-        hoa_process_instance_get_thisprocesses(x, x->f_canvas);
-        
-        for(size_t i = 0; i < f_thisprocesses.size(); i++)
+        canvas_vis(x->f_canvas, 1);
+    }
+}
+
+void hoa_process_instance_send_bang(t_hoa_process_instance* x, size_t extra)
+{
+    t_hoa_in* in = x->f_ins;
+    while(in != NULL)
+    {
+        if(in->f_extra == extra)
         {
-            atom_setsym(f_thisprocesses[i]->f_hoa_mode, dimension);
-            atom_setsym(f_thisprocesses[i]->f_hoa_mode+1, domain);
-            atom_setfloat(f_thisprocesses[i]->f_hoa_args, ac1);
-            atom_setfloat(f_thisprocesses[i]->f_hoa_args+1, ac2);
-            atom_setfloat(f_thisprocesses[i]->f_hoa_args+2, ac3);
-            thisprocess_init(f_thisprocesses[i], argc, argv, nattr, attrs);
+            pd_bang((t_pd *)in);
         }
-        
-        canvas_loadbang(x->f_canvas);
-        hoa_process_instance_get_hoas(x, x->f_canvas);
+        in = in->f_next;
     }
 }
 
-
-
-
-
-
-inline void show() const noexcept
+void hoa_process_instance_send_float(t_hoa_process_instance* x, size_t extra, float f)
 {
-    if(f_canvas)
-        canvas_vis(f_canvas, 1);
-}
-
-inline void sendBang() const noexcept
-{
-    for(ulong i = 0; i < f_ins.size(); i++)
+    t_hoa_in* in = x->f_ins;
+    while(in != NULL)
     {
-        pd_bang((t_pd *)f_ins[i]);
-    }
-}
-
-inline void sendBang(ulong extra) const noexcept
-{
-    for(ulong i = 0; i < f_ins_extra.size(); i++)
-    {
-        if(ulong(f_ins_extra[i]->f_extra) == extra)
+        if(in->f_extra == extra)
         {
-            pd_bang((t_pd *)f_ins_extra[i]);
+            pd_float((t_pd *)in, f);
         }
+        in = in->f_next;
     }
 }
 
-inline void sendFloat(const float f) const noexcept
+void hoa_process_instance_send_symbol(t_hoa_process_instance* x, size_t extra, t_symbol* s)
 {
-    for(ulong i = 0; i < f_ins.size(); i++)
+    t_hoa_in* in = x->f_ins;
+    while(in != NULL)
     {
-        pd_float((t_pd *)f_ins[i], f);
-    }
-}
-
-inline void sendFloat(ulong extra, const float f) const noexcept
-{
-    for(ulong i = 0; i < f_ins_extra.size(); i++)
-    {
-        if(ulong(f_ins_extra[i]->f_extra) == extra)
+        if(in->f_extra == extra)
         {
-            pd_float((t_pd *)f_ins_extra[i], f);
+            pd_symbol((t_pd *)in, s);
         }
+        in = in->f_next;
     }
 }
 
-inline void sendSymbol(t_symbol* s) const noexcept
+void hoa_process_instance_send_list(t_hoa_process_instance* x, size_t extra, t_symbol* s, int argc, t_atom* argv)
 {
-    for(ulong i = 0; i < f_ins.size(); i++)
+    t_hoa_in* in = x->f_ins;
+    while(in != NULL)
     {
-        pd_symbol((t_pd *)f_ins[i], s);
-    }
-}
-
-inline void sendSymbol(ulong extra, t_symbol* s) const noexcept
-{
-    for(ulong i = 0; i < f_ins_extra.size(); i++)
-    {
-        if(ulong(f_ins_extra[i]->f_extra) == extra)
+        if(in->f_extra == extra)
         {
-            pd_symbol((t_pd *)f_ins_extra[i], s);
+            pd_list((t_pd *)in, s, argc, argv);
         }
+        in = in->f_next;
     }
 }
 
-inline void sendList(t_symbol* s, int argc, t_atom* argv) const noexcept
+void hoa_process_instance_send_anything(t_hoa_process_instance* x, size_t extra, t_symbol* s, int argc, t_atom* argv)
 {
-    for(ulong i = 0; i < f_ins.size(); i++)
+    t_hoa_in* in = x->f_ins;
+    while(in != NULL)
     {
-        pd_list((t_pd *)f_ins[i], s, argc, argv);
-    }
-}
-
-inline void sendList(ulong extra, t_symbol* s, int argc, t_atom* argv) const noexcept
-{
-    for(ulong i = 0; i < f_ins_extra.size(); i++)
-    {
-        if(ulong(f_ins_extra[i]->f_extra) == extra)
+        if(in->f_extra == extra)
         {
-            pd_list((t_pd *)f_ins_extra[i], s, argc, argv);
+            pd_typedmess((t_pd *)in, s, argc, argv);
+        }
+        in = in->f_next;
+    }
+}
+
+size_t hoa_process_instance_has_inputs(t_hoa_process_instance* x, char extra)
+{
+    size_t index = 0;
+    t_hoa_in* in = x->f_ins;
+    if(extra)
+    {
+        while(in != NULL)
+        {
+            if(in->f_extra > index)
+            {
+                index = in->f_extra;
+            }
+            in = in->f_next;
         }
     }
-}
-
-inline void sendAnything(t_symbol* s, int argc, t_atom* argv) const noexcept
-{
-    for(ulong i = 0; i < f_ins.size(); i++)
+    else
     {
-        pd_typedmess((t_pd *)f_ins[i], s, argc, argv);
-    }
-}
-
-inline void sendAnything(ulong extra, t_symbol* s, int argc, t_atom* argv) const noexcept
-{
-    for(ulong i = 0; i < f_ins_extra.size(); i++)
-    {
-        if(ulong(f_ins_extra[i]->f_extra) == extra)
+        while(in != NULL)
         {
-            pd_typedmess((t_pd *)f_ins_extra[i], s, argc, argv);
+            if(!in->f_extra)
+            {
+                return (size_t)-1;
+            }
+            in = in->f_next;
         }
     }
+    return index;
 }
+/*
 
-inline bool hasNormalInputs() const
-{
-    return !f_ins.empty();
-}
-
-inline bool hasNormalSignalInputs() const
-{
-    return !f_ins_sig.empty();
-}
-
-inline ulong getMaximumInputExtraIndex() const
-{
-    ulong n = 0ul;
-    for(ulong i = 0; i < f_ins_extra.size(); i++)
-    {
-        if(ulong(f_ins_extra[i]->f_extra) > n)
-            n = ulong(f_ins_extra[i]->f_extra);
-    }
-    return n;
-}
 
 inline ulong getMaximumSignalInputExtraIndex() const
 {
@@ -431,6 +291,7 @@ inline void setExtraOutlet(t_outlet* outlet, ulong index)
     }
 }
 
+
 bool prepareDsp(t_sample* in, vector<t_sample*>& ixtra, t_sample* out, vector<t_sample*>& oxtra)
 {
     if(hasNormalSignalInputs())
@@ -477,6 +338,7 @@ bool prepareDsp(t_sample* in, vector<t_sample*>& ixtra, t_sample* out, vector<t_
     }
     return false;
 }
+ */
 
 
 

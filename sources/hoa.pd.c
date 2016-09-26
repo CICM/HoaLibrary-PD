@@ -6,7 +6,19 @@
 
 #include "hoa.pd.h"
 
+static char hoaname[] = "hoa.library v2.3-beta";
 static char hoaversion[] = "v2.3-beta";
+
+
+long hoa_2d_get_azimuthal_order(size_t index)
+{
+    return (long)((long)(index + index % 2l) / 2l) * (1l - (long)(index % 2) * 2l);
+}
+
+size_t hoa_2d_get_degree(size_t index)
+{
+    return (index + index % 2) / 2ul;
+}
 
 size_t hoa_processor_clip_order(void* obj, size_t order)
 {
@@ -17,6 +29,17 @@ size_t hoa_processor_clip_order(void* obj, size_t order)
         return 1;
     }
     return order;
+}
+
+size_t hoa_processor_clip_nplanewaves(void* obj, size_t nplanewaves)
+{
+    if(nplanewaves < 1)
+    {
+        pd_error(obj, "%s: bad number of planewaves.", class_getname(*(t_pd *)obj));
+        pd_error(obj, "%s: receive %i but expect at least 1.", class_getname(*(t_pd *)obj), (int)nplanewaves);
+        return 1;
+    }
+    return nplanewaves;
 }
 
 void hoa_processor_init(void* obj, size_t nins, size_t nouts)
@@ -38,7 +61,7 @@ void hoa_processor_init(void* obj, size_t nins, size_t nouts)
     }
     
     
-    if(gensym("hoa.library v2.3-beta")->s_thing == NULL)
+    if(gensym(hoaname)->s_thing == NULL)
     {
         verbose(0,
                 "HOA Library %s (%s) for Pure Data %i.%i\n\

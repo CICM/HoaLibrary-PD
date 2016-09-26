@@ -69,7 +69,7 @@ extern void setup_hoa0x2ein(void)
     if(c)
     {
         class_sethelpsymbol((t_class *)c, gensym("help/hoa.io"));
-        class_addmethod(c, (t_method)hoa_in_bang,       gensym("bang"),     A_CANT,  0);
+        class_addmethod(c, (t_method)hoa_in_bang,       gensym("bang"),     A_NULL,  0);
         class_addmethod(c, (t_method)hoa_in_float,      gensym("float"),    A_FLOAT, 0);
         class_addmethod(c, (t_method)hoa_in_symbol,     gensym("symbol"),   A_SYMBOL,0);
         class_addmethod(c, (t_method)hoa_in_list,       gensym("list"),     A_GIMME, 0);

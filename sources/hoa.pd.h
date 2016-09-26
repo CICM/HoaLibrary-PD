@@ -24,10 +24,16 @@ typedef struct _hoa_processor
     t_hoa_processor_perfm f_method;
 } t_hoa_processor;
 
+long hoa_2d_get_azimuthal_order(size_t index);
+size_t hoa_2d_get_degree(size_t index);
+
 size_t hoa_processor_clip_order(void* obj, size_t order);
+size_t hoa_processor_clip_nplanewaves(void* obj, size_t nplanewaves);
+
 void hoa_processor_init(void* obj, size_t nins, size_t nouts);
 void hoa_processor_clear(void* obj);
 void hoa_processor_prepare(void* obj, t_hoa_processor_perfm m, t_signal **sp);
+
 
 typedef struct _hoa_in
 {
@@ -52,37 +58,27 @@ typedef struct _hoa_io_tilde
     struct _hoa_io_tilde* f_next;
 } t_hoa_io_tilde;
 
-
-
-
-
-typedef struct _hoa_attr
+typedef struct _hoa_process_instance
 {
-    t_symbol*   name;
-    size_t      size;
-    t_atom*     values;
-} t_hoa_attr;
+    t_canvas*           f_canvas;
+    t_hoa_in*           f_ins;
+    t_hoa_out*          f_outs;
+    t_hoa_io_tilde*     f_ins_sig;
+    t_hoa_io_tilde*     f_ins_extra_sig;
+    t_hoa_io_tilde*     f_outs_sig;
+    t_hoa_io_tilde*     f_outs_extra_sig;
+} t_hoa_process_instance;
 
-typedef struct _hoa_thisprocess
-{
-    t_object    f_obj;
-    
-    t_outlet*   f_out_hoa_args;
-    t_outlet*   f_out_hoa_mode;
-    t_outlet*   f_out_args;
-    t_outlet*   f_out_attrs;
-    
-    t_atom      f_hoa_args[3];
-    t_atom      f_hoa_mode[2];
-    
-    t_atom*     f_args;
-    size_t      f_argc;
-    
-    size_t      f_nattrs;
-    t_hoa_attr* f_attrs;
-    
-    double      f_time;
-    struct _hoa_thisprocess* f_next;
-} t_hoa_thisprocess;
+void hoa_process_instance_setup(void);
+
+char hoa_process_instance_init(t_hoa_process_instance* x, t_canvas* parent, t_symbol* name, size_t argc, t_atom* argv);
+
+void hoa_process_instance_show(t_hoa_process_instance* x);
+void hoa_process_instance_send_bang(t_hoa_process_instance* x, size_t extra);
+void hoa_process_instance_send_float(t_hoa_process_instance* x, size_t extra, float f);
+void hoa_process_instance_send_symbol(t_hoa_process_instance* x, size_t extra, t_symbol* s);
+void hoa_process_instance_send_list(t_hoa_process_instance* x, size_t extra, t_symbol* s, int argc, t_atom* argv);
+void hoa_process_instance_send_anything(t_hoa_process_instance* x, size_t extra, t_symbol* s, int argc, t_atom* argv);
+
 
 #endif //HOA_2D_PD_INCLUDE

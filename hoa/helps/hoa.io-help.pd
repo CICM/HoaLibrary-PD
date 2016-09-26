@@ -1,0 +1,206 @@
+#N canvas 1 23 1397 669 10;
+#X declare -path ..;
+#X obj 40 229 hoa.in;
+#X text 5 48 The inlet and outlet to use in the hoa.process~'s patchers
+;
+#X obj 187 229 hoa.in~;
+#X obj 110 229 hoa.in;
+#X obj 110 308 hoa.out;
+#X obj 40 308 hoa.out;
+#X obj 187 309 hoa.out~;
+#X obj 287 229 hoa.in~;
+#X obj 287 309 hoa.out~;
+#X obj 410 229 hoa.in extra 1;
+#X obj 410 309 hoa.out extra 1;
+#X obj 627 229 hoa.in~ extra 1;
+#X obj 520 229 hoa.in extra 3;
+#X obj 520 309 hoa.out extra 4;
+#X obj 627 309 hoa.out~ extra 1;
+#X obj 747 229 hoa.in~ extra 2;
+#X obj 747 309 hoa.out~ extra 2;
+#X text 39 165 hoa.in~ and hoa.in share the same parent inlet but the
+signal is routed to the hoa.in~ and the other messages are routed to
+hoa.in.;
+#X text 8 425 With the above hoa.io configuration \, the hoa.process~
+have one inlet per instance \, that send messages to the two hoa.in
+and the signal to the two hoa.in~ \, and two outlet per instance \,
+the first one outputs the sum of the signal received by the hoa.out~
+and the second one outputs the message received by the hoa.out.;
+#X text 439 165 hoa.in~ and hoa.in with the same extra argument share
+the same parent inlet but the signal is routed to the hoa.in~ and the
+other messages are routed to hoa.in.;
+#X obj 910 314 sig~ 1;
+#X obj 981 294 sig~ 2;
+#X obj 1052 264 sig~ 3;
+#X text 886 498 instance.;
+#X obj 1195 284 sig~ 1.5;
+#X obj 910 346 hoa.2d.process~ 3 hoa.ioexample~ planewaves ----------------
+;
+#X text 886 468 The 3 instance;
+#X text 886 478 signal outlets \,;
+#X text 886 488 one for each;
+#X text 886 508 Each instance;
+#X text 886 518 have two hoa.out~;
+#X text 886 528 that sum the;
+#X text 886 538 signals of the;
+#X text 886 548 hoa.in~.;
+#X text 999 468 The 2 extra;
+#X text 999 478 signal outlets.;
+#X text 999 498 outputs the;
+#X text 999 508 sum of the;
+#X text 999 518 signals received;
+#X text 999 548 extra hoa.out~;
+#X text 999 488 Each one;
+#X text 999 528 by the;
+#X text 999 538 corresponding;
+#X obj 1124 314 sig~ 0.333333;
+#X text 1106 498 instance.;
+#X text 1106 468 The 3 instance;
+#X text 1106 488 one for each;
+#X text 1106 478 messages outlets \,;
+#X text 1106 508 Each one outputs;
+#X text 1106 518 the messages;
+#X text 1106 528 received by the;
+#X text 1106 538 hoa.out~ of;
+#X text 1106 548 its instance.;
+#X obj 869 267 c.loadmess 1;
+#X obj 934 237 c.loadmess 2;
+#X obj 1006 207 c.loadmess 3;
+#X text 856 78 The hoa.io configuration of this patch inside a hoa.process~
+in planewaves mode with 3 instance.;
+#X text 8 75 hoa.io without arguments create an inlet for each instance
+of the process. You can have several hoa.io without arguments in a
+patcher but they will share the same parent inlet and outlet.;
+#X text 439 356 hoa.out~ and hoa.out with the same extra argument have
+separated parent outlets for signal or other messages.;
+#X text 39 376 hoa.out~ and hoa.out have separated parent outlets for
+signal or other messages.;
+#X text 428 75 hoa.io with the argument extra and a number (or default
+1) create an extra inlet or outlet that will be shared by all the instances.
+You can have several hoa.io with the same extra argument in a patcher
+but they will share the same parent inlet and outlet.;
+#X text 428 405 With the above hoa.io configuration \, the hoa.process~
+have 3 extra inlets and 6 extra outlets \, 2 for the signal and 4 for
+the messages. The extra hoa.in~ receives the signals from the extra
+inlets 1 and 2 of the hoa.process~ and the extra hoa.in receives the
+messages from the extra inlets 1 and 3 (note that if you target the
+hoa.process~ only the target instace receive the messages). The extra
+signal outlets output the sum of the extra hoa.out~ of all the instances
+that correspond to their index. The extra message outlet 1 outputs
+the messages received by the hoa.out extra 1 of all the instance and
+the extra message outlet 4 outputs the messages received by the hoa.out
+extra 4 of all the instance. Note that the messages sent to the extra
+inlet 2 are not received because there is no hoa.in extra 2 and the
+extra messages outlets 2 and 3 are useless because there are no hoa.out
+extra 2 and 3;
+#X text 1219 498 outputs the;
+#X text 1219 488 Each one;
+#X text 1219 518 by the;
+#X text 1219 528 corresponding;
+#X text 1219 468 The 4 extra;
+#X text 1219 478 messages outlets.;
+#X text 1219 508 messages received;
+#X text 1219 538 extra hoa.out.;
+#X text 1219 548 Then \, extra messages;
+#X text 1219 558 outlet 2 and 3 are;
+#X text 1219 568 useless.;
+#X obj 1104 240 c.loadmess 69;
+#X msg 540 275;
+#X msg 1267 277 set Année érotique;
+#X msg 1267 392 Année érotique;
+#X msg 1267 367 set \$1 \$2;
+#X text 886 118 The 3 instance signal and messages;
+#X text 886 128 inlets \, one for each instance.;
+#X text 886 138 The messages are sent to the hoa.in.;
+#X text 886 148 The signals are sent to the hoa.in~.;
+#X text 1126 118 The 3 extra signal and messages;
+#X text 1126 128 inlets.;
+#X text 1126 138 The extra inlet 1 \, send the messages;
+#X text 1126 148 to the hoa.in extra 1 and the signal;
+#X text 1126 158 to the hoa.in~ extra 1;
+#X text 1126 168 The extra inlet 2 \, send the signal;
+#X text 1126 178 to the hoa.in~ extra 2;
+#X text 1126 188 The extra inlet 3 \, send the messages;
+#X text 1126 198 to the hoa.in extra 3;
+#X msg 594 27 \; pd dsp 1;
+#X msg 658 27 \; pd dsp 0;
+#X text 875 593 The hoa.io configuration of this patch is an example
+made to show all the behaviors of the hoa.io. You would prefer to look
+at the real uses of hoa.process~.;
+#X obj 52 273 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 122 273 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 442 273 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 1006 238 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 0 256;
+#X obj 221 273 ../misc/hoa.number~;
+#X obj 321 273 ../misc/hoa.number~;
+#X obj 661 273 ../misc/hoa.number~;
+#X obj 781 273 ../misc/hoa.number~;
+#X obj 869 292 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 910 384 ../misc/hoa.number~;
+#X obj 942 414 ../misc/hoa.number~;
+#X obj 1007 384 ../misc/hoa.number~;
+#X obj 974 444 ../misc/hoa.number~;
+#X obj 1039 414 ../misc/hoa.number~;
+#X obj 1072 384 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 0 256;
+#X obj 1104 414 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 0 256;
+#X obj 1169 393 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 0 256;
+#X obj 1137 444 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 0 256;
+#X obj 10 11 cnv 15 200 20 empty empty hoa.io 4 10 0 14 -233017 -66577
+0;
+#X obj 12 534 declare -path ..;
+#X obj 12 557 hoa.credits;
+#X obj 92 557 hoa-help;
+#X obj 934 268 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 1104 292 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0
+10 -262144 -1 -1 0 256;
+#X connect 0 0 5 0;
+#X connect 0 0 94 0;
+#X connect 2 0 6 0;
+#X connect 2 0 98 0;
+#X connect 3 0 4 0;
+#X connect 3 0 95 0;
+#X connect 7 0 8 0;
+#X connect 7 0 99 0;
+#X connect 9 0 10 0;
+#X connect 9 0 96 0;
+#X connect 11 0 14 0;
+#X connect 11 0 100 0;
+#X connect 12 0 13 0;
+#X connect 12 0 74 0;
+#X connect 15 0 16 0;
+#X connect 15 0 101 0;
+#X connect 20 0 25 0;
+#X connect 21 0 25 1;
+#X connect 22 0 25 2;
+#X connect 24 0 25 4;
+#X connect 25 0 103 0;
+#X connect 25 1 104 0;
+#X connect 25 2 106 0;
+#X connect 25 3 105 0;
+#X connect 25 4 107 0;
+#X connect 25 5 108 0;
+#X connect 25 6 109 0;
+#X connect 25 7 111 0;
+#X connect 25 8 110 0;
+#X connect 25 11 77 0;
+#X connect 43 0 25 3;
+#X connect 53 0 102 0;
+#X connect 54 0 116 0;
+#X connect 55 0 97 0;
+#X connect 73 0 117 0;
+#X connect 75 0 25 5;
+#X connect 77 0 76 0;
+#X connect 97 0 25 2;
+#X connect 102 0 25 0;
+#X connect 116 0 25 1;
+#X connect 117 0 25 3;
