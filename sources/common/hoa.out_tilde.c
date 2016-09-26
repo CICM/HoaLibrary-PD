@@ -9,26 +9,17 @@
 static t_class*     hoa_out_tilde_class;
 static t_symbol*    hoa_sym_extra;
 
-static void *hoa_out_tilde_new(t_symbol *s, int argc, t_atom *argv)
+static void *hoa_out_tilde_new(t_float f)
 {
     t_hoa_io_tilde *x = (t_hoa_io_tilde *)pd_new(hoa_out_tilde_class);
 	if(x)
 	{
         x->f_extra = 0;
         x->f_signal = NULL;
-        if(atom_getsymbolarg(0, argc, argv) == hoa_sym_extra)
+        x->f_extra = f;
+        if(x->f_extra < 0)
         {
-            x->f_extra = atom_getfloatarg(1, argc, argv);
-            if(x->f_extra < 1)
-            {
-                pd_error(x, "hoa.in: bad argument, extra index must be at least 1.");
-                pd_free((t_pd *)x);
-                return NULL;
-            }
-        }
-        else if(argc && argv)
-        {
-            pd_error(x, "hoa.in: bad argument.");
+            pd_error(x, "hoa.in: bad argument, extra index must be at least 1.");
             pd_free((t_pd *)x);
             return NULL;
         }
@@ -48,7 +39,7 @@ static void hoa_out_tilde_dsp(t_hoa_io_tilde *x, t_signal **sp)
 extern void setup_hoa0x2eout_tilde(void)
 {
     t_class* c = class_new(gensym("hoa.out~"), (t_newmethod)hoa_out_tilde_new, (t_method)NULL,
-                            (size_t)sizeof(t_hoa_io_tilde), CLASS_DEFAULT, A_GIMME, 0);
+                            (size_t)sizeof(t_hoa_io_tilde), CLASS_DEFAULT, A_DEFFLOAT, 0);
 
     if(c)
     {

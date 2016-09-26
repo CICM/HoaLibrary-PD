@@ -5,10 +5,16 @@
 */
 
 #include "hoa.pd.h"
+#include "stdlib.h"
 
 static char hoaname[] = "hoa.library v2.3-beta";
 static char hoaversion[] = "v2.3-beta";
 
+
+size_t hoa_2d_get_index(size_t degree, long order)
+{
+    return labs(order) *  2 - (long)(order < 0);
+}
 
 long hoa_2d_get_azimuthal_order(size_t index)
 {
@@ -46,18 +52,27 @@ void hoa_processor_init(void* obj, size_t nins, size_t nouts)
 {
     size_t i;
     t_hoa_processor* x = (t_hoa_processor*)obj;
-    x->f_nins      = nins;
-    x->f_inputs    = (t_sample **)getbytes(x->f_nins * sizeof(t_sample*));
-    x->f_nouts     = nouts;
-    x->f_outputs   = (t_sample **)getbytes(x->f_nouts * sizeof(t_sample*));
-    
-    for(i = 0; i < nins - 1; ++i)
+    x->f_inputs = NULL;
+    x->f_nins   = 0;
+    x->f_outputs= NULL;
+    x->f_nouts  = 0;
+    if(nins)
     {
-        signalinlet_new((t_object *)obj, 0);
+        x->f_nins      = nins;
+        x->f_inputs    = (t_sample **)getbytes(x->f_nins * sizeof(t_sample*));
+        for(i = 0; i < nins - 1; ++i)
+        {
+            signalinlet_new((t_object *)obj, 0);
+        }
     }
-    for(i = 0; i < nouts; ++i)
+    if(nouts)
     {
-        outlet_new((t_object *)x, &s_signal);
+        x->f_nouts     = nouts;
+        x->f_outputs   = (t_sample **)getbytes(x->f_nouts * sizeof(t_sample*));
+        for(i = 0; i < nouts; ++i)
+        {
+            outlet_new((t_object *)x, &s_signal);
+        }
     }
     
     
@@ -80,8 +95,14 @@ void hoa_processor_init(void* obj, size_t nins, size_t nouts)
 void hoa_processor_clear(void* obj)
 {
     t_hoa_processor* x = (t_hoa_processor*)obj;
-    freebytes(x->f_inputs, x->f_nins * sizeof(t_sample*));
-    freebytes(x->f_outputs, x->f_nouts * sizeof(t_sample*));
+    if(x->f_inputs && x->f_nins)
+    {
+        freebytes(x->f_inputs, x->f_nins * sizeof(t_sample*));
+    }
+    if(x->f_outputs && x->f_nouts)
+    {
+        freebytes(x->f_outputs, x->f_nouts * sizeof(t_sample*));
+    }
 }
 
 static t_int *hoa_processor_perform(t_int *w)

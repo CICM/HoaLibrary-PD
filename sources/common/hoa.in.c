@@ -9,26 +9,16 @@
 static t_class*     hoa_in_class;
 static t_symbol*    hoa_sym_extra;
 
-static void *hoa_in_new(t_symbol *s, int argc, t_atom *argv)
+static void *hoa_in_new(t_float f)
 {
     t_hoa_in *x = (t_hoa_in *)pd_new(hoa_in_class);
     if(x)
     {
-        x->f_extra = 0;
+        x->f_extra = f;
         outlet_new((t_object *)x, NULL);
-        if(atom_getsymbolarg(0, argc, argv) == hoa_sym_extra)
+        if(x->f_extra < 1)
         {
-            x->f_extra = atom_getfloatarg(1, argc, argv);
-            if(x->f_extra < 1)
-            {
-                pd_error(x, "hoa.in: bad argument, extra index must be at least 1.");
-                pd_free((t_pd *)x);
-                return NULL;
-            }
-        }
-        else if(argc && argv)
-        {
-            pd_error(x, "hoa.in: bad argument.");
+            pd_error(x, "hoa.in: bad argument, extra index must be at least 1.");
             pd_free((t_pd *)x);
             return NULL;
         }
@@ -64,7 +54,7 @@ static void hoa_in_anything(t_hoa_in *x, t_symbol* s, int argc, t_atom* argv)
 extern void setup_hoa0x2ein(void)
 {
     t_class* c = class_new(gensym("hoa.in"), (t_newmethod)hoa_in_new, (t_method)NULL,
-                           (size_t)sizeof(t_hoa_in), CLASS_NOINLET, A_GIMME, 0);
+                           (size_t)sizeof(t_hoa_in), CLASS_NOINLET, A_FLOAT, 0);
 
     if(c)
     {

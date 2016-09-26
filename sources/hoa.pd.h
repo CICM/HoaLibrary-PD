@@ -24,6 +24,7 @@ typedef struct _hoa_processor
     t_hoa_processor_perfm f_method;
 } t_hoa_processor;
 
+size_t hoa_2d_get_index(size_t degree, long order);
 long hoa_2d_get_azimuthal_order(size_t index);
 size_t hoa_2d_get_degree(size_t index);
 
@@ -64,9 +65,7 @@ typedef struct _hoa_process_instance
     t_hoa_in*           f_ins;
     t_hoa_out*          f_outs;
     t_hoa_io_tilde*     f_ins_sig;
-    t_hoa_io_tilde*     f_ins_extra_sig;
     t_hoa_io_tilde*     f_outs_sig;
-    t_hoa_io_tilde*     f_outs_extra_sig;
 } t_hoa_process_instance;
 
 void hoa_process_instance_setup(void);
@@ -79,6 +78,14 @@ void hoa_process_instance_send_float(t_hoa_process_instance* x, size_t extra, fl
 void hoa_process_instance_send_symbol(t_hoa_process_instance* x, size_t extra, t_symbol* s);
 void hoa_process_instance_send_list(t_hoa_process_instance* x, size_t extra, t_symbol* s, int argc, t_atom* argv);
 void hoa_process_instance_send_anything(t_hoa_process_instance* x, size_t extra, t_symbol* s, int argc, t_atom* argv);
+
+size_t hoa_process_instance_get_ninputs(t_hoa_process_instance* x);
+size_t hoa_process_instance_get_noutputs(t_hoa_process_instance* x);
+void hoa_process_instance_set_outlet(t_hoa_process_instance* x, size_t index, t_outlet* outlet);
+char hoa_process_instance_has_inputs_sig_static(t_hoa_process_instance* x);
+size_t hoa_process_instance_get_ninputs_sig_extra(t_hoa_process_instance* x);
+char hoa_process_instance_has_outputs_sig_static(t_hoa_process_instance* x);
+size_t hoa_process_instance_get_noutputs_sig_extra(t_hoa_process_instance* x);
 
 
 #endif //HOA_2D_PD_INCLUDE

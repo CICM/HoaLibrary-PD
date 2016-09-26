@@ -62,30 +62,14 @@ static void hoa_process_instance_get_hoas(t_hoa_process_instance* x, t_canvas* c
         else if(name == hoa_sym_hoa_in_tilde)
         {
             t_hoa_io_tilde* inlet_sig = (t_hoa_io_tilde *)y;
-            if(inlet_sig->f_extra)
-            {
-                inlet_sig->f_next = x->f_ins_extra_sig;
-                x->f_ins_extra_sig = inlet_sig;
-            }
-            else
-            {
-                inlet_sig->f_next = x->f_ins_sig;
-                x->f_ins_sig = inlet_sig;
-            }
+            inlet_sig->f_next = x->f_ins_sig;
+            x->f_ins_sig = inlet_sig;
         }
         else if(name == hoa_sym_hoa_out_tilde)
         {
             t_hoa_io_tilde* outlet_sig = (t_hoa_io_tilde *)y;
-            if(outlet_sig->f_extra)
-            {
-                outlet_sig->f_next = x->f_outs_extra_sig;
-                x->f_outs_extra_sig = outlet_sig;
-            }
-            else
-            {
-                outlet_sig->f_next = x->f_outs_sig;
-                x->f_outs_sig = outlet_sig;
-            }
+            outlet_sig->f_next = x->f_outs_sig;
+            x->f_outs_sig = outlet_sig;
         }
     }
 }
@@ -198,31 +182,103 @@ void hoa_process_instance_send_anything(t_hoa_process_instance* x, size_t extra,
     }
 }
 
-size_t hoa_process_instance_has_inputs(t_hoa_process_instance* x, char extra)
+size_t hoa_process_instance_get_ninputs(t_hoa_process_instance* x)
 {
     size_t index = 0;
     t_hoa_in* in = x->f_ins;
-    if(extra)
+    while(in != NULL)
     {
-        while(in != NULL)
+        if(in->f_extra > index)
         {
-            if(in->f_extra > index)
-            {
-                index = in->f_extra;
-            }
-            in = in->f_next;
+            index = in->f_extra;
         }
+        in = in->f_next;
     }
-    else
+    return index;
+}
+
+size_t hoa_process_instance_get_noutputs(t_hoa_process_instance* x)
+{
+    size_t index = 0;
+    t_hoa_out* out = x->f_outs;
+    while(out != NULL)
     {
-        while(in != NULL)
+        if(out->f_extra > index)
         {
-            if(!in->f_extra)
-            {
-                return (size_t)-1;
-            }
-            in = in->f_next;
+            index = out->f_extra;
         }
+        out = out->f_next;
+    }
+    return index;
+}
+
+void hoa_process_instance_set_outlet(t_hoa_process_instance* x, size_t index, t_outlet* outlet)
+{
+    t_hoa_out* out = x->f_outs;
+    while(out != NULL)
+    {
+        if(out->f_extra == index)
+        {
+            out->f_outlet = outlet;
+        }
+        out = out->f_next;
+    }
+}
+
+char hoa_process_instance_has_inputs_sig_static(t_hoa_process_instance* x)
+{
+    t_hoa_io_tilde* in = x->f_ins_sig;
+    while(in != NULL)
+    {
+        if(in->f_extra == 0)
+        {
+            return 1;
+        }
+        in = in->f_next;
+    }
+    return 0;
+}
+
+size_t hoa_process_instance_get_ninputs_sig_extra(t_hoa_process_instance* x)
+{
+    size_t index = 0;
+    t_hoa_io_tilde* in = x->f_ins_sig;
+    while(in != NULL)
+    {
+        if(in->f_extra > index)
+        {
+            index = in->f_extra;
+        }
+        in = in->f_next;
+    }
+    return index;
+}
+
+char hoa_process_instance_has_outputs_sig_static(t_hoa_process_instance* x)
+{
+    t_hoa_io_tilde* in = x->f_outs_sig;
+    while(in != NULL)
+    {
+        if(in->f_extra == 0)
+        {
+            return 1;
+        }
+        in = in->f_next;
+    }
+    return 0;
+}
+
+size_t hoa_process_instance_get_noutputs_sig_extra(t_hoa_process_instance* x)
+{
+    size_t index = 0;
+    t_hoa_io_tilde* in = x->f_outs_sig;
+    while(in != NULL)
+    {
+        if(in->f_extra > index)
+        {
+            index = in->f_extra;
+        }
+        in = in->f_next;
     }
     return index;
 }
