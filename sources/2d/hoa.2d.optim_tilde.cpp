@@ -33,17 +33,18 @@ static void *hoa_2d_optim_new(t_symbol* s, int argc, t_atom* argv)
     {
         const size_t order = hoa_processor_clip_order(x, (size_t)atom_getfloatarg(0, argc, argv));
         s = atom_getsymbolarg(1, argc, argv);
+        x->f_processor = new hoa::Optim<hoa::Hoa2d, t_sample>(order);
         if(s == hoa_sym_basic)
         {
-            x->f_processor = new hoa::OptimBasic<hoa::Hoa2d, t_sample>(order);
+            x->f_processor->setMode(hoa::Optim<hoa::Hoa2d, t_sample>::Basic);
         }
         else if(s == hoa_sym_maxRe || s == hoa_sym_maxre)
         {
-            x->f_processor = new hoa::OptimMaxRe<hoa::Hoa2d, t_sample>(order);
+            x->f_processor->setMode(hoa::Optim<hoa::Hoa2d, t_sample>::MaxRe);
         }
         else
         {
-            x->f_processor  = new hoa::OptimInPhase<hoa::Hoa2d, t_sample>(order);
+            x->f_processor->setMode(hoa::Optim<hoa::Hoa2d, t_sample>::InPhase);
             if(s != hoa_sym_inPhase && s != hoa_sym_inphase)
             {
                 pd_error(x, "hoa.2d.optim: bad argument.");
