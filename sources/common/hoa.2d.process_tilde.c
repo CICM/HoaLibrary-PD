@@ -256,10 +256,10 @@ static char hoa_2d_process_tilde_load_planewaves(t_hoa_2d_process_tilde* x, size
     int ac;
     t_atom* av;
     size_t i;
+    size_t ninstance  = nplws;
     x->f_instances    = (t_hoa_process_instance *)getbytes(nplws * sizeof(t_hoa_process_instance));
     if(x->f_instances)
     {
-        x->f_ninstances = nplws;
         ac = 4 + argc;
         av = (t_atom *)getbytes(ac * sizeof(t_atom));
         if(ac && av)
@@ -268,7 +268,7 @@ static char hoa_2d_process_tilde_load_planewaves(t_hoa_2d_process_tilde* x, size
             SETSYMBOL(av+1, hoa_sym_planewaves);
             SETFLOAT(av+2, (float)nplws);
             memcpy(av+4, argv, argc * sizeof(t_atom));
-            for(i = 0; i < x->f_ninstances; ++i)
+            for(i = 0; i < ninstance; ++i)
             {
                 SETFLOAT(av+3, (float)i);
                 if(!hoa_process_instance_init(x->f_instances+i, x->f_canvas, name, ac, av))
@@ -279,10 +279,11 @@ static char hoa_2d_process_tilde_load_planewaves(t_hoa_2d_process_tilde* x, size
                     return 0;
                 }
             }
+            x->f_ninstances = ninstance;
             freebytes(av, ac * sizeof(t_atom));
             return 1;
         }
-        freebytes(x->f_instances, nplws * sizeof(t_hoa_process_instance));
+        freebytes(x->f_instances, ninstance * sizeof(t_hoa_process_instance));
         x->f_instances = NULL;
         return 0;
     }
@@ -294,10 +295,10 @@ static char hoa_2d_process_tilde_load_harmonics(t_hoa_2d_process_tilde* x, size_
     int ac;
     t_atom* av;
     size_t i;
-    x->f_instances    = (t_hoa_process_instance *)getbytes((order * 2 + 1) * sizeof(t_hoa_process_instance));
+    size_t ninstance  = (order * 2 + 1);
+    x->f_instances    = (t_hoa_process_instance *)getbytes(ninstance * sizeof(t_hoa_process_instance));
     if(x->f_instances)
     {
-        x->f_ninstances = order * 2 + 1;
         ac = 5 + argc;
         av = (t_atom *)getbytes(ac * sizeof(t_atom));
         if(ac && av)
@@ -306,7 +307,7 @@ static char hoa_2d_process_tilde_load_harmonics(t_hoa_2d_process_tilde* x, size_
             SETSYMBOL(av+1, hoa_sym_harmonics);
             SETFLOAT(av+2, (float)order);
             memcpy(av+5, argv, argc * sizeof(t_atom));
-            for(i = 0; i < x->f_ninstances; ++i)
+            for(i = 0; i < ninstance; ++i)
             {
                 SETFLOAT(av+3, (float)hoa_2d_get_degree(i));
                 SETFLOAT(av+4, (float)hoa_2d_get_azimuthal_order(i));
@@ -318,10 +319,11 @@ static char hoa_2d_process_tilde_load_harmonics(t_hoa_2d_process_tilde* x, size_
                     return 0;
                 }
             }
+            x->f_ninstances = ninstance;
             freebytes(av, ac * sizeof(t_atom));
             return 1;
         }
-        freebytes(x->f_instances, (order * 2 + 1) * sizeof(t_hoa_process_instance));
+        freebytes(x->f_instances, ninstance * sizeof(t_hoa_process_instance));
         x->f_instances = NULL;
         return 0;
     }

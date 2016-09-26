@@ -1,7 +1,7 @@
 #N canvas 117 38 901 661 10;
 #X declare -path ..;
-#X obj 594 28 hoa.connect;
-#X obj 594 7 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 817 38 hoa.connect;
+#X obj 827 9 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X text 15 152 2nd argument is the name of the patcher to instantiate.
 ;
@@ -31,14 +31,29 @@ the patcher as many times as the number of channels.;
 #X obj 12 424 declare -path ..;
 #X obj 12 447 hoa.credits;
 #X obj 92 447 hoa-help;
-#X obj 436 123 hoa.2d.process~ 4 ../misc/hoa.proc.ex planewaves;
-#X obj 436 196 print~;
 #X obj 487 31 sig~ 1;
-#X obj 482 159 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
+#X obj 436 123 hoa.2d.process~ 4 ../misc/hoa.proc.ex2 planewaves;
+#X obj 436 155 ../misc/hoa.number~;
+#X obj 508 155 ../misc/hoa.number~;
+#X obj 581 155 ../misc/hoa.number~;
+#X obj 654 155 ../misc/hoa.number~;
+#X obj 727 155 ../misc/hoa.number~;
+#X obj 547 31 sig~ 2;
+#X obj 607 31 sig~ 3;
+#X obj 657 31 sig~ 4;
+#X obj 707 31 sig~ 5;
+#X obj 767 31 sig~ 0.25;
 #X connect 1 0 0 0;
-#X connect 11 0 16 0;
-#X connect 12 0 16 0;
+#X connect 11 0 17 0;
+#X connect 12 0 17 0;
 #X connect 16 0 17 0;
-#X connect 18 0 16 0;
-#X connect 19 0 17 0;
+#X connect 17 0 18 0;
+#X connect 17 1 19 0;
+#X connect 17 2 20 0;
+#X connect 17 3 21 0;
+#X connect 17 4 22 0;
+#X connect 23 0 17 1;
+#X connect 24 0 17 2;
+#X connect 25 0 17 3;
+#X connect 26 0 17 4;
+#X connect 27 0 17 5;
