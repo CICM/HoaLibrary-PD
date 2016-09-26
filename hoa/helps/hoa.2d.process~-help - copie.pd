@@ -43,6 +43,10 @@ the patcher as many times as the number of channels.;
 #X obj 657 31 sig~ 4;
 #X obj 707 31 sig~ 5;
 #X obj 767 31 sig~ 0.25;
+#X obj 486 13 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 1.63 256;
+#X obj 761 12 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 78.66 256;
 #X connect 1 0 0 0;
 #X connect 11 0 17 0;
 #X connect 12 0 17 0;
@@ -57,3 +61,5 @@ the patcher as many times as the number of channels.;
 #X connect 25 0 17 3;
 #X connect 26 0 17 4;
 #X connect 27 0 17 5;
+#X connect 28 0 16 0;
+#X connect 29 0 27 0;

@@ -29,6 +29,8 @@ typedef struct _hoa_process
     struct _hoa_process_inlet*  f_ins;
     size_t                      f_nsigout;
     t_sample*                   f_sigout;
+    size_t                      f_nsigin;
+    t_sample*                   f_sigin;
 } t_hoa_2d_process_tilde;
 
 typedef struct _hoa_process_inlet
@@ -52,9 +54,10 @@ static void hoa_2d_process_tilde_perform(t_hoa_2d_process_tilde *x, size_t sampl
                                 size_t nouts, t_sample **outs)
 {
     size_t i;
-    for(i = 0; i < nouts; i++)
+    memset(x->f_sigout, 0, nouts * (size_t)sampleframes * sizeof(t_sample));
+    for(i = 0; i < nins; i++)
     {
-        memset(x->f_sigout+i*sampleframes, 0, (size_t)sampleframes * sizeof(t_sample));
+        memcpy(x->f_sigin+i*sampleframes, ins[i], (size_t)sampleframes * sizeof(t_sample));
     }
     x->f_method((t_pd *)x->f_block);
     for(i = 0; i < nouts; i++)
@@ -86,24 +89,47 @@ static void hoa_2d_process_tilde_dsp(t_hoa_2d_process_tilde *x, t_signal **sp)
             nouts = tnouts > nouts ? tnouts : nouts;
         }
         
-        if(hasin)
+        if(x->f_sigin && x->f_nsigin)
         {
-            for(i = 0; i < x->f_ninstances; ++i)
-            {
-                hoa_process_instance_set_inlet_sig(x->f_instances+i, 0, sp[i]->s_vec);
-            }
+            freebytes(x->f_sigin, x->f_nsigin * sizeof(t_sample));
+            x->f_sigin     = NULL;
+            x->f_nsigin    = 0;
         }
-        if(nins)
+        if(nins || hasin)
         {
-            offset = (size_t)hasin * x->f_ninstances;
-            for(j = 0; j < nins; ++j)
+            nsamples = (x->f_ninstances * (size_t)hasin + nins) * (size_t)sp[0]->s_n;
+            x->f_sigin = (t_sample *)getbytes(nsamples * sizeof(t_sample));
+            if(x->f_sigin)
             {
-                for(i = 0; i < x->f_ninstances; ++i)
+                x->f_nsigin = nsamples;
+                if(hasin)
                 {
-                    hoa_process_instance_set_inlet_sig(x->f_instances+i, j+1, sp[offset + j]->s_vec);
+                    for(i = 0; i < x->f_ninstances; ++i)
+                    {
+                        nsamples = i * (size_t)sp[0]->s_n;
+                        hoa_process_instance_set_inlet_sig(x->f_instances+i, 0, x->f_sigin + nsamples);
+                    }
+                }
+                if(nins)
+                {
+                    offset = (size_t)hasin * x->f_ninstances;
+                    for(j = 0; j < nins; ++j)
+                    {
+                        for(i = 0; i < x->f_ninstances; ++i)
+                        {
+                            nsamples = (offset + j) * (size_t)sp[0]->s_n;
+                            hoa_process_instance_set_inlet_sig(x->f_instances+i, j+1, x->f_sigin + nsamples);
+                        }
+                    }
                 }
             }
+            else
+            {
+                pd_error(x, "hoa.2d.process~ can't allocate memory.");
+                return;
+            }
         }
+        
         
         if(x->f_sigout && x->f_nsigout)
         {
