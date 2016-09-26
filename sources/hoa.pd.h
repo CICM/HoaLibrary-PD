@@ -56,6 +56,7 @@ typedef struct _hoa_io_tilde
     t_object    f_obj;
     int         f_extra;
     t_sample*   f_signal;
+    t_float     f_f;
     struct _hoa_io_tilde* f_next;
 } t_hoa_io_tilde;
 
@@ -86,6 +87,9 @@ char hoa_process_instance_has_inputs_sig_static(t_hoa_process_instance* x);
 size_t hoa_process_instance_get_ninputs_sig_extra(t_hoa_process_instance* x);
 char hoa_process_instance_has_outputs_sig_static(t_hoa_process_instance* x);
 size_t hoa_process_instance_get_noutputs_sig_extra(t_hoa_process_instance* x);
+
+void hoa_process_instance_set_inlet_sig(t_hoa_process_instance* x, size_t index, t_sample* s);
+void hoa_process_instance_set_outlet_sig(t_hoa_process_instance* x, size_t index, t_sample* s);
 
 
 #endif //HOA_2D_PD_INCLUDE

@@ -27,6 +27,8 @@ typedef struct _hoa_process
     
     size_t                      f_nins;
     struct _hoa_process_inlet*  f_ins;
+    size_t                      f_nsigout;
+    t_sample*                   f_sigout;
 } t_hoa_2d_process_tilde;
 
 typedef struct _hoa_process_inlet
@@ -45,105 +47,113 @@ static t_symbol*    hoa_sym_harmonics;
 static t_symbol*    hoa_sym_planewaves;
 static t_symbol*    hoa_sym_2d;
 
-
 static void hoa_2d_process_tilde_perform(t_hoa_2d_process_tilde *x, size_t sampleframes,
                                 size_t nins, t_sample **ins,
                                 size_t nouts, t_sample **outs)
 {
     size_t i;
+    for(i = 0; i < nouts; i++)
+    {
+        memset(x->f_sigout+i*sampleframes, 0, (size_t)sampleframes * sizeof(t_sample));
+    }
     x->f_method((t_pd *)x->f_block);
     for(i = 0; i < nouts; i++)
     {
-        int todo;
-        //memcpy(outs[i], x->f_outlets_signals[size_t(i)], size_t(sampleframe) * sizeof(t_sample));
-        //memset(x->f_outlets_signals[size_t(i)], 0, size_t(sampleframe) * sizeof(t_sample));
+        memcpy(outs[i], x->f_sigout+i*sampleframes, (size_t)sampleframes * sizeof(t_sample));
     }
 }
 
 
 static void hoa_2d_process_tilde_dsp(t_hoa_2d_process_tilde *x, t_signal **sp)
 {
-    /*
-    if(!x->f_global && !x->f_switch)
+    size_t i, j, offset, nsamples;
+    char hasin = 0, hasout = 0;
+    size_t nins = 0, nouts = 0;
+    char thasin, thasout;
+    size_t tnins, tnouts;
+    if(x->f_block && x->f_method)
     {
-        pd_error(x, "process~ not initialized can't compile DSP chain.");
-        return;
-    }
-    vector<t_sample*> ins;
-    vector<t_sample*> ixtra;
-    vector<t_sample*> outs;
-    vector<t_sample*> oxtra;
-    bool have_sig_ins   = false;
-    bool have_sig_outs  = false;
-    ulong max_sig_ins_extra     = 0ul;
-    ulong max_sig_outs_extra    = 0ul;
-    
-    for(ulong i = 0; i < x->f_outlets_signals.size(); i++)
-    {
-        memset(x->f_outlets_signals[i], 0, HOA_MAXBLKSIZE * sizeof(t_sample));
-    }
-    for(ulong i = 0; i < x->f_instances.size(); i++)
-    {
-        have_sig_ins = max(have_sig_ins, x->f_instances[i]->hasNormalSignalInputs());
-        have_sig_outs = max(have_sig_outs, x->f_instances[i]->hasNormalSignalOutputs());
-        max_sig_ins_extra   = max(max_sig_ins_extra, x->f_instances[i]->getMaximumSignalInputExtraIndex());
-        max_sig_outs_extra  = max(max_sig_outs_extra, x->f_instances[i]->getMaximumSignalOutputExtraIndex());
-    }
-    if(have_sig_ins)
-    {
-        for(ulong i = 0; i < x->f_instances.size(); i++)
+        for(i = 0; i < x->f_ninstances; ++i)
         {
-            ins.push_back(eobj_getsignalinput(x, long(i)));
+            thasin = hoa_process_instance_has_inputs_sig_static(x->f_instances+i);
+            thasout = hoa_process_instance_has_outputs_sig_static(x->f_instances+i);
+            tnins = hoa_process_instance_get_ninputs_sig_extra(x->f_instances+i);
+            tnouts = hoa_process_instance_get_noutputs_sig_extra(x->f_instances+i);
+            
+            hasin = thasin != 0 ? 1 : hasin;
+            hasout = thasout != 0 ? 1 : hasout;
+            nins = tnins > nins ? tnins : nins;
+            nouts = tnouts > nouts ? tnouts : nouts;
         }
-        for(ulong i = 0; i < max_sig_ins_extra; i++)
+        
+        if(hasin)
         {
-            ixtra.push_back(eobj_getsignalinput(x, long(i+x->f_instances.size())));
+            for(i = 0; i < x->f_ninstances; ++i)
+            {
+                hoa_process_instance_set_inlet_sig(x->f_instances+i, 0, sp[i]->s_vec);
+            }
         }
+        if(nins)
+        {
+            offset = (size_t)hasin * x->f_ninstances;
+            for(j = 0; j < nins; ++j)
+            {
+                for(i = 0; i < x->f_ninstances; ++i)
+                {
+                    hoa_process_instance_set_inlet_sig(x->f_instances+i, j+1, sp[offset + j]->s_vec);
+                }
+            }
+        }
+        
+        if(x->f_sigout && x->f_nsigout)
+        {
+            freebytes(x->f_sigout, x->f_nsigout * sizeof(t_sample));
+            x->f_sigout     = NULL;
+            x->f_nsigout    = 0;
+        }
+        
+        if(nouts || hasout)
+        {
+            nsamples = (x->f_ninstances * (size_t)hasout + nouts) * (size_t)sp[0]->s_n;
+            x->f_sigout = (t_sample *)getbytes(nsamples * sizeof(t_sample));
+            if(x->f_sigout)
+            {
+                x->f_nsigout = nsamples;
+                if(hasout)
+                {
+                    for(i = 0; i < x->f_ninstances; ++i)
+                    {
+                        nsamples = i * (size_t)sp[0]->s_n;
+                        hoa_process_instance_set_outlet_sig(x->f_instances+i, 0, x->f_sigout + nsamples);
+                    }
+                }
+                if(nouts)
+                {
+                    offset = (size_t)hasout * x->f_ninstances;
+                    for(j = 0; j < nouts; ++j)
+                    {
+                        for(i = 0; i < x->f_ninstances; ++i)
+                        {
+                            nsamples = (offset + j) * (size_t)sp[0]->s_n;
+                            hoa_process_instance_set_outlet_sig(x->f_instances+i, j+1, x->f_sigout + nsamples);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                pd_error(x, "hoa.2d.process~ can't allocate memory.");
+                return;
+            }
+        }
+        
+        mess0((t_pd *)x->f_canvas, gensym("dsp"));
+        hoa_processor_prepare(x, (t_hoa_processor_perfm)hoa_2d_process_tilde_perform, sp);
     }
     else
     {
-        for(ulong i = 0; i < x->f_instances.size(); i++)
-        {
-            ins.push_back(NULL);
-        }
-        for(ulong i = 0; i < max_sig_ins_extra; i++)
-        {
-            ixtra.push_back(eobj_getsignalinput(x, long(i)));
-        }
+        pd_error(x, "hoa.2d.process~ not initialized can't compile DSP chain.");
     }
-    if(have_sig_outs)
-    {
-        for(ulong i = 0; i < x->f_instances.size(); i++)
-        {
-            outs.push_back(x->f_outlets_signals[i]);
-        }
-        for(ulong i = 0; i < max_sig_outs_extra; i++)
-        {
-            oxtra.push_back(x->f_outlets_signals[i+x->f_instances.size()]);
-        }
-    }
-    else
-    {
-        for(ulong i = 0; i < x->f_instances.size(); i++)
-        {
-            outs.push_back(NULL);
-        }
-        for(ulong i = 0; i < max_sig_outs_extra; i++)
-        {
-            oxtra.push_back(x->f_outlets_signals[i]);
-        }
-    }
-    for(ulong i = 0; i < x->f_instances.size(); i++)
-    {
-        if(!x->f_instances[i] || x->f_instances[i]->prepareDsp(ins[i], ixtra, outs[i], oxtra))
-        {
-            pd_error(x, "hoa.process~ : Error while compiling the dsp chain.");
-            return;
-        }
-    }
-    mess0((t_pd *)x->f_global, gensym("dsp"));
-    object_method(dsp, gensym("dsp_add"), x, (t_method)hoa_2d_process_tilde_perform, 0, NULL);
-     */
 }
 
 static void hoa_2d_process_tilde_click(t_hoa_2d_process_tilde *x)
@@ -219,6 +229,8 @@ static char hoa_2d_process_tilde_init(t_hoa_2d_process_tilde* x)
     x->f_ins        = NULL;
     x->f_nins       = 0;
     x->f_target     = (size_t)-1;
+    x->f_sigout     = NULL;
+    x->f_nsigout    = 0;
     if(x->f_canvas)
     {
         pd_popsym((t_pd *)x->f_canvas);
@@ -232,7 +244,7 @@ static char hoa_2d_process_tilde_init(t_hoa_2d_process_tilde* x)
         {
             x->f_block = (t_object *)x->f_canvas->gl_list;
             x->f_method = x->f_block->te_g.g_pd->c_bangmethod;
-            return x->f_method != NULL;
+            return 1;
         }
     }
     return 0;
@@ -388,7 +400,7 @@ static void hoa_2d_process_tilde_alloc_signals(t_hoa_2d_process_tilde* x)
         nins = tnins > nins ? tnins : nins;
         nouts = tnouts > nouts ? tnouts : nouts;
     }
-
+    
     hoa_processor_init(x, x->f_ninstances * (size_t)hasin + nins, x->f_ninstances * (size_t)hasout + nouts);
 }
 
@@ -407,6 +419,11 @@ static void hoa_2d_process_tilde_free(t_hoa_2d_process_tilde *x)
     {
         freebytes(x->f_ins, x->f_nins * sizeof(t_hoa_process_inlet));
         x->f_ins = NULL;
+    }
+    if(x->f_sigout && x->f_nsigout)
+    {
+        freebytes(x->f_sigout, x->f_nsigout * sizeof(t_sample));
+        x->f_sigout = NULL;
     }
     hoa_processor_clear(x);
 }
@@ -566,13 +583,8 @@ extern void setup_hoa0x2e2d0x2eprocess_tilde(void)
         class_addmethod(c, (t_method)hoa_2d_process_tilde_click,    gensym("click"),    A_NULL, 0);
         class_addmethod(c, (t_method)hoa_2d_process_tilde_open,     gensym("open"),     A_FLOAT, A_DEFFLOAT, 0);
         class_addmethod(c, (t_method)hoa_2d_process_tilde_target,   gensym("target"),   A_FLOAT, A_DEFFLOAT, 0);
+        class_addmethod(c, (t_method)hoa_2d_process_tilde_dsp,      gensym("dsp"),      A_CANT, 0);
     }
-    
-    /*
-    class_addmethod(c, (t_method)hoa_2d_process_tilde_dsp,        "dsp",      A_CANT, 0);
-    
-     */
-
     hoa_2d_process_tilde_class = c;
     
     hoa_sym_switch      = gensym("switch~");

@@ -43,6 +43,7 @@ extern void setup_hoa0x2eout_tilde(void)
 
     if(c)
     {
+        CLASS_MAINSIGNALIN(c, t_hoa_io_tilde, f_f);
         class_addmethod(c, (t_method)hoa_out_tilde_dsp, gensym("dsp"), A_CANT, 0);
     }
 

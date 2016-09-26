@@ -282,119 +282,34 @@ size_t hoa_process_instance_get_noutputs_sig_extra(t_hoa_process_instance* x)
     }
     return index;
 }
-/*
 
-
-inline ulong getMaximumSignalInputExtraIndex() const
+void hoa_process_instance_set_inlet_sig(t_hoa_process_instance* x, size_t index, t_sample* s)
 {
-    ulong n = 0ul;
-    for(ulong i = 0; i < f_ins_extra_sig.size(); i++)
+    t_hoa_io_tilde* in = x->f_ins_sig;
+    while(in != NULL)
     {
-        if(ulong(f_ins_extra_sig[i]->f_extra) > n)
-            n = ulong(f_ins_extra_sig[i]->f_extra);
-    }
-    return n;
-}
-
-inline bool hasNormalOutputs() const
-{
-    return !f_outs.empty();
-}
-
-inline bool hasNormalSignalOutputs() const
-{
-    return !f_outs_sig.empty();
-}
-
-inline ulong getMaximumOutputExtraIndex() const
-{
-    ulong n = 0ul;
-    for(ulong i = 0; i < f_outs_extra.size(); i++)
-    {
-        if(ulong(f_outs_extra[i]->f_extra) > n)
-            n = ulong(f_outs_extra[i]->f_extra);
-    }
-    return n;
-}
-
-inline ulong getMaximumSignalOutputExtraIndex() const
-{
-    ulong n = 0ul;
-    for(ulong i = 0; i < f_outs_extra_sig.size(); i++)
-    {
-        if(ulong(f_outs_extra_sig[i]->f_extra) > n)
-            n = ulong(f_outs_extra_sig[i]->f_extra);
-    }
-    return n;
-}
-
-inline void setNomalOutlet(t_outlet* outlet)
-{
-    for(ulong i = 0; i < f_outs.size(); i++)
-    {
-        f_outs[i]->f_outlet = outlet;
-    }
-}
-
-inline void setExtraOutlet(t_outlet* outlet, ulong index)
-{
-    for(ulong i = 0; i < f_outs_extra.size(); i++)
-    {
-        if(ulong(f_outs_extra[i]->f_extra) == index)
+        if(in->f_extra == index)
         {
-            f_outs_extra[i]->f_outlet = outlet;
+            in->f_signal = s;
         }
+        in = in->f_next;
     }
 }
 
-
-bool prepareDsp(t_sample* in, vector<t_sample*>& ixtra, t_sample* out, vector<t_sample*>& oxtra)
+void hoa_process_instance_set_outlet_sig(t_hoa_process_instance* x, size_t index, t_sample* s)
 {
-    if(hasNormalSignalInputs())
+    t_hoa_io_tilde* out = x->f_outs_sig;
+    while(out != NULL)
     {
-        if(!in)
+        if(out->f_extra == index)
         {
-            bug("process don't have input signal.");
-            return true;
+            out->f_signal = s;
         }
-        for(size_t i = 0; i < f_ins_sig.size(); i++)
-        {
-            f_ins_sig[i]->f_signal = in;
-        }
+        out = out->f_next;
     }
-    for(size_t i = 0; i < f_ins_extra_sig.size(); i++)
-    {
-        if(ulong(f_ins_extra_sig[i]->f_extra) > ixtra.size() || !ixtra[size_t(f_ins_extra_sig[i]->f_extra-1)])
-        {
-            bug("process don't have input signal extra %i.", f_ins_extra_sig[i]->f_extra);
-            return true;
-        }
-        f_ins_extra_sig[i]->f_signal = ixtra[size_t(f_ins_extra_sig[i]->f_extra-1)];
-    }
-    if(hasNormalSignalOutputs())
-    {
-        if(!out)
-        {
-            bug("process don't have output signal.");
-            return true;
-        }
-        for(size_t i = 0; i < f_outs_sig.size(); i++)
-        {
-            f_outs_sig[i]->f_signal = out;
-        }
-    }
-    for(size_t i = 0; i < f_outs_extra_sig.size(); i++)
-    {
-        if(ulong(f_outs_extra_sig[i]->f_extra) > oxtra.size() || !oxtra[size_t(f_outs_extra_sig[i]->f_extra-1)])
-        {
-            bug("process don't have output signal extra %i.", f_outs_extra_sig[i]->f_extra);
-            return true;
-        }
-        f_outs_extra_sig[i]->f_signal = oxtra[size_t(f_outs_extra_sig[i]->f_extra-1)];
-    }
-    return false;
 }
- */
+
+
 
 
 
