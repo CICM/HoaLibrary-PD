@@ -24,9 +24,14 @@ typedef struct _hoa_processor
     t_hoa_processor_perfm f_method;
 } t_hoa_processor;
 
+size_t hoa_2d_get_number_of_harmonics(size_t order);
 size_t hoa_2d_get_index(size_t degree, long order);
 long hoa_2d_get_azimuthal_order(size_t index);
 size_t hoa_2d_get_degree(size_t index);
+size_t hoa_3d_get_number_of_harmonics(size_t order);
+size_t hoa_3d_get_index(size_t degree, long order);
+long hoa_3d_get_azimuthal_order(size_t index);
+size_t hoa_3d_get_degree(size_t index);
 
 size_t hoa_processor_clip_order(void* obj, size_t order);
 size_t hoa_processor_clip_nplanewaves(void* obj, size_t nplanewaves);

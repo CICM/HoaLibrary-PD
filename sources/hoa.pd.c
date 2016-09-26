@@ -5,11 +5,16 @@
 */
 
 #include "hoa.pd.h"
-#include "stdlib.h"
+#include <stdlib.h>
+#include <math.h>
 
 static char hoaname[] = "hoa.library v2.3-beta";
 static char hoaversion[] = "v2.3-beta";
 
+size_t hoa_2d_get_number_of_harmonics(size_t order)
+{
+    return order * 2 + 1;
+}
 
 size_t hoa_2d_get_index(size_t degree, long order)
 {
@@ -24,6 +29,26 @@ long hoa_2d_get_azimuthal_order(size_t index)
 size_t hoa_2d_get_degree(size_t index)
 {
     return (index + index % 2) / 2ul;
+}
+
+size_t hoa_3d_get_number_of_harmonics(size_t order)
+{
+    return (order + 1) * (order + 1);
+}
+
+size_t hoa_3d_get_index(size_t degree, long order)
+{
+    return (size_t)((long)(degree * (degree + 1)) + order);
+}
+
+long hoa_3d_get_azimuthal_order(size_t index)
+{
+    return (long)(index) - ((long)(sqrt((double)(index))) * ((long)(sqrt((double)(index))) + 1));
+}
+
+size_t hoa_3d_get_degree(size_t index)
+{
+    return (size_t)(sqrt((double)(index)));
 }
 
 size_t hoa_processor_clip_order(void* obj, size_t order)

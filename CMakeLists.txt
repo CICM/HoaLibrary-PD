@@ -31,10 +31,6 @@ add_pd_external(hoa.out hoa.out ${hoa_pd_path}/common/hoa.out.c)
 add_pd_external(hoa.in_tilde hoa.in~ ${hoa_pd_path}/common/hoa.in_tilde.c)
 add_pd_external(hoa.out_tilde hoa.out~ ${hoa_pd_path}/common/hoa.out_tilde.c)
 #add_pd_external(hoa.thisprocess_tilde hoa.thisprocess~ ${hoa_pd_path}/common/hoa.thisprocess_tilde.c)
-file(GLOB hoa_pd_2d_process_tilde_sources ${hoa_pd_sources}
-${hoa_pd_path}/common/hoa.process_instance.c
-${hoa_pd_path}/common/hoa.2d.process_tilde.c)
-add_pd_external(hoa.2d.process_tilde hoa.2d.process~ "${hoa_pd_2d_process_tilde_sources}")
 
 # 2D Part
 file(GLOB hoa_pd_2d_encoder_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/2d/hoa.2d.encoder_tilde.cpp)
@@ -45,6 +41,8 @@ file(GLOB hoa_pd_2d_wider_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/2d/hoa.
 add_pd_external(hoa.2d.wider_tilde hoa.2d.wider~ "${hoa_pd_2d_wider_tilde_sources}")
 file(GLOB hoa_pd_2d_decoder_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/2d/hoa.2d.decoder_tilde.cpp)
 add_pd_external(hoa.2d.decoder_tilde hoa.2d.decoder~ "${hoa_pd_2d_decoder_tilde_sources}")
+file(GLOB hoa_pd_2d_process_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/common/hoa.process_instance.c ${hoa_pd_path}/2d/hoa.2d.process_tilde.c)
+add_pd_external(hoa.2d.process_tilde hoa.2d.process~ "${hoa_pd_2d_process_tilde_sources}")
 #file(GLOB hoa_pd_2d_map_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/2d/hoa.2d.map_tilde.cpp)
 #add_pd_external(hoa.2d.map_tilde hoa.2d.map~ "${hoa_pd_2d_map_tilde_sources}")
 file(GLOB hoa_pd_2d_rotate_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/2d/hoa.2d.rotate_tilde.cpp)
@@ -63,6 +61,8 @@ file(GLOB hoa_pd_3d_wider_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/3d/hoa.
 add_pd_external(hoa.3d.wider_tilde hoa.3d.wider~ "${hoa_pd_3d_wider_tilde_sources}")
 file(GLOB hoa_pd_3d_decoder_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/3d/hoa.3d.decoder_tilde.cpp)
 add_pd_external(hoa.3d.decoder_tilde hoa.3d.decoder~ "${hoa_pd_3d_decoder_tilde_sources}")
+file(GLOB hoa_pd_3d_process_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/common/hoa.process_instance.c ${hoa_pd_path}/3d/hoa.3d.process_tilde.c)
+add_pd_external(hoa.3d.process_tilde hoa.3d.process~ "${hoa_pd_3d_process_tilde_sources}")
 #file(GLOB hoa_pd_3d_map_tilde_sources ${hoa_pd_sources} ${hoa_pd_path}/3d/hoa.3d.map_tilde.cpp)
 #add_pd_external(hoa.3d.map_tilde hoa.3d.map~ "${hoa_pd_3d_map_tilde_sources}")
 

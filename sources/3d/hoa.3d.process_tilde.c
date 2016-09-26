@@ -31,25 +31,25 @@ typedef struct _hoa_process
     t_sample*                   f_sigout;
     size_t                      f_nsigin;
     t_sample*                   f_sigin;
-} t_hoa_2d_process_tilde;
+} t_hoa_3d_process_tilde;
 
 typedef struct _hoa_process_inlet
 {
     t_class*                x_pd;
     size_t                  x_index;
-    t_hoa_2d_process_tilde* x_owner;
+    t_hoa_3d_process_tilde* x_owner;
 } t_hoa_process_inlet;
 
 
-static t_class*     hoa_2d_process_tilde_class;
+static t_class*     hoa_3d_process_tilde_class;
 static t_symbol*    hoa_sym_switch;
 static t_symbol*    hoa_sym_block;
 static t_symbol*    hoa_sym_obj;
 static t_symbol*    hoa_sym_harmonics;
 static t_symbol*    hoa_sym_planewaves;
-static t_symbol*    hoa_sym_2d;
+static t_symbol*    hoa_sym_3d;
 
-static void hoa_2d_process_tilde_perform(t_hoa_2d_process_tilde *x, size_t sampleframes,
+static void hoa_3d_process_tilde_perform(t_hoa_3d_process_tilde *x, size_t sampleframes,
                                 size_t nins, t_sample **ins,
                                 size_t nouts, t_sample **outs)
 {
@@ -67,7 +67,7 @@ static void hoa_2d_process_tilde_perform(t_hoa_2d_process_tilde *x, size_t sampl
 }
 
 
-static void hoa_2d_process_tilde_dsp(t_hoa_2d_process_tilde *x, t_signal **sp)
+static void hoa_3d_process_tilde_dsp(t_hoa_3d_process_tilde *x, t_signal **sp)
 {
     size_t i, j, offset, nsamples;
     char hasin = 0, hasout = 0;
@@ -125,7 +125,7 @@ static void hoa_2d_process_tilde_dsp(t_hoa_2d_process_tilde *x, t_signal **sp)
             }
             else
             {
-                pd_error(x, "hoa.2d.process~ can't allocate memory.");
+                pd_error(x, "hoa.3d.process~ can't allocate memory.");
                 return;
             }
         }
@@ -168,21 +168,21 @@ static void hoa_2d_process_tilde_dsp(t_hoa_2d_process_tilde *x, t_signal **sp)
             }
             else
             {
-                pd_error(x, "hoa.2d.process~ can't allocate memory.");
+                pd_error(x, "hoa.3d.process~ can't allocate memory.");
                 return;
             }
         }
         
         mess0((t_pd *)x->f_canvas, gensym("dsp"));
-        hoa_processor_prepare(x, (t_hoa_processor_perfm)hoa_2d_process_tilde_perform, sp);
+        hoa_processor_prepare(x, (t_hoa_processor_perfm)hoa_3d_process_tilde_perform, sp);
     }
     else
     {
-        pd_error(x, "hoa.2d.process~ not initialized can't compile DSP chain.");
+        pd_error(x, "hoa.3d.process~ not initialized can't compile DSP chain.");
     }
 }
 
-static void hoa_2d_process_tilde_click(t_hoa_2d_process_tilde *x)
+static void hoa_3d_process_tilde_click(t_hoa_3d_process_tilde *x)
 {
     if(x->f_instances)
     {
@@ -190,7 +190,7 @@ static void hoa_2d_process_tilde_click(t_hoa_2d_process_tilde *x)
     }
 }
 
-static void hoa_2d_process_tilde_open(t_hoa_2d_process_tilde *x, t_float f1, t_float f2)
+static void hoa_3d_process_tilde_open(t_hoa_3d_process_tilde *x, t_float f1, t_float f2)
 {
     size_t i, index;
     if(f1 < 0)
@@ -204,7 +204,7 @@ static void hoa_2d_process_tilde_open(t_hoa_2d_process_tilde *x, t_float f1, t_f
     {
         if(x->f_domain == hoa_sym_harmonics)
         {
-            index = hoa_2d_get_index((size_t)f1, f2);
+            index = hoa_3d_get_index((size_t)f1, f2);
         }
         else
         {
@@ -216,12 +216,12 @@ static void hoa_2d_process_tilde_open(t_hoa_2d_process_tilde *x, t_float f1, t_f
         }
         else
         {
-            pd_error(x, "hoa.2d.process~: open argument out of bounds.");
+            pd_error(x, "hoa.3d.process~: open argument out of bounds.");
         }
     }
 }
 
-static void hoa_2d_process_tilde_target(t_hoa_2d_process_tilde *x, t_float f1, t_float f2)
+static void hoa_3d_process_tilde_target(t_hoa_3d_process_tilde *x, t_float f1, t_float f2)
 {
     if(f1 < 0)
     {
@@ -231,7 +231,7 @@ static void hoa_2d_process_tilde_target(t_hoa_2d_process_tilde *x, t_float f1, t
     {
         if(x->f_domain == hoa_sym_harmonics)
         {
-            x->f_target = hoa_2d_get_index((size_t)f1, f2);
+            x->f_target = hoa_3d_get_index((size_t)f1, f2);
         }
         else
         {
@@ -240,12 +240,12 @@ static void hoa_2d_process_tilde_target(t_hoa_2d_process_tilde *x, t_float f1, t
         if(x->f_target >= x->f_ninstances)
         {
             x->f_target = -1;
-            pd_error(x, "hoa.2d.process~: open argument out of bounds.");
+            pd_error(x, "hoa.3d.process~: open argument out of bounds.");
         }
     }
 }
 
-static char hoa_2d_process_tilde_init(t_hoa_2d_process_tilde* x)
+static char hoa_3d_process_tilde_init(t_hoa_3d_process_tilde* x)
 {
     t_atom av[3];
     x->f_block      = (t_object *)NULL;
@@ -277,7 +277,7 @@ static char hoa_2d_process_tilde_init(t_hoa_2d_process_tilde* x)
 }
 
 
-static char hoa_2d_process_tilde_load_planewaves(t_hoa_2d_process_tilde* x, size_t nplws, t_symbol* name, int argc, t_atom *argv)
+static char hoa_3d_process_tilde_load_planewaves(t_hoa_3d_process_tilde* x, size_t nplws, t_symbol* name, int argc, t_atom *argv)
 {
     int ac;
     t_atom* av;
@@ -290,7 +290,7 @@ static char hoa_2d_process_tilde_load_planewaves(t_hoa_2d_process_tilde* x, size
         av = (t_atom *)getbytes(ac * sizeof(t_atom));
         if(ac && av)
         {
-            SETSYMBOL(av, hoa_sym_2d);
+            SETSYMBOL(av, hoa_sym_3d);
             SETSYMBOL(av+1, hoa_sym_planewaves);
             SETFLOAT(av+2, (float)nplws);
             memcpy(av+4, argv, argc * sizeof(t_atom));
@@ -316,12 +316,12 @@ static char hoa_2d_process_tilde_load_planewaves(t_hoa_2d_process_tilde* x, size
     return 0;
 }
 
-static char hoa_2d_process_tilde_load_harmonics(t_hoa_2d_process_tilde* x, size_t order, t_symbol* name, int argc, t_atom *argv)
+static char hoa_3d_process_tilde_load_harmonics(t_hoa_3d_process_tilde* x, size_t order, t_symbol* name, int argc, t_atom *argv)
 {
     int ac;
     t_atom* av;
     size_t i;
-    size_t ninstance  = (order * 2 + 1);
+    size_t ninstance  = hoa_3d_get_number_of_harmonics(order);
     x->f_instances    = (t_hoa_process_instance *)getbytes(ninstance * sizeof(t_hoa_process_instance));
     if(x->f_instances)
     {
@@ -329,18 +329,18 @@ static char hoa_2d_process_tilde_load_harmonics(t_hoa_2d_process_tilde* x, size_
         av = (t_atom *)getbytes(ac * sizeof(t_atom));
         if(ac && av)
         {
-            SETSYMBOL(av, hoa_sym_2d);
+            SETSYMBOL(av, hoa_sym_3d);
             SETSYMBOL(av+1, hoa_sym_harmonics);
             SETFLOAT(av+2, (float)order);
             memcpy(av+5, argv, argc * sizeof(t_atom));
             for(i = 0; i < ninstance; ++i)
             {
-                SETFLOAT(av+3, (float)hoa_2d_get_degree(i));
-                SETFLOAT(av+4, (float)hoa_2d_get_azimuthal_order(i));
+                SETFLOAT(av+3, (float)hoa_3d_get_degree(i));
+                SETFLOAT(av+4, (float)hoa_3d_get_azimuthal_order(i));
                 if(!hoa_process_instance_init(x->f_instances+i, x->f_canvas, name, ac, av))
                 {
                     freebytes(av, ac * sizeof(t_atom));
-                    freebytes(x->f_instances, order * 2 + 1 * sizeof(t_hoa_process_instance));
+                    freebytes(x->f_instances, ninstance * sizeof(t_hoa_process_instance));
                     x->f_instances = NULL;
                     return 0;
                 }
@@ -356,7 +356,7 @@ static char hoa_2d_process_tilde_load_harmonics(t_hoa_2d_process_tilde* x, size_
     return 0;
 }
 
-static void hoa_2d_process_tilde_alloc_inlets(t_hoa_2d_process_tilde* x)
+static void hoa_3d_process_tilde_alloc_inlets(t_hoa_3d_process_tilde* x)
 {
     size_t i = 0;
     size_t ninlets = 0, newval = 0;
@@ -386,7 +386,7 @@ static void hoa_2d_process_tilde_alloc_inlets(t_hoa_2d_process_tilde* x)
     }
 }
 
-static void hoa_2d_process_tilde_alloc_outlets(t_hoa_2d_process_tilde* x)
+static void hoa_3d_process_tilde_alloc_outlets(t_hoa_3d_process_tilde* x)
 {
     size_t i = 0, j = 0;
     size_t noutlets = 0, newval = 0;
@@ -409,7 +409,7 @@ static void hoa_2d_process_tilde_alloc_outlets(t_hoa_2d_process_tilde* x)
     }
 }
 
-static void hoa_2d_process_tilde_alloc_signals(t_hoa_2d_process_tilde* x)
+static void hoa_3d_process_tilde_alloc_signals(t_hoa_3d_process_tilde* x)
 {
     size_t i;
     char hasin = 0, hasout = 0;
@@ -432,7 +432,7 @@ static void hoa_2d_process_tilde_alloc_signals(t_hoa_2d_process_tilde* x)
     hoa_processor_init(x, x->f_ninstances * (size_t)hasin + nins, x->f_ninstances * (size_t)hasout + nouts);
 }
 
-static void hoa_2d_process_tilde_free(t_hoa_2d_process_tilde *x)
+static void hoa_3d_process_tilde_free(t_hoa_3d_process_tilde *x)
 {
     if(x->f_canvas)
     {
@@ -456,50 +456,50 @@ static void hoa_2d_process_tilde_free(t_hoa_2d_process_tilde *x)
     hoa_processor_clear(x);
 }
 
-static void *hoa_2d_process_tilde_new(t_symbol *s, int argc, t_atom *argv)
+static void *hoa_3d_process_tilde_new(t_symbol *s, int argc, t_atom *argv)
 {
     size_t order, nplws;
     t_symbol *patch, *domain;
     
     t_canvas* current = canvas_getcurrent();
-    t_hoa_2d_process_tilde *x = (t_hoa_2d_process_tilde *)pd_new(hoa_2d_process_tilde_class);
+    t_hoa_3d_process_tilde *x = (t_hoa_3d_process_tilde *)pd_new(hoa_3d_process_tilde_class);
     if(x)
     {
         patch   = atom_getsymbolarg(1, argc, argv);
         domain  = atom_getsymbolarg(2, argc, argv);
-        if(hoa_2d_process_tilde_init(x))
+        if(hoa_3d_process_tilde_init(x))
         {
             if(patch)
             {
                 if(domain == hoa_sym_harmonics)
                 {
                     order = hoa_processor_clip_order(x, (size_t)atom_getfloatarg(0, argc, argv));
-                    if(!hoa_2d_process_tilde_load_harmonics(x, order, patch, argc < 3 ? 0 : argc-3, argv+3))
+                    if(!hoa_3d_process_tilde_load_harmonics(x, order, patch, argc < 3 ? 0 : argc-3, argv+3))
                     {
-                        pd_error(x, "hoa.2d.process~: can't load the patch %s.pd.", patch->s_name);
+                        pd_error(x, "hoa.3d.process~: can't load the patch %s.pd.", patch->s_name);
                     }
                     x->f_domain = hoa_sym_harmonics;
                 }
                 else
                 {
                     nplws = hoa_processor_clip_nplanewaves(x, (size_t)atom_getfloatarg(0, argc, argv));
-                    if(!hoa_2d_process_tilde_load_planewaves(x, nplws, patch, argc < 3 ? 0 : argc-3, argv+3))
+                    if(!hoa_3d_process_tilde_load_planewaves(x, nplws, patch, argc < 3 ? 0 : argc-3, argv+3))
                     {
-                        pd_error(x, "hoa.2d.process~: can't load the patch %s.pd.", patch->s_name);
+                        pd_error(x, "hoa.3d.process~: can't load the patch %s.pd.", patch->s_name);
                     }
                     if(domain != hoa_sym_planewaves)
                     {
-                        pd_error(x, "hoa.2d.process~: bad argument, third argument must harmonics or planewaves.");
+                        pd_error(x, "hoa.3d.process~: bad argument, third argument must harmonics or planewaves.");
                     }
                     x->f_domain = hoa_sym_planewaves;
                 }
-                hoa_2d_process_tilde_alloc_signals(x);
-                hoa_2d_process_tilde_alloc_inlets(x);
-                hoa_2d_process_tilde_alloc_outlets(x);
+                hoa_3d_process_tilde_alloc_signals(x);
+                hoa_3d_process_tilde_alloc_inlets(x);
+                hoa_3d_process_tilde_alloc_outlets(x);
             }
             else
             {
-                pd_error(x, "hoa.2d.process~: bad argument, second argument must be a patch name.");
+                pd_error(x, "hoa.3d.process~: bad argument, second argument must be a patch name.");
             }
         }
     }
@@ -599,32 +599,31 @@ static void hoa_process_inlet_anything(t_hoa_process_inlet *x, t_symbol* s, int 
     }
 }
 
-extern void setup_hoa0x2e2d0x2eprocess_tilde(void)
+extern void setup_hoa0x2e3d0x2eprocess_tilde(void)
 {
-    t_class* c = class_new(gensym("hoa.2d.process~"), (t_newmethod)hoa_2d_process_tilde_new, (t_method)hoa_2d_process_tilde_free,
-                           (size_t)sizeof(t_hoa_2d_process_tilde), CLASS_DEFAULT, A_GIMME, 0);
+    t_class* c = class_new(gensym("hoa.3d.process~"), (t_newmethod)hoa_3d_process_tilde_new, (t_method)hoa_3d_process_tilde_free,
+                           (size_t)sizeof(t_hoa_3d_process_tilde), CLASS_DEFAULT, A_GIMME, 0);
     
     if(c)
     {
-        CLASS_MAINSIGNALIN(c, t_hoa_2d_process_tilde, f_f);
-        class_addcreator((t_newmethod)hoa_2d_process_tilde_new,     gensym("hoa.process~"), A_GIMME, 0);
-        class_addmethod(c, (t_method)hoa_2d_process_tilde_click,    gensym("click"),    A_NULL, 0);
-        class_addmethod(c, (t_method)hoa_2d_process_tilde_open,     gensym("open"),     A_FLOAT, A_DEFFLOAT, 0);
-        class_addmethod(c, (t_method)hoa_2d_process_tilde_target,   gensym("target"),   A_FLOAT, A_DEFFLOAT, 0);
-        class_addmethod(c, (t_method)hoa_2d_process_tilde_dsp,      gensym("dsp"),      A_CANT, 0);
+        CLASS_MAINSIGNALIN(c, t_hoa_3d_process_tilde, f_f);
+        class_addmethod(c, (t_method)hoa_3d_process_tilde_click,    gensym("click"),    A_NULL, 0);
+        class_addmethod(c, (t_method)hoa_3d_process_tilde_open,     gensym("open"),     A_FLOAT, A_DEFFLOAT, 0);
+        class_addmethod(c, (t_method)hoa_3d_process_tilde_target,   gensym("target"),   A_FLOAT, A_DEFFLOAT, 0);
+        class_addmethod(c, (t_method)hoa_3d_process_tilde_dsp,      gensym("dsp"),      A_CANT, 0);
     }
-    hoa_2d_process_tilde_class = c;
+    hoa_3d_process_tilde_class = c;
     
     hoa_sym_switch      = gensym("switch~");
     hoa_sym_block       = gensym("block~");
     hoa_sym_obj         = gensym("obj");
     hoa_sym_harmonics   = gensym("harmonics");
     hoa_sym_planewaves  = gensym("planewaves");
-    hoa_sym_2d          = gensym("2d");
+    hoa_sym_3d          = gensym("3d");
 
     hoa_process_instance_setup();
     
-    c = class_new(gensym("hoa.2d.process.inlet"), 0, 0, sizeof(t_hoa_process_inlet), CLASS_PD, 0);
+    c = class_new(gensym("hoa.3d.process.inlet"), 0, 0, sizeof(t_hoa_process_inlet), CLASS_PD, 0);
     if(c)
     {
         class_addbang(c,    (t_method)hoa_process_inlet_bang);
