@@ -1,46 +1,46 @@
-#N canvas 83 23 772 567 10;
+#N canvas 83 23 662 545 10;
 #X declare -path ..;
-#X text 23 84 1st argument is the order., f 60;
-#X msg 518 301 \; pd dsp 1;
-#X msg 518 336 \; pd dsp 0;
-#X text 23 47 hoa.2d.decoder~ decodes an ambisonic sound field for
-several loudspeakers configurations or for headphones.;
-#X obj 667 76 hoa.pi~ 2;
-#X obj 667 54 phasor~ 0.3;
-#X obj 418 75 ../misc/hoa.hgain~;
-#X obj 418 297 ../misc/hoa.vmeter~;
-#X obj 418 386 hoa.dac~ 1 2, f 42;
-#X obj 667 297 ../misc/hoa.vmeter~;
-#X obj 475 477 declare -path ..;
-#X obj 475 500 hoa.credits;
-#X obj 555 500 hoa-help;
-#X obj 418 44 noise~;
-#X obj 30 11 cnv 15 200 20 empty empty hoa.2d.decoder~ 4 10 0 14 -233017
+#X text 8 72 1st argument is the order., f 60;
+#X msg 463 293 \; pd dsp 1;
+#X msg 463 328 \; pd dsp 0;
+#X text 8 35 hoa.2d.decoder~ decodes an ambisonic sound field for several
+loudspeakers configurations or for headphones.;
+#X obj 568 64 hoa.pi~ 2;
+#X obj 568 42 phasor~ 0.3;
+#X obj 403 63 ../misc/hoa.hgain~;
+#X obj 403 289 ../misc/hoa.vmeter~;
+#X obj 403 378 hoa.dac~ 1 2, f 28;
+#X obj 568 289 ../misc/hoa.vmeter~;
+#X obj 410 465 declare -path ..;
+#X obj 410 488 hoa.credits;
+#X obj 490 488 hoa-help;
+#X obj 403 32 noise~;
+#X obj 10 9 cnv 15 200 20 empty empty hoa.2d.decoder~ 4 10 0 14 -233017
 -66577 0;
-#X obj 418 106 hoa.2d.encoder~ 7, f 42;
-#X obj 418 267 hoa.2d.decoder~ 7 binaural 2 -crop 256, f 42;
-#X text 23 98 2nd argument is the decoding mode : regular \, irregular
+#X obj 403 94 hoa.2d.encoder~ 7, f 28;
+#X obj 403 255 hoa.2d.decoder~ 7 binaural 2 -crop 256, f 28;
+#X text 8 86 2nd argument is the decoding mode : regular \, irregular
 or binaural (for headphones)., f 60;
-#X text 23 167 • Regular decoding is used for a perfect circle of
+#X text 8 155 • Regular decoding is used for a perfect circle of
 loudspeakers \, where all the loudspeakers are to equally spaced. The
 minimum number of loudspeakers is 2 * order + 1 (default : 2 * order
 + 2). Ex:, f 60;
-#X obj 25 326 hoa.2d.decoder~ 7 irregular 5 -angles 0 30 110 250 330
+#X obj 10 314 hoa.2d.decoder~ 7 irregular 5 -angles 0 30 110 250 330
 ;
-#X obj 25 227 hoa.2d.decoder~ 7 regular 16 -offset 45, f 42;
-#X text 23 125 3rd argument is the number of loudspeakers (minmum 2
+#X obj 10 215 hoa.2d.decoder~ 7 regular 16 -offset 45, f 42;
+#X text 8 113 3rd argument is the number of loudspeakers (minmum 2
 * order + 1 for regular mode) for regular or irregular modes.;
-#X text 23 260 • Irregular decoding is used for other configurations
+#X text 8 248 • Irregular decoding is used for other configurations
 line mono (1) \, stereo (2) \, 3.1 (3) \, quadriphonie (4) \, 5.1 (5)
 \, 6.1 \, 7.1. You should use "inPhase" optimization to avoid artefacts.
 Ex:, f 60;
-#X text 23 424 -offset attribute defines the rotation of the loudspeakers
+#X text 8 412 -offset attribute defines the rotation of the loudspeakers
 (in degrees). Only available for regular and irregular modes.;
-#X text 23 464 -angles attribute defines the angles of the loudspeakers
+#X text 8 452 -angles attribute defines the angles of the loudspeakers
 (in degrees). Only available for irregular mode.;
-#X text 23 494 -crop attribute defines the size of the HRIRs (in samples).
+#X text 8 482 -crop attribute defines the size of the HRIRs (in samples).
 the maximum is 512 samples. Only available for binaural mode.;
-#X text 23 363 • Binaural decoding is used for headphones. If the
+#X text 8 351 • Binaural decoding is used for headphones. If the
 decoding cost too much CPU \, you can crop the HRIRs. Example on the
 right:;
 #X connect 4 0 15 1;
@@ -66,4 +66,4 @@ right:;
 #X connect 16 0 8 0;
 #X connect 16 1 8 1;
 #X connect 16 1 9 0;
-#X coords 0 567 1 566 100 60 0;
+#X coords 0 545 1 544 100 60 0;
