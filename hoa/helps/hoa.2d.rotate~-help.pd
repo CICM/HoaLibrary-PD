@@ -1,85 +1,85 @@
-#N canvas 330 82 562 615 10;
+#N canvas 182 223 562 615 10;
 #X obj 452 233 hoa.pi 2;
 #X obj 452 214 loadbang;
 #X obj 437 252 *~;
 #X obj 437 189 phasor~ 0.1;
 #X msg 330 373 \; pd dsp 1;
 #X msg 330 411 \; pd dsp 0;
-#X obj 139 335 hoa.2d.scope~ @size 153 153 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@order 4 @view 0 @gain 5 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor
-0.5 0.5 0.5 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj 139 523 hoa.dac~ 1:10 -----------;
 #X obj 437 295 ../misc/hoa.number~;
 #X obj 178 146 hoa.pi;
-#X obj 178 93 c.loadmess 0;
-#X obj 178 122 nbx @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
-@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
-#X obj 374 122 nbx @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
-@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
-#X obj 374 93 c.loadmess 1;
-#X obj 437 162 nbx @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
-@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
-#X obj 437 113 c.loadmess 0.1;
+#X obj 437 162 nbx 5 14 -1e+37 1e+37 0 0 "normal" @fontslant "roman"
+0 -8 0 10 -262144 -1 -1 0.1 256;
 #X text 444 134 Speed of;
 #X text 444 144 rotation;
 #X text 466 254 Angle of;
 #X text 466 264 rotation;
 #X text 466 274 in radian;
-#X obj 49 170 hoa.2d.encoder~ 4 ----;
-#X obj 245 170 hoa.2d.encoder~ 4 ----;
-#X obj 139 305 hoa.2d.rotate~ 4 --------;
-#X obj 139 491 hoa.2d.decoder~ 4 0 10 --;
 #X text 20 48 hoa.2d.rotate~ allows you to apply a rotation on the
 ambisonic sound field. The last inlet set the angle of the rotation.
 ;
-#X obj 245 122 hoa.soundrone;
-#X obj 49 122 hoa.soundgrain;
 #X obj 374 147 hoa.pi;
-#X obj 35 545 hoa.help.pub;
-#X obj 23 24 c.patcherinfos;
-#X obj 28 7 loadbang;
-#X obj 13 5 hoa.help.header;
-#X obj 421 5 hoa.help.also;
+#X obj 49 124 ../misc/hoa.hgain~;
+#X obj 49 102 osc~ 220;
+#X obj 178 93 loadbang;
+#X msg 178 115 0;
+#X obj 245 124 ../misc/hoa.hgain~;
+#X obj 139 305 hoa.2d.rotate~ 4, f 28;
+#X msg 465 107 0.1;
+#X obj 139 491 hoa.2d.decoder~ 4 regular 10;
+#X obj 139 523 hoa.dac~ 1:10, f 28;
+#X obj 444 377 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 444 397 hoa.connect;
+#X obj 49 170 hoa.2d.encoder~ 4;
+#X obj 245 170 hoa.2d.encoder~ 4;
+#X obj 435 30 loadbang;
+#X msg 435 52 1;
+#X obj 245 102 osc~ 440;
 #X connect 0 0 2 1;
 #X connect 1 0 0 0;
-#X connect 2 0 8 0;
+#X connect 2 0 6 0;
+#X connect 2 0 21 9;
 #X connect 3 0 2 0;
-#X connect 9 0 21 1;
-#X connect 10 0 11 0;
-#X connect 11 0 9 0;
-#X connect 12 0 28 0;
-#X connect 13 0 12 0;
-#X connect 14 0 3 0;
-#X connect 15 0 14 0;
+#X connect 7 0 27 1;
+#X connect 8 0 3 0;
+#X connect 15 0 28 1;
+#X connect 16 0 27 0;
+#X connect 17 0 16 0;
+#X connect 18 0 19 0;
+#X connect 19 0 7 0;
+#X connect 20 0 28 0;
 #X connect 21 0 23 0;
 #X connect 21 1 23 1;
 #X connect 21 2 23 2;
 #X connect 21 3 23 3;
-#X connect 22 0 23 0;
-#X connect 22 1 23 1;
-#X connect 22 2 23 2;
-#X connect 22 3 23 3;
-#X connect 23 0 6 0;
+#X connect 21 4 23 4;
+#X connect 21 5 23 5;
+#X connect 21 6 23 6;
+#X connect 21 7 23 7;
+#X connect 21 8 23 8;
+#X connect 22 0 8 0;
 #X connect 23 0 24 0;
-#X connect 23 1 6 1;
 #X connect 23 1 24 1;
-#X connect 23 2 6 2;
-#X connect 23 2 24 2;
-#X connect 24 0 7 0;
-#X connect 24 1 7 1;
-#X connect 26 0 22 0;
+#X connect 25 0 26 0;
 #X connect 27 0 21 0;
-#X connect 28 0 22 1;
-#X connect 30 0 32 0;
-#X connect 31 0 30 0;
+#X connect 27 1 21 1;
+#X connect 27 2 21 2;
+#X connect 27 3 21 3;
+#X connect 27 4 21 4;
+#X connect 27 5 21 5;
+#X connect 27 6 21 6;
+#X connect 27 7 21 7;
+#X connect 27 8 21 8;
+#X connect 28 0 21 0;
+#X connect 28 1 21 1;
+#X connect 28 2 21 2;
+#X connect 28 3 21 3;
+#X connect 28 4 21 4;
+#X connect 28 5 21 5;
+#X connect 28 6 21 6;
+#X connect 28 7 21 7;
+#X connect 28 8 21 8;
+#X connect 29 0 30 0;
+#X connect 30 0 15 0;
+#X connect 31 0 20 0;
 #X coords 0 615 1 614 100 60 0;
