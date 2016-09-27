@@ -17,15 +17,10 @@
 0 0 1 0.8 @velocitycolor 1 0 0 0.8;
 #X text 468 148 between 0 and 1;
 #X text 468 136 Widen value;
-#X obj 407 142 nbx @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @min 0 @max 1 @minmax 0 1 @decimal 6 @bgcolor
-0.7 0.7 0.7 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X obj 309 152 nbx @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
-@decimal 6 @bgcolor 0.7 0.7 0.7 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
+#X obj 407 142 nbx 5 14 -1e+37 1e+37 0 0 "normal" @fontslant "roman"
+0 -8 0 10 -262144 -1 -1 0 256;
+#X obj 309 152 nbx 5 14 -1e+37 1e+37 0 0 "normal" @fontslant "roman"
+0 -8 0 10 -262144 -1 -1 0 256;
 #X obj 309 174 hoa.pi 0;
 #X obj 309 129 c.loadmess 0;
 #X obj 126 713 hoa.dac~ 1:16 -------------------;
@@ -34,11 +29,7 @@
 #X obj 126 200 hoa.2d.encoder~ 7 -------------;
 #X obj 126 226 hoa.2d.wider~ 7 -----------------;
 #X obj 126 153 hoa.soundrone;
-#X obj 13 19 c.patcherinfos;
-#X obj 18 2 loadbang;
-#X obj 3 2 hoa.help.header;
 #X obj 74 743 hoa.help.pub;
-#X obj 410 2 hoa.help.also;
 #X text 8 46 hoa.2d.wider~ can be used to wide the diffusion of a localised
 sound. The degrees depending signals are weighted and appear in a logarithmic
 way to have linear changes.;
@@ -53,34 +44,6 @@ way to have linear changes.;
 #X connect 14 0 12 0;
 #X connect 14 1 5 1;
 #X connect 14 1 12 1;
-#X connect 14 2 5 2;
-#X connect 14 2 12 2;
-#X connect 14 3 5 3;
-#X connect 14 3 12 3;
-#X connect 14 4 5 4;
-#X connect 14 4 12 4;
-#X connect 14 5 5 5;
-#X connect 14 5 12 5;
-#X connect 14 6 5 6;
-#X connect 14 6 12 6;
-#X connect 14 7 5 7;
-#X connect 14 7 12 7;
-#X connect 14 8 5 8;
-#X connect 14 8 12 8;
-#X connect 14 9 5 9;
-#X connect 14 9 12 9;
-#X connect 14 10 5 10;
-#X connect 14 10 12 10;
-#X connect 14 11 5 11;
-#X connect 14 11 12 11;
-#X connect 14 12 5 12;
-#X connect 14 12 12 12;
-#X connect 14 13 5 13;
-#X connect 14 13 12 13;
-#X connect 14 14 5 14;
-#X connect 14 14 12 14;
-#X connect 14 15 5 15;
-#X connect 14 15 12 15;
 #X connect 15 0 16 0;
 #X connect 15 1 16 1;
 #X connect 15 2 16 2;
@@ -127,6 +90,4 @@ way to have linear changes.;
 #X connect 16 14 0 14;
 #X connect 16 14 14 14;
 #X connect 17 0 15 0;
-#X connect 18 0 20 0;
-#X connect 19 0 18 0;
 #X coords 0 686 1 685 100 60 0;
