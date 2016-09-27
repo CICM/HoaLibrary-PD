@@ -1,57 +1,77 @@
-#N canvas 83 37 385 531 10;
+#N canvas 83 37 756 383 10;
 #X declare -path ..;
-#X obj 186 108 phasor~ -0.3;
-#X msg 196 232 \; pd dsp 1;
-#X msg 196 267 \; pd dsp 0;
-#X obj 186 133 hoa.pi~ 2;
-#X text 10 49 hoa.2d.encoder~ creates the circular harmonics of a signal
-depending on a given order and an azimuth.;
-#X text 203 176 azimuth (-π & π);
-#X obj 22 428 declare -path ..;
-#X obj 22 451 hoa.credits;
-#X obj 102 451 hoa-help;
-#X obj 199 158 ../misc/hoa.number~;
-#X obj 21 395 hoa.dac~ 1:16, f 28;
-#X obj 21 347 hoa.2d.decoder~ 7 regular 16;
-#X obj 21 156 hoa.2d.encoder~ 7, f 28;
-#X obj 21 135 ../misc/hoa.hgain~;
-#X obj 21 109 noise~;
-#X obj 10 21 cnv 15 200 20 empty empty hoa.2d.decoder~ 4 10 0 14 -233017
+#X obj 551 51 phasor~ -0.3;
+#X msg 570 194 \; pd dsp 1;
+#X msg 570 229 \; pd dsp 0;
+#X obj 551 76 hoa.pi~ 2;
+#X obj 22 316 declare -path ..;
+#X obj 22 339 hoa.credits;
+#X obj 102 339 hoa-help;
+#X obj 564 101 ../misc/hoa.number~;
+#X obj 386 338 hoa.dac~ 1:16, f 28;
+#X obj 386 310 hoa.2d.decoder~ 7 regular 16;
+#X obj 386 99 hoa.2d.encoder~ 7, f 28;
+#X obj 386 47 ../misc/hoa.hgain~;
+#X obj 386 22 noise~;
+#X obj 6 6 cnv 15 200 20 empty empty hoa.2d.encoder~ 4 10 0 14 -233017
 -66577 0;
+#X text 18 158 Y[l \, m](θ) = sin(|m|*θ), f 57;
+#X text 6 129 with the complex exponential e^i that can be expressed
+by, f 59;
+#X text 18 115 Y[l \, m](θ) = e^i|m|θ., f 57;
+#X text 6 144 if m < 0, f 59;
+#X text 6 172 else if m >= 0, f 59;
+#X text 18 186 Y[l \, m](θ) = cos(|m|*θ), f 57;
+#X text 6 200 with l the degree \, m the azimuthal order \, θ the
+azimuth and S the signal to encode.;
+#X text 6 39 hoa.2d.encoder~ generates the signal of the 2N+1 circular
+harmonics of a sound source depending on the order of decomposition
+N and an azimuth θ., f 59;
+#X text 6 88 Each generated signal of the sound field carries the source
+signal weighted by its associated harmonic Y defined by;
+#X text 614 71 azimuth θ in radian (-π & π), f 19;
+#X text 6 240 The signal of the circular harmonics are not normalized
+\, they are defined between -1 and 1 \, even for the first omnidirectional
+harmonic Y[0 \, 0]. The harmonics Y[l \, m] are ordered following the
+ACN:;
+#X text 6 293 Y[0 \, Ø] \, Y[1 \, -1] \, Y[1 \, 1] \, Y[2 \, -2] \,
+... \, Y[N \, -N] \, Y[N \, N];
+#X text 391 65 The argument is the order of decomposition N., f 25
+;
 #X connect 0 0 3 0;
-#X connect 3 0 9 0;
-#X connect 3 0 12 1;
+#X connect 3 0 7 0;
+#X connect 3 0 10 1;
+#X connect 9 0 8 0;
+#X connect 9 1 8 1;
+#X connect 9 2 8 2;
+#X connect 9 3 8 3;
+#X connect 9 4 8 4;
+#X connect 9 5 8 5;
+#X connect 9 6 8 6;
+#X connect 9 7 8 7;
+#X connect 9 8 8 8;
+#X connect 9 9 8 9;
+#X connect 9 10 8 10;
+#X connect 9 11 8 11;
+#X connect 9 12 8 12;
+#X connect 9 13 8 13;
+#X connect 9 14 8 14;
+#X connect 9 15 8 15;
+#X connect 10 0 9 0;
+#X connect 10 1 9 1;
+#X connect 10 2 9 2;
+#X connect 10 3 9 3;
+#X connect 10 4 9 4;
+#X connect 10 5 9 5;
+#X connect 10 6 9 6;
+#X connect 10 7 9 7;
+#X connect 10 8 9 8;
+#X connect 10 9 9 9;
+#X connect 10 10 9 10;
+#X connect 10 11 9 11;
+#X connect 10 12 9 12;
+#X connect 10 13 9 13;
+#X connect 10 14 9 14;
 #X connect 11 0 10 0;
-#X connect 11 1 10 1;
-#X connect 11 2 10 2;
-#X connect 11 3 10 3;
-#X connect 11 4 10 4;
-#X connect 11 5 10 5;
-#X connect 11 6 10 6;
-#X connect 11 7 10 7;
-#X connect 11 8 10 8;
-#X connect 11 9 10 9;
-#X connect 11 10 10 10;
-#X connect 11 11 10 11;
-#X connect 11 12 10 12;
-#X connect 11 13 10 13;
-#X connect 11 14 10 14;
-#X connect 11 15 10 15;
 #X connect 12 0 11 0;
-#X connect 12 1 11 1;
-#X connect 12 2 11 2;
-#X connect 12 3 11 3;
-#X connect 12 4 11 4;
-#X connect 12 5 11 5;
-#X connect 12 6 11 6;
-#X connect 12 7 11 7;
-#X connect 12 8 11 8;
-#X connect 12 9 11 9;
-#X connect 12 10 11 10;
-#X connect 12 11 11 11;
-#X connect 12 12 11 12;
-#X connect 12 13 11 13;
-#X connect 12 14 11 14;
-#X connect 13 0 12 0;
-#X connect 14 0 13 0;
-#X coords 0 531 1 530 100 60 0;
+#X coords 0 383 1 382 100 60 0;

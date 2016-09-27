@@ -1,0 +1,367 @@
+#N struct 1076-t-scope float x array bufr 1076-t-scope-value-r array
+bufg 1076-t-scope-value-g;
+#N struct 1076-t-scope-value-r float x float y;
+#N struct 1076-t-scope-value-g float x float y;
+#N canvas 617 286 448 500 10;
+#X declare -stdpath spam;
+#X obj 22 119 declare -stdpath spam;
+#N canvas 0 22 450 300 \$0-scope 0;
+#X scalar 1076-t-scope 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; \;;
+#X coords -1 1 1 -1 201 201 2 100 100;
+#X restore 75 266 pd \$0-scope;
+#X obj 22 139 text define -k \$0-scope-attrs;
+#A set gain 118 \; interval 100 \;;
+#N canvas 0 22 1203 672 circular_harmonics_generator____________________
+0;
+#X obj 22 205 cos~;
+#X obj 72 247 cos~;
+#X obj 123 268 cos~;
+#X obj 173 288 cos~;
+#X obj 224 308 cos~;
+#X obj 274 328 cos~;
+#X obj 325 348 cos~;
+#X obj 22 139 clip~ 0 0.05;
+#X obj 22 161 *~ 20;
+#X obj 72 183 -~ 0.05;
+#X obj 72 161 clip~ 0.05 0.1;
+#X obj 72 203 *~ 20;
+#X obj 123 182 clip~ 0.1 0.15;
+#X obj 123 204 -~ 0.1;
+#X obj 123 224 *~ 20;
+#X obj 173 244 *~ 20;
+#X obj 224 264 *~ 20;
+#X obj 274 284 *~ 20;
+#X obj 325 304 *~ 20;
+#X obj 173 202 clip~ 0.15 0.2;
+#X obj 173 224 -~ 0.15;
+#X obj 224 244 -~ 0.2;
+#X obj 224 222 clip~ 0.2 0.25;
+#X obj 274 265 -~ 0.25;
+#X obj 274 242 clip~ 0.25 0.3;
+#X obj 325 284 -~ 0.3;
+#X obj 325 262 clip~ 0.3 0.35;
+#X obj 22 19 phasor~ 0.01;
+#X obj 432 576 outlet~;
+#X obj 482 576 outlet~;
+#X obj 533 576 outlet~;
+#X obj 583 576 outlet~;
+#X obj 634 576 outlet~;
+#X obj 684 576 outlet~;
+#X obj 735 576 outlet~;
+#X obj 708 479 cos~;
+#X obj 779 485 cos~;
+#X obj 848 479 cos~;
+#X obj 919 485 cos~;
+#X obj 851 435 *~ 2;
+#X obj 988 479 cos~;
+#X obj 1059 485 cos~;
+#X obj 988 425 *~ 3;
+#X obj 462 305 clip~ 0 1;
+#X obj 636 468 *~ 0;
+#X obj 636 490 cos~;
+#X obj 636 512 *~;
+#X obj 708 511 *~;
+#X obj 778 511 *~;
+#X obj 848 511 *~;
+#X obj 918 511 *~;
+#X obj 988 511 *~;
+#X obj 1059 507 *~;
+#X obj 582 225 cos~;
+#X obj 572 295 clip~ 0 1;
+#X obj 682 305 clip~ 0 1;
+#X obj 752 305 clip~ 0 1;
+#X obj 582 195 -~ 0.25;
+#X obj 779 463 -~ 0.25;
+#X obj 919 463 -~ 0.25;
+#X obj 1059 463 -~ 0.25;
+#X obj 672 225 cos~;
+#X obj 672 195 -~ 0.25;
+#X obj 772 225 cos~;
+#X obj 772 195 -~ 0.25;
+#X obj 431 129 clip~ 0.35 1;
+#X obj 431 151 -~ 0.35;
+#X obj 431 225 cos~;
+#X obj 431 173 *~ 0.76923;
+#X obj 431 195 -~ 0.25;
+#X obj 582 267 *~ 5;
+#X obj 662 267 *~ 5;
+#X obj 772 267 *~ 5;
+#X obj 325 326 -~ 0.25;
+#X obj 274 306 -~ 0.25;
+#X obj 224 286 -~ 0.25;
+#X obj 173 266 -~ 0.25;
+#X obj 123 246 -~ 0.25;
+#X obj 72 225 -~ 0.25;
+#X obj 22 183 -~ 0.25;
+#X obj 772 129 clip~ 0.5 0.85;
+#X obj 772 151 -~ 0.5;
+#X obj 582 173 *~ 0.909091;
+#X obj 672 173 *~ 1.11111;
+#X obj 772 173 *~ 1.42857;
+#X obj 582 129 clip~ 0.4 0.95;
+#X obj 672 129 clip~ 0.45 0.9;
+#X obj 672 151 -~ 0.45;
+#X obj 582 151 -~ 0.4;
+#X obj 431 267 *~ 5;
+#X obj 796 331 clip~ 0.55 0.8;
+#X obj 796 353 -~ 0.55;
+#X obj 796 375 *~ 4;
+#X obj 796 397 /~ 0.6666;
+#X connect 0 0 28 0;
+#X connect 1 0 29 0;
+#X connect 2 0 30 0;
+#X connect 3 0 31 0;
+#X connect 4 0 32 0;
+#X connect 5 0 33 0;
+#X connect 6 0 34 0;
+#X connect 7 0 8 0;
+#X connect 8 0 79 0;
+#X connect 9 0 11 0;
+#X connect 10 0 9 0;
+#X connect 11 0 78 0;
+#X connect 12 0 13 0;
+#X connect 13 0 14 0;
+#X connect 14 0 77 0;
+#X connect 15 0 76 0;
+#X connect 16 0 75 0;
+#X connect 17 0 74 0;
+#X connect 18 0 73 0;
+#X connect 19 0 20 0;
+#X connect 20 0 15 0;
+#X connect 21 0 16 0;
+#X connect 22 0 21 0;
+#X connect 23 0 17 0;
+#X connect 24 0 23 0;
+#X connect 25 0 18 0;
+#X connect 26 0 25 0;
+#X connect 27 0 7 0;
+#X connect 27 0 10 0;
+#X connect 27 0 12 0;
+#X connect 27 0 19 0;
+#X connect 27 0 22 0;
+#X connect 27 0 24 0;
+#X connect 27 0 26 0;
+#X connect 27 0 65 0;
+#X connect 27 0 80 0;
+#X connect 27 0 85 0;
+#X connect 27 0 86 0;
+#X connect 27 0 90 0;
+#X connect 35 0 47 0;
+#X connect 36 0 48 0;
+#X connect 37 0 49 0;
+#X connect 38 0 50 0;
+#X connect 39 0 37 0;
+#X connect 39 0 59 0;
+#X connect 40 0 51 0;
+#X connect 41 0 52 0;
+#X connect 42 0 40 0;
+#X connect 42 0 60 0;
+#X connect 43 0 46 1;
+#X connect 44 0 45 0;
+#X connect 45 0 46 0;
+#X connect 46 0 28 0;
+#X connect 47 0 30 0;
+#X connect 48 0 29 0;
+#X connect 49 0 32 0;
+#X connect 50 0 31 0;
+#X connect 51 0 34 0;
+#X connect 52 0 33 0;
+#X connect 53 0 70 0;
+#X connect 54 0 47 1;
+#X connect 54 0 48 1;
+#X connect 55 0 49 1;
+#X connect 55 0 50 1;
+#X connect 56 0 51 1;
+#X connect 56 0 52 1;
+#X connect 57 0 53 0;
+#X connect 58 0 36 0;
+#X connect 59 0 38 0;
+#X connect 60 0 41 0;
+#X connect 61 0 71 0;
+#X connect 62 0 61 0;
+#X connect 63 0 72 0;
+#X connect 64 0 63 0;
+#X connect 65 0 66 0;
+#X connect 66 0 68 0;
+#X connect 67 0 89 0;
+#X connect 68 0 69 0;
+#X connect 69 0 67 0;
+#X connect 70 0 54 0;
+#X connect 71 0 55 0;
+#X connect 72 0 56 0;
+#X connect 73 0 6 0;
+#X connect 74 0 5 0;
+#X connect 75 0 4 0;
+#X connect 76 0 3 0;
+#X connect 77 0 2 0;
+#X connect 78 0 1 0;
+#X connect 79 0 0 0;
+#X connect 80 0 81 0;
+#X connect 81 0 84 0;
+#X connect 82 0 57 0;
+#X connect 83 0 62 0;
+#X connect 84 0 64 0;
+#X connect 85 0 88 0;
+#X connect 86 0 87 0;
+#X connect 87 0 83 0;
+#X connect 88 0 82 0;
+#X connect 89 0 43 0;
+#X connect 90 0 91 0;
+#X connect 91 0 92 0;
+#X connect 92 0 93 0;
+#X connect 93 0 35 0;
+#X connect 93 0 39 0;
+#X connect 93 0 42 0;
+#X connect 93 0 44 0;
+#X connect 93 0 58 0;
+#X restore 22 159 pd circular_harmonics_generator____________________
+;
+#N canvas 0 22 450 300 dis 0;
+#X obj 100 100 nbx 4 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 100 76 snapshot~;
+#X obj 100 55 metro 20;
+#X obj 109 35 loadbang;
+#X obj 100 12 inlet~;
+#X connect 1 0 0 0;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;
+#X connect 4 0 1 0;
+#X coords 0 -1 1 1 45 14 2 100 100;
+#X restore 22 187 pd dis;
+#N canvas 0 22 450 300 dis 0;
+#X obj 100 100 nbx 4 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 100 76 snapshot~;
+#X obj 100 55 metro 20;
+#X obj 109 35 loadbang;
+#X obj 100 12 inlet~;
+#X connect 1 0 0 0;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;
+#X connect 4 0 1 0;
+#X coords 0 -1 1 1 45 14 2 100 100;
+#X restore 72 187 pd dis;
+#N canvas 0 22 450 300 dis 0;
+#X obj 100 100 nbx 4 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 100 76 snapshot~;
+#X obj 100 55 metro 20;
+#X obj 109 35 loadbang;
+#X obj 100 12 inlet~;
+#X connect 1 0 0 0;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;
+#X connect 4 0 1 0;
+#X coords 0 -1 1 1 45 14 2 100 100;
+#X restore 123 187 pd dis;
+#N canvas 0 22 450 300 dis 0;
+#X obj 100 100 nbx 4 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 100 76 snapshot~;
+#X obj 100 55 metro 20;
+#X obj 109 35 loadbang;
+#X obj 100 12 inlet~;
+#X connect 1 0 0 0;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;
+#X connect 4 0 1 0;
+#X coords 0 -1 1 1 45 14 2 100 100;
+#X restore 173 187 pd dis;
+#N canvas 0 22 450 300 dis 0;
+#X obj 100 100 nbx 4 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 100 76 snapshot~;
+#X obj 100 55 metro 20;
+#X obj 109 35 loadbang;
+#X obj 100 12 inlet~;
+#X connect 1 0 0 0;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;
+#X connect 4 0 1 0;
+#X coords 0 -1 1 1 45 14 2 100 100;
+#X restore 224 187 pd dis;
+#N canvas 0 22 450 300 dis 0;
+#X obj 100 100 nbx 4 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 100 76 snapshot~;
+#X obj 100 55 metro 20;
+#X obj 109 35 loadbang;
+#X obj 100 12 inlet~;
+#X connect 1 0 0 0;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;
+#X connect 4 0 1 0;
+#X coords 0 -1 1 1 45 14 2 100 100;
+#X restore 274 187 pd dis;
+#N canvas 0 22 450 300 dis 0;
+#X obj 100 100 nbx 4 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 100 76 snapshot~;
+#X obj 100 55 metro 20;
+#X obj 109 35 loadbang;
+#X obj 100 12 inlet~;
+#X connect 1 0 0 0;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;
+#X connect 4 0 1 0;
+#X coords 0 -1 1 1 45 14 2 100 100;
+#X restore 325 187 pd dis;
+#X text 4 31 The abstraction displays the weighted sum of the circular
+harmonics in a canvas. The abstraction expects the order of decomposition
+as the first argument and the canvas to paint as the second argument.
+You can also use a text object to define a gain en dB and the time
+interval between each drawing in ms., f 67;
+#X obj 22 213 hoa.2d.process~ 3 hoa.2d.scope~ harmonics \$0-scope \$0-scope-attrs
+, f 51;
+#X connect 3 0 4 0;
+#X connect 3 0 12 0;
+#X connect 3 1 5 0;
+#X connect 3 1 12 1;
+#X connect 3 2 6 0;
+#X connect 3 2 12 2;
+#X connect 3 3 7 0;
+#X connect 3 3 12 3;
+#X connect 3 4 8 0;
+#X connect 3 4 12 4;
+#X connect 3 5 9 0;
+#X connect 3 5 12 5;
+#X connect 3 6 10 0;
+#X connect 3 6 12 6;
