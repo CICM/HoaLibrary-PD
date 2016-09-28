@@ -21,7 +21,7 @@ typedef struct _hoa_3d_wider
 
 static t_class *hoa_3d_wider_class;
 
-static void *hoa_3d_wider_new(t_float f, t_symbol* s)
+static void *hoa_3d_wider_new(t_float f)
 {
     t_hoa_3d_wider *x = (t_hoa_3d_wider *)pd_new(hoa_3d_wider_class);
     if(x)
@@ -70,12 +70,11 @@ static void hoa_3d_wider_dsp(t_hoa_3d_wider *x, t_signal **sp)
 extern "C" void setup_hoa0x2e3d0x2ewider_tilde(void)
 {
     t_class *c = class_new(gensym("hoa.3d.wider~"), (t_newmethod)hoa_3d_wider_new, (t_method)hoa_3d_wider_free,
-                           (size_t)sizeof(t_hoa_3d_wider), CLASS_DEFAULT, A_FLOAT, A_DEFSYM, 0);
+                           (size_t)sizeof(t_hoa_3d_wider), CLASS_DEFAULT, A_FLOAT, 0);
     if(c)
     {
         CLASS_MAINSIGNALIN(c, t_hoa_3d_wider, f_f);
         class_addmethod(c, (t_method)hoa_3d_wider_dsp, gensym("dsp"), A_CANT, 0);
-        class_addcreator((t_newmethod)hoa_3d_wider_new, gensym("hoa.wider~"), A_FLOAT, A_DEFSYM, 0);
         class_sethelpsymbol(c, gensym("helps/hoa.3d.wider~"));
     }
     hoa_3d_wider_class = c;
