@@ -233,7 +233,6 @@ extern "C" void setup_hoa0x2e2d0x2edecoder_tilde(void)
         CLASS_MAINSIGNALIN(c, t_hoa_2d_decoder, f_f);
         class_addmethod(c, (t_method)hoa_2d_decoder_dsp, gensym("dsp"), A_CANT, 0);
         class_addcreator((t_newmethod)hoa_2d_decoder_new, gensym("hoa.decoder~"), A_GIMME, 0);
-        class_sethelpsymbol(c, gensym("helps/hoa.2d.decoder~"));
     }
     hoa_2d_decoder_class = c;
     

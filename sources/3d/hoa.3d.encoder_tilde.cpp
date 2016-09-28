@@ -69,7 +69,6 @@ extern "C" void setup_hoa0x2e3d0x2eencoder_tilde(void)
     {
         CLASS_MAINSIGNALIN(c, t_hoa_3d_encoder, f_f);
         class_addmethod(c, (t_method)hoa_3d_encoder_dsp, gensym("dsp"), A_CANT, 0);
-        class_sethelpsymbol(c, gensym("helps/hoa.3d.encoder~"));
     }
     hoa_3d_encoder_class = c;
 }

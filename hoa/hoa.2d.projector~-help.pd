@@ -1,0 +1,42 @@
+#N canvas 220 82 754 671 10;
+#X obj 230 142 hoa.pi 2;
+#X msg 371 134 \; pd dsp 1;
+#X msg 371 172 \; pd dsp 0;
+#X obj 215 161 *~;
+#X obj 20 311 hoa.2d.scope~ @size 201 201 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@order 4 @view 0 @gain 10 @interval 20 @bgcolor 0.758847 0.758847 0.758847
+1 @bdcolor 0.699562 0.699562 0.699562 1 @phcolor 1 0 0 1 @nhcolor 0
+0 1 1;
+#X obj 215 102 phasor~ 0.8;
+#X obj 585 25 hoa.connect;
+#X obj 585 4 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 20 182 hoa.2d.encoder~ 4 #X obj 20 208 hoa.2d.projector~ 4 10
+#X obj 230 123 c.loadmess;
+#X obj 20 161 misc/hoa.hgain~ @size 127 12 @fontname "Helvetica" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@presetname "(null)" @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor
+0.5 0.5 0.5 1 @kncolor 0.5 0.5 0.5 1;
+#X text 3 45 hoa.2d.projector~ discretizes the ambisonic sound field
+into the plane waves domain. Use hoa.recomposer~ to come back to harmonics
+domain.;
+#X obj 20 250 hoa.2d.process~ 10 hoa.fx.delay~ planewaves, f 33;
+#X obj 20 288 hoa.2d.recomposer~ 4 10;
+#X obj 20 534 hoa.2d.decoder~ 4 regular 10 --;
+#X obj 20 567 hoa.dac~ 1:10 -------------------;
+#X connect 0 0 3 1;
+#X connect 3 0 8 1;
+#X connect 5 0 3 0;
+#X connect 7 0 6 0;
+#X connect 13 0 14 0;
+#X connect 13 1 14 1;
+#X connect 13 2 14 2;
+#X connect 13 3 14 3;
+#X connect 13 4 14 4;
+#X connect 13 5 14 5;
+#X connect 13 6 14 6;
+#X connect 13 7 14 7;
+#X connect 13 8 14 8;
+#X connect 13 9 14 9;
+#X coords 0 671 1 670 100 60 0;

@@ -70,13 +70,12 @@ static void hoa_2d_projector_dsp(t_hoa_2d_projector *x, t_signal **sp)
 extern "C" void setup_hoa0x2e2d0x2eprojector_tilde(void)
 {
     t_class *c = class_new(gensym("hoa.2d.projector~"), (t_newmethod)hoa_2d_projector_new, (t_method)hoa_2d_projector_free,
-                           (size_t)sizeof(t_hoa_2d_projector), CLASS_DEFAULT, A_FLOAT, A_DEFSYM, 0);
+                           (size_t)sizeof(t_hoa_2d_projector), CLASS_DEFAULT, A_FLOAT, A_FLOAT, 0);
     if(c)
     {
         CLASS_MAINSIGNALIN(c, t_hoa_2d_projector, f_f);
         class_addmethod(c, (t_method)hoa_2d_projector_dsp, gensym("dsp"), A_CANT, 0);
-        class_addcreator((t_newmethod)hoa_2d_projector_new, gensym("hoa.projector~"), A_FLOAT, A_DEFSYM, 0);
-        class_sethelpsymbol(c, gensym("helps/hoa.2d.projector~"));
+        class_addcreator((t_newmethod)hoa_2d_projector_new, gensym("hoa.projector~"), A_FLOAT, A_FLOAT, 0);
     }
     hoa_2d_projector_class = c;
 }

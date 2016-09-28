@@ -120,7 +120,6 @@ extern void setup_hoa0x2edac_tilde(void)
     {
         CLASS_MAINSIGNALIN(c, t_hoa_dac, x_f);
         class_addmethod(c, (t_method)hoa_dac_dsp, gensym("dsp"), A_CANT, 0);
-        class_sethelpsymbol((t_class *)c, gensym("helps/hoa.dac~"));
     }
     hoa_dac_class = c;
 }

@@ -76,7 +76,6 @@ extern "C" void setup_hoa0x2e2d0x2erotate_tilde(void)
         CLASS_MAINSIGNALIN(c, t_hoa_2d_rotate, f_f);
         class_addmethod(c, (t_method)hoa_2d_rotate_dsp, gensym("dsp"), A_CANT, 0);
         class_addcreator((t_newmethod)hoa_2d_rotate_new, gensym("hoa.rotate~"), A_FLOAT, 0);
-        class_sethelpsymbol(c, gensym("helps/hoa.2d.rotate~"));
     }
     hoa_2d_rotate_class = c;
 }

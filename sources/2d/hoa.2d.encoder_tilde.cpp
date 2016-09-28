@@ -69,7 +69,6 @@ extern "C" void setup_hoa0x2e2d0x2eencoder_tilde(void)
         CLASS_MAINSIGNALIN(c, t_hoa_2d_encoder, f_f);
         class_addmethod(c, (t_method)hoa_2d_encoder_dsp, gensym("dsp"), A_CANT, 0);
         class_addcreator((t_newmethod)hoa_2d_encoder_new, gensym("hoa.encoder~"), A_FLOAT, 0);
-        class_sethelpsymbol(c, gensym("helps/hoa.2d.encoder~"));
     }
     hoa_2d_encoder_class = c;
 }

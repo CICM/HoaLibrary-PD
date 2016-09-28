@@ -65,7 +65,6 @@ extern void setup_hoa0x2epi(void)
     {
         class_addbang(c, (t_method)hoa_pi_bang);
         class_addfloat(c, (t_method)hoa_pi_float);
-        class_sethelpsymbol(c, gensym("helps/hoa.pi"));
     }
     
     hoa_pi_class = c;

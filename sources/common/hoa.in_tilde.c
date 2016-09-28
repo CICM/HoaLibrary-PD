@@ -48,6 +48,7 @@ extern void setup_hoa0x2ein_tilde(void)
 
     if(c)
     {
+        class_sethelpsymbol((t_class *)c, gensym("help/hoa.io"));
         class_addmethod(c, (t_method)hoa_in_tilde_dsp, gensym("dsp"), A_CANT, 0);
     }
 

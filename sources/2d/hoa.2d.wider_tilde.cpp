@@ -76,7 +76,6 @@ extern "C" void setup_hoa0x2e2d0x2ewider_tilde(void)
         CLASS_MAINSIGNALIN(c, t_hoa_2d_wider, f_f);
         class_addmethod(c, (t_method)hoa_2d_wider_dsp, gensym("dsp"), A_CANT, 0);
         class_addcreator((t_newmethod)hoa_2d_wider_new, gensym("hoa.wider~"), A_FLOAT, 0);
-        class_sethelpsymbol(c, gensym("helps/hoa.2d.wider~"));
     }
     hoa_2d_wider_class = c;
 }

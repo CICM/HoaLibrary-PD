@@ -98,7 +98,6 @@ extern "C" void setup_hoa0x2e2d0x2eoptim_tilde(void)
         CLASS_MAINSIGNALIN(c, t_hoa_2d_optim, f_f);
         class_addmethod(c, (t_method)hoa_2d_optim_dsp, gensym("dsp"), A_CANT, 0);
         class_addcreator((t_newmethod)hoa_2d_optim_new, gensym("hoa.optim~"), A_GIMME, 0); // A_FLOAT A_SYMBOL not supported
-        class_sethelpsymbol(c, gensym("helps/hoa.2d.optim~"));
     }
     hoa_2d_optim_class = c;
     hoa_sym_basic   = gensym("basic");

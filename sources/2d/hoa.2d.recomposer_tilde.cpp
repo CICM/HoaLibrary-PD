@@ -54,6 +54,7 @@ static void *hoa_2d_recomposer_new(t_symbol *s, int argc, t_atom *argv)
         {
             hoa::RecomposerFree<hoa::Hoa2d, t_sample>* temp = new hoa::RecomposerFree<hoa::Hoa2d, t_sample>(order, nplws);
             x->f_processor = temp;
+            x->f_lines = new hoa::PolarLines<hoa::Hoa2d,t_sample>(nplws);
             x->f_lines->setRamp(0.1 * sys_getsr());
             for(size_t i = 0; i < x->f_processor->getNumberOfPlanewaves(); i++)
             {

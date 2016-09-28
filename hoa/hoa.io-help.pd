@@ -135,17 +135,17 @@ at the real uses of hoa.process~.;
 -262144 -1 -1 0 256;
 #X obj 1006 238 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0
 10 -262144 -1 -1 0 256;
-#X obj 221 273 ../misc/hoa.number~;
-#X obj 321 273 ../misc/hoa.number~;
-#X obj 661 273 ../misc/hoa.number~;
-#X obj 781 273 ../misc/hoa.number~;
+#X obj 221 273 misc//hoa.number~;
+#X obj 321 273 misc//hoa.number~;
+#X obj 661 273 misc//hoa.number~;
+#X obj 781 273 misc//hoa.number~;
 #X obj 869 292 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
 -262144 -1 -1 0 256;
-#X obj 910 384 ../misc/hoa.number~;
-#X obj 942 414 ../misc/hoa.number~;
-#X obj 1007 384 ../misc/hoa.number~;
-#X obj 974 444 ../misc/hoa.number~;
-#X obj 1039 414 ../misc/hoa.number~;
+#X obj 910 384 misc//hoa.number~;
+#X obj 942 414 misc//hoa.number~;
+#X obj 1007 384 misc//hoa.number~;
+#X obj 974 444 misc//hoa.number~;
+#X obj 1039 414 misc//hoa.number~;
 #X obj 1072 384 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0
 10 -262144 -1 -1 0 256;
 #X obj 1104 414 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0
