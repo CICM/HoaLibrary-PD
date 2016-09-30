@@ -14,7 +14,7 @@ typedef struct _hoa_3d_encoder
 {
     t_hoa_processor  f_obj;
     float               f_f;
-    hoa::EncoderBasic<hoa::Hoa3d, t_sample>* f_processor;
+    hoa::Encoder<hoa::Hoa3d, t_sample>* f_processor;
     t_sample* f_signals;
 } t_hoa_3d_encoder;
 
@@ -26,7 +26,7 @@ static void *hoa_3d_encoder_new(t_float f)
     if(x)
     {
         const size_t order = hoa_processor_clip_order(x, (size_t)f);
-        x->f_processor = new hoa::EncoderBasic<hoa::Hoa3d, t_sample>(order);
+        x->f_processor = new hoa::Encoder<hoa::Hoa3d, t_sample>(order);
         x->f_signals   = new t_sample[x->f_processor->getNumberOfHarmonics() * 81092];
         hoa_processor_init(x, 3, x->f_processor->getNumberOfHarmonics());
     }
