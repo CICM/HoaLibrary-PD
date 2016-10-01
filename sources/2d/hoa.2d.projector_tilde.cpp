@@ -14,7 +14,7 @@ typedef struct _hoa_2d_projector
 {
     t_hoa_processor  f_obj;
     float               f_f;
-    hoa::Projector<hoa::Hoa2d, t_sample>* f_processor;
+    hoa::DecoderRegular<hoa::Hoa2d, t_sample>* f_processor;
     t_sample*               f_ins;
     t_sample*               f_outs;
 } t_hoa_2d_projector;
@@ -28,7 +28,7 @@ static void *hoa_2d_projector_new(t_float f1, t_float f2)
     {
         const size_t order = (size_t)(f1) < 1 ? 1 : (size_t)(f1);
         const size_t nplws = (size_t)(f2) < (order * 2 + 1) ? (order * 2 + 1) : (size_t)(f2);
-        x->f_processor = new hoa::Projector<hoa::Hoa2d, t_sample>(order, nplws);
+        x->f_processor = new hoa::DecoderRegular<hoa::Hoa2d, t_sample>(order, nplws);
         x->f_ins   = new t_sample[x->f_processor->getNumberOfHarmonics() * 81092];
         x->f_outs  = new t_sample[x->f_processor->getNumberOfPlanewaves() * 81092];
         hoa_processor_init(x, x->f_processor->getNumberOfHarmonics(), x->f_processor->getNumberOfPlanewaves());

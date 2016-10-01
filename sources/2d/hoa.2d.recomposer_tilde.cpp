@@ -14,7 +14,7 @@ typedef struct _hoa_2d_recomposer
 {
     t_hoa_processor  f_obj;
     t_float                                 f_f;
-    hoa::Recomposer<hoa::Hoa2d, t_sample>*  f_processor;
+    hoa::MultiEncoder<hoa::Hoa2d, t_sample>* f_processor;
     hoa::PolarLines<hoa::Hoa2d,t_sample>*   f_lines;
     t_sample*                               f_lines_vector;
 	t_sample*                               f_ins;
@@ -42,39 +42,30 @@ static void *hoa_2d_recomposer_new(t_symbol *s, int argc, t_atom *argv)
             nplws = order * 2 + 1;
         }
         x->f_mode = atom_getsymbolarg(2, argc, argv);
-        if(x->f_mode == hoa_sym_fixe)
+        x->f_processor = new hoa::MultiEncoder<hoa::Hoa2d, t_sample>(order, nplws);
+        if(x->f_mode == hoa_sym_free)
         {
-            x->f_processor = new hoa::RecomposerFixe<hoa::Hoa2d, t_sample>(order, nplws);
-        }
-        else if(x->f_mode == hoa_sym_fisheye)
-        {
-            x->f_processor = new hoa::RecomposerFisheye<hoa::Hoa2d, t_sample>(order, nplws);
-        }
-        else
-        {
-            hoa::RecomposerFree<hoa::Hoa2d, t_sample>* temp = new hoa::RecomposerFree<hoa::Hoa2d, t_sample>(order, nplws);
-            x->f_processor = temp;
             x->f_lines = new hoa::PolarLines<hoa::Hoa2d,t_sample>(nplws);
             x->f_lines->setRamp(0.1 * sys_getsr());
-            for(size_t i = 0; i < x->f_processor->getNumberOfPlanewaves(); i++)
+            for(size_t i = 0; i < x->f_processor->getNumberOfSources(); i++)
             {
-                x->f_lines->setRadiusDirect(i, temp->getWidening(i));
-                x->f_lines->setAzimuthDirect(i, temp->getAzimuth(i));
+                x->f_lines->setRadiusDirect(i, x->f_processor->getWidening(i));
+                x->f_lines->setAzimuthDirect(i, x->f_processor->getAzimuth(i));
             }
             
-            x->f_lines_vector = hoa::Signal<t_sample>::alloc(temp->getNumberOfPlanewaves() * 2);
-            if(x->f_mode != hoa_sym_free)
-            {
-                pd_error(x, "hoa.2d.recomposer~: bad argument : mode must be fixe, free or fisheye.");
-                x->f_mode = hoa_sym_free;
-            }
+            x->f_lines_vector = hoa::Signal<t_sample>::alloc(x->f_processor->getNumberOfSources() * 2);
+        }
+        if(x->f_mode != hoa_sym_free && x->f_mode != hoa_sym_fisheye && x->f_mode != hoa_sym_fixe)
+        {
+            pd_error(x, "hoa.2d.recomposer~: bad argument : mode must be fixe, free or fisheye.");
+            x->f_mode = hoa_sym_fixe;
         }
         
         x->f_ramp = 100;
         x->f_ins   = new t_sample[x->f_processor->getNumberOfHarmonics() * 81092];
-        x->f_outs  = new t_sample[x->f_processor->getNumberOfPlanewaves() * 81092];
+        x->f_outs  = new t_sample[x->f_processor->getNumberOfSources() * 81092];
         hoa_processor_init(x,
-                           x->f_processor->getNumberOfPlanewaves() + static_cast<size_t>(x->f_mode == hoa_sym_fisheye),
+                           x->f_processor->getNumberOfSources() + static_cast<size_t>(x->f_mode == hoa_sym_fisheye),
                            x->f_processor->getNumberOfHarmonics());
 	}
 
@@ -96,7 +87,7 @@ static void hoa_2d_recomposer_free(t_hoa_2d_recomposer *x)
 
 static void hoa_2d_recomposer_angle(t_hoa_2d_recomposer *x, t_symbol *s, int argc, t_atom *argv)
 {
-    for(size_t i = 0; i < x->f_processor->getNumberOfPlanewaves() && i < size_t(argc); i++)
+    for(size_t i = 0; i < x->f_processor->getNumberOfSources() && i < size_t(argc); i++)
     {
         x->f_lines->setAzimuth(i, atom_getfloatarg(i, argc, argv));
     }
@@ -104,7 +95,7 @@ static void hoa_2d_recomposer_angle(t_hoa_2d_recomposer *x, t_symbol *s, int arg
 
 static void hoa_2d_recomposer_wide(t_hoa_2d_recomposer *x, t_symbol *s, int argc, t_atom *argv)
 {
-    for(size_t i = 0; i < x->f_processor->getNumberOfPlanewaves() && i < size_t(argc); i++)
+    for(size_t i = 0; i < x->f_processor->getNumberOfSources() && i < size_t(argc); i++)
     {
         x->f_lines->setRadius(i, atom_getfloatarg(i, argc, argv));
     }
@@ -114,7 +105,7 @@ static void hoa_2d_recomposer_perform_fixe(t_hoa_2d_recomposer *x, size_t sample
                                            size_t nins, t_sample **ins,
                                            size_t nouts, t_sample **outs)
 {
-    hoa::RecomposerFixe<hoa::Hoa2d, t_sample>* proc = static_cast< hoa::RecomposerFixe<hoa::Hoa2d, t_sample>* >(x->f_processor);
+    hoa::MultiEncoder<hoa::Hoa2d, t_sample>* proc = static_cast< hoa::MultiEncoder<hoa::Hoa2d, t_sample>* >(x->f_processor);
     for(size_t i = 0; i < nins; i++)
     {
         hoa::Signal<t_sample>::copy(size_t(sampleframes), ins[i], 1, x->f_ins+i, size_t(nins));
@@ -134,7 +125,7 @@ static void hoa_2d_recomposer_perform_fisheye(t_hoa_2d_recomposer *x, size_t sam
                                               size_t nouts, t_sample **outs)
 {
     const size_t numberOfPlanewaves = nins - 1;
-    hoa::RecomposerFisheye<hoa::Hoa2d, t_sample>* proc = static_cast< hoa::RecomposerFisheye<hoa::Hoa2d, t_sample>* >(x->f_processor);
+    hoa::MultiEncoder<hoa::Hoa2d, t_sample>* proc = static_cast< hoa::MultiEncoder<hoa::Hoa2d, t_sample>* >(x->f_processor);
     for(size_t i = 0; i < numberOfPlanewaves; i++)
     {
         hoa::Signal<t_sample>::copy(size_t(sampleframes), ins[i], 1, x->f_ins+i, numberOfPlanewaves);
@@ -154,7 +145,7 @@ static void hoa_2d_recomposer_perform_free(t_hoa_2d_recomposer *x, size_t sample
                                            size_t nins, t_sample **ins,
                                            size_t nouts, t_sample **outs)
 {
-    hoa::RecomposerFree<hoa::Hoa2d, t_sample>* proc = static_cast< hoa::RecomposerFree<hoa::Hoa2d, t_sample>* >(x->f_processor);
+    hoa::MultiEncoder<hoa::Hoa2d, t_sample>* proc = static_cast< hoa::MultiEncoder<hoa::Hoa2d, t_sample>* >(x->f_processor);
     for(size_t i = 0; i < size_t(nins); i++)
     {
         hoa::Signal<t_sample>::copy(size_t(sampleframes), ins[i], 1, x->f_ins+i, nins);

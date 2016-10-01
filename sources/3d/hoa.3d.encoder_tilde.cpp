@@ -40,14 +40,37 @@ static void hoa_3d_encoder_free(t_hoa_3d_encoder *x)
     delete [] x->f_signals;
 }
 
+static inline t_sample hoa_3d_encoder_wrap_pi(t_sample value)
+{
+    while(value < (t_sample)(-HOA_PI))
+    {
+        value += (t_sample)(HOA_2PI);
+    }
+    while(value >= HOA_PI)
+    {
+        value -= (t_sample)(HOA_2PI);
+    }
+    return value;
+}
+
 static void hoa_3d_encoder_perform(t_hoa_3d_encoder *x, size_t sampleframes,
                                    size_t nins, t_sample **ins,
                                    size_t nouts, t_sample **outs)
 {
     for(long i = 0; i < sampleframes; i++)
     {
-        x->f_processor->setAzimuth(ins[1][i]);
-        x->f_processor->setElevation(ins[2][i]);
+        const t_sample azimuth   = ins[1][i];
+        const t_sample elevation = hoa_3d_encoder_wrap_pi(ins[2][i]);
+        if(elevation >= -HOA_PI2 && elevation <= HOA_PI2)
+        {
+            x->f_processor->setAzimuth(azimuth);
+            x->f_processor->setElevation(elevation);
+        }
+        else
+        {
+            x->f_processor->setAzimuth(azimuth + HOA_PI);
+            x->f_processor->setElevation(elevation);
+        }
         x->f_processor->process(ins[0]+i, x->f_signals + nouts * i);
     }
     for(long i = 0; i < nouts; i++)
