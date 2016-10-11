@@ -1,51 +1,233 @@
-#N canvas 284 114 656 687 10;
-#X text 127 91 source;
-#X msg 50 218 \; pd dsp 1;
-#X msg 50 253 \; pd dsp 0;
-#X obj 129 135 c.gain~ @size 131 10 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @mode 0 @ramp 20 @bgcolor 0.75 0.75 0.75 1 @bdcolor
-0.5 0.5 0.5 1 @kncolor 0.5 0.5 0.5 1;
-#X obj 569 32 hoa.connect;
-#X obj 569 12 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#N struct 1259-t-scope float x array bufr 1259-t-scope-value-r array
+bufg 1259-t-scope-value-g;
+#N struct 1259-t-scope-value-r float x float y;
+#N struct 1259-t-scope-value-g float x float y;
+#N canvas 284 114 838 581 10;
+#X msg 201 467 \; pd dsp 1;
+#X msg 201 502 \; pd dsp 0;
+#X obj 386 185 hoa.3d.encoder~ 3, f 36;
+#X obj 6 -11 cnv 15 200 20 empty empty hoa.3d.encoder~ 4 10 0 14 -233017
+-66577 0;
+#X obj 8 509 hoa-help;
+#X obj 8 487 misc/hoa.credits;
+#X obj 386 40 misc//hoa.hgain~;
+#X text 391 58 The argument is the order of decomposition N., f 25
+;
+#N canvas 0 22 450 300 source~ 0;
+#X obj 53 188 osc~;
+#X obj 53 142 samphold~, f 11;
+#X obj 116 117 phasor~ 8;
+#X obj 53 117 phasor~ 7;
+#X obj 53 164 *~ 500, f 23;
+#X obj 53 210 outlet~;
+#X obj 188 141 + 500;
+#X obj 53 94 + 7;
+#X obj 188 119 random 500;
+#X obj 53 72 random 14;
+#X obj 116 94 + 3;
+#X obj 116 72 random 21;
+#X obj 53 44 bang;
+#X obj 53 18 loadbang;
+#X obj 109 18 inlet;
+#X connect 0 0 5 0;
+#X connect 1 0 4 0;
+#X connect 2 0 1 1;
+#X connect 3 0 1 0;
+#X connect 4 0 0 0;
+#X connect 6 0 4 1;
+#X connect 7 0 3 0;
+#X connect 8 0 6 0;
+#X connect 9 0 7 0;
+#X connect 10 0 2 0;
+#X connect 11 0 10 0;
+#X connect 12 0 9 0;
+#X connect 12 0 11 0;
+#X connect 12 0 8 0;
+#X connect 13 0 12 0;
+#X connect 14 0 12 0;
+#X restore 386 16 pd source~;
+#X obj 386 -5 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 2 22 c.patcherinfos;
-#X obj 2 5 loadbang;
-#X obj 2 5 hoa.help.header;
-#X obj 418 5 hoa.help.also;
-#X text 7 49 hoa.3d.encoder~ creates the spherical harmonics of a signal
-depending on a given order \, an azimuth and an elevation.;
-#X obj 100 611 hoa.help.pub;
-#X obj 129 106 hoa.soundcoat;
-#X obj 129 544 hoa.3d.decoder~ 3 regular 20 -------------------;
-#X obj 129 582 hoa.dac~ 1:20 ----------------------------------;
-#X obj 344 156 nbx~ @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@interval 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @textcolor 0 0 0 1;
-#X obj 271 128 hoa.pi~ 2;
-#X text 344 128 azimuth;
-#X text 494 132 elevation;
-#X obj 498 162 nbx~ @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@interval 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @textcolor 0 0 0 1;
-#X obj 271 103 phasor~ -0.5;
-#X text 342 139 (-π & π);
-#X text 486 144 (-π/2 & π/2);
-#X obj 414 134 hoa.pi~ 0.5;
-#X obj 414 109 hoa.tri~ 0.05;
-#X obj 129 183 hoa.3d.encoder~ 3, f 48;
-#X obj 129 210 hoa.3d.scope~ @size 291 291 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@order 3 @view 0 0 0 @gain 1 @interval 100 @bgcolor 0.76 0.76 0.76
-1 @bdcolor 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
-#X obj 129 521 hoa.3d.optim~ 3 inPhase ------------------------;
-#X connect 3 0 25 0;
-#X connect 5 0 4 0;
-#X connect 6 0 8 0;
-#X connect 7 0 6 0;
-#X connect 12 0 3 0;
+#X obj 492 117 hoa.pi~ 2;
+#X obj 505 142 misc//hoa.number~;
+#X text 502 157 azimuth θ in radian (-π & π), f 16;
+#X obj 386 363 hoa.3d.optim~ 3 inPhase, f 36;
+#X obj 386 386 hoa.3d.decoder~ 3 regular 20, f 36;
+#X obj 386 514 hoa.dac~ 1:20, f 36;
+#X obj 612 142 misc//hoa.number~;
+#X text 609 157 elevation φ in radian (-π/2 & π/2), f 19;
+#X text 7 11 hoa.3d.encoder~ generates the signal of the (N+1)^2 spherical
+harmonics of a sound source depending on the order of decomposition
+N \, an azimuth θ and an elevation φ.;
+#X text 30 240 Y[l \, m](θ) = sin(|m|*θ), f 55;
+#X text 18 226 if m < 0, f 57;
+#X text 18 254 else if m >= 0, f 57;
+#X text 30 268 Y[l \, m](θ) = cos(|m|*θ), f 55;
+#X text 6 59 Each generated signal of the sound field carries the source
+signal weighted by its associated harmonic Y defined by;
+#X text 18 133 P'[0 \, 0](x) = 1, f 57;
+#X text 18 147 P'[l \, l](x) = −(2l+1)√(1−x^2)P[l \, l](x),
+f 57;
+#X text 18 161 P'[l \, l-1](x) = x(2l+1)P[l \, l](x), f 57;
+#X text 18 175 P'[l \, m](x) = (x(2l+1)P[l-1 \, |m|](x)−(l+|m|)P[l−2
+\, |m|](x)) / (l−|m|+1), f 57;
+#X text 18 96 Y[l \, m](θ \, φ) = P'[l \, |m|](cos(φ)) * e^i|m|θ
+* k[l \, m]., f 57;
+#X text 6 119 with P' is the associated Legendre polynomial defined
+by:, f 59;
+#X text 6 212 e^i the complex exponential that can be expressed by
+, f 59;
+#X text 6 292 k[l \, m] the normalization (SN3D) defined by, f 59
+;
+#X text 6 331 with l the degree \, m the azimuthal order \, θ the
+azimuth and φ the elevation.;
+#X text 18 306 k[l \, m] = sqrt((l - |m|)! / (l + |m|)!) * sqrt(2)
+, f 57;
+#X text 6 371 The signal of the spherical harmonics are normalized
+between -1 and 1 \, even for the first omnidirectional harmonic Y[0
+\, 0]. The harmonics Y[l \, m] are ordered following the ACN:;
+#X text 6 424 Y[0 \, Ø] \, Y[1 \, -1] \, Y[1 \, 0] \, Y[1 \, 1] \,
+Y[2 \, -2] \, Y[2 \, -1] \, ... \, Y[N \, -N] \, Y[N \, -N+1] \, ...
+\, Y[N \, N-1] \, Y[N \, N];
+#X obj 8 465 text define -k \$0-scope-attrs;
+#A set gain 118 \; interval 150 \;;
+#N canvas 0 22 450 300 \$0-scope 0;
+#X scalar 1259-t-scope 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \;
+-0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0
+0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \;
+-0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0
+0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \;
+-0 0 \; -0 0 \; -0 0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \;
+-0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0
+\; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0
+-0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \;
+-0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0
+\; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0
+-0 \; -0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0
+\; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \;
+0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0
+\; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \;
+0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0
+\; 0 -0 \; 0 -0 \; 0 -0 \; 0 0 \; \; 0.863659 0 \; 0.863127 0.0303096
+\; 0.861532 0.0605819 \; 0.858875 0.0907795 \; 0.85516 0.120865 \;
+0.850392 0.150802 \; 0.844576 0.180553 \; 0.837719 0.210082 \; 0.82983
+0.239352 \; 0.820919 0.268327 \; 0.810997 0.296971 \; 0.800075 0.32525
+\; 0.788168 0.353128 \; 0.77529 0.38057 \; 0.761456 0.407544 \; 0.746684
+0.434016 \; 0.730993 0.459953 \; 0.714401 0.485324 \; 0.696929 0.510096
+\; 0.678598 0.53424 \; 0.659431 0.557726 \; 0.639452 0.580525 \; 0.618685
+0.602608 \; 0.597155 0.62395 \; 0.57489 0.644522 \; 0.551917 0.6643
+\; 0.528264 0.68326 \; 0.50396 0.701379 \; 0.479035 0.718633 \; 0.45352
+0.735002 \; 0.427446 0.750465 \; 0.400846 0.765004 \; 0.373751 0.7786
+\; 0.346197 0.791237 \; 0.318215 0.802899 \; 0.289842 0.813572 \; 0.261112
+0.823243 \; 0.23206 0.831899 \; 0.202722 0.839531 \; 0.173134 0.846128
+\; 0.143333 0.851683 \; 0.113355 0.856188 \; 0.0832382 0.859639 \;
+0.0530184 0.862031 \; 0.0227333 0.86336 \; -0.00757989 0.863626 \;
+-0.0378837 0.862828 \; -0.0681408 0.860967 \; -0.0983139 0.858045 \;
+-0.128366 0.854067 \; -0.15826 0.849036 \; -0.187959 0.842959 \; -0.217426
+0.835843 \; -0.246626 0.827698 \; -0.275521 0.818533 \; -0.304077 0.808359
+\; -0.332259 0.79719 \; -0.360031 0.785038 \; -0.38736 0.77192 \; -0.414211
+0.75785 \; -0.440553 0.742847 \; -0.466351 0.726928 \; -0.491575 0.710114
+\; -0.516193 0.692425 \; -0.540175 0.673883 \; -0.563492 0.654511 \;
+-0.586115 0.634332 \; -0.608015 0.613372 \; -0.629166 0.591656 \; -0.649543
+0.569212 \; -0.669119 0.546066 \; -0.68787 0.522247 \; -0.705775 0.497785
+\; -0.722809 0.472709 \; -0.738954 0.447052 \; -0.754187 0.420843 \;
+-0.768492 0.394116 \; -0.78185 0.366904 \; -0.794245 0.339239 \; -0.805661
+0.311157 \; -0.816084 0.282691 \; -0.825502 0.253877 \; -0.833904 0.22475
+\; -0.841277 0.195346 \; -0.847615 0.165701 \; -0.852908 0.135853 \;
+-0.85715 0.105837 \; -0.860336 0.0756904 \; -0.862463 0.0454508 \;
+-0.863526 0.0151551 \; -0.863526 -0.0151592 \; -0.862462 -0.0454546
+\; -0.860336 -0.0756945 \; -0.85715 -0.105841 \; -0.852907 -0.135857
+\; -0.847614 -0.165705 \; -0.841277 -0.19535 \; -0.833903 -0.224753
+\; -0.825501 -0.25388 \; -0.816083 -0.282694 \; -0.805659 -0.31116
+\; -0.794243 -0.339243 \; -0.781848 -0.366907 \; -0.76849 -0.39412
+\; -0.754186 -0.420846 \; -0.738952 -0.447055 \; -0.722807 -0.472713
+\; -0.705772 -0.497788 \; -0.687868 -0.52225 \; -0.669116 -0.546069
+\; -0.64954 -0.569215 \; -0.629164 -0.591659 \; -0.608012 -0.613375
+\; -0.586112 -0.634335 \; -0.563489 -0.654513 \; -0.540172 -0.673885
+\; -0.51619 -0.692427 \; -0.491572 -0.710116 \; -0.466348 -0.72693
+\; -0.440549 -0.742849 \; -0.414208 -0.757852 \; -0.387356 -0.771921
+\; -0.360028 -0.78504 \; -0.332255 -0.797191 \; -0.304074 -0.80836
+\; -0.275517 -0.818534 \; -0.246622 -0.827699 \; -0.217422 -0.835844
+\; -0.187955 -0.842959 \; -0.158256 -0.849036 \; -0.128362 -0.854067
+\; -0.0983098 -0.858046 \; -0.0681368 -0.860968 \; -0.0378798 -0.862828
+\; -0.00757582 -0.863626 \; 0.0227371 -0.86336 \; 0.053022 -0.86203
+\; 0.0832421 -0.859639 \; 0.113359 -0.856188 \; 0.143337 -0.851682
+\; 0.173138 -0.846127 \; 0.202725 -0.83953 \; 0.232063 -0.831898 \;
+0.261115 -0.823241 \; 0.289846 -0.813571 \; 0.318219 -0.802898 \; 0.3462
+-0.791235 \; 0.373755 -0.778598 \; 0.400849 -0.765002 \; 0.427449 -0.750463
+\; 0.453523 -0.734999 \; 0.479038 -0.718631 \; 0.503963 -0.701377 \;
+0.528267 -0.683258 \; 0.55192 -0.664298 \; 0.574893 -0.644519 \; 0.597158
+-0.623947 \; 0.618688 -0.602606 \; 0.639454 -0.580522 \; 0.659434 -0.557723
+\; 0.6786 -0.534237 \; 0.696931 -0.510093 \; 0.714403 -0.48532 \; 0.730995
+-0.45995 \; 0.746687 -0.434013 \; 0.761458 -0.407541 \; 0.775291 -0.380567
+\; 0.788169 -0.353124 \; 0.800077 -0.325246 \; 0.810998 -0.296968 \;
+0.82092 -0.268323 \; 0.829831 -0.239348 \; 0.83772 -0.210078 \; 0.844576
+-0.18055 \; 0.850393 -0.150798 \; 0.855161 -0.120862 \; 0.858876 -0.0907756
+\; 0.861532 -0.0605781 \; 0.863128 -0.0303056 \; 0.863659 3.85743e-06
+\; \;;
+#X coords -1 -1 1 1 165 165 2 100 100;
+#X restore 617 199 pd \$0-scope;
+#X obj 386 212 hoa.3d.process~ 3 hoa.3d.scope~ harmonics \$0-scope
+\$0-scope-attrs, f 36;
+#X obj 492 93 phasor~ 0.15;
+#X obj 599 117 hoa.pi~ 0.5;
+#N canvas 0 22 450 300 tri~ 0;
+#X obj 25 75 -~ 0.5;
+#X obj 25 97 abs~;
+#X obj 25 203 outlet~;
+#X obj 25 51 phasor~ 0.1;
+#X obj 25 119 *~ 6;
+#X obj 25 141 -~ 1.5;
+#X obj 25 163 clip~ -1 1;
+#X connect 0 0 1 0;
+#X connect 1 0 4 0;
+#X connect 3 0 0 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 6 0 2 0;
+#X restore 599 92 pd tri~;
+#X connect 2 0 13 0;
+#X connect 2 0 38 0;
+#X connect 2 1 13 1;
+#X connect 2 1 38 1;
+#X connect 2 2 13 2;
+#X connect 2 2 38 2;
+#X connect 2 3 13 3;
+#X connect 2 3 38 3;
+#X connect 2 4 13 4;
+#X connect 2 4 38 4;
+#X connect 2 5 13 5;
+#X connect 2 5 38 5;
+#X connect 2 6 13 6;
+#X connect 2 6 38 6;
+#X connect 2 7 13 7;
+#X connect 2 7 38 7;
+#X connect 2 8 13 8;
+#X connect 2 8 38 8;
+#X connect 2 9 13 9;
+#X connect 2 9 38 9;
+#X connect 2 10 13 10;
+#X connect 2 10 38 10;
+#X connect 2 11 13 11;
+#X connect 2 11 38 11;
+#X connect 2 12 13 12;
+#X connect 2 12 38 12;
+#X connect 2 13 13 13;
+#X connect 2 13 38 13;
+#X connect 2 14 13 14;
+#X connect 2 14 38 14;
+#X connect 2 15 13 15;
+#X connect 2 15 38 15;
+#X connect 6 0 2 0;
+#X connect 8 0 6 0;
+#X connect 9 0 8 0;
+#X connect 10 0 11 0;
+#X connect 10 0 2 1;
 #X connect 13 0 14 0;
 #X connect 13 1 14 1;
 #X connect 13 2 14 2;
@@ -62,62 +244,28 @@ depending on a given order \, an azimuth and an elevation.;
 #X connect 13 13 14 13;
 #X connect 13 14 14 14;
 #X connect 13 15 14 15;
-#X connect 13 16 14 16;
-#X connect 13 17 14 17;
-#X connect 13 18 14 18;
-#X connect 13 19 14 19;
-#X connect 16 0 15 0;
-#X connect 16 0 25 1;
-#X connect 20 0 16 1;
-#X connect 23 0 19 0;
-#X connect 23 0 25 2;
-#X connect 24 0 23 1;
-#X connect 25 0 26 0;
-#X connect 25 0 27 0;
-#X connect 25 1 26 1;
-#X connect 25 1 27 1;
-#X connect 25 2 26 2;
-#X connect 25 2 27 2;
-#X connect 25 3 26 3;
-#X connect 25 3 27 3;
-#X connect 25 4 26 4;
-#X connect 25 4 27 4;
-#X connect 25 5 26 5;
-#X connect 25 5 27 5;
-#X connect 25 6 26 6;
-#X connect 25 6 27 6;
-#X connect 25 7 26 7;
-#X connect 25 7 27 7;
-#X connect 25 8 26 8;
-#X connect 25 8 27 8;
-#X connect 25 9 26 9;
-#X connect 25 9 27 9;
-#X connect 25 10 26 10;
-#X connect 25 10 27 10;
-#X connect 25 11 26 11;
-#X connect 25 11 27 11;
-#X connect 25 12 26 12;
-#X connect 25 12 27 12;
-#X connect 25 13 26 13;
-#X connect 25 13 27 13;
-#X connect 25 14 26 14;
-#X connect 25 14 27 14;
-#X connect 25 15 26 15;
-#X connect 25 15 27 15;
-#X connect 27 0 13 0;
-#X connect 27 1 13 1;
-#X connect 27 2 13 2;
-#X connect 27 3 13 3;
-#X connect 27 4 13 4;
-#X connect 27 5 13 5;
-#X connect 27 6 13 6;
-#X connect 27 7 13 7;
-#X connect 27 8 13 8;
-#X connect 27 9 13 9;
-#X connect 27 10 13 10;
-#X connect 27 11 13 11;
-#X connect 27 12 13 12;
-#X connect 27 13 13 13;
-#X connect 27 14 13 14;
-#X connect 27 15 13 15;
-#X coords 0 687 1 686 100 60 0;
+#X connect 14 0 15 0;
+#X connect 14 1 15 1;
+#X connect 14 2 15 2;
+#X connect 14 3 15 3;
+#X connect 14 4 15 4;
+#X connect 14 5 15 5;
+#X connect 14 6 15 6;
+#X connect 14 7 15 7;
+#X connect 14 8 15 8;
+#X connect 14 9 15 9;
+#X connect 14 10 15 10;
+#X connect 14 11 15 11;
+#X connect 14 12 15 12;
+#X connect 14 13 15 13;
+#X connect 14 14 15 14;
+#X connect 14 15 15 15;
+#X connect 14 16 15 16;
+#X connect 14 17 15 17;
+#X connect 14 18 15 18;
+#X connect 14 19 15 19;
+#X connect 39 0 10 0;
+#X connect 40 0 16 0;
+#X connect 40 0 2 2;
+#X connect 41 0 40 0;
+#X coords 0 581 1 580 100 60 0;

@@ -1,0 +1,47 @@
+#N struct 1053-t-meter float x array ls 1053-t-meter-value;
+#N struct 1053-t-meter-value float x1 float y1 float s1 float s2 float
+s3 float s4 float c0 float c1 float c2 float c3 float c4 float v1 float
+v2 float v3 float v4;
+#N canvas 206 122 481 519 10;
+#N canvas 0 22 730 563 \$0-meter 0;
+#X scalar 1053-t-meter 0 \; -0 0.7 12 24 36 48 555 90 990 950 900 0
+0 0 0 \; -0.7 8.87314e-07 12 24 36 48 555 90 990 950 900 1 1 1 0 \;
+-1.77463e-06 -0.7 12 24 36 48 555 90 990 950 900 1 1 1 0 \; 0.7 -2.66194e-06
+12 24 36 48 555 90 990 950 900 1 1 1 0 \; \;;
+#X coords -1 1 1 -1 180 180 2 100 100;
+#X restore 22 201 pd \$0-meter;
+#X obj 118 415 *~ 2;
+#X obj 118 393 phasor~ 1;
+#X obj 25 412 sig~;
+#X obj 25 394 nbx 5 14 0 1 0 0 empty empty empty 0 -8 0 10 -262144
+-1 -1 0 256;
+#X obj 118 437 -~ 0.8;
+#X obj 211 437 *~ 1.2;
+#X obj 211 415 osc~ 1;
+#X obj 304 435 noise~;
+#X obj 22 175 text define -k \$0-meter-attrs;
+#A set angles 0 90 180 270 \; colors 555 90 990 950 900 \; sizes 12
+48 \;;
+#X obj 7 8 cnv 15 200 20 empty empty hoa.2d.meter~ 4 10 0 14 -233017
+-66577 0;
+#X obj 350 454 hoa-help;
+#X obj 350 477 misc/hoa.credits;
+#X text 4 31 The abstraction displays the contributions of a set of
+loudspeakers in a space., f 67;
+#X text 4 71 The first argument is the number of louspeakers., f 67
+;
+#X text 4 85 The second argument is the canvas to paint., f 67;
+#X text 4 98 The third argument is the name of the text object that
+must define the position of the loudspeakers in degrees and can also
+be used to define the colors and the sizes of the representation of
+the loudspeakers., f 67;
+#X obj 25 470 hoa.2d.process~ 4 hoa.2d.meter~ planewaves \$0-meter
+\$0-meter-attrs, f 47;
+#X connect 1 0 5 0;
+#X connect 2 0 1 0;
+#X connect 3 0 17 0;
+#X connect 4 0 3 0;
+#X connect 5 0 17 1;
+#X connect 6 0 17 2;
+#X connect 7 0 6 0;
+#X connect 8 0 17 3;

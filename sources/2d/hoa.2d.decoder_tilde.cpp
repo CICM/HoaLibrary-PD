@@ -209,7 +209,7 @@ static void hoa_2d_decoder_perform_binaural(t_hoa_2d_decoder *x, size_t samplefr
 
 static void hoa_2d_decoder_dsp(t_hoa_2d_decoder *x, t_signal **sp)
 {
-    x->f_processor->computeRendering((size_t)sp[0]->s_n);
+    x->f_processor->prepare((size_t)sp[0]->s_n);
     if(x->f_processor->getMode() == hoa::Decoder<hoa::Hoa2d, t_sample>::BinauralMode)
     {
         hoa_processor_prepare(x, (t_hoa_processor_perfm)hoa_2d_decoder_perform_binaural, sp);

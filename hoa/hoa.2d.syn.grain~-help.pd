@@ -1,0 +1,388 @@
+#N struct 11461-t-scope float x array bufr 11461-t-scope-value-r array
+bufg 11461-t-scope-value-g;
+#N struct 11461-t-scope-value-r float x float y;
+#N struct 11461-t-scope-value-g float x float y;
+#N canvas 606 23 528 825 10;
+#X declare -stdpath spam;
+#X obj 37 382 *~;
+#X obj 49 405 nbx 5 14 0 100 0 0 empty \$0-gain empty 0 -8 0 10 -262144
+-1 -1 80 256;
+#X obj 22 449 *~, f 5;
+#X obj 22 340 noise~;
+#X obj 320 719 declare -stdpath spam;
+#N canvas 0 22 450 300 gain 0;
+#X obj 10 45 dbtorms;
+#X obj 10 67 pack f 20;
+#X obj 10 89 line~;
+#X obj 10 25 inlet;
+#X obj 10 111 outlet~;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 4 0;
+#X connect 3 0 0 0;
+#X restore 49 425 pd gain;
+#X obj 37 360 osc~ 5;
+#N canvas 0 22 450 300 \$0-scope 0;
+#X scalar 11461-t-scope 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \;
+-0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0
+0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \;
+-0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0
+0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \;
+-0 0 \; -0 0 \; -0 0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \;
+-0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0
+\; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0
+-0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \;
+-0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0
+\; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0
+-0 \; -0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0
+\; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \;
+0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0
+\; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \;
+0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0
+\; 0 -0 \; 0 -0 \; 0 -0 \; 0 0 \; \; 0.61223 0 \; 0.628785 0.0220804
+\; 0.644808 0.0453421 \; 0.660173 0.0697776 \; 0.674753 0.0953672 \;
+0.688417 0.122079 \; 0.701039 0.149868 \; 0.712494 0.178678 \; 0.722661
+0.20844 \; 0.731423 0.239074 \; 0.738671 0.270487 \; 0.744304 0.302578
+\; 0.74823 0.335234 \; 0.750366 0.368336 \; 0.750641 0.401756 \; 0.748997
+0.43536 \; 0.745387 0.46901 \; 0.739776 0.502562 \; 0.732146 0.535873
+\; 0.72249 0.568795 \; 0.710815 0.601185 \; 0.697141 0.632898 \; 0.681503
+0.663795 \; 0.663948 0.693739 \; 0.644533 0.7226 \; 0.623331 0.750256
+\; 0.600421 0.776589 \; 0.575894 0.801493 \; 0.549851 0.824869 \; 0.522399
+0.846631 \; 0.493651 0.8667 \; 0.463727 0.88501 \; 0.43275 0.901507
+\; 0.400849 0.916144 \; 0.36815 0.92889 \; 0.334784 0.939722 \; 0.300881
+0.948629 \; 0.266569 0.95561 \; 0.231974 0.960674 \; 0.19722 0.963837
+\; 0.162425 0.965128 \; 0.127706 0.96458 \; 0.0931725 0.962235 \; 0.0589296
+0.958141 \; 0.0250765 0.952353 \; -0.00829346 0.944928 \; -0.0410933
+0.93593 \; -0.0732423 0.925425 \; -0.104666 0.913481 \; -0.135295 0.900169
+\; -0.165068 0.885562 \; -0.193928 0.869732 \; -0.221825 0.852753 \;
+-0.248712 0.834698 \; -0.274548 0.815641 \; -0.299298 0.795653 \; -0.32293
+0.774806 \; -0.345416 0.75317 \; -0.366733 0.730814 \; -0.38686 0.707807
+\; -0.40578 0.684214 \; -0.423479 0.660102 \; -0.439947 0.635535 \;
+-0.455175 0.610575 \; -0.469158 0.585287 \; -0.481893 0.559731 \; -0.49338
+0.533969 \; -0.503622 0.50806 \; -0.512625 0.482063 \; -0.520397 0.456038
+\; -0.52695 0.430043 \; -0.5323 0.404134 \; -0.536463 0.378369 \; -0.539463
+0.352803 \; -0.541325 0.327491 \; -0.542078 0.302484 \; -0.541754 0.277835
+\; -0.540391 0.253593 \; -0.538029 0.229804 \; -0.534713 0.206513 \;
+-0.53049 0.183761 \; -0.525412 0.161586 \; -0.519533 0.140022 \; -0.51291
+0.119099 \; -0.505605 0.0988414 \; -0.497677 0.079271 \; -0.489192
+0.0604032 \; -0.480214 0.0422482 \; -0.470808 0.024811 \; -0.46104
+0.00809137 \; -0.450972 -0.00791681 \; -0.44067 -0.0232248 \; -0.430193
+-0.0378495 \; -0.419601 -0.0518122 \; -0.408947 -0.0651399 \; -0.398284
+-0.077863 \; -0.387658 -0.0900166 \; -0.37711 -0.101639 \; -0.366678
+-0.112771 \; -0.356392 -0.123456 \; -0.346277 -0.133738 \; -0.33635
+-0.143664 \; -0.326624 -0.153279 \; -0.317105 -0.162627 \; -0.307792
+-0.171752 \; -0.298678 -0.180696 \; -0.289751 -0.189496 \; -0.280993
+-0.198187 \; -0.272381 -0.2068 \; -0.263887 -0.21536 \; -0.255482 -0.223888
+\; -0.24713 -0.232399 \; -0.238796 -0.240902 \; -0.230441 -0.2494 \;
+-0.222026 -0.257891 \; -0.213512 -0.266364 \; -0.204861 -0.274805 \;
+-0.196038 -0.283193 \; -0.187007 -0.291502 \; -0.177739 -0.299701 \;
+-0.168205 -0.307754 \; -0.158382 -0.315622 \; -0.148252 -0.323263 \;
+-0.137802 -0.330633 \; -0.127024 -0.337685 \; -0.115916 -0.344373 \;
+-0.104481 -0.350652 \; -0.0927273 -0.356475 \; -0.0806706 -0.3618 \;
+-0.0683296 -0.366586 \; -0.0557288 -0.370796 \; -0.0428962 -0.374397
+\; -0.0298644 -0.377363 \; -0.0166682 -0.379669 \; -0.0033448 -0.381299
+\; 0.0100666 -0.382244 \; 0.0235268 -0.382498 \; 0.0369966 -0.382063
+\; 0.0504375 -0.380948 \; 0.0638134 -0.379169 \; 0.0770908 -0.376744
+\; 0.0902392 -0.3737 \; 0.103233 -0.370069 \; 0.116051 -0.365886 \;
+0.128678 -0.361189 \; 0.141104 -0.356019 \; 0.153325 -0.350422 \; 0.165344
+-0.34444 \; 0.177169 -0.338119 \; 0.188817 -0.331502 \; 0.20031 -0.32463
+\; 0.211673 -0.317543 \; 0.222942 -0.310273 \; 0.234153 -0.302853 \;
+0.245349 -0.295305 \; 0.256574 -0.287649 \; 0.267877 -0.279894 \; 0.279307
+-0.272046 \; 0.290912 -0.264101 \; 0.302741 -0.256047 \; 0.314842 -0.247864
+\; 0.327259 -0.239525 \; 0.34003 -0.230995 \; 0.353191 -0.222232 \;
+0.36677 -0.213185 \; 0.380787 -0.203801 \; 0.395256 -0.194019 \; 0.410179
+-0.183773 \; 0.425553 -0.172995 \; 0.44136 -0.161615 \; 0.457575 -0.149561
+\; 0.474159 -0.136762 \; 0.491066 -0.123147 \; 0.508236 -0.108648 \;
+0.5256 -0.0932036 \; 0.543079 -0.0767544 \; 0.560583 -0.0592487 \;
+0.578015 -0.0406427 \; 0.595269 -0.0209007 \; 0.612232 2.73446e-06
+\; \;;
+#X coords -1 1 1 -1 201 201 2 100 100;
+#X restore 64 526 pd \$0-scope;
+#X obj 22 419 *~;
+#X obj 22 762 dac~ 1 2 3 4 5 6 7 8, f 47;
+#X obj 320 739 text define -k \$0-scope-attrs;
+#A set gain 150 \; interval 100 \;;
+#X obj 320 760 text define -k \$0-pro-attrs;
+#A set angles 45 90 135 180 225 270 315 360 \;;
+#X obj 22 735 spam~ 7 ylm.2d.projector~ 3 8 \$0-pro-attrs, f 47;
+#N canvas 0 22 450 300 init 0;
+#X obj 23 32 loadbang;
+#X msg 23 54 80;
+#X obj 23 76 s \$0-gain;
+#X obj 93 32 loadbang;
+#X obj 93 76 s \$0-pos;
+#X msg 93 54 1 0;
+#X obj 163 32 loadbang;
+#X msg 163 54 1;
+#X obj 163 76 s \$0-traj;
+#X obj 23 102 loadbang;
+#X obj 23 146 s \$0-delay;
+#X msg 23 124 3000;
+#X obj 163 102 loadbang;
+#X msg 163 124 1;
+#X obj 163 146 s \$0-diff;
+#N canvas 237 132 503 391 grain_env 0;
+#X obj 270 148 / 256;
+#X obj 270 247 * 0.5;
+#X obj 270 219 sin;
+#X obj 270 271 + 0.5;
+#X obj 270 120 t f f;
+#X obj 270 299 pack;
+#X obj 270 169 - 0.5;
+#X obj 271 32 t b b;
+#X obj 270 76 until;
+#X obj 270 97 f;
+#X obj 297 98 + 1;
+#X msg 270 55 512;
+#X obj 271 8 loadbang;
+#X obj 270 193 * 3.14159;
+#X obj 310 55 f 0;
+#X obj 335 11 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 270 323 tabwrite \$0-grain-env;
+#X connect 0 0 6 0;
+#X connect 1 0 3 0;
+#X connect 2 0 1 0;
+#X connect 3 0 5 0;
+#X connect 4 0 0 0;
+#X connect 4 1 5 1;
+#X connect 5 0 16 0;
+#X connect 6 0 13 0;
+#X connect 7 0 11 0;
+#X connect 7 0 14 0;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;
+#X connect 9 0 4 0;
+#X connect 10 0 9 1;
+#X connect 11 0 8 0;
+#X connect 12 0 7 0;
+#X connect 13 0 2 0;
+#X connect 14 0 9 1;
+#X connect 15 0 7 0;
+#X restore 24 11 pd grain_env;
+#X obj 240 148 s \$0-rarefaction;
+#X obj 240 102 loadbang;
+#X msg 240 124 0;
+#X obj 240 77 s \$0-size;
+#X obj 240 32 loadbang;
+#X msg 240 54 100;
+#X obj 307 31 loadbang;
+#X obj 307 77 s \$0-feedback;
+#X msg 307 53 50;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 3 0 5 0;
+#X connect 5 0 4 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 9 0 11 0;
+#X connect 11 0 10 0;
+#X connect 12 0 13 0;
+#X connect 13 0 14 0;
+#X connect 17 0 18 0;
+#X connect 18 0 16 0;
+#X connect 20 0 21 0;
+#X connect 21 0 19 0;
+#X connect 22 0 24 0;
+#X connect 24 0 23 0;
+#X restore 320 698 pd init;
+#X obj 22 503 spam~ 7 ylm.2d.scope~ 3 \$0-scope \$0-scope-attrs;
+#N canvas 217 367 450 300 pos 0;
+#X obj 145 100 nbx 4 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 1.25664 256;
+#X obj 100 100 nbx 4 14 0 1e+37 0 0 empty empty empty 0 -8 0 10 -262144
+-1 -1 1 256;
+#X obj 119 77 t b f;
+#X obj 101 150 pack 1 f;
+#X obj 101 18 r \$0-pos;
+#X obj 101 40 unpack f f;
+#X obj 101 172 outlet;
+#X obj 164 19 inlet;
+#X connect 0 0 2 0;
+#X connect 1 0 3 0;
+#X connect 2 0 1 0;
+#X connect 2 1 3 1;
+#X connect 3 0 6 0;
+#X connect 4 0 5 0;
+#X connect 5 0 1 0;
+#X connect 5 1 0 0;
+#X connect 7 0 5 0;
+#X coords 0 -1 1 1 90 14 2 100 100;
+#X restore 341 489 pd pos;
+#X obj 341 443 tgl 15 0 empty \$0-traj empty 17 7 0 10 -262144 -1 -1
+1 1;
+#N canvas 0 22 450 406 trajectory 0;
+#X obj 158 109 + 1;
+#X obj 128 173 / 180;
+#X obj 128 195 * 6.28318;
+#X obj 128 153 f -1;
+#X obj 128 131 sel 179 0;
+#X obj 128 109 f 0;
+#X obj 83 106 + 1;
+#X obj 53 150 f -1;
+#X obj 93 150 f 1;
+#X obj 53 106 f 0;
+#X obj 53 128 sel 499 0;
+#X obj 53 235 t b f;
+#X obj 53 257 f 1;
+#X obj 53 279 -, f 5;
+#X obj 53 79 t b b, f 13;
+#X obj 53 55 metro 20;
+#X obj 53 341 pack f f, f 13;
+#X obj 53 33 inlet;
+#X obj 53 363 outlet;
+#X obj 159 153 f 1;
+#X obj 53 170 max 300;
+#X obj 53 192 - 300;
+#X obj 53 214 / 200;
+#X connect 0 0 5 1;
+#X connect 1 0 2 0;
+#X connect 2 0 16 1;
+#X connect 3 0 0 1;
+#X connect 4 0 3 0;
+#X connect 4 1 19 0;
+#X connect 5 0 0 0;
+#X connect 5 0 1 0;
+#X connect 5 0 4 0;
+#X connect 6 0 9 1;
+#X connect 7 0 6 1;
+#X connect 8 0 6 1;
+#X connect 9 0 6 0;
+#X connect 9 0 10 0;
+#X connect 9 0 20 0;
+#X connect 10 0 7 0;
+#X connect 10 1 8 0;
+#X connect 11 0 12 0;
+#X connect 11 1 13 1;
+#X connect 12 0 13 0;
+#X connect 13 0 16 0;
+#X connect 14 0 9 0;
+#X connect 14 1 5 0;
+#X connect 15 0 14 0;
+#X connect 16 0 18 0;
+#X connect 17 0 15 0;
+#X connect 19 0 0 1;
+#X connect 20 0 21 0;
+#X connect 21 0 22 0;
+#X connect 22 0 11 0;
+#X restore 341 466 pd trajectory;
+#X obj 132 428 nbx 5 14 0 5000 0 0 empty \$0-delay empty 0 -8 0 10
+-262144 -1 -1 3000 256;
+#X obj 341 398 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 14.2857 256;
+#X msg 341 416 diffusion \$1;
+#X msg 132 447 delay \$1;
+#X obj 341 352 tgl 15 0 empty \$0-diff empty 17 7 0 10 -262144 -1 -1
+1 1;
+#N canvas 0 22 450 406 diffuse 0;
+#X obj 53 150 f -1;
+#X obj 93 150 f 1;
+#X obj 53 55 metro 20;
+#X obj 53 33 inlet;
+#X obj 33 263 outlet;
+#X obj 53 106 f 0;
+#X obj 83 106 + 1;
+#X obj 32 198 - 150;
+#X obj 53 128 sel 999 0;
+#X obj 32 176 clip 150 850;
+#X obj 32 224 / 7;
+#X connect 0 0 6 1;
+#X connect 1 0 6 1;
+#X connect 2 0 5 0;
+#X connect 3 0 2 0;
+#X connect 5 0 6 0;
+#X connect 5 0 8 0;
+#X connect 5 0 9 0;
+#X connect 6 0 5 1;
+#X connect 7 0 10 0;
+#X connect 8 0 0 0;
+#X connect 8 1 1 0;
+#X connect 9 0 7 0;
+#X connect 10 0 4 0;
+#X restore 341 375 pd diffuse;
+#X obj 320 651 table \$0-grain-env 512, f 14;
+#X obj 22 476 spam~ 7 ylm.2d.syn.grain~ 3 \$0-grain-env, f 47;
+#X text 4 175 size[l \, m] = delay * 1 -(2m / 2N) if m >= 0, f 67
+;
+#X text 4 188 size[l \, m] = delay * 1 - ((2m-1) / 2N) if m < 0, f
+67;
+#X text 4 201 with l the degree \, m the azimuthal order of the harmonics
+and N the order of decomposition., f 67;
+#X text 4 228 The delay time and the factor of diffusion are scaled
+in a similar way to the delay synthesis., f 67;
+#X text 4 254 The abstraction expects the order of decomposition as
+the first argument and the name of the buffer to use for the envellope
+of amplitude of the grains as the second argument. The maximum delay
+time is 10000 ms. For an order of decomposition N \, there are 2N+1
+harmonics. The left inlet expects the signal to synthesize and the
+right inlet expects all the others messages., f 67;
+#X msg 194 447 rarefaction \$1;
+#X obj 194 428 nbx 5 14 0 5000 0 0 empty \$0-rarefaction empty 0 -8
+0 10 -262144 -1 -1 0 256;
+#X msg 132 397 size \$1;
+#X obj 132 378 nbx 5 14 0 5000 0 0 empty \$0-size empty 0 -8 0 10 -262144
+-1 -1 100 256;
+#X obj 194 378 nbx 5 14 0 5000 0 0 empty \$0-feedback empty 0 -8 0
+10 -262144 -1 -1 50 256;
+#X msg 194 397 feedback \$1;
+#X text 4 31 The abstraction synthesizes the signals of the circular
+harmonics for a sound source using quasi-synchronous granular synthesis
+(QSGS). Like for the delay synthesis \, the idea behind this implementation
+is to decorrelate the signal depending a factor of diffusion. When
+the diffussion is 100% \, all the signal are decorrelated. Decreasing
+the factor of diffusion toward zero brings back linearly to a directional
+synthesis. The granulation offers four parameters \, the size of the
+grain in ms \, the delay time in ms \, the feedback in % and the rarefaction
+in %. The size of the grain is scaled depending on the degree and the
+azimuthal order of the harmonics and the diffusion factor following
+this equation:, f 67;
+#X connect 0 0 8 1;
+#X connect 1 0 5 0;
+#X connect 2 0 25 0;
+#X connect 3 0 8 0;
+#X connect 5 0 2 1;
+#X connect 6 0 0 0;
+#X connect 6 0 0 1;
+#X connect 8 0 2 0;
+#X connect 12 0 9 0;
+#X connect 12 1 9 1;
+#X connect 12 2 9 2;
+#X connect 12 3 9 3;
+#X connect 12 4 9 4;
+#X connect 12 5 9 5;
+#X connect 12 6 9 6;
+#X connect 12 7 9 7;
+#X connect 15 0 25 1;
+#X connect 16 0 17 0;
+#X connect 17 0 15 0;
+#X connect 18 0 21 0;
+#X connect 19 0 20 0;
+#X connect 20 0 25 1;
+#X connect 21 0 25 1;
+#X connect 22 0 23 0;
+#X connect 23 0 19 0;
+#X connect 25 0 12 0;
+#X connect 25 0 14 0;
+#X connect 25 1 12 1;
+#X connect 25 1 14 1;
+#X connect 25 2 12 2;
+#X connect 25 2 14 2;
+#X connect 25 3 12 3;
+#X connect 25 3 14 3;
+#X connect 25 4 12 4;
+#X connect 25 4 14 4;
+#X connect 25 5 12 5;
+#X connect 25 5 14 5;
+#X connect 25 6 12 6;
+#X connect 25 6 14 6;
+#X connect 31 0 25 1;
+#X connect 32 0 31 0;
+#X connect 33 0 25 1;
+#X connect 34 0 33 0;
+#X connect 35 0 36 0;
+#X connect 36 0 25 1;
