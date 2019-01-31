@@ -1,20 +1,16 @@
-## [HOA](http://www.mshparisnord.fr/hoalibrary/ "Hoa Library") for Pure Data
+## [HOA](http://www.mshparisnord.fr/hoalibrary/ "High Order Ambisonic Library") for Pure Data
 
-![CaptureHoaPD](http://www.mshparisnord.fr/hoalibrary/wp-content/uploads/2015/06/CaptureHoaPD.png)
+![CaptureHoaPD](http://hoalibrary.mshparisnord.fr/wp-content/uploads/2015/06/CaptureHoaPD.png)
+
+dev/master : [<img src="https://travis-ci.org/CICM/HoaLibrary-PD.svg?branch=dev/master">](https://travis-ci.org/CICM/HoaLibrary-PD "Travis CI") [<img src="https://ci.appveyor.com/api/projects/status/github/CICM/HoaLibrary-PD?branch=dev/master&svg=true">](https://ci.appveyor.com/project/CICM/hoalibrary-pd/history "Appveyor CI")
 
 ### Compatibilty :
 
-The lastest release has been tested [Pure Data Vanilla](http://msp.ucsd.edu/software.html "PD-Vanilla") (0.46.6 - 32/64 bits) & [Pure Data Extended](https://puredata.info/ "PD-Extended") (0.43.4) on Linux, Mac Os, Windows .
+The lastest release has been tested [Pure Data Vanilla](http://msp.ucsd.edu/software.html "PD-Vanilla") (0.46.6 - 32/64 bits) & [Pure Data Extended](https://puredata.info/ "PD-Extended") (0.43.4) on Linux, Mac Os, Windows.
 
 ### Installation :  
 
-With Pure Data Vanilla, copy the <em>Hoa</em> folder in your package folder and add <em>hoa</em> in the PD's statup window if you use the default package folder\*, otherwise add <em>Hoa/hoa</em>.  
-
-With Pure Data Extended, copy the <em>Hoa</em> folder in your package folder and add <em>-lib externals/Hoa</em> in the statup falgs if you use the default package folder\*, otherwise add <em>-lib Hoa/Hoa</em>.  
-
-\* The default package folder are generally <em>/usr/local/lib/pd-externals</em> on Linux, <em>/Library/Pd</em>  on Mac Os and <em>C:\Program Files\Common Files\Pd</em>  on Windows.  
-
-__Important__ : The Hoa library needs the [Cream library](https://github.com/CICM/CreamLibrary "Cream") to work properly.
+Todo
 
 ### Documentation :
 
@@ -22,16 +18,23 @@ Helps and tutorials are availables in the <em>Hoa</em> folder of the <em>help br
 
 ### Compilation :
 
-	./autogen.sh (if needed)
-	./configure (useful options --with-pd=</path/to/pd>)
-	make
-	make install (optional)
+Requires git and [CMake](https://cmake.org/).
 
-XCode, CodeBlock and Visual Studio projects are also available.
+```shell
+# clone repository
+$ git clone https://github.com/CICM/HoaLibrary-PD.git
+$ cd HoaLibrary-PD
+$ git submodule update --init --recursive
+# generate project
+$ mkdir build && cd build
+$ cmake ..
+# buil project
+$ cmake --build . --config Release
+```
 
 ### Dependencies :
 
-[Hoa Library](https://github.com/CICM/HoaLibrary-Light "Hoa Library") & the [Cicm Wrapper](https://github.com/CICM/CicmWrapper "Cicm Wrapper").
+[HoaLibrary](https://github.com/CICM/HoaLibrary-Light)
 
 ### Authors :
 
@@ -46,4 +49,4 @@ XCode, CodeBlock and Visual Studio projects are also available.
 
 ### Licence :
 
-The HOA Library in under the <a title="GNU" href="http://www.gnu.org/copyleft/gpl.html" target="_blank">GNU Public License</a>. If you'd like to avoid the restrictions of the GPL and use Hoa Library for a closed-source product, you contact the <a title="CICM" href="http://cicm.mshparisnord.org/" target="_blank">CICM</a>.
+The HOA Library in under the [GNU Public License](http://www.gnu.org/copyleft/gpl.html). If you'd like to avoid the restrictions of the GPL and use Hoa Library for a closed-source product please contact the [CICM](http://cicm.mshparisnord.org/).
